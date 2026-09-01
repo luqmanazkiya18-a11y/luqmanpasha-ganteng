@@ -20,6 +20,10 @@
                 <li><a href="#projects">Karya</a></li>
                 <li><a href="#contact">Kontak</a></li>
             </ul>
+
+            <div class="jam-container">
+                <span id="jam-wib">00:00:00</span> WIB
+            </div>
         </div>
     </nav>
 
@@ -107,6 +111,26 @@
             <p>2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
         </div>
     </footer>
+<script>
+        function updateJam() {
+            const sekarang = new Date();
+            
+            // Konversi waktu ke GMT+7 (WIB)
+            const opsi = {
+                timeZone: 'Asia/Jakarta',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            
+            const waktuWIB = new Intl.DateTimeFormat('id-ID', opsi).format(sekarang);
+            document.getElementById('jam-wib').textContent = waktuWIB.replace(/\./g, ':');
+        }
 
+        // Jalankan fungsi setiap 1 detik
+        setInterval(updateJam, 1000);
+        updateJam(); // Jalankan langsung saat pertama kali dimuat
+    </script>
 </body>
 </html>
