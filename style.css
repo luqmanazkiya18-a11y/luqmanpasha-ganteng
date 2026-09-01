@@ -159,3 +159,25 @@ footer {
     .container-nav { flex-direction: column; }
     .nav-links { margin-top: 15px; }
 }
+/* --- TAMPILAN JAM WIB --- */
+.jam-container {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid var(--accent);
+    letter-spacing: 1px;
+}
+
+#jam-wib {
+    color: white;
+}
+
+/* Penyesuaian Responsif untuk HP */
+@media (max-width: 768px) {
+    .jam-container {
+        margin-top: 10px;
+    }
+}
