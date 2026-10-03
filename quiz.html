@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Sejarah Ikhwanul Muslimin - Luqman Azkiya Athaillah</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <!-- NAV: sama persis dengan index.html, hanya link diberi index.html di depannya -->
+    <nav>
+        <div class="container-nav">
+            <div class="logo">Portofolio<span>Muslim</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Beranda</a></li>
+                <li><a href="index.html#about">Tentang</a></li>
+                <li><a href="index.html#projects">Karya</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="index.html#contact">Kontak</a></li>
+            </ul>
+            <div class="jam-container">
+                <span id="jam-wib">00:00:00</span> WIB
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO QUIZ: LOGO ASLI DITARUH DI SINI -->
+    <header class="quiz-hero">
+        <div class="container">
+            <div class="hero-content">
+                <img src="logo-ikhwan.png" alt="Logo Ikhwanul Muslimin" class="logo-ikhwan">
+                <p class="salam">Bismillahirrahmanirrahim</p>
+                <h1>Quiz Sejarah Ikhwanul Muslimin</h1>
+                <p class="tagline">Uji pengetahuanmu tentang sejarah gerakan ini secara faktual.</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="quiz" class="bg-alt">
+        <div class="container">
+            <div class="quiz-box">
+                <div class="quiz-progress">
+                    <span id="nomor">Soal 1/8</span>
+                    <span id="skor">Skor: 0</span>
+                </div>
+                <div class="quiz-bar"><div id="bar"></div></div>
+
+                <h3 id="pertanyaan"></h3>
+                <div id="pilihan"></div>
+
+                <p id="penjelasan" class="penjelasan"></p>
+                <button id="btn-lanjut" class="btn-primary" style="display:none;">Lanjut</button>
+
+                <div id="hasil" style="display:none;">
+                    <h2>Selesai!</h2>
+                    <p id="hasil-teks"></p>
+                    <button class="btn-primary" onclick="mulaiUlang()">Ulangi Quiz</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Jazakumullah Khairan Katsiran telah berkunjung.</p>
+            <p>2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
+        </div>
+    </footer>
+
+<script>
+    /* ---------- JAM WIB (sama dengan index.html) ---------- */
+    function updateJam() {
+        const opsi = { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const waktuWIB = new Intl.DateTimeFormat('id-ID', opsi).format(new Date());
+        document.getElementById('jam-wib').textContent = waktuWIB.replace(/\./g, ':');
+    }
+    setInterval(updateJam, 1000);
+    updateJam();
+
+    /* ---------- DATA SOAL ---------- */
+    const soal = [
+        { q: "Siapa pendiri Ikhwanul Muslimin?",
+          o: ["Sayyid Qutb", "Hasan al-Banna", "Muhammad Abduh", "Jamaluddin al-Afghani"],
+          a: 1, e: "Hasan al-Banna, seorang guru asal Mesir, mendirikan organisasi ini." },
+        { q: "Di kota mana dan tahun berapa Ikhwanul Muslimin didirikan?",
+          o: ["Kairo, 1924", "Alexandria, 1935", "Ismailiyah, 1928", "Aswan, 1945"],
+          a: 2, e: "Ikhwanul Muslimin berdiri pada 1928 di Ismailiyah, Mesir." },
+        { q: "Ayat Al-Qur'an apa yang tertulis pada lambang (logo) Ikhwanul Muslimin?",
+          o: ["Wa a'iddu (QS. Al-Anfal: 60)", "Ayat Kursi (QS. Al-Baqarah: 255)", "QS. Al-Ikhlas", "QS. Al-Fatihah"],
+          a: 0, e: "Lambangnya memuat kata 'Wa a'iddu' (QS. Al-Anfal: 60), dua pedang bersilang, dan mushaf Al-Qur'an." },
+        { q: "Pada tahun berapa Hasan al-Banna wafat (terbunuh) di Kairo?",
+          o: ["1939", "1949", "1954", "1966"],
+          a: 1, e: "Hasan al-Banna wafat pada Februari 1949." },
+        { q: "Pada tahun 1948, pemerintah Mesir mengambil tindakan apa terhadap Ikhwanul Muslimin?",
+          o: ["Menjadikannya partai resmi", "Membubarkannya", "Memberinya kursi menteri", "Tidak melakukan apa pun"],
+          a: 1, e: "Pada Desember 1948 organisasi ini dibubarkan oleh pemerintah Mesir." },
+        { q: "Tokoh Ikhwanul Muslimin penulis buku 'Ma'alim fi at-Tariq' (Petunjuk Jalan) adalah...",
+          o: ["Yusuf al-Qaradawi", "Mohamed Morsi", "Sayyid Qutb", "Hasan al-Hudaibi"],
+          a: 2, e: "Sayyid Qutb menulisnya dan dieksekusi pada tahun 1966." },
+        { q: "Siapa tokoh Ikhwanul Muslimin yang menjadi Presiden Mesir pada 2012?",
+          o: ["Hosni Mubarak", "Anwar Sadat", "Mohamed Morsi", "Gamal Abdel Nasser"],
+          a: 2, e: "Mohamed Morsi terpilih tahun 2012 dan digulingkan pada Juli 2013." },
+        { q: "Kapan Mohamed Morsi digulingkan oleh militer Mesir?",
+          o: ["Januari 2011", "Juli 2013", "Maret 2015", "Oktober 2010"],
+          a: 1, e: "Morsi digulingkan pada 3 Juli 2013." }
+    ];
+
+    let idx = 0, skor = 0, terkunci = false;
+    const $ = id => document.getElementById(id);
+
+    function tampil() {
+        terkunci = false;
+        const s = soal[idx];
+        $('nomor').textContent = `Soal ${idx + 1}/${soal.length}`;
+        $('skor').textContent = `Skor: ${skor}`;
+        $('bar').style.width = (idx / soal.length * 100) + '%';
+        $('pertanyaan').textContent = s.q;
+        $('penjelasan').textContent = '';
+        $('btn-lanjut').style.display = 'none';
+        $('pilihan').innerHTML = '';
+        s.o.forEach((teks, i) => {
+            const b = document.createElement('button');
+            b.className = 'opsi';
+            b.textContent = teks;
+            b.onclick = () => jawab(i, b);
+            $('pilihan').appendChild(b);
+        });
+    }
+
+    function jawab(i, tombol) {
+        if (terkunci) return;
+        terkunci = true;
+        const s = soal[idx];
+        const semua = document.querySelectorAll('.opsi');
+        semua[s.a].classList.add('benar');
+        if (i === s.a) { skor++; } else { tombol.classList.add('salah'); }
+        $('skor').textContent = `Skor: ${skor}`;
+        $('penjelasan').textContent = s.e;
+        $('btn-lanjut').style.display = 'inline-block';
+        $('btn-lanjut').textContent = (idx === soal.length - 1) ? 'Lihat Hasil' : 'Lanjut';
+    }
+
+    $('btn-lanjut').onclick = () => {
+        idx++;
+        if (idx < soal.length) { tampil(); } else { selesai(); }
+    };
+
+    function selesai() {
+        $('pertanyaan').style.display = 'none';
+        $('pilihan').style.display = 'none';
+        $('penjelasan').style.display = 'none';
+        $('btn-lanjut').style.display = 'none';
+        $('bar').style.width = '100%';
+        $('hasil').style.display = 'block';
+        $('hasil-teks').textContent = `Skor akhir kamu: ${skor} dari ${soal.length}. Barakallahu fiik!`;
+    }
+
+    function mulaiUlang() {
+        idx = 0; skor = 0;
+        $('pertanyaan').style.display = '';
+        $('pilihan').style.display = '';
+        $('penjelasan').style.display = '';
+        $('hasil').style.display = 'none';
+        tampil();
+    }
+
+    tampil();
+</script>
+</body>
+</html>
