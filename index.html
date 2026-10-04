@@ -113,7 +113,6 @@
             <p>2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
         </div>
     </footer>
-<!-- JavaScript Jam & Quiz Interaktif -->
     <script>
         // 1. Script Jam WIB
         function updateJam() {
@@ -125,96 +124,7 @@
                 second: '2-digit',
                 hour12: false
             };
-            const waktuWIB = new Intl.DateTimeFormat('id-ID', opsi).format(sekarang);
-            document.getElementById('jam-wib').textContent = waktuWIB.replace(/\./g, ':');
-        }
-        setInterval(updateJam, 1000);
-        updateJam();
 
-        // 2. Script Quiz Sejarah Ikhwanul Muslimin
-        const dataQuiz = [
-            {
-                soal: "Siapakah pendiri gerakan Ikhwanul Muslimin pada tahun 1928?",
-                jawaban: ["Hassan al-Banna", "Sayyid Qutb", "Mustafa al-Siba'i", "Rashid Rida"],
-                benar: 0
-            },
-            {
-                soal: "Di kota manakah Ikhwanul Muslimin pertama kali didirikan?",
-                jawaban: ["Kairo", "Ismailia", "Iskandariyah", "Thantho"],
-                benar: 1
-            },
-            {
-                soal: "Apa slogan terkenal dari gerakan Ikhwanul Muslimin?",
-                jawaban: [
-                    "Allah Tujuan Kami, Rasul Teladan Kami, Al-Qur'an Pedoman Kami",
-                    "Bersatu Kita Teguh, Bercerai Kita Runtuh",
-                    "Kebebasan dan Keadilan untuk Semua",
-                    "Kemuliaan Hanya Milik Bangsa"
-                ],
-                benar: 0
-            },
-            {
-                soal: "Buku karya Sayyid Qutb yang sangat berpengaruh dalam pemikiran Islam modern adalah...",
-                jawaban: ["Fi Zhilalil Qur'an", "Al-Majmu'", "Bidayatul Hidayah", "Ihya Ulumuddin"],
-                benar: 0
-            }
-        ];
-
-        let indexSoal = 0;
-        let skor = 0;
-
-        function muatSoal() {
-            const q = dataQuiz[indexSoal];
-            document.getElementById("pertanyaan").textContent = `${indexSoal + 1}. ${q.soal}`;
-            const containerOptions = document.getElementById("pilihan-jawaban");
-            containerOptions.innerHTML = "";
-            document.getElementById("btn-next").style.display = "none";
-
-            q.jawaban.forEach((jawaban, idx) => {
-                const btn = document.createElement("button");
-                btn.className = "opt-btn";
-                btn.textContent = jawaban;
-                btn.onclick = () => pilihJawaban(idx, btn);
-                containerOptions.appendChild(btn);
-            });
-        }
-
-        function pilihJawaban(idxDipilih, btnElemen) {
-            const q = dataQuiz[indexSoal];
-            const semuaBtn = document.querySelectorAll(".opt-btn");
-            semuaBtn.forEach(btn => btn.disabled = true);
-
-            if (idxDipilih === q.benar) {
-                btnElemen.classList.add("correct");
-                skor += 25;
-            } else {
-                btnElemen.classList.add("wrong");
-                semuaBtn[q.benar].classList.add("correct");
-            }
-            document.getElementById("btn-next").style.display = "inline-block";
-        }
-
-        function pertanyaanBerikutnya() {
-            indexSoal++;
-            if (indexSoal < dataQuiz.length) {
-                muatSoal();
-            } else {
-                document.getElementById("quiz-box").style.display = "none";
-                document.getElementById("result-box").style.display = "block";
-                document.getElementById("skor-akhir").textContent = `Skor Anda: ${skor} / 100`;
-            }
-        }
-
-        function ulangQuiz() {
-            indexSoal = 0;
-            skor = 0;
-            document.getElementById("quiz-box").style.display = "block";
-            document.getElementById("result-box").style.display = "none";
-            muatSoal();
-        }
-
-        // Jalankan quiz saat halaman dimuat
-        muatSoal();
     </script>
 </body>
 </html>
