@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Islami Profesional - [Nama Anda]</title>
+    <title>Portofolio Islami Profesional - Luqman Azkiya Athaillah</title>
     
     <link rel="stylesheet" href="style.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,9 +16,15 @@
             <ul class="nav-links">
                 <li><a href="#home">Beranda</a></li>
                 <li><a href="#about">Tentang</a></li>
+                <li><a href="#karier">Karier</a></li>
                 <li><a href="#projects">Karya</a></li>
-                <li><a href="#contact">Kontak</a></li>
+                <!-- MENAMBAHKAN MENU NAVIGASI KALKULATOR -->
+                <li><a href="#calculator">Kalkulator</a></li>
             </ul>
+
+            <div class="jam-container">
+                <span id="jam-wib">00:00:00</span> WIB
+            </div>
         </div>
     </nav>
 
@@ -41,25 +46,22 @@
                 <p class="quote">"Sebaik-baik manusia adalah yang paling bermanfaat bagi orang lain." (HR. Ahmad)</p>
             </div>
             <div class="about-content">
-                <p>saya adalah Luqman azkiya athaillah, biasa dipanggil Luqman atau untuk nama panggungnya Luqman Pasha. saya
-                    adalah seorang pelajar di smpit assyifa boarding school yang berniat memadukan kemajuan teknologi it dengan
-                    prinsip islami
-                </p>
+                <p>Saya adalah Luqman Azkiya Athaillah, biasa dipanggil Luqman atau untuk nama panggungnya Luqman Pasha. Saya adalah seorang pelajar di SMPIT Assiyfa Boarding School yang berniat memadukan kemajuan teknologi IT dengan prinsip islami.</p>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="bg-alt">
+    <section id="karier" class="bg-alt">
         <div class="container">
             <div class="section-header">
-                <h2>Jenjang karier</h2>
+                <h2>Jenjang Karier</h2>
             </div>
             <div class="project-grid">
                 <div class="project-card">
                     <div class="card-body">
-                        <h3>Prestasi akademik maupun non akademik</h3>
-                        <p>a. Memenangkan juara kedelapan di Olimpiade PAI Nasional (OLPAIN) 2024
-                           b. Mendapatkan juara kedua di lomba literasi internasional yang diselenggarakan hayrat foundation
+                        <h3>Prestasi Akademik maupun Non-Akademik</h3>
+                        <p>a. Memenangkan juara kedelapan di Olimpiade PAI Nasional (OLPAIN) 2024<br>
+                           b. Mendapatkan juara kedua di lomba literasi internasional yang diselenggarakan Hayrat Foundation<br>
                            c. Mendapatkan juara ziyadah terbanyak sekaligus hafalan terbanyak takhosus selama dua semester berturut-turut
                         </p>
                     </div>
@@ -67,13 +69,16 @@
                 <div class="project-card">
                     <div class="card-body">
                         <h3>Karier Organisasi</h3>
-                        <p>a. Menjadi salah satu pengurus angkatan di angkatan 29 SOUL SD Salman Al Farisi Bandung<p>
+                        <p>a. Menjadi salah satu pengurus angkatan di angkatan 29 SOUL SD Salman Al Farisi Bandung<br>
                            b. Menjadi salah satu staff di Komunitas Literasi Sekolah (KLS) Assyifa Boarding School JalanCagak 1
                         </p>
                     </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="projects" class="bg-alt">
+    <section id="projects">
         <div class="container">
             <div class="section-header">
                 <h2>Karya Pilihan</h2>
@@ -101,14 +106,61 @@
         </div>
     </section>
 
+    <!-- =================================================== -->
+    <!-- BAGIAN BARU: SECTION KALKULATOR UMUM                -->
+    <!-- Ditaruh sebelum tag <footer>                        -->
+    <!-- =================================================== -->
+    <section id="calculator" class="bg-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Kalkulator Digital</h2>
+                <p class="quote">Alat bantu hitung praktis dan serbaguna.</p>
+            </div>
+            
+            <div class="calculator-wrapper">
+                <div class="calculator">
+                    <input type="text" id="calc-screen" readonly value="0">
+                    <div class="calc-buttons">
+                        <button class="btn-calc btn-clear" onclick="clearCalc()">C</button>
+                        <button class="btn-calc btn-op" onclick="deleteCalc()">⌫</button>
+                        <button class="btn-calc btn-op" onclick="appendCalc('%')">%</button>
+                        <button class="btn-calc btn-op" onclick="appendCalc('/')">÷</button>
+                        
+                        <button class="btn-calc" onclick="appendCalc('7')">7</button>
+                        <button class="btn-calc" onclick="appendCalc('8')">8</button>
+                        <button class="btn-calc" onclick="appendCalc('9')">9</button>
+                        <button class="btn-calc btn-op" onclick="appendCalc('*')">×</button>
+                        
+                        <button class="btn-calc" onclick="appendCalc('4')">4</button>
+                        <button class="btn-calc" onclick="appendCalc('5')">5</button>
+                        <button class="btn-calc" onclick="appendCalc('6')">6</button>
+                        <button class="btn-calc btn-op" onclick="appendCalc('-')">-</button>
+                        
+                        <button class="btn-calc" onclick="appendCalc('1')">1</button>
+                        <button class="btn-calc" onclick="appendCalc('2')">2</button>
+                        <button class="btn-calc" onclick="appendCalc('3')">3</button>
+                        <button class="btn-calc btn-op" onclick="appendCalc('+')">+</button>
+                        
+                        <button class="btn-calc" onclick="appendCalc('0')">0</button>
+                        <button class="btn-calc" onclick="appendCalc('00')">00</button>
+                        <button class="btn-calc" onclick="appendCalc('.')">.</button>
+                        <button class="btn-calc btn-equals" onclick="calculateResult()">=</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <p>Jazakumullah Khairan Katsiran telah berkunjung.</p>
-            <p>&copy; 2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
+            <p>2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
         </div>
     </footer>
+
+    <!-- SCRIPT (JAM WIB + LOGIKA KALKULATOR) -->
     <script>
-        // 1. Script Jam WIB
+        // Jam WIB
         function updateJam() {
             const sekarang = new Date();
             const opsi = {
@@ -118,7 +170,46 @@
                 second: '2-digit',
                 hour12: false
             };
+            const waktuWIB = new Intl.DateTimeFormat('id-ID', opsi).format(sekarang);
+            document.getElementById('jam-wib').textContent = waktuWIB.replace(/\./g, ':');
+        }
+        setInterval(updateJam, 1000);
+        updateJam();
 
+        // Logika Kalkulator
+        const screen = document.getElementById('calc-screen');
+
+        function appendCalc(val) {
+            if (screen.value === '0' || screen.value === 'Error') {
+                screen.value = val;
+            } else {
+                screen.value += val;
+            }
+        }
+
+        function clearCalc() {
+            screen.value = '0';
+        }
+
+        function deleteCalc() {
+            if (screen.value.length === 1 || screen.value === 'Error') {
+                screen.value = '0';
+            } else {
+                screen.value = screen.value.slice(0, -1);
+            }
+        }
+
+        function calculateResult() {
+            try {
+                // Mengubah % menjadi /100 untuk kalkulasi persen
+                let expression = screen.value.replace(/%/g, '/100');
+                let result = eval(expression);
+                if (!isFinite(result)) throw new Error();
+                screen.value = result;
+            } catch (error) {
+                screen.value = 'Error';
+            }
+        }
     </script>
 </body>
 </html>
