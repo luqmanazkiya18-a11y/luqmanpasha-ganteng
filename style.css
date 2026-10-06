@@ -731,3 +731,356 @@ footer {
     color: #94a3b8;
     font-size: 0.75rem;
 }
+/* ==========================================================================
+   STYLING KHUSUS CRAZYGAMES ARCADE PLATFORM & PUZZLE GAME
+   ========================================================================== */
+
+/* Tema Gelap & Stylish ala CrazyGames */
+.crazy-theme {
+    background-color: #0d0f17 !important;
+    color: #e2e8f0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cg-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Arcade */
+.cg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1e293b;
+    margin-bottom: 25px;
+}
+
+.cg-btn-back {
+    background: #1e293b;
+    color: #38bdf8;
+    border: 1px solid #334155;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cg-btn-back:hover {
+    background: #0284c7;
+    color: white;
+}
+
+.cg-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.cg-logo span {
+    color: #00f2fe;
+}
+
+.cg-search input {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: white;
+    width: 200px;
+}
+
+/* Layout Kompilasi CrazyGames */
+.cg-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 25px;
+}
+
+.cg-viewport {
+    background: #161b26;
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid #232a3b;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.cg-game-header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cg-game-header h2 {
+    font-size: 1.3rem;
+    color: #ffffff;
+}
+
+.cg-game-tags {
+    display: flex;
+    gap: 8px;
+}
+
+.cg-tag {
+    background: #222d42;
+    color: #38bdf8;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+/* Controls Game Puzzle */
+.puzzle-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.puzzle-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    background: #1e2638;
+    padding: 15px 20px;
+    border-radius: 12px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.ctrl-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+}
+
+.ctrl-group select {
+    background: #0d0f17;
+    color: white;
+    border: 1px solid #334155;
+    padding: 6px 10px;
+    border-radius: 6px;
+    outline: none;
+}
+
+.diff-btn-group {
+    display: flex;
+    gap: 5px;
+}
+
+.diff-btn {
+    background: #0d0f17;
+    color: #94a3b8;
+    border: 1px solid #334155;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.2s;
+}
+
+.diff-btn.active, .diff-btn:hover {
+    background: #00f2fe;
+    color: #0d0f17;
+    font-weight: 700;
+}
+
+.btn-reset-game {
+    background: #e11d48;
+    color: white;
+    border: none;
+    padding: 7px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Arena / Board Puzzle */
+.puzzle-board-wrapper {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 10px 0;
+}
+
+.puzzle-board {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    gap: 3px;
+    background: #0d0f17;
+    padding: 5px;
+    border-radius: 12px;
+    border: 2px solid #00f2fe;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+}
+
+.puzzle-tile {
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    background-color: #ffffff;
+}
+
+.puzzle-tile:hover {
+    transform: scale(0.98);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.empty-tile {
+    background: transparent !important;
+    cursor: default;
+}
+
+/* Overlay Menang */
+.puzzle-win-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 15, 23, 0.92);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.puzzle-win-overlay.hidden {
+    display: none;
+}
+
+.puzzle-win-overlay h3 {
+    color: #4ade80;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.puzzle-win-overlay button {
+    margin-top: 15px;
+    background: #00f2fe;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.puzzle-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+/* Sidebar CrazyGames */
+.cg-sidebar-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+    border-left: 3px solid #00f2fe;
+    padding-left: 10px;
+}
+
+.cg-game-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cg-card {
+    display: flex;
+    gap: 12px;
+    background: #161b26;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #232a3b;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.cg-card.active-game {
+    border-color: #00f2fe;
+    background: #1e2638;
+}
+
+.cg-card.disabled-game {
+    opacity: 0.6;
+}
+
+.cg-thumb {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.thumb-puzzle {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg');
+    background-color: #ffffff;
+}
+
+.thumb-quiz {
+    background-color: #312e81;
+}
+
+.thumb-memory {
+    background-color: #065f46;
+}
+
+.badge-play {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    background: #00f2fe;
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.badge-soon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #64748b;
+    color: white;
+    font-size: 0.6rem;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+.cg-card-info h4 {
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+.cg-card-info p {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+/* Responsif Games Platform */
+@media (max-width: 900px) {
+    .cg-layout {
+        grid-template-columns: 1fr;
+    }
+    .cg-game-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
