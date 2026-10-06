@@ -435,3 +435,85 @@ footer {
     object-fit: contain;          /* Memastikan logo pas di dalam kotaknya */
     filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25)); /* Efek bayangan halus */
 }
+/* --- SECTION KHUSUS QUOTES & PRINCIPLES --- */
+#principles {
+    padding: 60px 0;
+}
+
+/* Pembungkus agar posisinya tepat di tengah secara horizontal */
+.quote-im-wrapper {
+    display: flex;
+    justify-content: center; /* Membuat kontainer di tengah */
+    align-items: center;
+    width: 100%;
+}
+
+/* Kotak Kartu Quotes */
+.quote-im-container {
+    background-color: #ffffff;
+    border-top: 4px solid var(--accent);
+    border-bottom: 4px solid var(--primary);
+    padding: 30px 35px;
+    border-radius: 12px;
+    text-align: center; /* Membuat semua teks berada di tengah */
+    max-width: 700px;  /* Batas lebar agar tidak terlalu melar */
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.quote-title {
+    color: var(--primary);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.quote-motto {
+    font-family: 'Amiri', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Daftar 5 Pasal */
+.quote-pasal {
+    list-style: none;
+    padding-left: 0;
+    display: inline-block;
+    text-align: left; /* Teks dalam list tetap rapi rata kiri di dalam kotak yang simetris */
+    margin: 0 auto;
+}
+
+.quote-pasal li {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.quote-pasal li strong {
+    color: var(--primary);
+}
+
+.quote-pasal em {
+    color: #777;
+    font-size: 0.85rem;
+    display: inline-block;
+    margin-left: 4px;
+}
+
+/* Penyesuaian Tampilan untuk Layar HP */
+@media (max-width: 768px) {
+    .quote-im-container {
+        padding: 20px 20px;
+    }
+    
+    .quote-pasal {
+        display: block;
+    }
+}
