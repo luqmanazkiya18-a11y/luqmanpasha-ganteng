@@ -15,6 +15,7 @@
         <nav>
             <div class="container-nav">
                 <div class="logo-wrapper">
+                    <!-- Ganti URL gambar logo di bawah sesuai lokasi/file logo Anda -->
                     <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin" class="logo-im">
                     <div class="logo">Portofolio<span>Muslim</span></div>
                 </div>
@@ -41,6 +42,7 @@
                 </div>
             </div>
         </header>
+
 
         <!-- SECTION TENTANG SAYA -->
         <section id="about">
@@ -100,7 +102,6 @@
             </div>
         </section>
 
-        <!-- SECTION KARYA PILIHAN -->
         <section id="projects">
             <div class="container">
                 <div class="section-header">
@@ -130,11 +131,10 @@
                     <div class="project-card card-clickable" onclick="bukaGame()">
                         <div class="card-body">
                             <h3>Kompilasi Game Islami</h3>
-                            <p>Kumpulan game edukasi dan puzzle interaktif berbasis sejarah serta pergerakan Islam. Klik untuk bermain!</p>
+                            <p>Arcade game interaktif dan edukatif berbasis web. Mainkan Puzzle Logo Gerakan Islam dan tantangan seru lainnya!</p>
                             <span class="btn-open">Mainkan Game &rarr;</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -147,7 +147,7 @@
         </footer>
     </div>
 
-    <!-- TAMPILAN KALKULATOR (TERSEMBUNYI) -->
+    <!-- TAMPILAN KALKULATOR (AWALNYA TERSEMBUNYI) -->
     <div id="calculator-page" class="hidden-page">
         <div class="calc-wrapper">
             <button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Portofolio</button>
@@ -184,10 +184,11 @@
         </div>
     </div>
 
-    <!-- TAMPILAN ARTIKEL (TERSEMBUNYI) -->
+    <!-- TAMPILAN KOMPILASI ARTIKEL BERGAYA MEDIA BERITA (AWALNYA TERSEMBUNYI) -->
     <div id="artikel-page" class="hidden-page">
         <div class="portal-container">
             <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Portofolio</button>
+            
             <div class="portal-header">
                 <div class="portal-logo">SUARA<span>ISLAMI</span></div>
                 <p class="portal-subtitle">Kompilasi Artikel & Pemikiran Islam Kontemporer</p>
@@ -200,10 +201,10 @@
                     <span>Oleh: Luqman Azkiya Athaillah</span> | <span>Terbit: Oktober 2024</span>
                 </div>
                 <p class="news-excerpt">
-                    Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam...
+                    Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam. Fokus utamanya mencakup pembinaan moral, pendidikan Islam, serta pembaharuan sosial dan politik berbasis Syariat...
                 </p>
                 <div class="article-body-text">
-                    <p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara)...</p>
+                    <p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara). Melalui pendekatan pendidikan berjenjang (Tarbiyah), gerakan ini menyebar ke berbagai belahan dunia Islam dan mempengaruhi banyak organisasi pergerakan modern saat ini.</p>
                 </div>
             </article>
 
@@ -212,94 +213,125 @@
                     <span class="news-badge">Pemikiran Islam</span>
                     <h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
                     <div class="news-meta">12 Oktober 2024</div>
-                    <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap...</p>
+                    <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang *Salimul Aqidah* (akidah yang lurus) dan *Sohihul Ibadah* (ibadah yang benar).</p>
                 </article>
 
                 <article class="news-card">
                     <span class="news-badge">Sejarah Tokoh</span>
                     <h3>Pemikiran Hassan al-Banna dan Gagasan Pembaharuan</h3>
                     <div class="news-meta">08 Oktober 2024</div>
-                    <p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam...</p>
+                    <p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam dalam kehidupan bermasyarakat serta reformasi institusi pendidikan.</p>
                 </article>
 
                 <article class="news-card">
                     <span class="news-badge">Dunia Islam</span>
                     <h3>Tantangan Pergerakan Islam Kontemporer di Era Digital</h3>
                     <div class="news-meta">01 Oktober 2024</div>
-                    <p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam...</p>
+                    <p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam yang moderat, inklusif, dan solutif bagi permasalahan pemuda modern.</p>
                 </article>
             </div>
         </div>
     </div>
 
-    <!-- TAMPILAN PORTAL KOMPILASI GAME (GAYABERGAYA CRAZYGAMES) -->
-    <div id="game-page" class="hidden-page">
-        <div class="game-portal-container">
-            <button class="btn-back btn-back-light" onclick="tutupGame()">&larr; Kembali ke Portofolio</button>
-            
-            <div class="crazy-header">
-                <div class="crazy-logo">ISLAMIC<span>GAMES</span></div>
-                <p class="crazy-tagline">Portal Game Edukasi & Puzzle Islami Interaktif</p>
-            </div>
-
-            <!-- AREA GAME UTAMA (ARENA MAIN) -->
-            <div class="game-display-area">
-                <div class="game-frame-header">
-                    <h3 id="current-game-title">Puzzle Logo: Ikhwanul Muslimin & Hizbut Tahrir</h3>
-                    <span class="badge-play">Sedang Dimainkan</span>
+    <!-- TAMPILAN KOMPILASI GAME BERGAYA CRAZYGAMES (AWALNYA TERSEMBUNYI) -->
+    <div id="games-page" class="hidden-page crazy-theme">
+        <div class="cg-container">
+            <!-- HEADER ARCADE CRAZYGAMES -->
+            <header class="cg-header">
+                <button class="cg-btn-back" onclick="tutupGame()">&larr; Kembali ke Portofolio</button>
+                <div class="cg-logo">LUQMAN<span>GAMES</span></div>
+                <div class="cg-search">
+                    <input type="text" placeholder="Cari Game Islami..." readonly>
                 </div>
+            </header>
 
-                <div class="puzzle-game-container">
-                    <p class="game-instruction">Pilih logo, acak kepingan puzzle, lalu susun kembali hingga sempurna!</p>
-                    
-                    <div class="puzzle-controls">
-                        <button onclick="pilihLogo('im')" class="btn-select-logo active" id="btn-im">Logo Ikhwanul Muslimin</button>
-                        <button onclick="pilihLogo('ht')" class="btn-select-logo" id="btn-ht">Logo Hizbut Tahrir</button>
-                        <button onclick="acakPuzzle()" class="btn-shuffle">Acak Puzzle 🔀</button>
+            <!-- MAIN LAYOUT: ARENA GAME & KATALOG -->
+            <div class="cg-layout">
+                <!-- PANEL UTAMA TEMPAT GAME DIMAINKAN -->
+                <main class="cg-viewport">
+                    <div class="cg-game-header">
+                        <h2 id="cg-game-title">Puzzle Logo: Ikhwanul Muslimin & Hizbut Tahrir</h2>
+                        <div class="cg-game-tags">
+                            <span class="cg-tag">Puzzle</span>
+                            <span class="cg-tag">Edukasi</span>
+                            <span class="cg-tag">Sejarah</span>
+                        </div>
                     </div>
 
-                    <div class="puzzle-board" id="puzzle-board">
-                        <!-- Kepingan puzzle di-generate lewat JavaScript -->
-                    </div>
+                    <!-- CONTAINER PINTAR PUZZLE GAME -->
+                    <div class="puzzle-stage">
+                        <div class="puzzle-controls">
+                            <div class="ctrl-group">
+                                <label>Pilih Logo:</label>
+                                <select id="puzzle-image-select" onchange="initPuzzle()">
+                                    <option value="im">Logo Ikhwanul Muslimin</option>
+                                    <option value="ht">Logo Hizbut Tahrir</option>
+                                </select>
+                            </div>
+                            <div class="ctrl-group">
+                                <label>Tingkat Kesulitan:</label>
+                                <div class="diff-btn-group">
+                                    <button class="diff-btn active" onclick="setDifficulty(2, this)">Mudah (2x2)</button>
+                                    <button class="diff-btn" onclick="setDifficulty(3, this)">Sedang (3x3)</button>
+                                    <button class="diff-btn" onclick="setDifficulty(4, this)">Sulit (4x4)</button>
+                                </div>
+                            </div>
+                            <button class="btn-reset-game" onclick="initPuzzle()">Acak Ulang</button>
+                        </div>
 
-                    <div id="puzzle-status" class="puzzle-status"></div>
-                </div>
-            </div>
+                        <div class="puzzle-board-wrapper">
+                            <div id="puzzle-board" class="puzzle-board"></div>
+                            <div id="puzzle-win-msg" class="puzzle-win-overlay hidden">
+                                <h3>MasyaAllah, Luar Biasa! 🎉</h3>
+                                <p>Anda berhasil menyusun logo dengan sempurna!</p>
+                                <button onclick="initPuzzle()">Main Lagi</button>
+                            </div>
+                        </div>
 
-            <!-- KATALOG GAME ALA CRAZYGAMES -->
-            <h3 class="catalog-title">Game Lainnya</h3>
-            <div class="crazy-grid">
-                <div class="crazy-card active-game">
-                    <div class="crazy-thumb">🧩</div>
-                    <div class="crazy-info">
-                        <h4>Puzzle Logo Islam</h4>
-                        <p>Kuis & Puzzle Simbol</p>
+                        <div class="puzzle-stats">
+                            <span>Langkah: <strong id="step-count">0</strong></span>
+                            <span>Status: <strong id="game-status" style="color: #00f2fe;">Siap Dimainkan</strong></span>
+                        </div>
                     </div>
-                </div>
+                </main>
 
-                <div class="crazy-card coming-soon">
-                    <div class="crazy-thumb">⚔️</div>
-                    <div class="crazy-info">
-                        <h4>Kuis Sejarah Islam</h4>
-                        <p>Segera Hadir</p>
-                    </div>
-                </div>
+                <!-- SIDEBAR KATALOG GAME LAINNYA (CRAZYGAMES STYLE) -->
+                <aside class="cg-sidebar">
+                    <h3 class="cg-sidebar-title">Kompilasi Game</h3>
+                    <div class="cg-game-grid">
+                        
+                        <div class="cg-card active-game">
+                            <div class="cg-thumb thumb-puzzle">
+                                <span class="badge-play">Sedang Dimainkan</span>
+                            </div>
+                            <div class="cg-card-info">
+                                <h4>Puzzle Logo Islam</h4>
+                                <p>Susun potongan logo gerakan Islam secara presisi.</p>
+                            </div>
+                        </div>
 
-                <div class="crazy-card coming-soon">
-                    <div class="crazy-thumb">📖</div>
-                    <div class="crazy-info">
-                        <h4>Tebak Ayat & Surah</h4>
-                        <p>Segera Hadir</p>
-                    </div>
-                </div>
+                        <div class="cg-card disabled-game">
+                            <div class="cg-thumb thumb-quiz">
+                                <span class="badge-soon">Soon</span>
+                            </div>
+                            <div class="cg-card-info">
+                                <h4>Kuis Sejarah Islam</h4>
+                                <p>Uji wawasan sejarah peradaban Islam.</p>
+                            </div>
+                        </div>
 
-                <div class="crazy-card coming-soon">
-                    <div class="crazy-thumb">🕌</div>
-                    <div class="crazy-info">
-                        <h4>Petualangan Peradaban</h4>
-                        <p>Segera Hadir</p>
+                        <div class="cg-card disabled-game">
+                            <div class="cg-thumb thumb-memory">
+                                <span class="badge-soon">Soon</span>
+                            </div>
+                            <div class="cg-card-info">
+                                <h4>Memory Match Ayat</h4>
+                                <p>Cocokkan pasangan potongan ayat Al-Qur'an.</p>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
+                </aside>
             </div>
         </div>
     </div>
@@ -321,7 +353,7 @@
         setInterval(updateJam, 1000);
         updateJam();
 
-        // 2. Navigasi Tampilan
+        // 2. Alur Tampilan Kalkulator
         function bukaKalkulator() {
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('calculator-page').style.display = 'flex';
@@ -333,6 +365,7 @@
             document.getElementById('main-content').style.display = 'block';
         }
 
+        // 3. Alur Tampilan Artikel
         function bukaArtikel() {
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('artikel-page').style.display = 'block';
@@ -344,19 +377,20 @@
             document.getElementById('main-content').style.display = 'block';
         }
 
+        // 4. Alur Tampilan Game (CrazyGames Style)
         function bukaGame() {
             document.getElementById('main-content').style.display = 'none';
-            document.getElementById('game-page').style.display = 'block';
+            document.getElementById('games-page').style.display = 'block';
             window.scrollTo(0, 0);
-            initPuzzle();
+            initPuzzle(); // Jalankan game puzzle
         }
 
         function tutupGame() {
-            document.getElementById('game-page').style.display = 'none';
+            document.getElementById('games-page').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }
 
-        // 3. Logika Kalkulator
+        // 5. Logika Kalkulator
         const display = document.getElementById('calc-display');
 
         function appendChar(char) {
@@ -381,87 +415,135 @@
             }
         }
 
-        // 4. Logika Game Puzzle Logo (Ikhwanul Muslimin & Hizbut Tahrir)
-        const logoUrls = {
+        // 6. LOGIKA GAME PUZZLE LOGO (SLIDING PUZZLE)
+        const puzzleLogos = {
             im: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg',
-            ht: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Flag_of_Hizb_ut-Tahrir.svg/1024px-Flag_of_Hizb_ut-Tahrir.svg.png'
+            ht: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Hizb-ut-tahrir-logo.png/600px-Hizb-ut-tahrir-logo.png'
         };
 
-        let currentLogo = 'im';
-        let tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-        let selectedTile = null;
+        let puzzleGridSize = 2; // Default level 2x2
+        let puzzleBoardState = [];
+        let emptyIndex = 0;
+        let moveSteps = 0;
 
-        function pilihLogo(tipe) {
-            currentLogo = tipe;
-            document.getElementById('btn-im').classList.toggle('active', tipe === 'im');
-            document.getElementById('btn-ht').classList.toggle('active', tipe === 'ht');
+        function setDifficulty(size, btn) {
+            puzzleGridSize = size;
+            document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             initPuzzle();
         }
 
         function initPuzzle() {
-            tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-            selectedTile = null;
-            document.getElementById('puzzle-status').textContent = '';
-            renderBoard();
+            moveSteps = 0;
+            document.getElementById('step-count').textContent = moveSteps;
+            document.getElementById('game-status').textContent = 'Sedang Berjalan';
+            document.getElementById('puzzle-win-msg').classList.add('hidden');
+
+            const board = document.getElementById('puzzle-board');
+            const logoKey = document.getElementById('puzzle-image-select').value;
+            const imgUrl = puzzleLogos[logoKey];
+
+            board.style.gridTemplateColumns = `repeat(${puzzleGridSize}, 1fr)`;
+            board.style.gridTemplateRows = `repeat(${puzzleGridSize}, 1fr)`;
+            board.innerHTML = '';
+
+            const totalTiles = puzzleGridSize * puzzleGridSize;
+            puzzleBoardState = Array.from({length: totalTiles}, (_, i) => i);
+
+            // Pengacakan posisi yang valid
+            do {
+                shuffleArray(puzzleBoardState);
+            } while (!isSolvable(puzzleBoardState, puzzleGridSize) || isAlreadySolved(puzzleBoardState));
+
+            emptyIndex = puzzleBoardState.indexOf(totalTiles - 1);
+            renderBoard(imgUrl);
         }
 
-        function acakPuzzle() {
-            // Acak urutan array
-            for (let i = tiles.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
-            }
-            selectedTile = null;
-            document.getElementById('puzzle-status').textContent = 'Puzzle diacak! Klik kepingan pertama lalu klik kepingan kedua untuk menukarnya.';
-            document.getElementById('puzzle-status').className = "puzzle-status";
-            renderBoard();
-        }
-
-        function renderBoard() {
+        function renderBoard(imgUrl) {
             const board = document.getElementById('puzzle-board');
             board.innerHTML = '';
-            const imgUrl = logoUrls[currentLogo];
+            const totalTiles = puzzleGridSize * puzzleGridSize;
 
-            tiles.forEach((tilePos, index) => {
-                const piece = document.createElement('div');
-                piece.className = 'puzzle-piece';
-                if (selectedTile === index) piece.classList.add('selected');
+            puzzleBoardState.forEach((tileNum, index) => {
+                const tile = document.createElement('div');
+                tile.classList.add('puzzle-tile');
 
-                // Hitung koordinat gambar latar
-                const row = Math.floor(tilePos / 3);
-                const col = tilePos % 3;
+                if (tileNum === totalTiles - 1) {
+                    tile.classList.add('empty-tile');
+                } else {
+                    const row = Math.floor(tileNum / puzzleGridSize);
+                    const col = tileNum % puzzleGridSize;
+                    const percentX = (col / (puzzleGridSize - 1)) * 100;
+                    const percentY = (row / (puzzleGridSize - 1)) * 100;
 
-                piece.style.backgroundImage = `url('${imgUrl}')`;
-                piece.style.backgroundSize = '300px 300px';
-                piece.style.backgroundPosition = `-${col * 100}px -${row * 100}px`;
-
-                piece.onclick = () => swapTile(index);
-                board.appendChild(piece);
+                    tile.style.backgroundImage = `url('${imgUrl}')`;
+                    tile.style.backgroundSize = `${puzzleGridSize * 100}% ${puzzleGridSize * 100}%`;
+                    tile.style.backgroundPosition = `${percentX}% ${percentY}%`;
+                    
+                    tile.onclick = () => moveTile(index);
+                }
+                board.appendChild(tile);
             });
         }
 
-        function swapTile(index) {
-            if (selectedTile === null) {
-                selectedTile = index;
-                renderBoard();
-            } else {
-                // Tukar kepingan
-                let temp = tiles[selectedTile];
-                tiles[selectedTile] = tiles[index];
-                tiles[index] = temp;
+        function moveTile(index) {
+            const validMoves = getValidMoves(emptyIndex, puzzleGridSize);
+            if (validMoves.includes(index)) {
+                // Tukar posisi dengan kotak kosong
+                [puzzleBoardState[emptyIndex], puzzleBoardState[index]] = [puzzleBoardState[index], puzzleBoardState[emptyIndex]];
+                emptyIndex = index;
+                moveSteps++;
+                document.getElementById('step-count').textContent = moveSteps;
+                
+                const logoKey = document.getElementById('puzzle-image-select').value;
+                renderBoard(puzzleLogos[logoKey]);
 
-                selectedTile = null;
-                renderBoard();
-                cekKemenangan();
+                if (isAlreadySolved(puzzleBoardState)) {
+                    document.getElementById('game-status').textContent = 'Selesai!';
+                    document.getElementById('puzzle-win-msg').classList.remove('hidden');
+                }
             }
         }
 
-        function cekKemenangan() {
-            const menang = tiles.every((val, idx) => val === idx);
-            const statusEl = document.getElementById('puzzle-status');
-            if (menang) {
-                statusEl.textContent = '🎉 Selamat! Anda berhasil menyusun puzzle logo dengan sempurna!';
-                statusEl.className = "puzzle-status win";
+        function getValidMoves(emptyIdx, size) {
+            const moves = [];
+            const row = Math.floor(emptyIdx / size);
+            const col = emptyIdx % size;
+
+            if (row > 0) moves.push(emptyIdx - size); // Atas
+            if (row < size - 1) moves.push(emptyIdx + size); // Bawah
+            if (col > 0) moves.push(emptyIdx - 1); // Kiri
+            if (col < size - 1) moves.push(emptyIdx + 1); // Kanan
+
+            return moves;
+        }
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+
+        function isAlreadySolved(arr) {
+            return arr.every((val, i) => val === i);
+        }
+
+        function isSolvable(arr, size) {
+            let inversions = 0;
+            const len = arr.length;
+            for (let i = 0; i < len - 1; i++) {
+                for (let j = i + 1; j < len; j++) {
+                    if (arr[i] !== len - 1 && arr[j] !== len - 1 && arr[i] > arr[j]) {
+                        inversions++;
+                    }
+                }
+            }
+            if (size % 2 !== 0) {
+                return inversions % 2 === 0;
+            } else {
+                const emptyRowFromBottom = size - Math.floor(arr.indexOf(len - 1) / size);
+                return (inversions + emptyRowFromBottom) % 2 === 1;
             }
         }
     </script>
