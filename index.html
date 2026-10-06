@@ -86,7 +86,7 @@
                 </div>
                 <div class="project-grid">
                     
-                    <!-- PROYEK 1: KALKULATOR DIGITAL -->
+                    <!-- KARTU 1: KALKULATOR DIGITAL -->
                     <div class="project-card card-clickable" onclick="bukaKalkulator()">
                         <div class="card-body">
                             <h3>Kalkulator Digital</h3>
@@ -95,22 +95,23 @@
                         </div>
                     </div>
 
-                    <!-- PROYEK 2: ARTIKEL ISLAM & IKHWANUL MUSLIMIN (MENGGANTIKAN DAKWAH DIGITAL) -->
+                    <!-- KARTU 2: MENGGANTIKAN DESAIN WEB DAKWAH DENGAN ARTIKEL ISLAM & IKHWANUL MUSLIMIN -->
                     <div class="project-card card-clickable" onclick="bukaArtikel()">
                         <div class="card-body">
-                            <h3>Artikel Islam & Ikhwanul Muslimin</h3>
-                            <p>Kajian mendalam mengenai sejarah, pemikiran, dan dinamika gerakan Islam kontemporer. Klik untuk membaca.</p>
+                            <h3>Islam & Ikhwanul Muslimin</h3>
+                            <p>Artikel analisis sejarah, pemikiran, serta dinamika pergerakan Ikhwanul Muslimin dalam dunia Islam modern.</p>
                             <span class="btn-open">Baca Artikel &rarr;</span>
                         </div>
                     </div>
 
-                    <!-- PROYEK 3: PLATFORM EDUKASI -->
+                    <!-- KARTU 3: PLATFORM EDUKASI -->
                     <div class="project-card">
                         <div class="card-body">
                             <h3>Platform Edukasi</h3>
                             <p>Media belajar online yang interaktif dan mudah diakses.</p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -123,7 +124,7 @@
         </footer>
     </div>
 
-    <!-- TAMPILAN KALKULATOR (TERSEMBUNYI SECARA DEFAULT) -->
+    <!-- TAMPILAN KALKULATOR (TERSEMBUNYI KETIKA AWAL) -->
     <div id="calculator-page" class="hidden-page">
         <div class="calc-wrapper">
             <button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Portofolio</button>
@@ -160,59 +161,54 @@
         </div>
     </div>
 
-    <!-- TAMPILAN ARTIKEL ISLAM & IKHWANUL MUSLIMIN (TERSEMBUNYI SECARA DEFAULT) -->
+    <!-- HALAMAN ARTIKEL ISLAM & IKHWANUL MUSLIMIN (TERSEMBUNYI KETIKA AWAL) -->
     <div id="article-page" class="hidden-page">
         <div class="article-wrapper">
             <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Portofolio</button>
-            <article class="article-container">
-                <div class="article-header">
+            
+            <article class="article-box">
+                <header class="article-header">
                     <span class="article-category">Kajian & Studi Islam</span>
                     <h1>Islam dan Ikhwanul Muslimin: Sejarah, Pemikiran, dan Pengaruhnya</h1>
                     <div class="article-meta">
-                        <span>Penulis: Luqman Azkiya Athaillah</span> | 
-                        <span>Kategori: Sejarah Gerakan Islam</span>
+                        <span>Ditulis oleh: Luqman Pasha</span> &bull; <span>SMPIT As-Syifa Boarding School</span>
                     </div>
-                </div>
+                </header>
 
                 <div class="article-body">
                     <p class="lead">
-                        Ikhwanul Muslimin (Al-Ikhwan Al-Muslimun) merupakan salah satu gerakan kebangkitan Islam terbesar dan paling berpengaruh di abad ke-20. Didirikan pada tahun 1928 di Ismailiyah, Mesir, oleh Hassan al-Banna, gerakan ini lahir sebagai respon terhadap keruntuhan Kekhalifahan Utsmaniyah dan meluasnya pengaruh kolonialisme barat di dunia Muslim.
+                        Ikhwanul Muslimin (Muslim Brotherhood) merupakan salah satu gerakan kebangkitan Islam (al-shahwah al-islamiyah) paling berpengaruh pada abad ke-20 yang didirikan oleh Hassan al-Banna di Isma'iliyah, Mesir, pada tahun 1928.
                     </p>
 
                     <h2>1. Latar Belakang Pendirian</h2>
                     <p>
-                        Setelah jatuhnya Kekhalifahan Utsmaniyah pada tahun 1924, dunia Islam mengalami krisis identitas dan kepemimpinan. Hassan al-Banna melihat adanya kemerosotan moral, sosial, dan politik di Mesir akibat penjajahan Inggris. Beliau mendirikan Ikhwanul Muslimin dengan tujuan mengembalikan ajaran Islam yang murni ke dalam seluruh aspek kehidupan masyarakat, baik sosial, pendidikan, ekonomi, maupun politik.
+                        Pendirian Ikhwanul Muslimin tidak terlepas dari situasi sosiopolitik Mesir Pasca-Perang Dunia I dan runtuhnya Kekhalifahan Utsmaniyah pada tahun 1924. Hassan al-Banna melihat perlunya suatu gerakan pembaharuan yang komprehensif untuk mengembalikan umat Islam kepada nilai-nilai Al-Qur'an dan As-Sunnah di tengah gelombang sekularisasi dan kolonialisme Barat.
                     </p>
 
-                    <h2>2. Prinsip Pemikiran dan Metodologi (Manhaj)</h2>
+                    <h2>2. Karakteristik dan Karakter Gerakan</h2>
                     <p>
-                        Gagasan utama al-Banna adalah bahwa Islam bukan hanya sekadar agama ritual belaka, melainkan sebuah sistem kehidupan yang komprehensif (<em>Syumuliyatul Islam</em>). Beberapa pilar utama pemikiran Ikhwanul Muslimin meliputi:
-                    </p>
-                    <ul>
-                        <li><strong>Kembali ke Al-Qur'an dan Sunnah:</strong> Menjadikan syariat Islam sebagai pijakan utama dalam berkehidupan.</li>
-                        <li><strong>Perbaikan Bertahap (Tadarruj):</strong> Pembinaan diri individu (<em>Isllahul Nafs</em>), pembentukan keluarga islami (<em>Bina'ul Usrah</em>), hingga masyarakat dan negara.</li>
-                        <li><strong>Pendidikan dan Tarbiyah:</strong> Berfokus pada pembentukan karakter moral dan pemahaman keagamaan yang mendalam melalui kelompok-kelompok kecil (halaqah/usrah).</li>
-                    </ul>
-
-                    <h2>3. Dinamika dan Dampak Kebangsaan</h2>
-                    <p>
-                        Seiring berjalannya waktu, gerakan ini berkembang pesat dari organisasi lokal menjadi gerakan internasional. Ikhwanul Muslimin mendirikan sekolah, rumah sakit, lembaga amal, serta unit usaha mandiri. Namun, keterlibatan gerakan ini dalam panggung politik kerap menimbulkan ketegangan dengan pemerintah Mesir dan berbagai negara penguasa pada masanya.
+                        Hassan al-Banna merumuskan bahwa Islam adalah *Syamil* (menyeluruh/holistik). Ikhwanul Muslimin tidak hanya memandang Islam sebatas ritual ibadah semata, melainkan mencakup seluruh aspek kehidupan: dakwah, politik, ekonomi, sosial, dan pendidikan.
                     </p>
 
                     <blockquote class="article-quote">
-                        "Islam adalah sistem yang lengkap mencakup seluruh aspek kehidupan. Ia adalah negara dan tanah air, pemerintah dan umat, akhlak dan kekuatan, rahmat dan keadilan." — Hassan al-Banna
+                        "Islam adalah sistem yang lengkap, mencakup seluruh aspek kehidupan. Ia adalah negara dan tanah air, pemerintah dan umat, akhlak dan kekuatan, rahmat dan keadilan."
                     </blockquote>
+
+                    <h2>3. Gagasan Utama dan Pengaruh Global</h2>
+                    <p>
+                        Gerakan ini berkembang pesat melalui jaringan sekolah, rumah sakit, lembaga kepemudaan, dan kegiatan sosial. Gagasan Ikhwanul Muslimin kemudian menyebar ke berbagai negara di Timur Tengah, Afrika Utara, hingga Asia Tenggara, serta mempengaruhi pola pikir gerakan dakwah modern di berbagai penjuru dunia.
+                    </p>
 
                     <h2>4. Kesimpulan</h2>
                     <p>
-                        Studi mengenai Ikhwanul Muslimin memberikan wawasan penting tentang bagaimana ideologi Islam berinteraksi dengan modernitas, nasionalisme, dan pergerakan politik kontemporer. Gerakan ini tetap menjadi salah satu topik paling krusial dalam kajian sejarah dan sosiologi politik Islam hingga saat ini.
+                        Studi terhadap gerakan Ikhwanul Muslimin memberikan wawasan berharga mengenai dinamika pemikiran Islam modern, bagaimana dakwah dapat bertransformasi dalam menjawab tantangan zaman tanpa kehilangan akar keislamannya.
                     </p>
                 </div>
             </article>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LENGKAP -->
+    <!-- JAVASCRIPT LOGIKA -->
     <script>
         // 1. Fungsi Jam WIB
         function updateJam() {
