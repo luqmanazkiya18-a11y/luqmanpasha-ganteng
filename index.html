@@ -15,10 +15,9 @@
         <nav>
             <div class="container-nav">
                 <div class="logo-wrapper">
-    <!-- Ganti URL gambar logo di bawah sesuai lokasi/file logo Anda -->
-    <img src= "https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin" class="logo-im">
-    <div class="logo">Portofolio<span>Muslim</span></div>
-</div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin" class="logo-im">
+                    <div class="logo">Portofolio<span>Muslim</span></div>
+                </div>
                 <ul class="nav-links">
                     <li><a href="#home">Beranda</a></li>
                     <li><a href="#about">Tentang</a></li>
@@ -43,8 +42,7 @@
             </div>
         </header>
 
-
-<!-- SECTION TENTANG SAYA -->
+        <!-- SECTION TENTANG SAYA -->
         <section id="about">
             <div class="container">
                 <div class="section-header">
@@ -102,6 +100,7 @@
             </div>
         </section>
 
+        <!-- SECTION KARYA PILIHAN -->
         <section id="projects">
             <div class="container">
                 <div class="section-header">
@@ -118,7 +117,7 @@
                         </div>
                     </div>
 
-                    <!-- KARTU 2: KOMPILASI ARTIKEL ISLAM & IKHWANUL MUSLIMIN (MENGGANTIKAN DAKWAH DIGITAL) -->
+                    <!-- KARTU 2: KOMPILASI ARTIKEL ISLAM & IKHWANUL MUSLIMIN -->
                     <div class="project-card card-clickable" onclick="bukaArtikel()">
                         <div class="card-body">
                             <h3>Kompilasi Artikel Islam & Ikhwanul Muslimin</h3>
@@ -127,13 +126,15 @@
                         </div>
                     </div>
 
-                    <!-- KARTU 3: PLATFORM EDUKASI -->
-                    <div class="project-card">
+                    <!-- KARTU 3: KOMPILASI GAME ISLAMI (MENGGANTIKAN PLATFORM EDUKASI) -->
+                    <div class="project-card card-clickable" onclick="bukaGame()">
                         <div class="card-body">
-                            <h3>Platform Edukasi</h3>
-                            <p>Media belajar online yang interaktif dan mudah diakses.</p>
+                            <h3>Kompilasi Game Islami</h3>
+                            <p>Kumpulan game edukasi dan puzzle interaktif berbasis sejarah serta pergerakan Islam. Klik untuk bermain!</p>
+                            <span class="btn-open">Mainkan Game &rarr;</span>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -146,7 +147,7 @@
         </footer>
     </div>
 
-    <!-- TAMPILAN KALKULATOR (AWALNYA TERSEMBUNYI) -->
+    <!-- TAMPILAN KALKULATOR (TERSEMBUNYI) -->
     <div id="calculator-page" class="hidden-page">
         <div class="calc-wrapper">
             <button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Portofolio</button>
@@ -183,18 +184,15 @@
         </div>
     </div>
 
-    <!-- TAMPILAN KOMPILASI ARTIKEL BERGAYA MEDIA BERITA (AWALNYA TERSEMBUNYI) -->
+    <!-- TAMPILAN ARTIKEL (TERSEMBUNYI) -->
     <div id="artikel-page" class="hidden-page">
         <div class="portal-container">
             <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Portofolio</button>
-            
-            <!-- HEADER PORTAL BERITA -->
             <div class="portal-header">
                 <div class="portal-logo">SUARA<span>ISLAMI</span></div>
                 <p class="portal-subtitle">Kompilasi Artikel & Pemikiran Islam Kontemporer</p>
             </div>
 
-            <!-- ARTIKEL UTAMA / HIGHLIGHT -->
             <article class="featured-news">
                 <div class="featured-badge">Fokus Utama</div>
                 <h2>Mengenal Sejarah dan Kontribusi Ikhwanul Muslimin dalam Peradaban Islam Modern</h2>
@@ -202,37 +200,106 @@
                     <span>Oleh: Luqman Azkiya Athaillah</span> | <span>Terbit: Oktober 2024</span>
                 </div>
                 <p class="news-excerpt">
-                    Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam. Fokus utamanya mencakup pembinaan moral, pendidikan Islam, serta pembaharuan sosial dan politik berbasis Syariat...
+                    Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam...
                 </p>
                 <div class="article-body-text">
-                    <p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara). Melalui pendekatan pendidikan berjenjang (Tarbiyah), gerakan ini menyebar ke berbagai belahan dunia Islam dan mempengaruhi banyak organisasi pergerakan modern saat ini.</p>
+                    <p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara)...</p>
                 </div>
             </article>
 
-            <!-- GRID ARTIKEL LAINNYA -->
             <div class="news-grid">
-                
                 <article class="news-card">
                     <span class="news-badge">Pemikiran Islam</span>
                     <h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
                     <div class="news-meta">12 Oktober 2024</div>
-                    <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang *Salimul Aqidah* (akidah yang lurus) dan *Sohihul Ibadah* (ibadah yang benar).</p>
+                    <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap...</p>
                 </article>
 
                 <article class="news-card">
                     <span class="news-badge">Sejarah Tokoh</span>
                     <h3>Pemikiran Hassan al-Banna dan Gagasan Pembaharuan</h3>
                     <div class="news-meta">08 Oktober 2024</div>
-                    <p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam dalam kehidupan bermasyarakat serta reformasi institusi pendidikan.</p>
+                    <p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam...</p>
                 </article>
 
                 <article class="news-card">
                     <span class="news-badge">Dunia Islam</span>
                     <h3>Tantangan Pergerakan Islam Kontemporer di Era Digital</h3>
                     <div class="news-meta">01 Oktober 2024</div>
-                    <p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam yang moderat, inklusif, dan solutif bagi permasalahan pemuda modern.</p>
+                    <p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam...</p>
                 </article>
+            </div>
+        </div>
+    </div>
 
+    <!-- TAMPILAN PORTAL KOMPILASI GAME (GAYABERGAYA CRAZYGAMES) -->
+    <div id="game-page" class="hidden-page">
+        <div class="game-portal-container">
+            <button class="btn-back btn-back-light" onclick="tutupGame()">&larr; Kembali ke Portofolio</button>
+            
+            <div class="crazy-header">
+                <div class="crazy-logo">ISLAMIC<span>GAMES</span></div>
+                <p class="crazy-tagline">Portal Game Edukasi & Puzzle Islami Interaktif</p>
+            </div>
+
+            <!-- AREA GAME UTAMA (ARENA MAIN) -->
+            <div class="game-display-area">
+                <div class="game-frame-header">
+                    <h3 id="current-game-title">Puzzle Logo: Ikhwanul Muslimin & Hizbut Tahrir</h3>
+                    <span class="badge-play">Sedang Dimainkan</span>
+                </div>
+
+                <div class="puzzle-game-container">
+                    <p class="game-instruction">Pilih logo, acak kepingan puzzle, lalu susun kembali hingga sempurna!</p>
+                    
+                    <div class="puzzle-controls">
+                        <button onclick="pilihLogo('im')" class="btn-select-logo active" id="btn-im">Logo Ikhwanul Muslimin</button>
+                        <button onclick="pilihLogo('ht')" class="btn-select-logo" id="btn-ht">Logo Hizbut Tahrir</button>
+                        <button onclick="acakPuzzle()" class="btn-shuffle">Acak Puzzle 🔀</button>
+                    </div>
+
+                    <div class="puzzle-board" id="puzzle-board">
+                        <!-- Kepingan puzzle di-generate lewat JavaScript -->
+                    </div>
+
+                    <div id="puzzle-status" class="puzzle-status"></div>
+                </div>
+            </div>
+
+            <!-- KATALOG GAME ALA CRAZYGAMES -->
+            <h3 class="catalog-title">Game Lainnya</h3>
+            <div class="crazy-grid">
+                <div class="crazy-card active-game">
+                    <div class="crazy-thumb">🧩</div>
+                    <div class="crazy-info">
+                        <h4>Puzzle Logo Islam</h4>
+                        <p>Kuis & Puzzle Simbol</p>
+                    </div>
+                </div>
+
+                <div class="crazy-card coming-soon">
+                    <div class="crazy-thumb">⚔️</div>
+                    <div class="crazy-info">
+                        <h4>Kuis Sejarah Islam</h4>
+                        <p>Segera Hadir</p>
+                    </div>
+                </div>
+
+                <div class="crazy-card coming-soon">
+                    <div class="crazy-thumb">📖</div>
+                    <div class="crazy-info">
+                        <h4>Tebak Ayat & Surah</h4>
+                        <p>Segera Hadir</p>
+                    </div>
+                </div>
+
+                <div class="crazy-card coming-soon">
+                    <div class="crazy-thumb">🕌</div>
+                    <div class="crazy-info">
+                        <h4>Petualangan Peradaban</h4>
+                        <p>Segera Hadir</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -254,7 +321,7 @@
         setInterval(updateJam, 1000);
         updateJam();
 
-        // 2. Alur Tampilan Kalkulator
+        // 2. Navigasi Tampilan
         function bukaKalkulator() {
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('calculator-page').style.display = 'flex';
@@ -266,7 +333,6 @@
             document.getElementById('main-content').style.display = 'block';
         }
 
-        // 3. Alur Tampilan Artikel
         function bukaArtikel() {
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('artikel-page').style.display = 'block';
@@ -278,7 +344,19 @@
             document.getElementById('main-content').style.display = 'block';
         }
 
-        // 4. Logika Kalkulator
+        function bukaGame() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('game-page').style.display = 'block';
+            window.scrollTo(0, 0);
+            initPuzzle();
+        }
+
+        function tutupGame() {
+            document.getElementById('game-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+        // 3. Logika Kalkulator
         const display = document.getElementById('calc-display');
 
         function appendChar(char) {
@@ -300,6 +378,90 @@
                 display.value = eval(display.value);
             } catch (e) {
                 display.value = 'Error';
+            }
+        }
+
+        // 4. Logika Game Puzzle Logo (Ikhwanul Muslimin & Hizbut Tahrir)
+        const logoUrls = {
+            im: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg',
+            ht: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Flag_of_Hizb_ut-Tahrir.svg/1024px-Flag_of_Hizb_ut-Tahrir.svg.png'
+        };
+
+        let currentLogo = 'im';
+        let tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        let selectedTile = null;
+
+        function pilihLogo(tipe) {
+            currentLogo = tipe;
+            document.getElementById('btn-im').classList.toggle('active', tipe === 'im');
+            document.getElementById('btn-ht').classList.toggle('active', tipe === 'ht');
+            initPuzzle();
+        }
+
+        function initPuzzle() {
+            tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+            selectedTile = null;
+            document.getElementById('puzzle-status').textContent = '';
+            renderBoard();
+        }
+
+        function acakPuzzle() {
+            // Acak urutan array
+            for (let i = tiles.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+            }
+            selectedTile = null;
+            document.getElementById('puzzle-status').textContent = 'Puzzle diacak! Klik kepingan pertama lalu klik kepingan kedua untuk menukarnya.';
+            document.getElementById('puzzle-status').className = "puzzle-status";
+            renderBoard();
+        }
+
+        function renderBoard() {
+            const board = document.getElementById('puzzle-board');
+            board.innerHTML = '';
+            const imgUrl = logoUrls[currentLogo];
+
+            tiles.forEach((tilePos, index) => {
+                const piece = document.createElement('div');
+                piece.className = 'puzzle-piece';
+                if (selectedTile === index) piece.classList.add('selected');
+
+                // Hitung koordinat gambar latar
+                const row = Math.floor(tilePos / 3);
+                const col = tilePos % 3;
+
+                piece.style.backgroundImage = `url('${imgUrl}')`;
+                piece.style.backgroundSize = '300px 300px';
+                piece.style.backgroundPosition = `-${col * 100}px -${row * 100}px`;
+
+                piece.onclick = () => swapTile(index);
+                board.appendChild(piece);
+            });
+        }
+
+        function swapTile(index) {
+            if (selectedTile === null) {
+                selectedTile = index;
+                renderBoard();
+            } else {
+                // Tukar kepingan
+                let temp = tiles[selectedTile];
+                tiles[selectedTile] = tiles[index];
+                tiles[index] = temp;
+
+                selectedTile = null;
+                renderBoard();
+                cekKemenangan();
+            }
+        }
+
+        function cekKemenangan() {
+            const menang = tiles.every((val, idx) => val === idx);
+            const statusEl = document.getElementById('puzzle-status');
+            if (menang) {
+                statusEl.textContent = '🎉 Selamat! Anda berhasil menyusun puzzle logo dengan sempurna!';
+                statusEl.className = "puzzle-status win";
             }
         }
     </script>
