@@ -416,23 +416,22 @@ footer {
     .portal-logo { font-size: 2rem; }
     .featured-news h2 { font-size: 1.4rem; }
 }
-/* Container pembungkus logo gambar dan teks portofolio */
+/* Container pembungkus logo dan teks judul */
 .logo-wrapper {
     display: flex;
-    align-items: center; /* Membuat gambar dan teks sejajar secara vertikal di tengah */
-    gap: 12px;           /* Jarak antara gambar logo dan teks PortofolioMuslim */
+    align-items: center; /* Membuat logo dan teks sejajar secara vertikal */
+    gap: 10px;           /* Jarak antara logo dan teks */
 }
 
-/* Pengaturan untuk gambar Logo Ikhwanul Muslimin */
+/* Ukuran dan styling khusus untuk logo SVG */
 .logo-im {
-    height: 42px;               /* Tinggi yang ideal agar pas dengan tinggi teks navbar */
-    width: auto;                /* Lebar otomatis mengikuti proporsi gambar asli agar tidak terdistorsi/gepeng */
-    object-fit: contain;        /* Memastikan gambar selalu berada dalam proporsi aslinya tanpa terpotong */
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25)); /* Efek bayangan halus agar logo lebih menonjol di latar hijau */
-    transition: transform 0.3s ease; /* Efek transisi saat di-hover (opsional) */
-}
-
-/* Efek opsional: sedikit membesar saat mouse diarahkan ke logo */
-.logo-wrapper:hover .logo-im {
-    transform: scale(1.05);
+    /* 
+       Tinggi font .logo adalah 1.5rem (sekitar 24px).
+       Tinggi 28px - 32px akan membuat logo terlihat presisi
+       dan seimbang secara visual dengan tinggi huruf kapitalnya.
+    */
+    height: 28px; 
+    width: auto;                  /* Menjaga proporsi lingkaran logo agar tidak gepeng */
+    object-fit: contain;          /* Memastikan logo pas di dalam kotaknya */
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25)); /* Efek bayangan halus */
 }
