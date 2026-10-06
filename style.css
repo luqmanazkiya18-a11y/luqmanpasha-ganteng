@@ -416,3 +416,23 @@ footer {
     .portal-logo { font-size: 2rem; }
     .featured-news h2 { font-size: 1.4rem; }
 }
+/* Container pembungkus logo gambar dan teks portofolio */
+.logo-wrapper {
+    display: flex;
+    align-items: center; /* Membuat gambar dan teks sejajar secara vertikal di tengah */
+    gap: 12px;           /* Jarak antara gambar logo dan teks PortofolioMuslim */
+}
+
+/* Pengaturan untuk gambar Logo Ikhwanul Muslimin */
+.logo-im {
+    height: 42px;               /* Tinggi yang ideal agar pas dengan tinggi teks navbar */
+    width: auto;                /* Lebar otomatis mengikuti proporsi gambar asli agar tidak terdistorsi/gepeng */
+    object-fit: contain;        /* Memastikan gambar selalu berada dalam proporsi aslinya tanpa terpotong */
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25)); /* Efek bayangan halus agar logo lebih menonjol di latar hijau */
+    transition: transform 0.3s ease; /* Efek transisi saat di-hover (opsional) */
+}
+
+/* Efek opsional: sedikit membesar saat mouse diarahkan ke logo */
+.logo-wrapper:hover .logo-im {
+    transform: scale(1.05);
+}
