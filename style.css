@@ -1,48 +1,247 @@
-/* --- CSS TAMBAHAN UNTUK KALKULATOR & TOMBOL --- */
+/* --- KETERANGAN CSS --- */
+/* Warna Utama: Hijau Zamrud (#064e3b) & Emas (#b8860b) */
 
-.btn-calc {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 8px 18px;
-    background-color: var(--primary);
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: background-color 0.3s;
+:root {
+    --primary: #064e3b;
+    --accent: #b8860b;
+    --light: #fdfbf7;
+    --dark: #2d3436;
 }
 
-.btn-calc:hover {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+/* --- CONTAINER UTAMA --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- NAVIGASI --- */
+nav {
+    background-color: var(--primary);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid var(--accent);
+}
+
+.container-nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.logo span { color: var(--accent); }
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li { margin-left: 25px; }
+
+.nav-links a {
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+/* --- HERO SECTION --- */
+header {
+    background: linear-gradient(rgba(6, 78, 59, 0.9), rgba(6, 78, 59, 0.9)), 
+                url('https://www.transparenttextures.com/patterns/islamic-art.png');
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.salam {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--accent);
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin: 10px 0;
+}
+
+.btn-primary {
+    display: inline-block;
     background-color: var(--accent);
     color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 25px;
+    transition: 0.3s;
 }
 
-/* Container Kalkulator */
-.calculator-box {
-    max-width: 340px;
-    margin: 0 auto;
-    background: #064e3b;
+/* --- SECTIONS --- */
+section { padding: 80px 0; }
+
+.bg-alt { background-color: #f2eee3; }
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    border-bottom: 3px solid var(--accent);
+    display: inline-block;
+}
+
+.quote {
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* --- GRID PROYEK --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--accent);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-clickable {
+    cursor: pointer;
+}
+
+.card-clickable:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-open {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.card-body { padding: 30px; }
+
+/* --- FOOTER --- */
+footer {
+    background-color: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 40px 0;
+    border-top: 5px solid var(--accent);
+}
+
+/* --- TAMPILAN JAM WIB --- */
+.jam-container {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid var(--accent);
+    letter-spacing: 1px;
+}
+
+#jam-wib { color: white; }
+
+/* --- TAMPILAN KALKULATOR (DIPISAHKAN) --- */
+.hidden-page {
+    display: none;
+    min-height: 100vh;
+    background-color: var(--light);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.calc-wrapper {
+    width: 100%;
+    max-width: 380px;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-block;
+    transition: color 0.2s;
+}
+
+.btn-back:hover {
+    color: var(--accent);
+}
+
+.calculator {
+    background-color: var(--primary);
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     border: 2px solid var(--accent);
 }
 
-.calc-display {
+.calc-header h3 {
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#calc-display {
     width: 100%;
     height: 60px;
-    background-color: #fdfbf7;
+    background-color: #e0e0e0;
     border: none;
     border-radius: 8px;
     font-size: 1.8rem;
     text-align: right;
-    padding: 10px 15px;
+    padding: 0 15px;
     margin-bottom: 20px;
     color: var(--dark);
-    font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    box-sizing: border-box;
 }
 
 .calc-buttons {
@@ -52,25 +251,23 @@
 }
 
 .calc-buttons button {
-    height: 55px;
+    padding: 15px;
+    font-size: 1.2rem;
     border: none;
     border-radius: 8px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
     background-color: #ffffff;
     color: var(--dark);
-    transition: all 0.2s ease;
-    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
 .calc-buttons button:hover {
-    background-color: #e2d9c5;
-    transform: translateY(-2px);
+    background-color: #f0f0f0;
 }
 
 .calc-buttons button:active {
-    transform: translateY(0);
+    transform: scale(0.95);
 }
 
 .calc-buttons .btn-operator {
@@ -79,23 +276,31 @@
 }
 
 .calc-buttons .btn-operator:hover {
-    background-color: #966f09;
+    background-color: #966d09;
 }
 
 .calc-buttons .btn-action {
-    background-color: #d9534f;
+    background-color: #d63031;
     color: white;
 }
 
 .calc-buttons .btn-action:hover {
-    background-color: #c9302c;
+    background-color: #b22222;
 }
 
 .calc-buttons .btn-equal {
-    background-color: #2e7d32;
+    background-color: #27ae60;
     color: white;
 }
 
 .calc-buttons .btn-equal:hover {
-    background-color: #1b5e20;
+    background-color: #219150;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 2.5rem; }
+    .container-nav { flex-direction: column; }
+    .nav-links { margin-top: 15px; }
+    .jam-container { margin-top: 10px; }
 }
