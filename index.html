@@ -16,10 +16,8 @@
             <ul class="nav-links">
                 <li><a href="#home">Beranda</a></li>
                 <li><a href="#about">Tentang</a></li>
-                <li><a href="#karier">Karier</a></li>
+                <li><a href="#jenjang">Karier</a></li>
                 <li><a href="#projects">Karya</a></li>
-                <!-- MENAMBAHKAN MENU NAVIGASI KALKULATOR -->
-                <li><a href="#calculator">Kalkulator</a></li>
             </ul>
 
             <div class="jam-container">
@@ -46,12 +44,12 @@
                 <p class="quote">"Sebaik-baik manusia adalah yang paling bermanfaat bagi orang lain." (HR. Ahmad)</p>
             </div>
             <div class="about-content">
-                <p>Saya adalah Luqman Azkiya Athaillah, biasa dipanggil Luqman atau untuk nama panggungnya Luqman Pasha. Saya adalah seorang pelajar di SMPIT Assiyfa Boarding School yang berniat memadukan kemajuan teknologi IT dengan prinsip islami.</p>
+                <p>Saya adalah Luqman Azkiya Athaillah, biasa dipanggil Luqman atau untuk nama panggungnya Luqman Pasha. Saya adalah seorang pelajar di SMPIT Asshifa Boarding School yang berniat memadukan kemajuan teknologi IT dengan prinsip Islami.</p>
             </div>
         </div>
     </section>
 
-    <section id="karier" class="bg-alt">
+    <section id="jenjang" class="bg-alt">
         <div class="container">
             <div class="section-header">
                 <h2>Jenjang Karier</h2>
@@ -59,7 +57,7 @@
             <div class="project-grid">
                 <div class="project-card">
                     <div class="card-body">
-                        <h3>Prestasi Akademik maupun Non-Akademik</h3>
+                        <h3>Prestasi Akademik & Non-Akademik</h3>
                         <p>a. Memenangkan juara kedelapan di Olimpiade PAI Nasional (OLPAIN) 2024<br>
                            b. Mendapatkan juara kedua di lomba literasi internasional yang diselenggarakan Hayrat Foundation<br>
                            c. Mendapatkan juara ziyadah terbanyak sekaligus hafalan terbanyak takhosus selama dua semester berturut-turut
@@ -84,69 +82,59 @@
                 <h2>Karya Pilihan</h2>
             </div>
             <div class="project-grid">
-                <div class="project-card">
+                
+                <!-- KARTU KALKULATOR (Pengganti Sistem Manajemen Syariah) -->
+                <div class="project-card calculator-card">
                     <div class="card-body">
-                        <h3>Sistem Manajemen Syariah</h3>
-                        <p>Aplikasi untuk membantu transparansi pengelolaan data.</p>
+                        <h3>Kalkulator Sederhana</h3>
+                        <p>Aplikasi kalkulator umum interaktif berbasis JavaScript.</p>
+                        
+                        <!-- Form / Tampilan Kalkulator -->
+                        <div class="calculator">
+                            <input type="text" class="calc-display" id="calcDisplay" readonly value="0">
+                            <div class="calc-buttons">
+                                <button onclick="clearCalc()" class="btn-calc btn-action">C</button>
+                                <button onclick="deleteLast()" class="btn-calc btn-action">DEL</button>
+                                <button onclick="appendCalc('%')" class="btn-calc btn-action">%</button>
+                                <button onclick="appendCalc('/')" class="btn-calc btn-operator">÷</button>
+
+                                <button onclick="appendCalc('7')" class="btn-calc">7</button>
+                                <button onclick="appendCalc('8')" class="btn-calc">8</button>
+                                <button onclick="appendCalc('9')" class="btn-calc">9</button>
+                                <button onclick="appendCalc('*')" class="btn-calc btn-operator">×</button>
+
+                                <button onclick="appendCalc('4')" class="btn-calc">4</button>
+                                <button onclick="appendCalc('5')" class="btn-calc">5</button>
+                                <button onclick="appendCalc('6')" class="btn-calc">6</button>
+                                <button onclick="appendCalc('-')" class="btn-calc btn-operator">-</button>
+
+                                <button onclick="appendCalc('1')" class="btn-calc">1</button>
+                                <button onclick="appendCalc('2')" class="btn-calc">2</button>
+                                <button onclick="appendCalc('3')" class="btn-calc">3</button>
+                                <button onclick="appendCalc('+')" class="btn-calc btn-operator">+</button>
+
+                                <button onclick="appendCalc('0')" class="btn-calc btn-zero">0</button>
+                                <button onclick="appendCalc('.')" class="btn-calc">.</button>
+                                <button onclick="calculateResult()" class="btn-calc btn-equal">=</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="project-card">
                     <div class="card-body">
                         <h3>Desain Web Dakwah</h3>
                         <p>Website informatif dengan UI/UX yang menenangkan.</p>
                     </div>
                 </div>
+
                 <div class="project-card">
                     <div class="card-body">
                         <h3>Platform Edukasi</h3>
                         <p>Media belajar online yang interaktif dan mudah diakses.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- =================================================== -->
-    <!-- BAGIAN BARU: SECTION KALKULATOR UMUM                -->
-    <!-- Ditaruh sebelum tag <footer>                        -->
-    <!-- =================================================== -->
-    <section id="calculator" class="bg-alt">
-        <div class="container">
-            <div class="section-header">
-                <h2>Kalkulator Digital</h2>
-                <p class="quote">Alat bantu hitung praktis dan serbaguna.</p>
-            </div>
-            
-            <div class="calculator-wrapper">
-                <div class="calculator">
-                    <input type="text" id="calc-screen" readonly value="0">
-                    <div class="calc-buttons">
-                        <button class="btn-calc btn-clear" onclick="clearCalc()">C</button>
-                        <button class="btn-calc btn-op" onclick="deleteCalc()">⌫</button>
-                        <button class="btn-calc btn-op" onclick="appendCalc('%')">%</button>
-                        <button class="btn-calc btn-op" onclick="appendCalc('/')">÷</button>
-                        
-                        <button class="btn-calc" onclick="appendCalc('7')">7</button>
-                        <button class="btn-calc" onclick="appendCalc('8')">8</button>
-                        <button class="btn-calc" onclick="appendCalc('9')">9</button>
-                        <button class="btn-calc btn-op" onclick="appendCalc('*')">×</button>
-                        
-                        <button class="btn-calc" onclick="appendCalc('4')">4</button>
-                        <button class="btn-calc" onclick="appendCalc('5')">5</button>
-                        <button class="btn-calc" onclick="appendCalc('6')">6</button>
-                        <button class="btn-calc btn-op" onclick="appendCalc('-')">-</button>
-                        
-                        <button class="btn-calc" onclick="appendCalc('1')">1</button>
-                        <button class="btn-calc" onclick="appendCalc('2')">2</button>
-                        <button class="btn-calc" onclick="appendCalc('3')">3</button>
-                        <button class="btn-calc btn-op" onclick="appendCalc('+')">+</button>
-                        
-                        <button class="btn-calc" onclick="appendCalc('0')">0</button>
-                        <button class="btn-calc" onclick="appendCalc('00')">00</button>
-                        <button class="btn-calc" onclick="appendCalc('.')">.</button>
-                        <button class="btn-calc btn-equals" onclick="calculateResult()">=</button>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -154,13 +142,12 @@
     <footer>
         <div class="container">
             <p>Jazakumullah Khairan Katsiran telah berkunjung.</p>
-            <p>2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
+            <p>&copy; 2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
         </div>
     </footer>
 
-    <!-- SCRIPT (JAM WIB + LOGIKA KALKULATOR) -->
     <script>
-        // Jam WIB
+        // --- SCRIPT JAM WIB ---
         function updateJam() {
             const sekarang = new Date();
             const opsi = {
@@ -176,38 +163,36 @@
         setInterval(updateJam, 1000);
         updateJam();
 
-        // Logika Kalkulator
-        const screen = document.getElementById('calc-screen');
+        // --- SCRIPT KALKULATOR ---
+        const display = document.getElementById('calcDisplay');
 
-        function appendCalc(val) {
-            if (screen.value === '0' || screen.value === 'Error') {
-                screen.value = val;
+        function appendCalc(value) {
+            if (display.value === '0' && value !== '.') {
+                display.value = value;
             } else {
-                screen.value += val;
+                display.value += value;
             }
         }
 
         function clearCalc() {
-            screen.value = '0';
+            display.value = '0';
         }
 
-        function deleteCalc() {
-            if (screen.value.length === 1 || screen.value === 'Error') {
-                screen.value = '0';
+        function deleteLast() {
+            if (display.value.length === 1 || display.value === 'Error') {
+                display.value = '0';
             } else {
-                screen.value = screen.value.slice(0, -1);
+                display.value = display.value.slice(0, -1);
             }
         }
 
         function calculateResult() {
             try {
-                // Mengubah % menjadi /100 untuk kalkulasi persen
-                let expression = screen.value.replace(/%/g, '/100');
-                let result = eval(expression);
-                if (!isFinite(result)) throw new Error();
-                screen.value = result;
+                // Mengganti karakter % agar berfungsi sebagai persen
+                let expr = display.value.replace(/%/g, '/100');
+                display.value = eval(expr);
             } catch (error) {
-                screen.value = 'Error';
+                display.value = 'Error';
             }
         }
     </script>
