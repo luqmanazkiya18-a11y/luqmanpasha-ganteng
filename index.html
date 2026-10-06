@@ -6,8 +6,7 @@
     <title>Portofolio Islami Profesional - Luqman Azkiya Athaillah</title>
     
     <link rel="stylesheet" href="style.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -95,11 +94,11 @@
                         </div>
                     </div>
 
-                    <!-- KARTU 2: MENGGANTIKAN DESAIN WEB DAKWAH DENGAN ARTIKEL ISLAM & IKHWANUL MUSLIMIN -->
+                    <!-- KARTU 2: KOMPILASI ARTIKEL ISLAM & IKHWANUL MUSLIMIN (MENGGANTIKAN DAKWAH DIGITAL) -->
                     <div class="project-card card-clickable" onclick="bukaArtikel()">
                         <div class="card-body">
-                            <h3>Islam & Ikhwanul Muslimin</h3>
-                            <p>Artikel analisis sejarah, pemikiran, serta dinamika pergerakan Ikhwanul Muslimin dalam dunia Islam modern.</p>
+                            <h3>Kompilasi Artikel Islam & Ikhwanul Muslimin</h3>
+                            <p>Kumpulan tulisan dan analisis mendalam seputar sejarah, pemikiran Islam, dan pergerakan Ikhwanul Muslimin.</p>
                             <span class="btn-open">Baca Artikel &rarr;</span>
                         </div>
                     </div>
@@ -111,7 +110,6 @@
                             <p>Media belajar online yang interaktif dan mudah diakses.</p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -124,7 +122,7 @@
         </footer>
     </div>
 
-    <!-- TAMPILAN KALKULATOR (TERSEMBUNYI KETIKA AWAL) -->
+    <!-- TAMPILAN KALKULATOR (AWALNYA TERSEMBUNYI) -->
     <div id="calculator-page" class="hidden-page">
         <div class="calc-wrapper">
             <button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Portofolio</button>
@@ -161,54 +159,60 @@
         </div>
     </div>
 
-    <!-- HALAMAN ARTIKEL ISLAM & IKHWANUL MUSLIMIN (TERSEMBUNYI KETIKA AWAL) -->
-    <div id="article-page" class="hidden-page">
-        <div class="article-wrapper">
+    <!-- TAMPILAN KOMPILASI ARTIKEL BERGAYA MEDIA BERITA (AWALNYA TERSEMBUNYI) -->
+    <div id="artikel-page" class="hidden-page">
+        <div class="portal-container">
             <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Portofolio</button>
             
-            <article class="article-box">
-                <header class="article-header">
-                    <span class="article-category">Kajian & Studi Islam</span>
-                    <h1>Islam dan Ikhwanul Muslimin: Sejarah, Pemikiran, dan Pengaruhnya</h1>
-                    <div class="article-meta">
-                        <span>Ditulis oleh: Luqman Pasha</span> &bull; <span>SMPIT As-Syifa Boarding School</span>
-                    </div>
-                </header>
+            <!-- HEADER PORTAL BERITA -->
+            <div class="portal-header">
+                <div class="portal-logo">SUARA<span>ISLAMI</span></div>
+                <p class="portal-subtitle">Kompilasi Artikel & Pemikiran Islam Kontemporer</p>
+            </div>
 
-                <div class="article-body">
-                    <p class="lead">
-                        Ikhwanul Muslimin (Muslim Brotherhood) merupakan salah satu gerakan kebangkitan Islam (al-shahwah al-islamiyah) paling berpengaruh pada abad ke-20 yang didirikan oleh Hassan al-Banna di Isma'iliyah, Mesir, pada tahun 1928.
-                    </p>
-
-                    <h2>1. Latar Belakang Pendirian</h2>
-                    <p>
-                        Pendirian Ikhwanul Muslimin tidak terlepas dari situasi sosiopolitik Mesir Pasca-Perang Dunia I dan runtuhnya Kekhalifahan Utsmaniyah pada tahun 1924. Hassan al-Banna melihat perlunya suatu gerakan pembaharuan yang komprehensif untuk mengembalikan umat Islam kepada nilai-nilai Al-Qur'an dan As-Sunnah di tengah gelombang sekularisasi dan kolonialisme Barat.
-                    </p>
-
-                    <h2>2. Karakteristik dan Karakter Gerakan</h2>
-                    <p>
-                        Hassan al-Banna merumuskan bahwa Islam adalah *Syamil* (menyeluruh/holistik). Ikhwanul Muslimin tidak hanya memandang Islam sebatas ritual ibadah semata, melainkan mencakup seluruh aspek kehidupan: dakwah, politik, ekonomi, sosial, dan pendidikan.
-                    </p>
-
-                    <blockquote class="article-quote">
-                        "Islam adalah sistem yang lengkap, mencakup seluruh aspek kehidupan. Ia adalah negara dan tanah air, pemerintah dan umat, akhlak dan kekuatan, rahmat dan keadilan."
-                    </blockquote>
-
-                    <h2>3. Gagasan Utama dan Pengaruh Global</h2>
-                    <p>
-                        Gerakan ini berkembang pesat melalui jaringan sekolah, rumah sakit, lembaga kepemudaan, dan kegiatan sosial. Gagasan Ikhwanul Muslimin kemudian menyebar ke berbagai negara di Timur Tengah, Afrika Utara, hingga Asia Tenggara, serta mempengaruhi pola pikir gerakan dakwah modern di berbagai penjuru dunia.
-                    </p>
-
-                    <h2>4. Kesimpulan</h2>
-                    <p>
-                        Studi terhadap gerakan Ikhwanul Muslimin memberikan wawasan berharga mengenai dinamika pemikiran Islam modern, bagaimana dakwah dapat bertransformasi dalam menjawab tantangan zaman tanpa kehilangan akar keislamannya.
-                    </p>
+            <!-- ARTIKEL UTAMA / HIGHLIGHT -->
+            <article class="featured-news">
+                <div class="featured-badge">Fokus Utama</div>
+                <h2>Mengenal Sejarah dan Kontribusi Ikhwanul Muslimin dalam Peradaban Islam Modern</h2>
+                <div class="news-meta">
+                    <span>Oleh: Luqman Azkiya Athaillah</span> | <span>Terbit: Oktober 2024</span>
+                </div>
+                <p class="news-excerpt">
+                    Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam. Fokus utamanya mencakup pembinaan moral, pendidikan Islam, serta pembaharuan sosial dan politik berbasis Syariat...
+                </p>
+                <div class="article-body-text">
+                    <p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara). Melalui pendekatan pendidikan berjenjang (Tarbiyah), gerakan ini menyebar ke berbagai belahan dunia Islam dan mempengaruhi banyak organisasi pergerakan modern saat ini.</p>
                 </div>
             </article>
+
+            <!-- GRID ARTIKEL LAINNYA -->
+            <div class="news-grid">
+                
+                <article class="news-card">
+                    <span class="news-badge">Pemikiran Islam</span>
+                    <h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
+                    <div class="news-meta">12 Oktober 2024</div>
+                    <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang *Salimul Aqidah* (akidah yang lurus) dan *Sohihul Ibadah* (ibadah yang benar).</p>
+                </article>
+
+                <article class="news-card">
+                    <span class="news-badge">Sejarah Tokoh</span>
+                    <h3>Pemikiran Hassan al-Banna dan Gagasan Pembaharuan</h3>
+                    <div class="news-meta">08 Oktober 2024</div>
+                    <p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam dalam kehidupan bermasyarakat serta reformasi institusi pendidikan.</p>
+                </article>
+
+                <article class="news-card">
+                    <span class="news-badge">Dunia Islam</span>
+                    <h3>Tantangan Pergerakan Islam Kontemporer di Era Digital</h3>
+                    <div class="news-meta">01 Oktober 2024</div>
+                    <p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam yang moderat, inklusif, dan solutif bagi permasalahan pemuda modern.</p>
+                </article>
+
+            </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIKA -->
     <script>
         // 1. Fungsi Jam WIB
         function updateJam() {
@@ -226,7 +230,7 @@
         setInterval(updateJam, 1000);
         updateJam();
 
-        // 2. Fungsi Alur Tampilan Kalkulator
+        // 2. Alur Tampilan Kalkulator
         function bukaKalkulator() {
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('calculator-page').style.display = 'flex';
@@ -238,15 +242,15 @@
             document.getElementById('main-content').style.display = 'block';
         }
 
-        // 3. Fungsi Alur Tampilan Artikel Islam & Ikhwanul Muslimin
+        // 3. Alur Tampilan Artikel
         function bukaArtikel() {
             document.getElementById('main-content').style.display = 'none';
-            document.getElementById('article-page').style.display = 'flex';
+            document.getElementById('artikel-page').style.display = 'block';
             window.scrollTo(0, 0);
         }
 
         function tutupArtikel() {
-            document.getElementById('article-page').style.display = 'none';
+            document.getElementById('artikel-page').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }
 
