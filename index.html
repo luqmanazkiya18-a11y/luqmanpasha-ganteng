@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio Islami Profesional - Luqman Azkiya Athaillah</title>
     
+    <!-- LINK TERSAMBUNG KE FILE CSS -->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -15,7 +16,6 @@
         <nav>
             <div class="container-nav">
                 <div class="logo-wrapper">
-                    <!-- Ganti URL gambar logo di bawah sesuai lokasi/file logo Anda -->
                     <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin" class="logo-im">
                     <div class="logo">Portofolio<span>Muslim</span></div>
                 </div>
@@ -42,7 +42,6 @@
                 </div>
             </div>
         </header>
-
 
         <!-- SECTION TENTANG SAYA -->
         <section id="about">
@@ -102,6 +101,7 @@
             </div>
         </section>
 
+        <!-- SECTION KARYA PILIHAN -->
         <section id="projects">
             <div class="container">
                 <div class="section-header">
@@ -127,7 +127,7 @@
                         </div>
                     </div>
 
-                    <!-- KARTU 3: KOMPILASI GAME ISLAMI (MENGGANTIKAN PLATFORM EDUKASI) -->
+                    <!-- KARTU 3: KOMPILASI GAME ISLAMI -->
                     <div class="project-card card-clickable" onclick="bukaGame()">
                         <div class="card-body">
                             <h3>Kompilasi Game Islami</h3>
@@ -135,6 +135,16 @@
                             <span class="btn-open">Mainkan Game &rarr;</span>
                         </div>
                     </div>
+
+                    <!-- KARTU 4: PENGECEK ARAH KIBLAT (PROJECT BARU) -->
+                    <div class="project-card card-clickable" onclick="bukaKiblat()">
+                        <div class="card-body">
+                            <h3>Pengecek Arah Kiblat Otomatis</h3>
+                            <p>Deteksi arah kiblat secara real-time berdasarkan lokasi GPS & sensor kompas perangkat Anda secara akurat.</p>
+                            <span class="btn-open">Cek Arah Kiblat &rarr;</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -236,7 +246,6 @@
     <!-- TAMPILAN KOMPILASI GAME BERGAYA CRAZYGAMES (AWALNYA TERSEMBUNYI) -->
     <div id="games-page" class="hidden-page crazy-theme">
         <div class="cg-container">
-            <!-- HEADER ARCADE CRAZYGAMES -->
             <header class="cg-header">
                 <button class="cg-btn-back" onclick="tutupGame()">&larr; Kembali ke Portofolio</button>
                 <div class="cg-logo">LUQMAN<span>GAMES</span></div>
@@ -245,9 +254,7 @@
                 </div>
             </header>
 
-            <!-- MAIN LAYOUT: ARENA GAME & KATALOG -->
             <div class="cg-layout">
-                <!-- PANEL UTAMA TEMPAT GAME DIMAINKAN -->
                 <main class="cg-viewport">
                     <div class="cg-game-header">
                         <h2 id="cg-game-title">Puzzle Logo: Ikhwanul Muslimin & Hizbut Tahrir</h2>
@@ -258,7 +265,6 @@
                         </div>
                     </div>
 
-                    <!-- CONTAINER PINTAR PUZZLE GAME -->
                     <div class="puzzle-stage">
                         <div class="puzzle-controls">
                             <div class="ctrl-group">
@@ -295,7 +301,6 @@
                     </div>
                 </main>
 
-                <!-- SIDEBAR KATALOG GAME LAINNYA (CRAZYGAMES STYLE) -->
                 <aside class="cg-sidebar">
                     <h3 class="cg-sidebar-title">Kompilasi Game</h3>
                     <div class="cg-game-grid">
@@ -332,6 +337,59 @@
 
                     </div>
                 </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAMPILAN ARAH KIBLAT STYLE MUSLIMPRO (AWALNYA TERSEMBUNYI) -->
+    <div id="kiblat-page" class="hidden-page kiblat-theme">
+        <div class="kiblat-container">
+            <button class="btn-back" onclick="tutupKiblat()">&larr; Kembali ke Portofolio</button>
+
+            <div class="kiblat-card">
+                <div class="kiblat-header">
+                    <h2>Kompas Kiblat Presisi</h2>
+                    <p id="kiblat-status">Mengakses lokasi GPS & posisi Ka'bah...</p>
+                </div>
+
+                <!-- KOMPAS KIBLAT STYLE MUSLIMPRO -->
+                <div class="compass-wrapper">
+                    <div class="compass-ring" id="compass-ring">
+                        <!-- Penunjuk Mata Angin -->
+                        <span class="degree-mark n">U</span>
+                        <span class="degree-mark e">T</span>
+                        <span class="degree-mark s">S</span>
+                        <span class="degree-mark w">B</span>
+
+                        <!-- Jarum / Penunjuk Arah Kiblat -->
+                        <div class="qibla-pointer" id="qibla-pointer">
+                            <div class="kabah-icon" title="Ka'bah (Mekkah)">
+                                <div class="kabah-cube">
+                                    <div class="kabah-gold-line"></div>
+                                </div>
+                            </div>
+                            <div class="arrow-head"></div>
+                        </div>
+
+                        <div class="compass-center"></div>
+                    </div>
+                </div>
+
+                <!-- INFO DERAJAT & JARAK -->
+                <div class="kiblat-info-box">
+                    <div class="info-item">
+                        <span class="info-label">Sudut Kiblat</span>
+                        <span class="info-value" id="qibla-degree">--°</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Jarak ke Ka'bah</span>
+                        <span class="info-value" id="qibla-distance">-- km</span>
+                    </div>
+                </div>
+
+                <button class="btn-primary btn-recal" onclick="initQibla()">
+                    🔄 Kalibrasi & Muat Ulang Lokasi
+                </button>
             </div>
         </div>
     </div>
@@ -377,12 +435,12 @@
             document.getElementById('main-content').style.display = 'block';
         }
 
-        // 4. Alur Tampilan Game (CrazyGames Style)
+        // 4. Alur Tampilan Game
         function bukaGame() {
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('games-page').style.display = 'block';
             window.scrollTo(0, 0);
-            initPuzzle(); // Jalankan game puzzle
+            initPuzzle();
         }
 
         function tutupGame() {
@@ -390,7 +448,102 @@
             document.getElementById('main-content').style.display = 'block';
         }
 
-        // 5. Logika Kalkulator
+        // 5. Alur Tampilan & Logika Kiblat
+        function bukaKiblat() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('kiblat-page').style.display = 'block';
+            window.scrollTo(0, 0);
+            initQibla();
+        }
+
+        function tutupKiblat() {
+            document.getElementById('kiblat-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            if (window.qiblaOrientationHandler) {
+                window.removeEventListener('deviceorientation', window.qiblaOrientationHandler, true);
+            }
+        }
+
+        // KOORDINAT KA'BAH MEKKAH
+        const KAABA_LAT = 21.422487;
+        const KAABA_LNG = 39.826206;
+        let qiblaBearing = 0;
+
+        function initQibla() {
+            const statusText = document.getElementById('kiblat-status');
+            statusText.textContent = "Mengakses sensor GPS...";
+
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const userLat = position.coords.latitude;
+                        const userLng = position.coords.longitude;
+
+                        qiblaBearing = calculateQiblaAngle(userLat, userLng);
+                        const distance = calculateDistance(userLat, userLng, KAABA_LAT, KAABA_LNG);
+
+                        document.getElementById('qibla-degree').textContent = `${qiblaBearing.toFixed(1)}° Dari Utara`;
+                        document.getElementById('qibla-distance').textContent = `${Math.round(distance).toLocaleString('id-ID')} km`;
+                        statusText.textContent = `Lokasi Terdeteksi (${userLat.toFixed(2)}°, ${userLng.toFixed(2)}°)`;
+
+                        document.getElementById('qibla-pointer').style.transform = `rotate(${qiblaBearing}deg)`;
+                        setupDeviceOrientation();
+                    },
+                    (error) => {
+                        statusText.textContent = "Gagal mengambil lokasi GPS. Menggunakan estimasi Jakarta.";
+                        qiblaBearing = calculateQiblaAngle(-6.2088, 106.8456);
+                        document.getElementById('qibla-degree').textContent = `${qiblaBearing.toFixed(1)}° (Estimasi)`;
+                        document.getElementById('qibla-distance').textContent = `~7,900 km`;
+                        document.getElementById('qibla-pointer').style.transform = `rotate(${qiblaBearing}deg)`;
+                    },
+                    { enableHighAccuracy: true }
+                );
+            } else {
+                statusText.textContent = "Geolokasi tidak didukung oleh browser Anda.";
+            }
+        }
+
+        function calculateQiblaAngle(lat, lng) {
+            const phi1 = lat * Math.PI / 180;
+            const phi2 = KAABA_LAT * Math.PI / 180;
+            const deltaLambda = (KAABA_LNG - lng) * Math.PI / 180;
+
+            const y = Math.sin(deltaLambda);
+            const x = Math.cos(phi1) * Math.tan(phi2) - Math.sin(phi1) * Math.cos(deltaLambda);
+
+            let qibla = Math.atan2(y, x) * 180 / Math.PI;
+            return (qibla + 360) % 360;
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function setupDeviceOrientation() {
+            window.qiblaOrientationHandler = function(event) {
+                let alpha = event.alpha;
+                if (event.webkitCompassHeading) {
+                    alpha = event.webkitCompassHeading;
+                }
+                if (alpha !== null && alpha !== undefined) {
+                    const compassRing = document.getElementById('compass-ring');
+                    compassRing.style.transform = `rotate(${-alpha}deg)`;
+                }
+            };
+
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', window.qiblaOrientationHandler, true);
+            }
+        }
+
+        // Logika Kalkulator
         const display = document.getElementById('calc-display');
 
         function appendChar(char) {
@@ -415,13 +568,13 @@
             }
         }
 
-        // 6. LOGIKA GAME PUZZLE LOGO (SLIDING PUZZLE)
+        // Logika Puzzle Game
         const puzzleLogos = {
             im: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg',
             ht: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Hizb-ut-tahrir-logo.png/600px-Hizb-ut-tahrir-logo.png'
         };
 
-        let puzzleGridSize = 2; // Default level 2x2
+        let puzzleGridSize = 2;
         let puzzleBoardState = [];
         let emptyIndex = 0;
         let moveSteps = 0;
@@ -450,7 +603,6 @@
             const totalTiles = puzzleGridSize * puzzleGridSize;
             puzzleBoardState = Array.from({length: totalTiles}, (_, i) => i);
 
-            // Pengacakan posisi yang valid
             do {
                 shuffleArray(puzzleBoardState);
             } while (!isSolvable(puzzleBoardState, puzzleGridSize) || isAlreadySolved(puzzleBoardState));
@@ -489,7 +641,6 @@
         function moveTile(index) {
             const validMoves = getValidMoves(emptyIndex, puzzleGridSize);
             if (validMoves.includes(index)) {
-                // Tukar posisi dengan kotak kosong
                 [puzzleBoardState[emptyIndex], puzzleBoardState[index]] = [puzzleBoardState[index], puzzleBoardState[emptyIndex]];
                 emptyIndex = index;
                 moveSteps++;
@@ -510,10 +661,10 @@
             const row = Math.floor(emptyIdx / size);
             const col = emptyIdx % size;
 
-            if (row > 0) moves.push(emptyIdx - size); // Atas
-            if (row < size - 1) moves.push(emptyIdx + size); // Bawah
-            if (col > 0) moves.push(emptyIdx - 1); // Kiri
-            if (col < size - 1) moves.push(emptyIdx + 1); // Kanan
+            if (row > 0) moves.push(emptyIdx - size);
+            if (row < size - 1) moves.push(emptyIdx + size);
+            if (col > 0) moves.push(emptyIdx - 1);
+            if (col < size - 1) moves.push(emptyIdx + 1);
 
             return moves;
         }
