@@ -47,6 +47,17 @@ nav {
     align-items: center;
 }
 
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-im {
+    height: 38px;
+    width: auto;
+}
+
 .logo {
     color: white;
     font-size: 1.5rem;
@@ -138,16 +149,10 @@ section { padding: 80px 0; }
     display: inline-block;
 }
 
-.quote {
-    font-style: italic;
-    color: #666;
-    margin-top: 10px;
-}
-
 /* --- GRID PROYEK --- */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
@@ -188,7 +193,7 @@ footer {
     border-top: 5px solid var(--accent);
 }
 
-/* --- TAMPILAN TERSEMBUNYI (KALKULATOR & ARTIKEL) --- */
+/* --- TAMPILAN TERSEMBUNYI HALAMAN --- */
 .hidden-page {
     display: none;
     min-height: 100vh;
@@ -270,817 +275,170 @@ footer {
 }
 
 .calc-buttons button:hover { background-color: #f0f0f0; }
-.calc-buttons button:active { transform: scale(0.95); }
 
-.calc-buttons .btn-operator {
-    background-color: var(--accent);
-    color: white;
+/* ==========================================
+   STYLE KHUSUS PENGECEK ARAH KIBLAT (MUSLIMPRO STYLE)
+   ========================================== */
+.kiblat-theme {
+    background: linear-gradient(135deg, #022c22 0%, #064e3b 100%);
+    color: #ffffff;
 }
-.calc-buttons .btn-operator:hover { background-color: #966d09; }
 
-.calc-buttons .btn-action {
-    background-color: #d63031;
-    color: white;
-}
-.calc-buttons .btn-action:hover { background-color: #b22222; }
-
-.calc-buttons .btn-equal {
-    background-color: #27ae60;
-    color: white;
-}
-.calc-buttons .btn-equal:hover { background-color: #219150; }
-
-/* --- STYLING PORTAL ARTIKEL BERITA (SINDONEWS / SUARA ISLAM STYLE) --- */
-.portal-container {
-    max-width: 1000px;
+.kiblat-container {
+    max-width: 500px;
     margin: 0 auto;
-}
-
-.portal-header {
     text-align: center;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
-    border-bottom: 3px double var(--primary);
 }
 
-.portal-logo {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: 1px;
-}
-
-.portal-logo span {
+.kiblat-container .btn-back {
     color: var(--accent);
 }
 
-.portal-subtitle {
-    font-size: 0.95rem;
-    color: #666;
-}
-
-/* Artikel Utama (Featured) */
-.featured-news {
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    border-left: 5px solid var(--primary);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    margin-bottom: 40px;
-}
-
-.featured-badge {
-    background-color: #d63031;
-    color: white;
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    border-radius: 3px;
-    display: inline-block;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.featured-news h2 {
-    font-size: 1.8rem;
-    color: var(--primary);
-    margin-bottom: 10px;
-    line-height: 1.3;
-}
-
-.news-meta {
-    font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 15px;
-}
-
-.news-excerpt {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 15px;
-    color: #444;
-}
-
-.article-body-text {
-    border-top: 1px solid #eee;
-    padding-top: 15px;
-    color: #555;
-}
-
-/* Grid Artikel Berita */
-.news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-}
-
-.news-card {
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    border-top: 3px solid var(--accent);
-    transition: transform 0.2s;
-}
-
-.news-card:hover {
-    transform: translateY(-3px);
-}
-
-.news-badge {
-    color: var(--accent);
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.news-card h3 {
-    font-size: 1.2rem;
-    color: var(--primary);
-    margin: 8px 0;
-    line-height: 1.4;
-}
-
-.news-card p {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.6;
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    .hero-content h1 { font-size: 2.5rem; }
-    .container-nav { flex-direction: column; }
-    .nav-links { margin-top: 15px; }
-    .jam-container { margin-top: 10px; }
-    .portal-logo { font-size: 2rem; }
-    .featured-news h2 { font-size: 1.4rem; }
-}
-/* Container pembungkus logo dan teks judul */
-.logo-wrapper {
-    display: flex;
-    align-items: center; /* Membuat logo dan teks sejajar secara vertikal */
-    gap: 10px;           /* Jarak antara logo dan teks */
-}
-
-/* Ukuran dan styling khusus untuk logo SVG */
-.logo-im {
-    /* 
-       Tinggi font .logo adalah 1.5rem (sekitar 24px).
-       Tinggi 28px - 32px akan membuat logo terlihat presisi
-       dan seimbang secara visual dengan tinggi huruf kapitalnya.
-    */
-    height: 28px; 
-    width: auto;                  /* Menjaga proporsi lingkaran logo agar tidak gepeng */
-    object-fit: contain;          /* Memastikan logo pas di dalam kotaknya */
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25)); /* Efek bayangan halus */
-}
-/* --- SECTION KHUSUS QUOTES & PRINCIPLES --- */
-#principles {
-    padding: 60px 0;
-}
-
-/* Pembungkus agar posisinya tepat di tengah secara horizontal */
-.quote-im-wrapper {
-    display: flex;
-    justify-content: center; /* Membuat kontainer di tengah */
-    align-items: center;
-    width: 100%;
-}
-
-/* Kotak Kartu Quotes */
-.quote-im-container {
-    background-color: #ffffff;
-    border-top: 4px solid var(--accent);
-    border-bottom: 4px solid var(--primary);
-    padding: 30px 35px;
-    border-radius: 12px;
-    text-align: center; /* Membuat semua teks berada di tengah */
-    max-width: 700px;  /* Batas lebar agar tidak terlalu melar */
-    width: 100%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-}
-
-.quote-title {
-    color: var(--primary);
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.quote-motto {
-    font-family: 'Amiri', serif;
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
-
-/* Daftar 5 Pasal */
-.quote-pasal {
-    list-style: none;
-    padding-left: 0;
-    display: inline-block;
-    text-align: left; /* Teks dalam list tetap rapi rata kiri di dalam kotak yang simetris */
-    margin: 0 auto;
-}
-
-.quote-pasal li {
-    font-size: 0.95rem;
-    color: #333;
-    margin-bottom: 8px;
-    line-height: 1.5;
-}
-
-.quote-pasal li strong {
-    color: var(--primary);
-}
-
-.quote-pasal em {
-    color: #777;
-    font-size: 0.85rem;
-    display: inline-block;
-    margin-left: 4px;
-}
-
-/* Penyesuaian Tampilan untuk Layar HP */
-@media (max-width: 768px) {
-    .quote-im-container {
-        padding: 20px 20px;
-    }
-    
-    .quote-pasal {
-        display: block;
-    }
-}
-/* =========================================================
-   --- STYLING PORTAL GAME BERGAYA CRAZYGAMES ---
-   ========================================================= */
-
-#game-page {
-    background-color: #0f172a; /* Latar belakang gelap khas CrazyGames */
-    color: #f8fafc;
-    min-height: 100vh;
+.kiblat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--accent);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
     padding: 30px 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-.game-portal-container {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.btn-back-light {
-    color: #38bdf8 !important;
-}
-
-.btn-back-light:hover {
-    color: #7dd3fc !important;
-}
-
-.crazy-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.crazy-logo {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: 2px;
-}
-
-.crazy-logo span {
-    color: #f59e0b; /* Warna aksen oranye emas */
-}
-
-.crazy-tagline {
-    color: #94a3b8;
-    font-size: 0.95rem;
-}
-
-/* Arena Main Game */
-.game-display-area {
-    background: #1e293b;
-    border-radius: 16px;
-    padding: 25px;
-    border: 2px solid #334155;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-    margin-bottom: 40px;
-}
-
-.game-frame-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #334155;
-    padding-bottom: 15px;
-}
-
-.game-frame-header h3 {
-    color: #f59e0b;
-    font-size: 1.3rem;
-}
-
-.badge-play {
-    background-color: #10b981;
-    color: white;
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-}
-
-.game-instruction {
-    text-align: center;
-    color: #cbd5e1;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-}
-
-/* Kontrol Game Puzzle */
-.puzzle-controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-
-.btn-select-logo, .btn-shuffle {
-    padding: 10px 18px;
-    border-radius: 8px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-    font-size: 0.85rem;
-}
-
-.btn-select-logo {
-    background-color: #334155;
-    color: white;
-}
-
-.btn-select-logo.active {
-    background-color: #f59e0b;
-    color: #0f172a;
-}
-
-.btn-shuffle {
-    background-color: #0284c7;
-    color: white;
-}
-
-.btn-shuffle:hover {
-    background-color: #0369a1;
-}
-
-/* Papan Puzzle */
-.puzzle-board {
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 3px;
-    background-color: #0f172a;
-    padding: 5px;
-    border-radius: 8px;
-    border: 3px solid #f59e0b;
-}
-
-.puzzle-piece {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: transform 0.1s, border 0.1s;
-}
-
-.puzzle-piece:hover {
-    opacity: 0.85;
-}
-
-.puzzle-piece.selected {
-    border: 3px solid #f59e0b;
-    transform: scale(0.95);
-}
-
-.puzzle-status {
-    text-align: center;
-    margin-top: 20px;
-    font-weight: 600;
-    color: #cbd5e1;
-    min-height: 24px;
-}
-
-.puzzle-status.win {
-    color: #4ade80;
-    font-size: 1.1rem;
-}
-
-/* Katalog Game ala CrazyGames */
-.catalog-title {
-    color: white;
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-}
-
-.crazy-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-.crazy-card {
-    background-color: #1e293b;
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
-    border: 1px solid #334155;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.crazy-card.active-game {
-    border-color: #f59e0b;
-    background: linear-gradient(145deg, #1e293b, #283548);
-}
-
-.crazy-card.coming-soon {
-    opacity: 0.6;
-}
-
-.crazy-thumb {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-.crazy-info h4 {
-    color: white;
-    font-size: 0.95rem;
-    margin-bottom: 4px;
-}
-
-.crazy-info p {
-    color: #94a3b8;
-    font-size: 0.75rem;
-}
-/* ==========================================================================
-   STYLING KHUSUS CRAZYGAMES ARCADE PLATFORM & PUZZLE GAME
-   ========================================================================== */
-
-/* Tema Gelap & Stylish ala CrazyGames */
-.crazy-theme {
-    background-color: #0d0f17 !important;
-    color: #e2e8f0;
-    font-family: 'Poppins', sans-serif;
-}
-
-.cg-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Header Arcade */
-.cg-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #1e293b;
-    margin-bottom: 25px;
-}
-
-.cg-btn-back {
-    background: #1e293b;
-    color: #38bdf8;
-    border: 1px solid #334155;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.cg-btn-back:hover {
-    background: #0284c7;
-    color: white;
-}
-
-.cg-logo {
+.kiblat-header h2 {
     font-size: 1.8rem;
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: 1px;
-}
-
-.cg-logo span {
-    color: #00f2fe;
-}
-
-.cg-search input {
-    background: #1e293b;
-    border: 1px solid #334155;
-    padding: 8px 15px;
-    border-radius: 20px;
-    color: white;
-    width: 200px;
-}
-
-/* Layout Kompilasi CrazyGames */
-.cg-layout {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 25px;
-}
-
-.cg-viewport {
-    background: #161b26;
-    border-radius: 16px;
-    padding: 25px;
-    border: 1px solid #232a3b;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.cg-game-header {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cg-game-header h2 {
-    font-size: 1.3rem;
-    color: #ffffff;
-}
-
-.cg-game-tags {
-    display: flex;
-    gap: 8px;
-}
-
-.cg-tag {
-    background: #222d42;
-    color: #38bdf8;
-    font-size: 0.75rem;
-    padding: 3px 10px;
-    border-radius: 12px;
-}
-
-/* Controls Game Puzzle */
-.puzzle-stage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.puzzle-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    background: #1e2638;
-    padding: 15px 20px;
-    border-radius: 12px;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.ctrl-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-}
-
-.ctrl-group select {
-    background: #0d0f17;
-    color: white;
-    border: 1px solid #334155;
-    padding: 6px 10px;
-    border-radius: 6px;
-    outline: none;
-}
-
-.diff-btn-group {
-    display: flex;
-    gap: 5px;
-}
-
-.diff-btn {
-    background: #0d0f17;
-    color: #94a3b8;
-    border: 1px solid #334155;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: 0.2s;
-}
-
-.diff-btn.active, .diff-btn:hover {
-    background: #00f2fe;
-    color: #0d0f17;
-    font-weight: 700;
-}
-
-.btn-reset-game {
-    background: #e11d48;
-    color: white;
-    border: none;
-    padding: 7px 15px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* Arena / Board Puzzle */
-.puzzle-board-wrapper {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    margin: 10px 0;
-}
-
-.puzzle-board {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    gap: 3px;
-    background: #0d0f17;
-    padding: 5px;
-    border-radius: 12px;
-    border: 2px solid #00f2fe;
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
-}
-
-.puzzle-tile {
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.1s, box-shadow 0.1s;
-    background-color: #ffffff;
-}
-
-.puzzle-tile:hover {
-    transform: scale(0.98);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.empty-tile {
-    background: transparent !important;
-    cursor: default;
-}
-
-/* Overlay Menang */
-.puzzle-win-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(13, 15, 23, 0.92);
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-.puzzle-win-overlay.hidden {
-    display: none;
-}
-
-.puzzle-win-overlay h3 {
-    color: #4ade80;
-    font-size: 1.5rem;
+    color: var(--accent);
     margin-bottom: 5px;
 }
 
-.puzzle-win-overlay button {
-    margin-top: 15px;
-    background: #00f2fe;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
+.kiblat-header p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 30px;
 }
 
-.puzzle-stats {
+/* CONTAINER KOMPAS */
+.compass-wrapper {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    margin: 0 auto 30px auto;
+}
+
+.compass-ring {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 8px solid rgba(184, 134, 11, 0.4);
+    background: radial-gradient(circle, #064e3b 0%, #011d17 100%);
+    box-shadow: 0 0 30px rgba(0,0,0,0.6), inset 0 0 15px rgba(0,0,0,0.8);
+    transition: transform 0.2s cubic-bezier(0.1, 0.1, 0.25, 1);
+}
+
+/* MATA ANGIN */
+.degree-mark {
+    position: absolute;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--accent);
+}
+.degree-mark.n { top: 10px; left: 50%; transform: translateX(-50%); color: #ef4444; }
+.degree-mark.e { right: 12px; top: 50%; transform: translateY(-50%); }
+.degree-mark.s { bottom: 10px; left: 50%; transform: translateX(-50%); }
+.degree-mark.w { left: 12px; top: 50%; transform: translateY(-50%); }
+
+.compass-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+/* JARUM & BENTUK KA'BAH */
+.qibla-pointer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-out;
+    z-index: 5;
+}
+
+.arrow-head {
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 22px solid var(--accent);
+}
+
+/* KA'BAH 3D STYLISH */
+.kabah-icon {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+}
+
+.kabah-cube {
+    width: 32px;
+    height: 32px;
+    background: #111111;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: inset -2px -2px 0px rgba(255,255,255,0.2);
+}
+
+.kabah-gold-line {
+    position: absolute;
+    top: 8px;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ffd700, #b8860b, #ffd700);
+}
+
+/* KOTAK INFORMASI */
+.kiblat-info-box {
     display: flex;
-    gap: 30px;
-    margin-top: 15px;
-    font-size: 0.9rem;
-    color: #94a3b8;
+    justify-content: space-around;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
 }
 
-/* Sidebar CrazyGames */
-.cg-sidebar-title {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    color: #ffffff;
-    border-left: 3px solid #00f2fe;
-    padding-left: 10px;
-}
-
-.cg-game-grid {
+.info-item {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
-.cg-card {
-    display: flex;
-    gap: 12px;
-    background: #161b26;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #232a3b;
-    align-items: center;
-    transition: 0.3s;
-}
-
-.cg-card.active-game {
-    border-color: #00f2fe;
-    background: #1e2638;
-}
-
-.cg-card.disabled-game {
-    opacity: 0.6;
-}
-
-.cg-thumb {
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    flex-shrink: 0;
-}
-
-.thumb-puzzle {
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg');
-    background-color: #ffffff;
-}
-
-.thumb-quiz {
-    background-color: #312e81;
-}
-
-.thumb-memory {
-    background-color: #065f46;
-}
-
-.badge-play {
-    position: absolute;
-    bottom: 2px;
-    left: 2px;
-    right: 2px;
-    background: #00f2fe;
-    color: #000;
-    font-size: 0.6rem;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 4px;
-}
-
-.badge-soon {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background: #64748b;
-    color: white;
-    font-size: 0.6rem;
-    padding: 1px 4px;
-    border-radius: 3px;
-}
-
-.cg-card-info h4 {
-    font-size: 0.9rem;
-    color: #ffffff;
-}
-
-.cg-card-info p {
+.info-label {
     font-size: 0.75rem;
-    color: #94a3b8;
+    opacity: 0.7;
+    margin-bottom: 4px;
 }
 
-/* Responsif Games Platform */
-@media (max-width: 900px) {
-    .cg-layout {
-        grid-template-columns: 1fr;
-    }
-    .cg-game-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
+.info-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.btn-recal {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
 }
