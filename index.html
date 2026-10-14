@@ -7,6 +7,10 @@
     
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet JS & CSS untuk MapChart Dunia dan Provinsi -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
@@ -129,7 +133,7 @@
                     <div class="project-card card-clickable" onclick="bukaGame()">
                         <div class="card-body">
                             <h3>Kompilasi Game Islami</h3>
-                            <p>Arcade game interaktif dan edukatif berbasis web. Mainkan Puzzle Logo Gerakan Islam, MapChart Khilafah, dan tantangan seru lainnya!</p>
+                            <p>Arcade game interaktif dan edukatif berbasis web. Mainkan Puzzle Logo Gerakan Islam dan tantangan seru lainnya!</p>
                             <span class="btn-open">Mainkan Game &rarr;</span>
                         </div>
                     </div>
@@ -192,7 +196,7 @@
         </div>
     </div>
 
-    <!-- TAMPILAN KOMPILASI ARTIKEL (AWALNYA TERSEMBUNYI) -->
+    <!-- TAMPILAN KOMPILASI ARTIKEL BERGAYA MEDIA BERITA (AWALNYA TERSEMBUNYI) -->
     <div id="artikel-page" class="hidden-page">
         <div class="portal-container">
             <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Portofolio</button>
@@ -221,7 +225,7 @@
                     <span class="news-badge">Pemikiran Islam</span>
                     <h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
                     <div class="news-meta">12 Oktober 2024</div>
-                    <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang <em>Salimul Aqidah</em> (akidah yang lurus) dan <em>Sohihul Ibadah</em> (ibadah yang benar).</p>
+                    <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang *Salimul Aqidah* (akidah yang lurus) dan *Sohihul Ibadah* (ibadah yang benar).</p>
                 </article>
 
                 <article class="news-card">
@@ -245,7 +249,7 @@
     <div id="games-page" class="hidden-page crazy-theme">
         <div class="cg-container">
             <header class="cg-header">
-                <button class="cg-btn-back" onclick="tutupGame()">&larr; Kembali ke Portofolio</button>
+                <button class="cg-btn-back btn-back" style="margin-bottom:0;" onclick="tutupGame()">&larr; Kembali ke Portofolio</button>
                 <div class="cg-logo">LUQMAN<span>GAMES</span></div>
                 <div class="cg-search">
                     <input type="text" placeholder="Cari Game Islami..." readonly>
@@ -303,7 +307,6 @@
                     <h3 class="cg-sidebar-title">Kompilasi Game</h3>
                     <div class="cg-game-grid">
                         
-                        <!-- GAME 1: PUZZLE LOGO -->
                         <div class="cg-card active-game">
                             <div class="cg-thumb thumb-puzzle">
                                 <span class="badge-play">Sedang Dimainkan</span>
@@ -314,18 +317,17 @@
                             </div>
                         </div>
 
-                        <!-- GAME 2: MAPCHART ISLAMI & KHILAFAH (MENGGANTIKAN KUIS SEJARAH) -->
-                        <div class="cg-card active-game-card" onclick="bukaMapchart()">
-                            <div class="cg-thumb thumb-mapchart">
-                                <span class="badge-play">Mainkan Sekarang</span>
+                        <!-- MAPCHART DISISIPKAN DI SINI MENGGANTIKAN KUIS SEJARAH -->
+                        <div class="cg-card active-game" onclick="bukaMapChart()" style="cursor: pointer;">
+                            <div class="cg-thumb" style="background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center;">
+                                <span class="badge-play" style="background: #38bdf8; color: #0f172a;">Mainkan</span>
                             </div>
                             <div class="cg-card-info">
-                                <h4>MapChart Islami & Khilafah</h4>
-                                <p>Warnai & petakan peta wilayah dunia Islam serta simbol Bulan Sabit Bintang!</p>
+                                <h4>World MapChart Builder</h4>
+                                <p>Peta dunia interaktif tingkat provinsi/wilayah & kustomisasi warna RGB.</p>
                             </div>
                         </div>
 
-                        <!-- GAME 3: MEMORY MATCH -->
                         <div class="cg-card disabled-game">
                             <div class="cg-thumb thumb-memory">
                                 <span class="badge-soon">Soon</span>
@@ -342,141 +344,7 @@
         </div>
     </div>
 
-    <!-- TAMPILAN GAME MAPCHART ISLAMI & KHILAFAH (TERPISAH KETIKA DIBUKA DARI PROJECT GAME) -->
-    <div id="mapchart-page" class="hidden-page mapchart-theme">
-        <div class="mapchart-container">
-            <!-- HEADER TOP BAR -->
-            <header class="mc-header">
-                <button class="btn-back" onclick="tutupMapchart()">&larr; Kembali ke Kompilasi Game</button>
-                <div class="mc-logo">
-                    <svg class="mc-crescent-icon" viewBox="0 0 24 24">
-                        <path d="M12 2a10 10 0 1 0 10 10 1 1 0 0 1-1.3-9.5A10 10 0 0 0 12 2z" fill="#00f2fe"/>
-                        <path d="M19 4l1 2 2.2.3-1.6 1.6.4 2.2-2-1-2 1 .4-2.2-1.6-1.6 2.2-.3z" fill="#00f2fe"/>
-                    </svg>
-                    <span>MapChart <strong>Islami & Khilafah</strong></span>
-                </div>
-                <div class="mc-actions">
-                    <button class="mc-btn-action" onclick="resetMapColors()">🔄 Reset Peta</button>
-                </div>
-            </header>
-
-            <!-- MAIN WORKSPACE -->
-            <div class="mc-workspace">
-                <!-- PALETTE & LEGEND SIDEBAR -->
-                <aside class="mc-sidebar">
-                    <div class="mc-panel">
-                        <h3>🎨 Pilih Warna Wilayah</h3>
-                        <div class="mc-color-picker-grid">
-                            <button class="color-btn active" style="background:#2ecc71" onclick="selectMapColor('#2ecc71', this)" title="Hijau Islami"></button>
-                            <button class="color-btn" style="background:#f1c40f" onclick="selectMapColor('#f1c40f', this)" title="Emas Khilafah"></button>
-                            <button class="color-btn" style="background:#e74c3c" onclick="selectMapColor('#e74c3c', this)" title="Merah Ottoman"></button>
-                            <button class="color-btn" style="background:#3498db" onclick="selectMapColor('#3498db', this)" title="Biru Abbasiyah"></button>
-                            <button class="color-btn" style="background:#9b59b6" onclick="selectMapColor('#9b59b6', this)" title="Ungu Umayyah"></button>
-                            <button class="color-btn" style="background:#1ab394" onclick="selectMapColor('#1ab394', this)" title="Toska"></button>
-                            <button class="color-btn" style="background:#e67e22" onclick="selectMapColor('#e67e22', this)" title="Oranye"></button>
-                            <button class="color-btn" style="background:#ffffff" onclick="selectMapColor('#ffffff', this)" title="Putih"></button>
-                        </div>
-                    </div>
-
-                    <div class="mc-panel">
-                        <h3>Preset Wilayah Sejarah</h3>
-                        <div class="mc-preset-buttons">
-                            <button onclick="applyPreset('khilafah')">🌙 Khilafah Rashidin & Umayyah</button>
-                            <button onclick="applyPreset('ottoman')">⚔️ Kekaisaran Ottoman</button>
-                            <button onclick="applyPreset('southeast')">🕌 Dunia Islam Asia Tenggara</button>
-                        </div>
-                    </div>
-
-                    <div class="mc-panel info-panel">
-                        <h3>📌 Petunjuk Game</h3>
-                        <p>Klik pada kawasan negara/wilayah pada peta di sebelah kanan untuk memberikan warna sesuai pilihan warna Anda. Buat Peta Imperium Islami impian Anda!</p>
-                    </div>
-                </aside>
-
-                <!-- CANVAS MAP DISPLAY -->
-                <main class="mc-map-area">
-                    <div class="mc-map-wrapper">
-                        <!-- SVG MAP INTERAKTIF DENGAN LAMBANG CRESCENT & STAR -->
-                        <svg id="islamic-world-map" viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="oceanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#0f2027;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#203a43;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#2c5364;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-
-                            <!-- Latar Lautan -->
-                            <rect width="1000" height="650" fill="url(#oceanGrad)" rx="12"/>
-
-                            <!-- EMBLEM CRESCENT AND STAR DI BACKGROUND PETA (WATERMARK) -->
-                            <g class="map-crescent-watermark" opacity="0.12" transform="translate(760, 110)">
-                                <path d="M 0 -80 A 80 80 0 1 0 80 0 A 68 68 0 1 1 0 -80 Z" fill="#ffffff"/>
-                                <polygon points="65,-25 73,-5 94,-5 77,8 83,28 65,16 47,28 53,8 36,-5 57,-5" fill="#ffffff"/>
-                            </g>
-
-                            <!-- JARINGAN GRID PETA -->
-                            <g stroke="rgba(255,255,255,0.05)" stroke-width="1" fill="none">
-                                <line x1="0" y1="162" x2="1000" y2="162"/>
-                                <line x1="0" y1="325" x2="1000" y2="325"/>
-                                <line x1="0" y1="487" x2="1000" y2="487"/>
-                                <line x1="250" y1="0" x2="250" y2="650"/>
-                                <line x1="500" y1="0" x2="500" y2="650"/>
-                                <line x1="750" y1="0" x2="750" y2="650"/>
-                            </g>
-
-                            <!-- PATH/BENTUK WILAYAH NEGARA-NEGARA -->
-                            <g class="map-regions">
-                                <!-- TIMUR TENGAH & JAZIRAH ARAB -->
-                                <path id="region-arabia" data-name="Jazirah Arab (Arab Saudi, Yaman, Oman)" class="land-path" d="M540 330 L580 320 L620 350 L630 400 L590 430 L550 410 L530 360 Z" onclick="colorRegion(this)"/>
-                                <path id="region-levant" data-name="Syam / Levant (Palestina, Yordania, Lebanon, Suriah)" class="land-path" d="M530 300 L555 295 L565 315 L540 330 L525 315 Z" onclick="colorRegion(this)"/>
-                                <path id="region-iraq" data-name="Irak / Mesopotamia" class="land-path" d="M565 295 L595 290 L605 315 L580 320 L565 315 Z" onclick="colorRegion(this)"/>
-                                <path id="region-turkey" data-name="Anatolia / Turki (Utsmaniyah)" class="land-path" d="M500 260 L570 255 L580 285 L510 290 Z" onclick="colorRegion(this)"/>
-
-                                <!-- AFRIKA UTARA (MAGHRIB & MESIR) -->
-                                <path id="region-egypt" data-name="Mesir (Misr)" class="land-path" d="M480 310 L525 315 L530 360 L480 360 Z" onclick="colorRegion(this)"/>
-                                <path id="region-libya" data-name="Libya" class="land-path" d="M420 310 L480 310 L480 365 L415 360 Z" onclick="colorRegion(this)"/>
-                                <path id="region-maghreb" data-name="Maghrib (Tunisia, Aljazair, Maroko)" class="land-path" d="M320 285 L420 310 L415 360 L310 330 L300 295 Z" onclick="colorRegion(this)"/>
-                                <path id="region-andalusia" data-name="Andalusia (Semenanjung Iberia / Spanyol & Portugal)" class="land-path" d="M305 240 L345 240 L340 275 L300 275 Z" onclick="colorRegion(this)"/>
-
-                                <!-- ASIA TENGAH & PERSIA -->
-                                <path id="region-persia" data-name="Persia / Iran" class="land-path" d="M605 290 L665 280 L675 320 L620 340 L595 315 Z" onclick="colorRegion(this)"/>
-                                <path id="region-khwarazm" data-name="Khawarizm / Asia Tengah (Uzbekistan, Turkmenistan)" class="land-path" d="M625 240 L690 230 L700 275 L665 280 Z" onclick="colorRegion(this)"/>
-
-                                <!-- ASIA SELATAN (ANAK BENUA INDIA) -->
-                                <path id="region-india" data-name="Anak Benua India (Mughal / Pakistan, India, Bangladesh)" class="land-path" d="M675 320 L730 310 L760 380 L710 430 L680 360 Z" onclick="colorRegion(this)"/>
-
-                                <!-- ASIA TENGGARA (NUSANTARA) -->
-                                <path id="region-nusantara-sumatra" data-name="Sumatera & Melayu (Samudera Pasai, Malaka)" class="land-path" d="M810 430 L840 450 L820 480 L795 450 Z" onclick="colorRegion(this)"/>
-                                <path id="region-nusantara-java" data-name="Jawa (Demak, Mataram Islam)" class="land-path" d="M835 485 L880 490 L880 502 L835 498 Z" onclick="colorRegion(this)"/>
-                                <path id="region-nusantara-borneo" data-name="Kalimantan & Sulawesi (Banjar, Gowa-Tallo)" class="land-path" d="M850 435 L885 430 L895 470 L855 470 Z" onclick="colorRegion(this)"/>
-                            </g>
-
-                            <!-- LABELS KOTA-KOTA SUCI -->
-                            <g class="map-markers">
-                                <circle cx="560" cy="365" r="4" fill="#f1c40f"/>
-                                <text x="568" y="369" fill="#ffffff" font-size="11" font-weight="bold">Makkah</text>
-
-                                <circle cx="555" cy="348" r="4" fill="#2ecc71"/>
-                                <text x="563" y="352" fill="#ffffff" font-size="11" font-weight="bold">Madinah</text>
-
-                                <circle cx="538" cy="312" r="4" fill="#00f2fe"/>
-                                <text x="490" y="316" fill="#00f2fe" font-size="11" font-weight="bold">Al-Quds</text>
-
-                                <circle cx="510" cy="265" r="4" fill="#e74c3c"/>
-                                <text x="455" y="260" fill="#ffffff" font-size="11" font-weight="bold">Istanbul</text>
-                            </g>
-                        </svg>
-
-                        <!-- TOOLTIP REGION NAME -->
-                        <div id="mc-tooltip" class="mc-tooltip">Pilih wilayah</div>
-                    </div>
-                </main>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAMPILAN PENGECEK ARAH KIBLAT (AWALNYA TERSEMBUNYI) -->
+    <!-- TAMPILAN PENGECEK ARAH KIBLAT -->
     <div id="kiblat-page" class="hidden-page kiblat-theme">
         <div class="kiblat-container">
             <button class="btn-back btn-back-kiblat" onclick="tutupKiblat()">&larr; Kembali ke Portofolio</button>
@@ -487,7 +355,6 @@
                 <p id="kiblat-status-text">Mendeteksi lokasi GPS Anda...</p>
             </div>
 
-            <!-- CONTAINER KOMPAS INTERAKTIF -->
             <div class="compass-wrapper">
                 <div class="compass-outer-ring">
                     <div class="cardinal-degree N">N</div>
@@ -498,7 +365,6 @@
                     <div class="compass-dial" id="compass-dial">
                         <div class="north-pointer"></div>
                         
-                        <!-- Penanda Arah Ka'bah -->
                         <div class="qibla-marker" id="qibla-marker">
                             <div class="kabah-icon-wrapper">
                                 <svg class="kabah-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -515,7 +381,6 @@
                 </div>
             </div>
 
-            <!-- CARD DETAIL LOKASI & DERAJAT -->
             <div class="kiblat-info-card">
                 <div class="info-box">
                     <span class="info-label">Arah Kiblat</span>
@@ -535,6 +400,56 @@
                 <p class="compass-note">
                     📌 <strong>Catatan:</strong> Untuk hasil paling akurat di smartphone/laptop, izinkan akses lokasi (GPS) dan gerakkan perangkat membentuk angka "8" jika sensor kompas belum terkalibrasi.
                 </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAMPILAN MAPCHART INTERAKTIF WORLD MAP (AWALNYA TERSEMBUNYI) -->
+    <div id="mapchart-page" class="hidden-page">
+        <div class="mapchart-container">
+            <header class="mapchart-header">
+                <button class="btn-back" style="margin-bottom:0;" onclick="tutupMapChart()">&larr; Kembali ke Portofolio</button>
+                <div class="mapchart-title">
+                    <h2>🗺️ MapChart Interaktif Dunia</h2>
+                </div>
+                <button class="btn-map-action btn-reset-map" onclick="resetWarnaPeta()">Reset Warna Peta</button>
+            </header>
+
+            <div class="mapchart-layout">
+                <aside class="mapchart-sidebar">
+                    <div class="panel-group">
+                        <label>Pilih Warna Isian (RGB Full):</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="map-color-picker" value="#38bdf8" onchange="updateRGBText(this.value)">
+                            <span class="rgb-preview" id="rgb-display">RGB(56, 189, 248)</span>
+                        </div>
+                    </div>
+
+                    <div class="panel-group">
+                        <label>Simbol Crescent & Star (Bulan Sabit & Bintang):</label>
+                        <select id="symbol-mode">
+                            <option value="fill">Mode Mewarnai Provinsi/Wilayah</option>
+                            <option value="crescent">Mode Tambah Crescent & Star ☪</option>
+                        </select>
+                    </div>
+
+                    <div class="panel-group">
+                        <label>Informasi Wilayah Terpilih:</label>
+                        <input type="text" id="selected-region-name" value="Klik area peta..." readonly>
+                    </div>
+
+                    <div class="panel-group">
+                        <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4;">
+                            💡 <strong>Petunjuk:</strong><br>
+                            - Mode Mewarnai: Klik pada provinsi/negara untuk mewarnainya sesuai warna pilihan.<br>
+                            - Mode Crescent & Star: Klik lokasi pada peta untuk meletakkan ikon Bulan Sabit & Bintang emas.
+                        </p>
+                    </div>
+                </aside>
+
+                <main class="mapchart-viewport">
+                    <div id="leaflet-map"></div>
+                </main>
             </div>
         </div>
     </div>
@@ -619,7 +534,7 @@
             }
         }
 
-        // 6. LOGIKA GAME PUZZLE LOGO
+        // 6. LOGIKA GAME PUZZLE LOGO (SLIDING PUZZLE)
         const puzzleLogos = {
             im: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg',
             ht: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Hizb-ut-tahrir-logo.png/600px-Hizb-ut-tahrir-logo.png'
@@ -749,74 +664,7 @@
             }
         }
 
-        // 7. LOGIKA GAME MAPCHART ISLAMI & KHILAFAH
-        let selectedColor = '#2ecc71';
-
-        function bukaMapchart() {
-            document.getElementById('games-page').style.display = 'none';
-            document.getElementById('mapchart-page').style.display = 'block';
-            window.scrollTo(0, 0);
-            initMapEvents();
-        }
-
-        function tutupMapchart() {
-            document.getElementById('mapchart-page').style.display = 'none';
-            document.getElementById('games-page').style.display = 'block';
-        }
-
-        function selectMapColor(color, element) {
-            selectedColor = color;
-            document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
-        }
-
-        function colorRegion(pathElement) {
-            pathElement.style.fill = selectedColor;
-        }
-
-        function resetMapColors() {
-            document.querySelectorAll('.land-path').forEach(path => {
-                path.style.fill = '#3a506b';
-            });
-        }
-
-        function initMapEvents() {
-            const tooltip = document.getElementById('mc-tooltip');
-            document.querySelectorAll('.land-path').forEach(path => {
-                path.addEventListener('mouseenter', () => {
-                    const regionName = path.getAttribute('data-name');
-                    tooltip.textContent = `Wilayah: ${regionName}`;
-                });
-                path.addEventListener('mouseleave', () => {
-                    tooltip.textContent = 'Arahkan kursor atau klik wilayah';
-                });
-            });
-        }
-
-        function applyPreset(type) {
-            resetMapColors();
-            if (type === 'khilafah') {
-                const regions = ['region-arabia', 'region-levant', 'region-iraq', 'region-egypt', 'region-persia', 'region-libya', 'region-maghreb', 'region-andalusia'];
-                regions.forEach(id => {
-                    const el = document.getElementById(id);
-                    if(el) el.style.fill = '#2ecc71';
-                });
-            } else if (type === 'ottoman') {
-                const regions = ['region-turkey', 'region-levant', 'region-egypt', 'region-iraq', 'region-libya', 'region-maghreb'];
-                regions.forEach(id => {
-                    const el = document.getElementById(id);
-                    if(el) el.style.fill = '#e74c3c';
-                });
-            } else if (type === 'southeast') {
-                const regions = ['region-nusantara-sumatra', 'region-nusantara-java', 'region-nusantara-borneo'];
-                regions.forEach(id => {
-                    const el = document.getElementById(id);
-                    if(el) el.style.fill = '#f1c40f';
-                });
-            }
-        }
-
-        // 8. LOGIKA PENGECEK ARAH KIBLAT
+        // 7. LOGIKA PENGECEK ARAH KIBLAT (REAL-TIME GPS & SENSOR KOMPAS)
         let qiblaBearing = 0;
 
         function bukaKiblat() {
@@ -853,40 +701,42 @@
                         qiblaMarker.style.transform = `rotate(${qiblaBearing}deg)`;
 
                         statusTxt.textContent = "GPS Terhubung. Putar perangkat Anda ke arah Ka'bah.";
-                        enableCompassSensor();
+
+                        if (window.DeviceOrientationEvent) {
+                            window.addEventListener('deviceorientation', handleOrientation, true);
+                        }
                     },
                     (error) => {
-                        statusTxt.textContent = "Gagal mengakses GPS. Menggunakan estimasi Jakarta.";
-                        document.getElementById('user-coords').textContent = "-6.20°, 106.81°";
-                        qiblaBearing = 295;
-                        document.getElementById('qibla-degree').textContent = "295° (Estimasi)";
-                        document.getElementById('qibla-marker').style.transform = `rotate(295deg)`;
-                        enableCompassSensor();
+                        statusTxt.textContent = "Gagal mengambil lokasi GPS. Menampilkan simulasi (Jakarta).";
+                        const lat = -6.2088;
+                        const lng = 106.8456;
+                        document.getElementById('user-coords').textContent = `${lat.toFixed(2)}°, ${lng.toFixed(2)}° (Jakarta)`;
+                        qiblaBearing = calculateQiblaDegree(lat, lng);
+                        document.getElementById('qibla-degree').textContent = `${Math.round(qiblaBearing)}° dari Utara`;
+                        document.getElementById('qibla-marker').style.transform = `rotate(${qiblaBearing}deg)`;
                     }
                 );
             } else {
-                statusTxt.textContent = "Perangkat tidak mendukung Geolocation.";
+                statusTxt.textContent = "Browser tidak mendukung GPS.";
             }
         }
 
         function calculateQiblaDegree(lat, lng) {
-            const kaabaLat = 21.4225 * Math.PI / 180;
-            const kaabaLng = 39.8262 * Math.PI / 180;
-            const myLat = lat * Math.PI / 180;
-            const myLng = lng * Math.PI / 180;
+            const makkahLat = 21.422487;
+            const makkahLng = 39.826206;
 
-            const dLng = kaabaLng - myLng;
-            const y = Math.sin(dLng);
-            const x = Math.cos(myLat) * Math.tan(kaabaLat) - Math.sin(myLat) * Math.cos(dLng);
+            const phiK = (makkahLat * Math.PI) / 180;
+            const lambdaK = (makkahLng * Math.PI) / 180;
+            const phi = (lat * Math.PI) / 180;
+            const lambda = (lng * Math.PI) / 180;
 
-            let qibla = Math.atan2(y, x) * 180 / Math.PI;
-            return (qibla + 360) % 360;
-        }
+            const numerator = Math.sin(lambdaK - lambda);
+            const denominator = (Math.cos(phi) * Math.tan(phiK)) - (Math.sin(phi) * Math.cos(lambdaK - lambda));
+            
+            let qiblaRad = Math.atan2(numerator, denominator);
+            let qiblaDeg = (qiblaRad * 180) / Math.PI;
 
-        function enableCompassSensor() {
-            if (window.DeviceOrientationEvent) {
-                window.addEventListener('deviceorientation', handleOrientation, true);
-            }
+            return (qiblaDeg + 360) % 360;
         }
 
         function handleOrientation(event) {
@@ -896,8 +746,143 @@
             }
 
             if (heading !== null && heading !== undefined) {
-                const dial = document.getElementById('compass-dial');
-                dial.style.transform = `rotate(${-heading}deg)`;
+                const compassDial = document.getElementById('compass-dial');
+                compassDial.style.transform = `rotate(${-heading}deg)`;
+            }
+        }
+
+        // 8. LOGIKA MAPCHART INTERAKTIF DUNIA & PROVINSI
+        let mapInstance = null;
+        let geojsonLayer = null;
+        let selectedColor = '#38bdf8';
+        let regionStyles = {};
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        function updateRGBText(hex) {
+            selectedColor = hex;
+            const rgb = hexToRgb(hex);
+            if (rgb) {
+                document.getElementById('rgb-display').textContent = `RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+            }
+        }
+
+        function bukaMapChart() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('games-page').style.display = 'none';
+            document.getElementById('mapchart-page').style.display = 'block';
+            window.scrollTo(0, 0);
+
+            if (!mapInstance) {
+                setTimeout(initMapChart, 100);
+            } else {
+                setTimeout(() => mapInstance.invalidateSize(), 200);
+            }
+        }
+
+        function tutupMapChart() {
+            document.getElementById('mapchart-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+        function initMapChart() {
+            mapInstance = L.map('leaflet-map', {
+                center: [20, 0],
+                zoom: 2,
+                minZoom: 2,
+                maxBounds: [[-90, -180], [90, 180]]
+            });
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(mapInstance);
+
+            fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson')
+                .then(res => res.json())
+                .then(data => {
+                    geojsonLayer = L.geoJson(data, {
+                        style: styleFeature,
+                        onEachFeature: onEachRegion
+                    }).addTo(mapInstance);
+                })
+                .catch(err => {
+                    fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+                        .then(res => res.json())
+                        .then(data => {
+                            geojsonLayer = L.geoJson(data, {
+                                style: styleFeature,
+                                onEachFeature: onEachRegion
+                            }).addTo(mapInstance);
+                        });
+                });
+
+            mapInstance.on('click', function(e) {
+                const mode = document.getElementById('symbol-mode').value;
+                if (mode === 'crescent') {
+                    const crescentIcon = L.divIcon({
+                        className: 'crescent-star-marker',
+                        html: '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10 1.93-1.93 0 0 1-2.93 0A8 8 0 1 1 12 4c.34 0 .67.03 1 .08A9.97 9.97 0 0 0 12 2zm7 3 1.25 2.75L23 8l-2.25 2.25L21.25 13 19 11.5 16.75 13l.5-2.75L15 8l2.75-.25L19 5z"/></svg>',
+                        iconSize: [28, 28],
+                        iconAnchor: [14, 14]
+                    });
+                    L.marker(e.latlng, { icon: crescentIcon }).addTo(mapInstance);
+                }
+            });
+        }
+
+        function styleFeature(feature) {
+            const regionId = feature.properties.iso_3166_2 || feature.properties.name || feature.id;
+            return {
+                fillColor: regionStyles[regionId] || '#334155',
+                weight: 0.8,
+                opacity: 1,
+                color: '#64748b',
+                fillOpacity: 0.75
+            };
+        }
+
+        function onEachRegion(feature, layer) {
+            const regionName = feature.properties.name || feature.properties.NAME_1 || "Wilayah";
+            const countryName = feature.properties.admin || feature.properties.sovereignt || "";
+            const fullName = countryName ? `${regionName}, ${countryName}` : regionName;
+
+            layer.bindTooltip(fullName, { sticky: true });
+
+            layer.on({
+                mouseover: (e) => {
+                    const l = e.target;
+                    l.setStyle({ weight: 2, color: '#38bdf8', fillOpacity: 0.9 });
+                },
+                mouseout: (e) => {
+                    geojsonLayer.resetStyle(e.target);
+                },
+                click: (e) => {
+                    const mode = document.getElementById('symbol-mode').value;
+                    if (mode === 'fill') {
+                        const regionId = feature.properties.iso_3166_2 || feature.properties.name || feature.id;
+                        regionStyles[regionId] = selectedColor;
+                        e.target.setStyle({ fillColor: selectedColor, fillOpacity: 0.85 });
+                        document.getElementById('selected-region-name').value = fullName;
+                    }
+                }
+            });
+        }
+
+        function resetWarnaPeta() {
+            regionStyles = {};
+            if (geojsonLayer) {
+                geojsonLayer.eachLayer(layer => {
+                    geojsonLayer.resetStyle(layer);
+                });
             }
         }
     </script>
