@@ -1,12 +1,6 @@
-/* --- VARIABLE & RESET --- */
-:root {
-    --primary: #064e3b;
-    --accent: #b8860b;
-    --light: #fdfbf7;
-    --dark: #2d3436;
-    --card-bg: #ffffff;
-}
-
+/* ==========================================================================
+   1. UTILS & RESET
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -15,36 +9,53 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--light);
-    color: var(--dark);
+    background-color: #0b132b;
+    color: #ffffff;
     line-height: 1.6;
-    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
-/* --- CONTAINER UTAMA --- */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* --- NAVIGASI --- */
+.hidden-page {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.bg-alt {
+    background-color: #1c2541;
+}
+
+/* ==========================================================================
+   2. NAVBAR & HEADER MAIN PORTOFOLIO
+   ========================================================================== */
 nav {
-    background-color: var(--primary);
-    padding: 20px 0;
-    position: sticky;
+    background: rgba(11, 19, 43, 0.95);
+    position: fixed;
     top: 0;
+    width: 100%;
     z-index: 1000;
-    border-bottom: 3px solid var(--accent);
+    border-bottom: 1px solid rgba(0, 242, 254, 0.1);
+    backdrop-filter: blur(8px);
 }
 
 .container-nav {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 15px 20px;
 }
 
 .logo-wrapper {
@@ -59,110 +70,136 @@ nav {
 }
 
 .logo {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 700;
 }
 
-.logo span { color: var(--accent); }
+.logo span {
+    color: #00f2fe;
+}
 
 .nav-links {
     display: flex;
     list-style: none;
+    gap: 25px;
 }
 
-.nav-links li { margin-left: 25px; }
-
-.nav-links a {
-    color: #e0e0e0;
-    text-decoration: none;
+.nav-links a:hover {
+    color: #00f2fe;
     transition: 0.3s;
 }
 
-.nav-links a:hover { color: var(--accent); }
-
-/* --- JAM WIB --- */
 .jam-container {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: var(--accent);
+    background: #1c2541;
     padding: 6px 14px;
     border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    border: 1px solid var(--accent);
-    letter-spacing: 1px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(0, 242, 254, 0.3);
+    color: #00f2fe;
 }
 
-#jam-wib { color: white; }
-
-/* --- HERO SECTION --- */
-header {
-    background: linear-gradient(rgba(6, 78, 59, 0.9), rgba(6, 78, 59, 0.9)), 
-                url('https://www.transparenttextures.com/patterns/islamic-art.png');
-    height: 80vh;
-    display: flex;
-    align-items: center;
-    color: white;
+header#home {
+    padding-top: 150px;
+    padding-bottom: 100px;
     text-align: center;
+    background: radial-gradient(circle at center, #1c2541 0%, #0b132b 100%);
 }
 
 .salam {
     font-family: 'Amiri', serif;
-    font-size: 1.4rem;
-    color: var(--accent);
+    font-size: 1.6rem;
+    color: #00f2fe;
+    margin-bottom: 15px;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
-    margin: 10px 0;
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: #a0aec0;
+    margin-bottom: 30px;
 }
 
 .btn-primary {
     display: inline-block;
-    background-color: var(--accent);
-    color: white;
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    color: #000;
     padding: 12px 30px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 25px;
+    border-radius: 25px;
+    font-weight: 600;
     transition: 0.3s;
 }
 
 .btn-primary:hover {
-    background-color: #966d09;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
 }
 
-/* --- SECTIONS --- */
-section { padding: 80px 0; }
-
-.bg-alt { background-color: #f2eee3; }
-
-.section-header {
-    text-align: center;
-    margin-bottom: 50px;
+/* ==========================================================================
+   3. SECTIONS (ABOUT, PRINCIPLES, CAREER, PROJECTS)
+   ========================================================================== */
+section {
+    padding: 80px 0;
 }
 
 .section-header h2 {
-    color: var(--primary);
-    font-size: 2.5rem;
-    border-bottom: 3px solid var(--accent);
-    display: inline-block;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #00f2fe;
 }
 
-/* --- GRID PROYEK --- */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #d1d5db;
+}
+
+.quote-im-wrapper {
+    background: #0b132b;
+    border-left: 4px solid #00f2fe;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.quote-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #00f2fe;
+}
+
+.quote-motto {
+    font-style: italic;
+    margin-bottom: 20px;
+    color: #a0aec0;
+}
+
+.quote-pasal {
+    list-style: none;
+}
+
+.quote-pasal li {
+    margin-bottom: 8px;
+}
+
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    gap: 25px;
 }
 
 .project-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    border-top: 4px solid var(--accent);
-    transition: transform 0.3s, box-shadow 0.3s;
+    background: #1c2541;
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
 }
 
 .card-clickable {
@@ -171,89 +208,87 @@ section { padding: 80px 0; }
 
 .card-clickable:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: #00f2fe;
+    box-shadow: 0 8px 20px rgba(0, 242, 254, 0.15);
+}
+
+.project-card h3 {
+    margin-bottom: 12px;
+    color: #00f2fe;
 }
 
 .btn-open {
     display: inline-block;
     margin-top: 15px;
-    color: var(--accent);
+    color: #00f2fe;
     font-weight: 600;
     font-size: 0.9rem;
 }
 
-.card-body { padding: 30px; }
-
-/* --- FOOTER --- */
 footer {
-    background-color: var(--primary);
-    color: white;
+    background: #060c1e;
+    padding: 30px 0;
     text-align: center;
-    padding: 40px 0;
-    border-top: 5px solid var(--accent);
-}
-
-/* --- TAMPILAN TERSEMBUNYI HALAMAN --- */
-.hidden-page {
-    display: none;
-    min-height: 100vh;
-    background-color: var(--light);
-    padding: 40px 20px;
+    color: #718096;
+    font-size: 0.9rem;
 }
 
 .btn-back {
-    background: none;
-    border: none;
-    color: var(--primary);
-    font-weight: 600;
-    font-size: 1rem;
+    background: #1c2541;
+    color: #ffffff;
+    border: 1px solid #3a506b;
+    padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
-    margin-bottom: 25px;
-    display: inline-block;
-    transition: color 0.2s;
+    font-weight: 600;
+    transition: 0.3s;
+    margin-bottom: 20px;
 }
 
 .btn-back:hover {
-    color: var(--accent);
+    background: #00f2fe;
+    color: #000000;
 }
 
-/* --- STYLING KALKULATOR --- */
-#calculator-page {
+/* ==========================================================================
+   4. KALKULATOR ISLAMI
+   ========================================================================== */
+.calc-wrapper {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.calc-wrapper {
     width: 100%;
-    max-width: 380px;
+    padding: 40px 20px;
 }
 
 .calculator {
-    background-color: var(--primary);
+    background: #1c2541;
     padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border: 2px solid var(--accent);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 360px;
+    border: 1px solid rgba(0,242,254,0.2);
 }
 
 .calc-header h3 {
-    color: var(--accent);
     text-align: center;
+    color: #00f2fe;
     margin-bottom: 15px;
 }
 
 #calc-display {
     width: 100%;
     height: 60px;
-    background-color: #e0e0e0;
-    border: none;
+    background: #0b132b;
+    border: 1px solid #3a506b;
     border-radius: 8px;
+    color: #ffffff;
     font-size: 1.8rem;
     text-align: right;
-    padding: 0 15px;
+    padding: 10px 15px;
     margin-bottom: 20px;
-    color: var(--dark);
-    font-weight: 600;
 }
 
 .calc-buttons {
@@ -263,137 +298,113 @@ footer {
 }
 
 .calc-buttons button {
-    padding: 15px;
-    font-size: 1.2rem;
-    border: none;
+    height: 50px;
     border-radius: 8px;
-    background-color: #ffffff;
-    color: var(--dark);
+    border: none;
+    background: #0b132b;
+    color: #fff;
+    font-size: 1.2rem;
     cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s, transform 0.1s;
+    transition: 0.2s;
 }
 
 .calc-buttons button:hover {
-    background-color: #f0f0f0;
-}
-
-.calc-buttons button:active {
-    transform: scale(0.95);
-}
-
-.btn-action {
-    background-color: #e74c3c !important;
-    color: white !important;
+    background: #3a506b;
 }
 
 .btn-operator {
-    background-color: var(--accent) !important;
-    color: white !important;
+    background: #3a506b !important;
+    color: #00f2fe !important;
+}
+
+.btn-action {
+    background: #e74c3c !important;
 }
 
 .btn-equal {
-    background-color: #2ecc71 !important;
-    color: white !important;
+    background: #00f2fe !important;
+    color: #000 !important;
+    font-weight: bold;
 }
 
-/* --- STYLING ARTIKEL PORTAL --- */
+/* ==========================================================================
+   5. PORTAL ARTIKEL SUARA ISLAMI
+   ========================================================================== */
 .portal-container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 40px 20px;
 }
 
 .portal-header {
     text-align: center;
-    border-bottom: 2px solid var(--accent);
+    margin-bottom: 40px;
+    border-bottom: 2px solid #1c2541;
     padding-bottom: 20px;
-    margin-bottom: 30px;
 }
 
 .portal-logo {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--primary);
 }
 
-.portal-logo span { color: var(--accent); }
-
-.portal-subtitle {
-    color: #666;
-    font-size: 0.95rem;
+.portal-logo span {
+    color: #00f2fe;
 }
 
 .featured-news {
-    background: white;
+    background: #1c2541;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin-bottom: 40px;
-    border-left: 5px solid var(--accent);
+    margin-bottom: 30px;
+    border-left: 5px solid #00f2fe;
 }
 
 .featured-badge {
+    background: #00f2fe;
+    color: #000;
     display: inline-block;
-    background-color: var(--primary);
-    color: white;
     padding: 4px 12px;
-    font-size: 0.8rem;
     border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.8rem;
     margin-bottom: 12px;
-}
-
-.featured-news h2 {
-    color: var(--primary);
-    font-size: 1.8rem;
-    margin-bottom: 10px;
 }
 
 .news-meta {
     font-size: 0.85rem;
-    color: #777;
-    margin-bottom: 15px;
-}
-
-.news-excerpt {
-    font-weight: 600;
-    color: #444;
-    margin-bottom: 15px;
+    color: #a0aec0;
+    margin: 10px 0 15px;
 }
 
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
 }
 
 .news-card {
-    background: white;
+    background: #1c2541;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .news-badge {
-    color: var(--accent);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
+    color: #00f2fe;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 
-.news-card h3 {
-    font-size: 1.1rem;
-    margin: 8px 0;
-    color: var(--primary);
-}
-
-/* --- STYLING CRAZYGAMES THEME --- */
+/* ==========================================================================
+   6. CRAZYGAMES COMPILATION & PUZZLE GAME
+   ========================================================================== */
 .crazy-theme {
-    background-color: #111428;
-    color: #ffffff;
+    background: #060c1e;
+    padding: 20px;
 }
 
 .cg-container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
 }
 
@@ -401,70 +412,61 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #232847;
-    margin-bottom: 25px;
-}
-
-.cg-btn-back {
-    background: #1f2440;
-    border: none;
-    color: #00f2fe;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
+    background: #1c2541;
+    padding: 15px 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
 }
 
 .cg-logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
-.cg-logo span { color: #00f2fe; }
+.cg-logo span {
+    color: #00f2fe;
+}
 
 .cg-search input {
-    background: #1f2440;
-    border: 1px solid #2d345b;
-    padding: 8px 16px;
+    background: #0b132b;
+    border: 1px solid #3a506b;
+    padding: 8px 15px;
     border-radius: 20px;
-    color: white;
+    color: #fff;
 }
 
 .cg-layout {
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 25px;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
 }
 
 @media (max-width: 900px) {
-    .cg-layout { grid-template-columns: 1fr; }
+    .cg-layout {
+        grid-template-columns: 1fr;
+    }
 }
 
 .cg-viewport {
-    background: #1a1e36;
+    background: #1c2541;
     border-radius: 12px;
     padding: 20px;
 }
 
-.cg-game-header {
+.cg-game-tags {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin: 10px 0 20px;
 }
 
 .cg-tag {
-    background: #232847;
-    color: #00f2fe;
+    background: #0b132b;
     padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    margin-left: 5px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #00f2fe;
 }
 
-/* --- PUZZLE STAGE STYLING --- */
 .puzzle-stage {
     display: flex;
     flex-direction: column;
@@ -473,50 +475,50 @@ footer {
 
 .puzzle-controls {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
-    flex-wrap: wrap;
 }
 
-.ctrl-group select {
-    background: #232847;
-    color: white;
-    border: 1px solid #333a66;
-    padding: 6px 12px;
+.puzzle-controls select {
+    background: #0b132b;
+    color: #fff;
+    padding: 8px;
     border-radius: 6px;
+    border: 1px solid #3a506b;
 }
 
 .diff-btn {
-    background: #232847;
-    border: none;
-    color: #aaa;
+    background: #0b132b;
+    border: 1px solid #3a506b;
+    color: #fff;
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 .diff-btn.active {
     background: #00f2fe;
-    color: #111428;
-    font-weight: 700;
+    color: #000;
+    font-weight: bold;
 }
 
 .btn-reset-game {
-    background: #ff0055;
+    background: #e74c3c;
+    color: #fff;
     border: none;
-    color: white;
-    padding: 6px 16px;
+    padding: 8px 15px;
     border-radius: 6px;
     cursor: pointer;
-    font-weight: 600;
 }
 
 .puzzle-board-wrapper {
     position: relative;
     width: 320px;
     height: 320px;
-    background: #0d0f1d;
+    background: #0b132b;
     border: 3px solid #00f2fe;
     border-radius: 8px;
     overflow: hidden;
@@ -526,28 +528,23 @@ footer {
     display: grid;
     width: 100%;
     height: 100%;
-    gap: 2px;
 }
 
 .puzzle-tile {
-    background-repeat: no-repeat;
     cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.3);
     transition: transform 0.1s;
 }
 
-.puzzle-tile:hover {
-    opacity: 0.9;
-}
-
 .empty-tile {
-    background: #0d0f1d !important;
+    background: #0b132b !important;
     cursor: default;
 }
 
 .puzzle-win-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(17, 20, 40, 0.92);
+    background: rgba(11, 19, 43, 0.95);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -556,257 +553,399 @@ footer {
     padding: 20px;
 }
 
-.puzzle-win-overlay.hidden { display: none; }
-
-.puzzle-win-overlay button {
-    background: #00f2fe;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 700;
-    margin-top: 15px;
-    cursor: pointer;
+.puzzle-win-overlay.hidden {
+    display: none;
 }
 
 .puzzle-stats {
-    margin-top: 15px;
     display: flex;
-    gap: 20px;
-    font-size: 0.9rem;
+    gap: 30px;
+    margin-top: 15px;
 }
 
-.cg-sidebar-title {
-    margin-bottom: 15px;
-    color: #00f2fe;
+.cg-sidebar {
+    background: #1c2541;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.cg-game-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
 }
 
 .cg-card {
-    background: #1a1e36;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 12px;
     display: flex;
     gap: 12px;
+    background: #0b132b;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+
+.active-game-card {
+    cursor: pointer;
+    border-color: #00f2fe;
+}
+
+.active-game-card:hover {
+    background: #14224d;
 }
 
 .cg-thumb {
-    width: 60px;
-    height: 60px;
-    background: #232847;
+    width: 70px;
+    height: 70px;
+    background: #3a506b;
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.6rem;
+    position: relative;
 }
 
-.badge-play { color: #2ecc71; font-weight: 700; text-align: center; }
-.badge-soon { color: #aaa; }
+.badge-play {
+    position: absolute;
+    bottom: 2px;
+    font-size: 0.6rem;
+    background: #00f2fe;
+    color: #000;
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-weight: bold;
+}
 
-.cg-card-info h4 { font-size: 0.9rem; margin-bottom: 4px; }
-.cg-card-info p { font-size: 0.75rem; color: #888; }
+.badge-soon {
+    position: absolute;
+    bottom: 2px;
+    font-size: 0.6rem;
+    background: #e74c3c;
+    color: #fff;
+    padding: 1px 4px;
+    border-radius: 2px;
+}
 
-/* =========================================================
-   STYLES KHUSUS PENGECEK ARAH KIBLAT (MUSLIMPRO STYLE)
-   ========================================================= */
-.kiblat-theme {
-    background: linear-gradient(135deg, #042f2e 0%, #064e3b 100%);
+.cg-card-info h4 {
+    font-size: 0.95rem;
+    color: #00f2fe;
+}
+
+.cg-card-info p {
+    font-size: 0.75rem;
+    color: #a0aec0;
+}
+
+/* ==========================================================================
+   7. GAME MAPCHART ISLAMI & KHILAFAH
+   ========================================================================== */
+.mapchart-theme {
+    background-color: #0b132b;
     color: #ffffff;
+    min-height: 100vh;
+}
+
+.mapchart-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.mc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1c2541;
+    padding: 12px 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,242,254,0.2);
+}
+
+.mc-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+}
+
+.mc-crescent-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.mc-btn-action {
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    border: none;
+    color: #000;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.mc-btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,242,254,0.4);
+}
+
+.mc-workspace {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 992px) {
+    .mc-workspace {
+        grid-template-columns: 1fr;
+    }
+}
+
+.mc-panel {
+    background: #1c2541;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.mc-panel h3 {
+    font-size: 1rem;
+    color: #00f2fe;
+    margin-bottom: 12px;
+}
+
+.mc-color-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.color-btn {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.color-btn.active, .color-btn:hover {
+    border-color: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.mc-preset-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mc-preset-buttons button {
+    background: #0b132b;
+    border: 1px solid #3a506b;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.2s;
+}
+
+.mc-preset-buttons button:hover {
+    background: #3a506b;
+    color: #00f2fe;
+}
+
+.info-panel p {
+    font-size: 0.85rem;
+    color: #a0aec0;
+    line-height: 1.5;
+}
+
+.mc-map-area {
+    background: #1c2541;
+    border-radius: 12px;
+    padding: 15px;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+.mc-map-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+#islamic-world-map {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+.land-path {
+    fill: #3a506b;
+    stroke: #1c2541;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: fill 0.25s ease;
+}
+
+.land-path:hover {
+    fill-opacity: 0.8;
+    stroke: #00f2fe;
+    stroke-width: 2.5;
+}
+
+.mc-tooltip {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(11, 19, 43, 0.9);
+    border: 1px solid #00f2fe;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #ffffff;
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.thumb-mapchart {
+    background: linear-gradient(135deg, #0b132b, #1c2541);
+    position: relative;
+}
+
+.thumb-mapchart::before {
+    content: "🗺️";
+    font-size: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px 15px;
+    height: 100%;
+}
+
+/* ==========================================================================
+   8. PENGECEK ARAH KIBLAT
+   ========================================================================== */
+.kiblat-theme {
+    background: #0b132b;
+    padding: 40px 20px;
 }
 
 .kiblat-container {
     max-width: 500px;
-    width: 100%;
     margin: 0 auto;
     text-align: center;
 }
 
-.btn-back-kiblat {
-    color: #b8860b !important;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 8px 18px;
-    border-radius: 20px;
-    border: 1px solid rgba(184, 134, 11, 0.3);
-}
-
-.btn-back-kiblat:hover {
-    background: rgba(184, 134, 11, 0.2);
-    color: #fff !important;
-}
-
-.kiblat-header {
-    margin-bottom: 25px;
-}
-
 .kiblat-badge {
-    background-color: var(--accent);
-    color: #fff;
+    background: #00f2fe;
+    color: #000;
+    font-weight: bold;
     padding: 4px 12px;
     border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 0.8rem;
 }
 
-.kiblat-header h2 {
-    font-size: 2rem;
-    margin: 10px 0 5px;
-    color: #ffffff;
-}
-
-#kiblat-status-text {
-    font-size: 0.88rem;
-    color: #a7f3d0;
-}
-
-/* --- TAMPILAN KOMPAS MUSLIMPRO --- */
 .compass-wrapper {
-    position: relative;
+    margin: 30px auto;
     width: 280px;
     height: 280px;
-    margin: 20px auto 30px;
+    position: relative;
 }
 
 .compass-outer-ring {
-    position: relative;
     width: 100%;
     height: 100%;
+    border: 4px solid #3a506b;
     border-radius: 50%;
-    background: radial-gradient(circle, #065f46 0%, #022c22 100%);
-    border: 8px solid #b8860b;
-    box-shadow: 0 0 30px rgba(184, 134, 11, 0.4), inset 0 0 15px rgba(0, 0, 0, 0.6);
+    position: relative;
+    background: #1c2541;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
 }
 
 .cardinal-degree {
     position: absolute;
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: #fbbf24;
+    font-weight: bold;
+    color: #00f2fe;
 }
 
-.cardinal-degree.N { top: 8px; left: 50%; transform: translateX(-50%); color: #ef4444; }
-.cardinal-degree.E { right: 12px; top: 50%; transform: translateY(-50%); }
-.cardinal-degree.S { bottom: 8px; left: 50%; transform: translateX(-50%); }
-.cardinal-degree.W { left: 12px; top: 50%; transform: translateY(-50%); }
+.cardinal-degree.N { top: 10px; left: 50%; transform: translateX(-50%); }
+.cardinal-degree.E { right: 15px; top: 50%; transform: translateY(-50%); }
+.cardinal-degree.S { bottom: 10px; left: 50%; transform: translateX(-50%); }
+.cardinal-degree.W { left: 15px; top: 50%; transform: translateY(-50%); }
 
 .compass-dial {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    transition: transform 0.2s cubic-bezier(0.1, 0.3, 0.1, 1);
+    position: absolute;
+    top: 0; left: 0;
+    transition: transform 0.2s ease-out;
 }
 
 .north-pointer {
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 30px solid #e74c3c;
     position: absolute;
-    top: 28px;
-    left: 50%;
+    top: 35px; left: 50%;
     transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 14px solid #ef4444;
 }
 
 .qibla-marker {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    transition: transform 0.5s ease-out;
+    top: 0; left: 0; width: 100%; height: 100%;
 }
 
 .kabah-icon-wrapper {
     position: absolute;
-    top: 15px;
-    left: 50%;
+    top: 15px; left: 50%;
     transform: translateX(-50%);
-    width: 38px;
-    height: 38px;
-    background: rgba(255, 215, 0, 0.2);
-    border: 2px solid #ffd700;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 12px #ffd700;
 }
 
 .kabah-svg {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
 }
 
 .center-needle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
-    background-color: #ffd700;
-    border: 3px solid #1a1a1a;
+    width: 12px; height: 12px;
+    background: #00f2fe;
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
-    z-index: 10;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .kiblat-info-card {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    border-radius: 15px;
-    padding: 15px 20px;
+    background: #1c2541;
+    border-radius: 12px;
+    padding: 15px;
     display: flex;
     justify-content: space-around;
-    align-items: center;
     margin-bottom: 20px;
 }
 
-.info-box {
-    display: flex;
-    flex-direction: column;
-}
-
 .info-label {
-    font-size: 0.75rem;
-    color: #9ca3af;
-    text-transform: uppercase;
+    display: block;
+    font-size: 0.8rem;
+    color: #a0aec0;
 }
 
 .info-value {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #ffd700;
-}
-
-.info-divider {
-    width: 1px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.btn-kiblat-refresh {
-    background-color: #b8860b;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: bold;
+    color: #00f2fe;
 }
 
 .compass-note {
-    font-size: 0.78rem;
-    color: #9ca3af;
+    font-size: 0.8rem;
+    color: #a0aec0;
     margin-top: 15px;
-    line-height: 1.4;
+    text-align: left;
 }
