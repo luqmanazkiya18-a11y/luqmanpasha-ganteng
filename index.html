@@ -147,6 +147,15 @@
                         </div>
                     </div>
 
+                    <!-- KARTU 5: SPOTIFY PLAYER (PROJECT BARU) -->
+                    <div class="project-card card-clickable" onclick="bukaSpotify()">
+                        <div class="card-body">
+                            <h3>Aplikasi Spotify Islami</h3>
+                            <p>Streaming Nasyid Perjuangan dan Murottal Al-Qur'an pilihan dengan tampilan stylish & modern.</p>
+                            <span class="btn-open">Buka Spotify &rarr;</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -159,7 +168,7 @@
         </footer>
     </div>
 
-    <!-- TAMPILAN KALKULATOR (AWALNYA TERSEMBUNYI) -->
+    <!-- TAMPILAN KALKULATOR -->
     <div id="calculator-page" class="hidden-page">
         <div class="calc-wrapper">
             <button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Portofolio</button>
@@ -196,7 +205,7 @@
         </div>
     </div>
 
-    <!-- TAMPILAN KOMPILASI ARTIKEL BERGAYA MEDIA BERITA (AWALNYA TERSEMBUNYI) -->
+    <!-- TAMPILAN KOMPILASI ARTIKEL -->
     <div id="artikel-page" class="hidden-page">
         <div class="portal-container">
             <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Portofolio</button>
@@ -245,7 +254,7 @@
         </div>
     </div>
 
-    <!-- TAMPILAN KOMPILASI GAME BERGAYA CRAZYGAMES (AWALNYA TERSEMBUNYI) -->
+    <!-- TAMPILAN KOMPILASI GAME -->
     <div id="games-page" class="hidden-page crazy-theme">
         <div class="cg-container">
             <header class="cg-header">
@@ -306,7 +315,6 @@
                 <aside class="cg-sidebar">
                     <h3 class="cg-sidebar-title">Kompilasi Game</h3>
                     <div class="cg-game-grid">
-                        
                         <div class="cg-card active-game">
                             <div class="cg-thumb thumb-puzzle">
                                 <span class="badge-play">Sedang Dimainkan</span>
@@ -317,7 +325,6 @@
                             </div>
                         </div>
 
-                        <!-- MAPCHART DISISIPKAN DI SINI MENGGANTIKAN KUIS SEJARAH -->
                         <div class="cg-card active-game" onclick="bukaMapChart()" style="cursor: pointer;">
                             <div class="cg-thumb" style="background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center;">
                                 <span class="badge-play" style="background: #38bdf8; color: #0f172a;">Mainkan</span>
@@ -337,7 +344,6 @@
                                 <p>Cocokkan pasangan potongan ayat Al-Qur'an.</p>
                             </div>
                         </div>
-
                     </div>
                 </aside>
             </div>
@@ -364,7 +370,6 @@
 
                     <div class="compass-dial" id="compass-dial">
                         <div class="north-pointer"></div>
-                        
                         <div class="qibla-marker" id="qibla-marker">
                             <div class="kabah-icon-wrapper">
                                 <svg class="kabah-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -394,9 +399,7 @@
             </div>
 
             <div class="kiblat-actions">
-                <button class="btn-primary btn-kiblat-refresh" onclick="initQiblaTracker()">
-                    🔄 Perbarui Lokasi GPS
-                </button>
+                <button class="btn-primary btn-kiblat-refresh" onclick="initQiblaTracker()">🔄 Perbarui Lokasi GPS</button>
                 <p class="compass-note">
                     📌 <strong>Catatan:</strong> Untuk hasil paling akurat di smartphone/laptop, izinkan akses lokasi (GPS) dan gerakkan perangkat membentuk angka "8" jika sensor kompas belum terkalibrasi.
                 </p>
@@ -404,7 +407,7 @@
         </div>
     </div>
 
-    <!-- TAMPILAN MAPCHART INTERAKTIF WORLD MAP (AWALNYA TERSEMBUNYI) -->
+    <!-- TAMPILAN MAPCHART INTERAKTIF WORLD MAP -->
     <div id="mapchart-page" class="hidden-page">
         <div class="mapchart-container">
             <header class="mapchart-header">
@@ -450,6 +453,170 @@
                 <main class="mapchart-viewport">
                     <div id="leaflet-map"></div>
                 </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAMPILAN UTAMA SPOTIFY ISLAMI -->
+    <div id="spotify-page" class="hidden-page spotify-theme">
+        <div class="spotify-app-container">
+            <!-- HEADER APP -->
+            <header class="spotify-header">
+                <button class="btn-back" onclick="tutupSpotify()">&larr; Kembali ke Portofolio</button>
+                <div class="spotify-brand">
+                    <svg viewBox="0 0 24 24" class="spotify-icon"><path fill="#1DB954" d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.899 4.62-1.02 8.52-.6 11.64 1.32.42.18.479.659.301 1.019zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
+                    <span>Spotify <strong>Islamic Edition</strong></span>
+                    <span class="islamic-symbol">☪</span>
+                </div>
+            </header>
+
+            <div class="spotify-main-layout">
+                <!-- SIDEBAR NAVIGASI & ARTIS -->
+                <aside class="spotify-sidebar">
+                    <div class="sidebar-block">
+                        <ul class="nav-spotify">
+                            <li class="active"><span class="icon">🏠</span> Beranda</li>
+                            <li><span class="icon">🔍</span> Cari</li>
+                            <li><span class="icon">📚</span> Koleksi Perjuangan</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-block list-block">
+                        <h4>Tokoh & Artis ☪</h4>
+                        <div class="artist-list">
+                            <div class="artist-item active" onclick="pilihArtis('Sayyid Quthb / Nasyid Perjuangan')">
+                                <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Sayyid Quthb">
+                                <div>
+                                    <h5>Sayyid Quthb</h5>
+                                    <p>Nasyid Perjuangan</p>
+                                </div>
+                            </div>
+                            <div class="artist-item" onclick="pilihArtis('Nasyid Perjuangan Islam')">
+                                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&auto=format&fit=crop" alt="Nasyid Perjuangan">
+                                <div>
+                                    <h5>Munasyid Perjuangan</h5>
+                                    <p>Nasyid Gelora</p>
+                                </div>
+                            </div>
+                            <div class="artist-item" onclick="pilihArtis('Mishary Rashid Alafasy')">
+                                <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop" alt="Mishary Alafasy">
+                                <div>
+                                    <h5>Mishary Rashid</h5>
+                                    <p>Qori / Murottal</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- KONTEN UTAMA SPOTIFY -->
+                <main class="spotify-content">
+                    <div class="spotify-hero">
+                        <div class="hero-cover">
+                            <span class="crescent-star-bg">☪</span>
+                            <span class="hero-emoji">☪️</span>
+                        </div>
+                        <div class="hero-details">
+                            <span class="tag">PLAYLIST PERJUANGAN ISLAMI</span>
+                            <h2>Nasyid Perjuangan & Tilawah Al-Qur'an</h2>
+                            <p>Kumpulan Nasyid Pengobar Semangat Perjuangan Islam dan Murottal Penyejuk Jiwa.</p>
+                            <div class="hero-meta">Dibuat oleh <strong>Luqman Azkiya Athaillah</strong> • 4 Lagu Pilihan</div>
+                        </div>
+                    </div>
+
+                    <!-- DAFTAR LAGU / TRACKLIST -->
+                    <div class="tracklist-container">
+                        <div class="tracklist-header">
+                            <span class="col-num">#</span>
+                            <span class="col-title">JUDUL</span>
+                            <span class="col-album">ALBUM / KATEGORI</span>
+                            <span class="col-time">⏱</span>
+                        </div>
+
+                        <div class="track-row active-track" onclick="putarLagu(0)">
+                            <span class="col-num">1</span>
+                            <div class="col-title track-info">
+                                <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Cover">
+                                <div>
+                                    <h5 id="t-title-0">Akhi Anta Hurrun (أخي أنت حر)</h5>
+                                    <p id="t-artist-0">Syair Sayyid Quthb</p>
+                                </div>
+                            </div>
+                            <span class="col-album">Nasyid Perjuangan</span>
+                            <span class="col-time">04:30</span>
+                        </div>
+
+                        <div class="track-row" onclick="putarLagu(1)">
+                            <span class="col-num">2</span>
+                            <div class="col-title track-info">
+                                <img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?w=100&auto=format&fit=crop" alt="Cover">
+                                <div>
+                                    <h5 id="t-title-1">Al-Qaul Qaul Ash-Shawarim (القول قول الصوارم)</h5>
+                                    <p id="t-artist-1">Munasyid Perjuangan</p>
+                                </div>
+                            </div>
+                            <span class="col-album">Hamasah Islamiah</span>
+                            <span class="col-time">03:15</span>
+                        </div>
+
+                        <div class="track-row" onclick="putarLagu(2)">
+                            <span class="col-num">3</span>
+                            <div class="col-title track-info">
+                                <img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=100&auto=format&fit=crop" alt="Cover">
+                                <div>
+                                    <h5 id="t-title-2">Allahu Akbar Khomeini Rahbar</h5>
+                                    <p id="t-artist-2">Nasyid Perjuangan Islam</p>
+                                </div>
+                            </div>
+                            <span class="col-album">Melodi Revolusi</span>
+                            <span class="col-time">03:40</span>
+                        </div>
+
+                        <div class="track-row" onclick="putarLagu(3)">
+                            <span class="col-num">4</span>
+                            <div class="col-title track-info">
+                                <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop" alt="Cover">
+                                <div>
+                                    <h5 id="t-title-3">Surah Al-Kahf (Ayat 1-10)</h5>
+                                    <p id="t-artist-3">Mishary Rashid Alafasy</p>
+                                </div>
+                            </div>
+                            <span class="col-album">Murottal Al-Qur'an</span>
+                            <span class="col-time">04:15</span>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <!-- PLAYER BAR / PEMUTAR MUSIK DI BAWAH -->
+            <div class="spotify-player-bar">
+                <div class="now-playing">
+                    <img id="current-cover" src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Now Playing">
+                    <div>
+                        <h5 id="current-song">Akhi Anta Hurrun (أخي أنت حر)</h5>
+                        <p id="current-artist">Syair Sayyid Quthb</p>
+                    </div>
+                    <button class="btn-like" onclick="toggleLike(this)">♥</button>
+                </div>
+
+                <div class="player-controls">
+                    <div class="control-buttons">
+                        <button onclick="laguSebelumnya()">⏮</button>
+                        <button id="btn-play-pause" class="btn-play" onclick="togglePlay()">▶</button>
+                        <button onclick="laguBerikutnya()">⏭</button>
+                    </div>
+                    <div class="progress-container">
+                        <span id="current-time">0:00</span>
+                        <input type="range" id="progress-bar" value="0" max="100" oninput="seekLagu(this.value)">
+                        <span id="total-duration">04:30</span>
+                    </div>
+                </div>
+
+                <div class="extra-controls">
+                    <span class="crescent-symbol-mini">☪</span>
+                    <span>🔊</span>
+                    <input type="range" class="volume-bar" value="80" max="100">
+                </div>
             </div>
         </div>
     </div>
@@ -509,7 +676,44 @@
             document.getElementById('main-content').style.display = 'block';
         }
 
-        // 5. Logika Kalkulator
+        // 5. Alur Tampilan Kiblat Tracker
+        function bukaKiblat() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('kiblat-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function tutupKiblat() {
+            document.getElementById('kiblat-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+        // 6. Alur Tampilan MapChart
+        function bukaMapChart() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('games-page').style.display = 'none';
+            document.getElementById('mapchart-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function tutupMapChart() {
+            document.getElementById('mapchart-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+        // 7. Alur Tampilan Spotify Islami
+        function bukaSpotify() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('spotify-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function tutupSpotify() {
+            document.getElementById('spotify-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+        // 8. Logika Kalkulator
         const display = document.getElementById('calc-display');
 
         function appendChar(char) {
@@ -534,7 +738,7 @@
             }
         }
 
-        // 6. LOGIKA GAME PUZZLE LOGO (SLIDING PUZZLE)
+        // 9. LOGIKA GAME PUZZLE LOGO (SLIDING PUZZLE)
         const puzzleLogos = {
             im: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg',
             ht: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Hizb-ut-tahrir-logo.png/600px-Hizb-ut-tahrir-logo.png'
@@ -656,234 +860,92 @@
                     }
                 }
             }
-            if (size % 2 !== 0) {
-                return inversions % 2 === 0;
-            } else {
-                const emptyRowFromBottom = size - Math.floor(arr.indexOf(len - 1) / size);
-                return (inversions + emptyRowFromBottom) % 2 === 1;
+            if (size % 2 !== 0) return inversions % 2 === 0;
+            const emptyRowFromBottom = size - Math.floor(arr.indexOf(len - 1) / size);
+            return (emptyRowFromBottom % 2 === 0) ? (inversions % 2 !== 0) : (inversions % 2 === 0);
+        }
+
+        // 10. LOGIKA SPOTIFY ISLAMI PERJUANGAN
+        const spotifyTracks = [
+            {
+                title: "Akhi Anta Hurrun (أخي أنت حر)",
+                artist: "Syair Sayyid Quthb",
+                cover: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop",
+                duration: "04:30"
+            },
+            {
+                title: "Al-Qaul Qaul Ash-Shawarim (القول قول الصوارم)",
+                artist: "Munasyid Perjuangan",
+                cover: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=100&auto=format&fit=crop",
+                duration: "03:15"
+            },
+            {
+                title: "Allahu Akbar Khomeini Rahbar",
+                artist: "Nasyid Perjuangan Islam",
+                cover: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=100&auto=format&fit=crop",
+                duration: "03:40"
+            },
+            {
+                title: "Surah Al-Kahf (Ayat 1-10)",
+                artist: "Mishary Rashid Alafasy",
+                cover: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop",
+                duration: "04:15"
             }
-        }
+        ];
 
-        // 7. LOGIKA PENGECEK ARAH KIBLAT (REAL-TIME GPS & SENSOR KOMPAS)
-        let qiblaBearing = 0;
+        let currentTrackIndex = 0;
+        let isPlaying = false;
 
-        function bukaKiblat() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('kiblat-page').style.display = 'block';
-            window.scrollTo(0, 0);
-            initQiblaTracker();
-        }
+        function putarLagu(index) {
+            currentTrackIndex = index;
+            const track = spotifyTracks[index];
 
-        function tutupKiblat() {
-            document.getElementById('kiblat-page').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            if (window.DeviceOrientationEvent) {
-                window.removeEventListener('deviceorientation', handleOrientation, true);
-            }
-        }
+            document.getElementById('current-song').textContent = track.title;
+            document.getElementById('current-artist').textContent = track.artist;
+            document.getElementById('current-cover').src = track.cover;
+            document.getElementById('total-duration').textContent = track.duration;
 
-        function initQiblaTracker() {
-            const statusTxt = document.getElementById('kiblat-status-text');
-            statusTxt.textContent = "Meminta izin akses GPS...";
-
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const lat = position.coords.latitude;
-                        const lng = position.coords.longitude;
-
-                        document.getElementById('user-coords').textContent = `${lat.toFixed(2)}°, ${lng.toFixed(2)}°`;
-                        
-                        qiblaBearing = calculateQiblaDegree(lat, lng);
-                        document.getElementById('qibla-degree').textContent = `${Math.round(qiblaBearing)}° dari Utara`;
-                        
-                        const qiblaMarker = document.getElementById('qibla-marker');
-                        qiblaMarker.style.transform = `rotate(${qiblaBearing}deg)`;
-
-                        statusTxt.textContent = "GPS Terhubung. Putar perangkat Anda ke arah Ka'bah.";
-
-                        if (window.DeviceOrientationEvent) {
-                            window.addEventListener('deviceorientation', handleOrientation, true);
-                        }
-                    },
-                    (error) => {
-                        statusTxt.textContent = "Gagal mengambil lokasi GPS. Menampilkan simulasi (Jakarta).";
-                        const lat = -6.2088;
-                        const lng = 106.8456;
-                        document.getElementById('user-coords').textContent = `${lat.toFixed(2)}°, ${lng.toFixed(2)}° (Jakarta)`;
-                        qiblaBearing = calculateQiblaDegree(lat, lng);
-                        document.getElementById('qibla-degree').textContent = `${Math.round(qiblaBearing)}° dari Utara`;
-                        document.getElementById('qibla-marker').style.transform = `rotate(${qiblaBearing}deg)`;
-                    }
-                );
-            } else {
-                statusTxt.textContent = "Browser tidak mendukung GPS.";
-            }
-        }
-
-        function calculateQiblaDegree(lat, lng) {
-            const makkahLat = 21.422487;
-            const makkahLng = 39.826206;
-
-            const phiK = (makkahLat * Math.PI) / 180;
-            const lambdaK = (makkahLng * Math.PI) / 180;
-            const phi = (lat * Math.PI) / 180;
-            const lambda = (lng * Math.PI) / 180;
-
-            const numerator = Math.sin(lambdaK - lambda);
-            const denominator = (Math.cos(phi) * Math.tan(phiK)) - (Math.sin(phi) * Math.cos(lambdaK - lambda));
-            
-            let qiblaRad = Math.atan2(numerator, denominator);
-            let qiblaDeg = (qiblaRad * 180) / Math.PI;
-
-            return (qiblaDeg + 360) % 360;
-        }
-
-        function handleOrientation(event) {
-            let heading = event.alpha;
-            if (event.webkitCompassHeading) {
-                heading = event.webkitCompassHeading;
-            }
-
-            if (heading !== null && heading !== undefined) {
-                const compassDial = document.getElementById('compass-dial');
-                compassDial.style.transform = `rotate(${-heading}deg)`;
-            }
-        }
-
-        // 8. LOGIKA MAPCHART INTERAKTIF DUNIA & PROVINSI
-        let mapInstance = null;
-        let geojsonLayer = null;
-        let selectedColor = '#38bdf8';
-        let regionStyles = {};
-
-        function hexToRgb(hex) {
-            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
-        }
-
-        function updateRGBText(hex) {
-            selectedColor = hex;
-            const rgb = hexToRgb(hex);
-            if (rgb) {
-                document.getElementById('rgb-display').textContent = `RGB(${rgb.r}, ${rgb.g}, ${rgb.b})`;
-            }
-        }
-
-        function bukaMapChart() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('games-page').style.display = 'none';
-            document.getElementById('mapchart-page').style.display = 'block';
-            window.scrollTo(0, 0);
-
-            if (!mapInstance) {
-                setTimeout(initMapChart, 100);
-            } else {
-                setTimeout(() => mapInstance.invalidateSize(), 200);
-            }
-        }
-
-        function tutupMapChart() {
-            document.getElementById('mapchart-page').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        function initMapChart() {
-            mapInstance = L.map('leaflet-map', {
-                center: [20, 0],
-                zoom: 2,
-                minZoom: 2,
-                maxBounds: [[-90, -180], [90, 180]]
-            });
-
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap &copy; CARTO',
-                subdomains: 'abcd',
-                maxZoom: 19
-            }).addTo(mapInstance);
-
-            fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson')
-                .then(res => res.json())
-                .then(data => {
-                    geojsonLayer = L.geoJson(data, {
-                        style: styleFeature,
-                        onEachFeature: onEachRegion
-                    }).addTo(mapInstance);
-                })
-                .catch(err => {
-                    fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
-                        .then(res => res.json())
-                        .then(data => {
-                            geojsonLayer = L.geoJson(data, {
-                                style: styleFeature,
-                                onEachFeature: onEachRegion
-                            }).addTo(mapInstance);
-                        });
-                });
-
-            mapInstance.on('click', function(e) {
-                const mode = document.getElementById('symbol-mode').value;
-                if (mode === 'crescent') {
-                    const crescentIcon = L.divIcon({
-                        className: 'crescent-star-marker',
-                        html: '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10 1.93-1.93 0 0 1-2.93 0A8 8 0 1 1 12 4c.34 0 .67.03 1 .08A9.97 9.97 0 0 0 12 2zm7 3 1.25 2.75L23 8l-2.25 2.25L21.25 13 19 11.5 16.75 13l.5-2.75L15 8l2.75-.25L19 5z"/></svg>',
-                        iconSize: [28, 28],
-                        iconAnchor: [14, 14]
-                    });
-                    L.marker(e.latlng, { icon: crescentIcon }).addTo(mapInstance);
+            const rows = document.querySelectorAll('.track-row');
+            rows.forEach((r, i) => {
+                if (i === index) {
+                    r.classList.add('active-track');
+                } else {
+                    r.classList.remove('active-track');
                 }
             });
+
+            isPlaying = true;
+            document.getElementById('btn-play-pause').textContent = '⏸';
         }
 
-        function styleFeature(feature) {
-            const regionId = feature.properties.iso_3166_2 || feature.properties.name || feature.id;
-            return {
-                fillColor: regionStyles[regionId] || '#334155',
-                weight: 0.8,
-                opacity: 1,
-                color: '#64748b',
-                fillOpacity: 0.75
-            };
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            document.getElementById('btn-play-pause').textContent = isPlaying ? '⏸' : '▶';
         }
 
-        function onEachRegion(feature, layer) {
-            const regionName = feature.properties.name || feature.properties.NAME_1 || "Wilayah";
-            const countryName = feature.properties.admin || feature.properties.sovereignt || "";
-            const fullName = countryName ? `${regionName}, ${countryName}` : regionName;
-
-            layer.bindTooltip(fullName, { sticky: true });
-
-            layer.on({
-                mouseover: (e) => {
-                    const l = e.target;
-                    l.setStyle({ weight: 2, color: '#38bdf8', fillOpacity: 0.9 });
-                },
-                mouseout: (e) => {
-                    geojsonLayer.resetStyle(e.target);
-                },
-                click: (e) => {
-                    const mode = document.getElementById('symbol-mode').value;
-                    if (mode === 'fill') {
-                        const regionId = feature.properties.iso_3166_2 || feature.properties.name || feature.id;
-                        regionStyles[regionId] = selectedColor;
-                        e.target.setStyle({ fillColor: selectedColor, fillOpacity: 0.85 });
-                        document.getElementById('selected-region-name').value = fullName;
-                    }
-                }
-            });
+        function laguBerikutnya() {
+            currentTrackIndex = (currentTrackIndex + 1) % spotifyTracks.length;
+            putarLagu(currentTrackIndex);
         }
 
-        function resetWarnaPeta() {
-            regionStyles = {};
-            if (geojsonLayer) {
-                geojsonLayer.eachLayer(layer => {
-                    geojsonLayer.resetStyle(layer);
-                });
-            }
+        function laguSebelumnya() {
+            currentTrackIndex = (currentTrackIndex - 1 + spotifyTracks.length) % spotifyTracks.length;
+            putarLagu(currentTrackIndex);
+        }
+
+        function toggleLike(btn) {
+            btn.classList.toggle('liked');
+        }
+
+        function pilihArtis(namaArtis) {
+            alert('Menampilkan karya audio dari: ' + namaArtis);
+        }
+
+        function seekLagu(value) {
+            const minutes = Math.floor((value / 100) * 4);
+            const seconds = Math.floor(((value / 100) * 240) % 60);
+            document.getElementById('current-time').textContent = 
+                `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         }
     </script>
 </body>
