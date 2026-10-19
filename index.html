@@ -14,6 +14,9 @@
 </head>
 <body>
 
+    <!-- ELEMENT AUDIO TERSEMBUNYI UNTUK PEMUTARAN LAGU -->
+    <audio id="spotify-audio-player"></audio>
+
     <!-- CONTAINER UTAMA WEBSITE (BERANDA PORTOFOLIO) -->
     <div id="main-content">
         <nav>
@@ -151,7 +154,7 @@
                     <div class="project-card card-clickable" onclick="bukaSpotify()">
                         <div class="card-body">
                             <h3>Aplikasi Spotify Islami</h3>
-                            <p>Streaming Nasyid Perjuangan dan Murottal Al-Qur'an pilihan dengan tampilan stylish & modern.</p>
+                            <p>Streaming Nasyid Perjuangan dan Murottal Al-Qur'an pilihan dengan pemutar audio langsung & stylish.</p>
                             <span class="btn-open">Buka Spotify &rarr;</span>
                         </div>
                     </div>
@@ -520,7 +523,7 @@
                             <span class="tag">PLAYLIST PERJUANGAN ISLAMI</span>
                             <h2>Nasyid Perjuangan & Tilawah Al-Qur'an</h2>
                             <p>Kumpulan Nasyid Pengobar Semangat Perjuangan Islam dan Murottal Penyejuk Jiwa.</p>
-                            <div class="hero-meta">Dibuat oleh <strong>Luqman Azkiya Athaillah</strong> • 4 Lagu Pilihan</div>
+                            <div class="hero-meta">Dibuat oleh <strong>Luqman Azkiya Athaillah</strong> • 4 Audio Siap Diputar</div>
                         </div>
                     </div>
 
@@ -543,7 +546,7 @@
                                 </div>
                             </div>
                             <span class="col-album">Nasyid Perjuangan</span>
-                            <span class="col-time">04:30</span>
+                            <span class="col-time">03:45</span>
                         </div>
 
                         <div class="track-row" onclick="putarLagu(1)">
@@ -556,7 +559,7 @@
                                 </div>
                             </div>
                             <span class="col-album">Hamasah Islamiah</span>
-                            <span class="col-time">03:15</span>
+                            <span class="col-time">02:50</span>
                         </div>
 
                         <div class="track-row" onclick="putarLagu(2)">
@@ -569,11 +572,11 @@
                                 </div>
                             </div>
                             <span class="col-album">Melodi Revolusi</span>
-                            <span class="col-time">03:40</span>
+                            <span class="col-time">03:10</span>
                         </div>
 
                         <div class="track-row" onclick="putarLagu(3)">
-                            <span class="col-num">4</span>
+                            <span class="col-num">3</span>
                             <div class="col-title track-info">
                                 <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop" alt="Cover">
                                 <div>
@@ -582,7 +585,7 @@
                                 </div>
                             </div>
                             <span class="col-album">Murottal Al-Qur'an</span>
-                            <span class="col-time">04:15</span>
+                            <span class="col-time">02:40</span>
                         </div>
                     </div>
                 </main>
@@ -608,14 +611,14 @@
                     <div class="progress-container">
                         <span id="current-time">0:00</span>
                         <input type="range" id="progress-bar" value="0" max="100" oninput="seekLagu(this.value)">
-                        <span id="total-duration">04:30</span>
+                        <span id="total-duration">00:00</span>
                     </div>
                 </div>
 
                 <div class="extra-controls">
                     <span class="crescent-symbol-mini">☪</span>
                     <span>🔊</span>
-                    <input type="range" class="volume-bar" value="80" max="100">
+                    <input type="range" class="volume-bar" value="80" max="100" oninput="setVolumeAudio(this.value)">
                 </div>
             </div>
         </div>
@@ -709,6 +712,7 @@
         }
 
         function tutupSpotify() {
+            hentikanAudio();
             document.getElementById('spotify-page').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }
@@ -865,46 +869,61 @@
             return (emptyRowFromBottom % 2 === 0) ? (inversions % 2 !== 0) : (inversions % 2 === 0);
         }
 
-        // 10. LOGIKA SPOTIFY ISLAMI PERJUANGAN
+        // 10. LOGIKA PEMUTAR AUDIO SPOTIFY ISLAMI REAL
+        const audioPlayer = document.getElementById('spotify-audio-player');
+
         const spotifyTracks = [
             {
                 title: "Akhi Anta Hurrun (أخي أنت حر)",
                 artist: "Syair Sayyid Quthb",
                 cover: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop",
-                duration: "04:30"
+                src: "https://archive.org/download/AkhiAntaHurrun_201612/Akhi%20Anta%20Hurrun.mp3"
             },
             {
                 title: "Al-Qaul Qaul Ash-Shawarim (القول قول الصوارم)",
                 artist: "Munasyid Perjuangan",
                 cover: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=100&auto=format&fit=crop",
-                duration: "03:15"
+                src: "https://archive.org/download/alqawlu-qawlu-as-sawarim/Alqawlu%20Qawlu%20As-Sawarim.mp3"
             },
             {
                 title: "Allahu Akbar Khomeini Rahbar",
                 artist: "Nasyid Perjuangan Islam",
                 cover: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=100&auto=format&fit=crop",
-                duration: "03:40"
+                src: "https://archive.org/download/allahu-akbar-khomeini-rahbar/Allahu%20Akbar%20Khomeini%20Rahbar.mp3"
             },
             {
                 title: "Surah Al-Kahf (Ayat 1-10)",
                 artist: "Mishary Rashid Alafasy",
                 cover: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop",
-                duration: "04:15"
+                src: "https://server8.mp3quran.net/afs/018.mp3"
             }
         ];
 
-        let currentTrackIndex = 0;
-        let isPlaying = false;
+        let currentTrackIndex = -1;
 
         function putarLagu(index) {
+            // Jika memilih lagu yang sama, lakukan toggle play/pause
+            if (currentTrackIndex === index) {
+                togglePlay();
+                return;
+            }
+
             currentTrackIndex = index;
             const track = spotifyTracks[index];
 
             document.getElementById('current-song').textContent = track.title;
             document.getElementById('current-artist').textContent = track.artist;
             document.getElementById('current-cover').src = track.cover;
-            document.getElementById('total-duration').textContent = track.duration;
 
+            // Memuat file audio MP3 sungguhan
+            audioPlayer.src = track.src;
+            audioPlayer.play().then(() => {
+                document.getElementById('btn-play-pause').textContent = '⏸';
+            }).catch(e => {
+                console.log('Autoplay ditahan browser atau jaringan lambat:', e);
+            });
+
+            // Update baris lagu aktif
             const rows = document.querySelectorAll('.track-row');
             rows.forEach((r, i) => {
                 if (i === index) {
@@ -913,24 +932,69 @@
                     r.classList.remove('active-track');
                 }
             });
-
-            isPlaying = true;
-            document.getElementById('btn-play-pause').textContent = '⏸';
         }
 
         function togglePlay() {
-            isPlaying = !isPlaying;
-            document.getElementById('btn-play-pause').textContent = isPlaying ? '⏸' : '▶';
+            if (currentTrackIndex === -1) {
+                putarLagu(0);
+                return;
+            }
+
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                document.getElementById('btn-play-pause').textContent = '⏸';
+            } else {
+                audioPlayer.pause();
+                document.getElementById('btn-play-pause').textContent = '▶';
+            }
         }
 
         function laguBerikutnya() {
-            currentTrackIndex = (currentTrackIndex + 1) % spotifyTracks.length;
-            putarLagu(currentTrackIndex);
+            let nextIndex = (currentTrackIndex + 1) % spotifyTracks.length;
+            putarLagu(nextIndex);
         }
 
         function laguSebelumnya() {
-            currentTrackIndex = (currentTrackIndex - 1 + spotifyTracks.length) % spotifyTracks.length;
-            putarLagu(currentTrackIndex);
+            let prevIndex = (currentTrackIndex - 1 + spotifyTracks.length) % spotifyTracks.length;
+            putarLagu(prevIndex);
+        }
+
+        function hentikanAudio() {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            document.getElementById('btn-play-pause').textContent = '▶';
+        }
+
+        function formatWaktu(detik) {
+            if (isNaN(detik)) return "0:00";
+            const min = Math.floor(detik / 60);
+            const sec = Math.floor(detik % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+        // Update progress bar & waktu secara real-time
+        audioPlayer.ontimeupdate = function() {
+            if (audioPlayer.duration) {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                document.getElementById('progress-bar').value = percent;
+                document.getElementById('current-time').textContent = formatWaktu(audioPlayer.currentTime);
+                document.getElementById('total-duration').textContent = formatWaktu(audioPlayer.duration);
+            }
+        };
+
+        // Ketika lagu selesai, otomatis lanjut ke lagu berikutnya
+        audioPlayer.onended = function() {
+            laguBerikutnya();
+        };
+
+        function seekLagu(val) {
+            if (audioPlayer.duration) {
+                audioPlayer.currentTime = (val / 100) * audioPlayer.duration;
+            }
+        }
+
+        function setVolumeAudio(val) {
+            audioPlayer.volume = val / 100;
         }
 
         function toggleLike(btn) {
@@ -938,14 +1002,7 @@
         }
 
         function pilihArtis(namaArtis) {
-            alert('Menampilkan karya audio dari: ' + namaArtis);
-        }
-
-        function seekLagu(value) {
-            const minutes = Math.floor((value / 100) * 4);
-            const seconds = Math.floor(((value / 100) * 240) % 60);
-            document.getElementById('current-time').textContent = 
-                `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            alert('Menampilkan audio koleksi: ' + namaArtis);
         }
     </script>
 </body>
