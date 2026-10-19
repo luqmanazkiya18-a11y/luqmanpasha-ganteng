@@ -268,69 +268,30 @@ footer {
 }
 
 /* ==========================================================================
-   STYLE APEX & MINI UTILITIES (KALKULATOR, ARTIKEL, GAME, KIBLAT, MAP)
+   STYLE MINI UTILITIES (KALKULATOR, ARTIKEL, GAME, KIBLAT, MAP)
    ========================================================================== */
-/* Kalkulator */
-.calc-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-.calculator {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    width: 300px;
-}
+.calc-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+.calculator { background: #1e293b; padding: 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); width: 300px; }
 .calc-header h3 { text-align: center; margin-bottom: 15px; color: #38bdf8; }
-#calc-display {
-    width: 100%;
-    height: 50px;
-    background: #0f172a;
-    border: 1px solid #334155;
-    color: #fff;
-    font-size: 1.5rem;
-    text-align: right;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 15px;
-}
-.calc-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-.calc-buttons button {
-    padding: 15px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 6px;
-    background: #334155;
-    color: #fff;
-    cursor: pointer;
-}
+#calc-display { width: 100%; height: 50px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 1.5rem; text-align: right; padding: 10px; border-radius: 6px; margin-bottom: 15px; }
+.calc-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.calc-buttons button { padding: 15px; font-size: 1.1rem; border: none; border-radius: 6px; background: #334155; color: #fff; cursor: pointer; }
 .calc-buttons button.btn-action { background: #e11d48; }
 .calc-buttons button.btn-operator { background: #0284c7; }
 .calc-buttons button.btn-equal { background: #10b981; }
 
-/* Portal Artikel */
 .portal-container { max-width: 900px; margin: 40px auto; padding: 20px; }
 .portal-header { text-align: center; margin-bottom: 30px; }
 .portal-logo { font-size: 2rem; font-weight: 700; color: #38bdf8; }
 .portal-logo span { color: #fff; }
 .portal-subtitle { color: #94a3b8; }
-.featured-news { background: #1e293b; padding: 25px; border-radius: 12px; margin-bottom: 30px; position: relative; }
+.featured-news { background: #1e293b; padding: 25px; border-radius: 12px; margin-bottom: 30px; }
 .featured-badge { background: #0284c7; color: #fff; display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; margin-bottom: 10px; }
 .news-meta { font-size: 0.8rem; color: #64748b; margin-bottom: 15px; }
 .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 .news-card { background: #1e293b; padding: 20px; border-radius: 8px; }
 .news-badge { color: #38bdf8; font-size: 0.75rem; font-weight: 600; }
 
-/* CrazyGames & Puzzle */
 .crazy-theme { background: #0b0f19; min-height: 100vh; padding: 20px; }
 .cg-container { max-width: 1100px; margin: 0 auto; }
 .cg-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
@@ -352,7 +313,6 @@ footer {
 .cg-sidebar { background: #111827; padding: 15px; border-radius: 12px; }
 .cg-card { background: #1f2937; padding: 10px; border-radius: 8px; margin-bottom: 10px; display: flex; gap: 10px; }
 
-/* Kiblat Tracker */
 .kiblat-theme { background: #022c22; min-height: 100vh; padding: 20px; }
 .kiblat-container { max-width: 500px; margin: 20px auto; text-align: center; }
 .compass-wrapper { position: relative; width: 260px; height: 260px; margin: 30px auto; }
@@ -368,7 +328,6 @@ footer {
 .kabah-svg { width: 32px; height: 32px; }
 .kiblat-info-card { display: flex; justify-content: space-around; background: #064e3b; padding: 15px; border-radius: 8px; margin-top: 20px; }
 
-/* MapChart */
 .mapchart-container { max-width: 1100px; margin: 0 auto; padding: 20px; }
 .mapchart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
 .mapchart-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
@@ -377,7 +336,7 @@ footer {
 #leaflet-map { width: 100%; height: 100%; }
 
 /* ==========================================================================
-   STYLE KHUSUS SPOTIFY ISLAMI
+   STYLE KHUSUS SPOTIFY ISLAMI & FITUR UPLOAD
    ========================================================================== */
 
 .spotify-theme {
@@ -428,7 +387,7 @@ footer {
 
 .spotify-main-layout {
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 280px 1fr;
     min-height: 520px;
 }
 
@@ -479,44 +438,59 @@ footer {
     letter-spacing: 1px;
 }
 
-.artist-list {
+/* UPLOAD SECTION CSS */
+.upload-box {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.artist-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px;
-    border-radius: 6px;
+.btn-upload-file {
+    background-color: #1DB954;
+    color: #000;
+    font-weight: 700;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
     cursor: pointer;
+    font-size: 0.85rem;
     transition: 0.2s;
 }
 
-.artist-item:hover, 
-.artist-item.active {
-    background-color: #282828;
+.btn-upload-file:hover {
+    transform: scale(1.03);
+    background-color: #1ed760;
 }
 
-.artist-item img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+.url-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 5px;
 }
 
-.artist-item h5 {
-    margin: 0;
-    font-size: 0.85rem;
+.url-input-group input {
+    background: #181818;
+    border: 1px solid #333;
     color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
 }
 
-.artist-item p {
-    margin: 0;
+.btn-add-url {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
     font-size: 0.75rem;
-    color: #b3b3b3;
+    font-weight: 600;
+}
+
+.btn-add-url:hover {
+    background: #444;
 }
 
 .spotify-content {
