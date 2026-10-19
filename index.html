@@ -154,7 +154,7 @@
                     <div class="project-card card-clickable" onclick="bukaSpotify()">
                         <div class="card-body">
                             <h3>Aplikasi Spotify Islami</h3>
-                            <p>Streaming Nasyid Perjuangan dan Murottal Al-Qur'an pilihan dengan pemutar audio langsung & stylish.</p>
+                            <p>Streaming Nasyid Perjuangan dan Murottal Al-Qur'an pilihan. Bisa upload file MP3 Anda sendiri!</p>
                             <span class="btn-open">Buka Spotify &rarr;</span>
                         </div>
                     </div>
@@ -474,7 +474,7 @@
             </header>
 
             <div class="spotify-main-layout">
-                <!-- SIDEBAR NAVIGASI & ARTIS -->
+                <!-- SIDEBAR NAVIGASI & INPUT MP3 -->
                 <aside class="spotify-sidebar">
                     <div class="sidebar-block">
                         <ul class="nav-spotify">
@@ -482,6 +482,20 @@
                             <li><span class="icon">🔍</span> Cari</li>
                             <li><span class="icon">📚</span> Koleksi Perjuangan</li>
                         </ul>
+                    </div>
+
+                    <!-- FITUR MASUKKAN FILE MP3 SUNGGUHAN -->
+                    <div class="sidebar-block upload-box">
+                        <h4>Tambah Lagu MP3 ☪</h4>
+                        <label for="mp3-file-input" class="btn-upload-file">
+                            📂 Choose File MP3
+                        </label>
+                        <input type="file" id="mp3-file-input" accept="audio/mp3,audio/*" style="display:none;" onchange="uploadMP3Baru(this)">
+                        
+                        <div class="url-input-group">
+                            <input type="text" id="custom-mp3-url" placeholder="Atau paste Link MP3 di sini...">
+                            <button class="btn-add-url" onclick="tambahURLMP3()">Tambah dari Link</button>
+                        </div>
                     </div>
 
                     <div class="sidebar-block list-block">
@@ -522,8 +536,8 @@
                         <div class="hero-details">
                             <span class="tag">PLAYLIST PERJUANGAN ISLAMI</span>
                             <h2>Nasyid Perjuangan & Tilawah Al-Qur'an</h2>
-                            <p>Kumpulan Nasyid Pengobar Semangat Perjuangan Islam dan Murottal Penyejuk Jiwa.</p>
-                            <div class="hero-meta">Dibuat oleh <strong>Luqman Azkiya Athaillah</strong> • 4 Audio Siap Diputar</div>
+                            <p>Upload file `.mp3` dari perangkat Anda di sidebar kiri untuk memutarnya dengan kualitas jernih!</p>
+                            <div class="hero-meta">Dibuat oleh <strong>Luqman Azkiya Athaillah</strong> • <span id="total-track-count">4</span> Audio</div>
                         </div>
                     </div>
 
@@ -536,56 +550,8 @@
                             <span class="col-time">⏱</span>
                         </div>
 
-                        <div class="track-row active-track" onclick="putarLagu(0)">
-                            <span class="col-num">1</span>
-                            <div class="col-title track-info">
-                                <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Cover">
-                                <div>
-                                    <h5 id="t-title-0">Akhi Anta Hurrun (أخي أنت حر)</h5>
-                                    <p id="t-artist-0">Syair Sayyid Quthb</p>
-                                </div>
-                            </div>
-                            <span class="col-album">Nasyid Perjuangan</span>
-                            <span class="col-time">03:45</span>
-                        </div>
-
-                        <div class="track-row" onclick="putarLagu(1)">
-                            <span class="col-num">2</span>
-                            <div class="col-title track-info">
-                                <img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?w=100&auto=format&fit=crop" alt="Cover">
-                                <div>
-                                    <h5 id="t-title-1">Al-Qaul Qaul Ash-Shawarim (القول قول الصوارم)</h5>
-                                    <p id="t-artist-1">Munasyid Perjuangan</p>
-                                </div>
-                            </div>
-                            <span class="col-album">Hamasah Islamiah</span>
-                            <span class="col-time">02:50</span>
-                        </div>
-
-                        <div class="track-row" onclick="putarLagu(2)">
-                            <span class="col-num">3</span>
-                            <div class="col-title track-info">
-                                <img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=100&auto=format&fit=crop" alt="Cover">
-                                <div>
-                                    <h5 id="t-title-2">Allahu Akbar Khomeini Rahbar</h5>
-                                    <p id="t-artist-2">Nasyid Perjuangan Islam</p>
-                                </div>
-                            </div>
-                            <span class="col-album">Melodi Revolusi</span>
-                            <span class="col-time">03:10</span>
-                        </div>
-
-                        <div class="track-row" onclick="putarLagu(3)">
-                            <span class="col-num">3</span>
-                            <div class="col-title track-info">
-                                <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop" alt="Cover">
-                                <div>
-                                    <h5 id="t-title-3">Surah Al-Kahf (Ayat 1-10)</h5>
-                                    <p id="t-artist-3">Mishary Rashid Alafasy</p>
-                                </div>
-                            </div>
-                            <span class="col-album">Murottal Al-Qur'an</span>
-                            <span class="col-time">02:40</span>
+                        <div id="dynamic-tracklist">
+                            <!-- DAFTAR LAGU AKAN DIPERBARUI SECARA DINAMIS OLEH JAVASCRIPT -->
                         </div>
                     </div>
                 </main>
@@ -596,8 +562,8 @@
                 <div class="now-playing">
                     <img id="current-cover" src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Now Playing">
                     <div>
-                        <h5 id="current-song">Akhi Anta Hurrun (أخي أنت حر)</h5>
-                        <p id="current-artist">Syair Sayyid Quthb</p>
+                        <h5 id="current-song">Pilih atau Upload Lagu MP3</h5>
+                        <p id="current-artist">Koleksi Luqman Pasha</p>
                     </div>
                     <button class="btn-like" onclick="toggleLike(this)">♥</button>
                 </div>
@@ -869,31 +835,35 @@
             return (emptyRowFromBottom % 2 === 0) ? (inversions % 2 !== 0) : (inversions % 2 === 0);
         }
 
-        // 10. LOGIKA PEMUTAR AUDIO SPOTIFY ISLAMI REAL
+        // 10. LOGIKA PEMUTAR AUDIO SPOTIFY ISLAMI REAL & FITUR UPLOAD MP3
         const audioPlayer = document.getElementById('spotify-audio-player');
 
-        const spotifyTracks = [
+        let spotifyTracks = [
             {
                 title: "Akhi Anta Hurrun (أخي أنت حر)",
                 artist: "Syair Sayyid Quthb",
+                album: "Nasyid Perjuangan",
                 cover: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop",
-                src: "https://archive.org/download/AkhiAntaHurrun_201612/Akhi%20Anta%20Hurrun.mp3"
+                src: ""
             },
             {
                 title: "Al-Qaul Qaul Ash-Shawarim (القول قول الصوارم)",
                 artist: "Munasyid Perjuangan",
+                album: "Hamasah Islamiah",
                 cover: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=100&auto=format&fit=crop",
-                src: "https://archive.org/download/alqawlu-qawlu-as-sawarim/Alqawlu%20Qawlu%20As-Sawarim.mp3"
+                src: ""
             },
             {
                 title: "Allahu Akbar Khomeini Rahbar",
                 artist: "Nasyid Perjuangan Islam",
+                album: "Melodi Revolusi",
                 cover: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=100&auto=format&fit=crop",
-                src: "https://archive.org/download/allahu-akbar-khomeini-rahbar/Allahu%20Akbar%20Khomeini%20Rahbar.mp3"
+                src: ""
             },
             {
                 title: "Surah Al-Kahf (Ayat 1-10)",
                 artist: "Mishary Rashid Alafasy",
+                album: "Murottal Al-Qur'an",
                 cover: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop",
                 src: "https://server8.mp3quran.net/afs/018.mp3"
             }
@@ -901,37 +871,95 @@
 
         let currentTrackIndex = -1;
 
+        function renderTracklist() {
+            const listContainer = document.getElementById('dynamic-tracklist');
+            listContainer.innerHTML = '';
+            document.getElementById('total-track-count').textContent = spotifyTracks.length;
+
+            spotifyTracks.forEach((track, i) => {
+                const row = document.createElement('div');
+                row.className = `track-row ${i === currentTrackIndex ? 'active-track' : ''}`;
+                row.onclick = () => putarLagu(i);
+
+                row.innerHTML = `
+                    <span class="col-num">${i + 1}</span>
+                    <div class="col-title track-info">
+                        <img src="${track.cover}" alt="Cover">
+                        <div>
+                            <h5>${track.title}</h5>
+                            <p>${track.artist}</p>
+                        </div>
+                    </div>
+                    <span class="col-album">${track.album}</span>
+                    <span class="col-time">${track.src ? '🎵 Ready' : '📁 Upload MP3'}</span>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
+        function uploadMP3Baru(input) {
+            const file = input.files[0];
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                const newTrack = {
+                    title: file.name.replace(/\.[^/.]+$/, ""),
+                    artist: "Local Upload MP3",
+                    album: "Koleksi Saya",
+                    cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&auto=format&fit=crop",
+                    src: fileURL
+                };
+                spotifyTracks.unshift(newTrack);
+                renderTracklist();
+                putarLagu(0);
+            }
+        }
+
+        function tambahURLMP3() {
+            const urlInput = document.getElementById('custom-mp3-url');
+            const url = urlInput.value.trim();
+            if (url) {
+                const newTrack = {
+                    title: "Audio dari Link",
+                    artist: "Online MP3",
+                    album: "External Source",
+                    cover: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=100&auto=format&fit=crop",
+                    src: url
+                };
+                spotifyTracks.unshift(newTrack);
+                urlInput.value = '';
+                renderTracklist();
+                putarLagu(0);
+            } else {
+                alert('Silakan tempelkan link URL MP3 terlebih dahulu!');
+            }
+        }
+
         function putarLagu(index) {
-            // Jika memilih lagu yang sama, lakukan toggle play/pause
+            const track = spotifyTracks[index];
+
+            if (!track.src) {
+                alert(`Lagu "${track.title}" belum memiliki file MP3.\n\nSilakan klik tombol "Choose File MP3" di sebelah kiri untuk memasukkan file MP3 dari laptop/HP Anda!`);
+                return;
+            }
+
             if (currentTrackIndex === index) {
                 togglePlay();
                 return;
             }
 
             currentTrackIndex = index;
-            const track = spotifyTracks[index];
-
             document.getElementById('current-song').textContent = track.title;
             document.getElementById('current-artist').textContent = track.artist;
             document.getElementById('current-cover').src = track.cover;
 
-            // Memuat file audio MP3 sungguhan
             audioPlayer.src = track.src;
             audioPlayer.play().then(() => {
                 document.getElementById('btn-play-pause').textContent = '⏸';
             }).catch(e => {
-                console.log('Autoplay ditahan browser atau jaringan lambat:', e);
+                alert('Gagal memutar audio: File MP3 tidak valid atau terblokir.');
             });
 
-            // Update baris lagu aktif
-            const rows = document.querySelectorAll('.track-row');
-            rows.forEach((r, i) => {
-                if (i === index) {
-                    r.classList.add('active-track');
-                } else {
-                    r.classList.remove('active-track');
-                }
-            });
+            renderTracklist();
         }
 
         function togglePlay() {
@@ -950,11 +978,13 @@
         }
 
         function laguBerikutnya() {
+            if (spotifyTracks.length === 0) return;
             let nextIndex = (currentTrackIndex + 1) % spotifyTracks.length;
             putarLagu(nextIndex);
         }
 
         function laguSebelumnya() {
+            if (spotifyTracks.length === 0) return;
             let prevIndex = (currentTrackIndex - 1 + spotifyTracks.length) % spotifyTracks.length;
             putarLagu(prevIndex);
         }
@@ -972,7 +1002,6 @@
             return `${min}:${sec < 10 ? '0' : ''}${sec}`;
         }
 
-        // Update progress bar & waktu secara real-time
         audioPlayer.ontimeupdate = function() {
             if (audioPlayer.duration) {
                 const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
@@ -982,7 +1011,6 @@
             }
         };
 
-        // Ketika lagu selesai, otomatis lanjut ke lagu berikutnya
         audioPlayer.onended = function() {
             laguBerikutnya();
         };
@@ -1004,6 +1032,9 @@
         function pilihArtis(namaArtis) {
             alert('Menampilkan audio koleksi: ' + namaArtis);
         }
+
+        // Render Tracklist Pertama Kali
+        renderTracklist();
     </script>
 </body>
 </html>
