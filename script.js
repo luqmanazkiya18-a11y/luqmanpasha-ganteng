@@ -114,7 +114,6 @@ function initPuzzle() {
     const totalTiles = puzzleGridSize * puzzleGridSize;
     puzzleBoard = Array.from({ length: totalTiles }, (_, i) => i);
     
-    // Shuffle Array
     for (let i = puzzleBoard.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [puzzleBoard[i], puzzleBoard[j]] = [puzzleBoard[j], puzzleBoard[i]];
@@ -174,7 +173,6 @@ function checkPuzzleWin() {
     }
 }
 
-// Leaflet MapChart Interaktif
 let leafletMap = null;
 let mapMarkers = [];
 
@@ -255,7 +253,6 @@ function initQiblaTracker() {
                 const lng = position.coords.longitude;
                 coordsText.textContent = `${lat.toFixed(2)}°, ${lng.toFixed(2)}°`;
 
-                // Koordinat Ka'bah Mekkah (21.4225° N, 39.8262° E)
                 const kaabaLat = 21.4225;
                 const kaabaLng = 39.8262;
 
@@ -386,7 +383,7 @@ function pilihArtis(artisName) {
 
 
 // =================================================================
-// 7. LOGIKA BLOGGER & PERUBAHAN PASSWORD ADMIN (LOCALSTORAGE)
+// 7. LOGIKA BLOGGER, KONTROL ADMIN & FITUR LUPA / RESET PASSWORD
 // =================================================================
 function getAdminPassword() {
     return localStorage.getItem('admin_blog_password') || 'luqman123';
@@ -481,6 +478,46 @@ function simpanPasswordBaru() {
     setAdminPassword(passBaru);
     tutupModalGantiPassword();
     alert("🎉 Password Admin Anda berhasil diperbarui! Gunakan password baru ini untuk login berikutnya.");
+}
+
+// LOGIKA KHUSUS RESET / LUPA PASSWORD
+function bukaModalResetPassword() {
+    tutupModalAdminLogin();
+    document.getElementById('modal-reset-password').classList.remove('hidden');
+}
+
+function tutupModalResetPassword() {
+    document.getElementById('modal-reset-password').classList.add('hidden');
+    document.getElementById('reset-pass-error').classList.add('hidden');
+    document.getElementById('security-answer-1').value = '';
+    document.getElementById('security-answer-2').value = '';
+    document.getElementById('reset-pass-baru').value = '';
+}
+
+function prosesResetPassword() {
+    const ans1 = document.getElementById('security-answer-1').value.toLowerCase().trim();
+    const ans2 = document.getElementById('security-answer-2').value.toLowerCase().trim();
+    const passBaru = document.getElementById('reset-pass-baru').value;
+    const errorMsg = document.getElementById('reset-pass-error');
+
+    // Kunci Jawaban Verifikasi Keamanan (Berdasarkan profil Luqman Azkiya Athaillah / Luqman Pasha & SMPIT As-Syifa)
+    const validAns1 = ans1.includes('luqman');
+    const validAns2 = ans2.includes('syifa') || ans2.includes('assyifa') || ans2.includes('as-syifa');
+
+    if (validAns1 && validAns2) {
+        if (passBaru === "") {
+            errorMsg.innerText = "❌ Masukkan password baru yang valid!";
+            errorMsg.classList.remove('hidden');
+            return;
+        }
+
+        setAdminPassword(passBaru);
+        tutupModalResetPassword();
+        alert("🎉 Password Admin berhasil di-reset! Silakan login kembali dengan password baru Anda.");
+    } else {
+        errorMsg.innerText = "❌ Jawaban verifikasi keamanan salah! Akses reset ditolak.";
+        errorMsg.classList.remove('hidden');
+    }
 }
 
 function tambahPostinganBaru(e) {
