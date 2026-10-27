@@ -159,13 +159,12 @@
                         </div>
                     </div>
 
-                    <!-- KARTU 6: PROJECT BARU - BLOG & JURNAL ISLAMI -->
+                    <!-- KARTU 6: BLOGGER ISLAMI (PROJECT BARU DENGAN AKSES ADMIN) -->
                     <div class="project-card card-clickable" onclick="bukaBlog()">
                         <div class="card-body">
-                            <div class="card-badge-crescent">☪</div>
-                            <h3>Blog & Jurnal Perjuangan</h3>
-                            <p>Portal blog profesional berbasis pemikiran Islam, dilengkapi halaman Admin & Customer, serta tautan ke Spotify Perjuangan.</p>
-                            <span class="btn-open">Kunjungi Blog ☪ &rarr;</span>
+                            <h3>Blog & Artikel Perjuangan ☪</h3>
+                            <p>Platform Blogger Islami interaktif. Baca artikel inspiratif atau kelola postingan baru melalui Halaman Admin berpintu password.</p>
+                            <span class="btn-open">Kunjungi Blog &rarr;</span>
                         </div>
                     </div>
 
@@ -473,6 +472,7 @@
     <!-- TAMPILAN UTAMA SPOTIFY ISLAMI -->
     <div id="spotify-page" class="hidden-page spotify-theme">
         <div class="spotify-app-container">
+            <!-- HEADER APP -->
             <header class="spotify-header">
                 <button class="btn-back" onclick="tutupSpotify()">&larr; Kembali ke Portofolio</button>
                 <div class="spotify-brand">
@@ -483,6 +483,7 @@
             </header>
 
             <div class="spotify-main-layout">
+                <!-- SIDEBAR NAVIGASI & INPUT MP3 -->
                 <aside class="spotify-sidebar">
                     <div class="sidebar-block">
                         <ul class="nav-spotify">
@@ -492,6 +493,7 @@
                         </ul>
                     </div>
 
+                    <!-- FITUR MASUKKAN FILE MP3 SUNGGUHAN -->
                     <div class="sidebar-block upload-box">
                         <h4>Tambah Lagu MP3 ☪</h4>
                         <label for="mp3-file-input" class="btn-upload-file">
@@ -533,6 +535,7 @@
                     </div>
                 </aside>
 
+                <!-- KONTEN UTAMA SPOTIFY -->
                 <main class="spotify-content">
                     <div class="spotify-hero">
                         <div class="hero-cover">
@@ -547,6 +550,7 @@
                         </div>
                     </div>
 
+                    <!-- DAFTAR LAGU / TRACKLIST -->
                     <div class="tracklist-container">
                         <div class="tracklist-header">
                             <span class="col-num">#</span>
@@ -562,6 +566,7 @@
                 </main>
             </div>
 
+            <!-- PLAYER BAR / PEMUTAR MUSIK DI BAWAH -->
             <div class="spotify-player-bar">
                 <div class="now-playing">
                     <img id="current-cover" src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Now Playing">
@@ -575,292 +580,161 @@
         </div>
     </div>
 
-    <!-- TAMPILAN BLOG UTAMA (CUSTOMER & ADMIN VIEW) -->
+    <!-- ==================== TAMPILAN BLOGGER ISLAMI (BLOG PAGE) ==================== -->
     <div id="blog-page" class="hidden-page blog-theme">
-        <div class="blog-wrapper">
+        <div class="blog-app-container">
+            
+            <!-- HEADER BLOGGER -->
             <header class="blog-header">
-                <div class="blog-header-top">
-                    <button class="btn-back" onclick="tutupBlog()">&larr; Kembali ke Portofolio</button>
-                    <div class="blog-auth-actions">
-                        <button id="btn-admin-access" class="btn-blog-admin" onclick="bukaModalLoginAdmin()">🔒 Akses Admin</button>
-                        <button id="btn-admin-logout" class="btn-blog-logout hidden-element" onclick="logoutAdmin()">🔓 Keluar Admin</button>
+                <div class="blog-header-left">
+                    <button class="btn-back" onclick="tutupBlog()">&larr; Portofolio</button>
+                    <div class="blog-brand">
+                        <span class="crescent-icon">☪</span>
+                        <div class="blog-logo">Blogger<span>Muslim</span></div>
                     </div>
                 </div>
-
-                <div class="blog-branding">
-                    <div class="crescent-star-icon">☪</div>
-                    <h1 class="blog-title">JURNAL <span>RISALAH</span> ISLAMI</h1>
-                    <p class="blog-tagline">Catatan Pemikiran, Sejarah, & Perjuangan Generasi Rabbani</p>
-                    <div class="blog-crescent-divider">
-                        <span>✦</span><span>☪</span><span>✦</span>
-                    </div>
+                <div class="blog-header-right">
+                    <button class="btn-admin-access" onclick="bukaModalLogin()">🔒 Area Admin</button>
                 </div>
-
-                <nav class="blog-nav">
-                    <ul>
-                        <li class="active" onclick="filterBlogCategory('semua', this)">Semua Postingan</li>
-                        <li onclick="filterBlogCategory('pemikiran', this)">Pemikiran Islam</li>
-                        <li onclick="filterBlogCategory('sejarah', this)">Sejarah & Tarbiyah</li>
-                        <li onclick="filterBlogCategory('audio', this)">Rekomendasi Nasyid</li>
-                    </ul>
-                </nav>
             </header>
 
-            <!-- DASHBOARD ADMIN (LOGGED IN ONLY) -->
-            <div id="admin-panel" class="admin-panel-container hidden-element">
-                <div class="admin-panel-header">
-                    <h3>🛠️ Admin Control Center (Khusus Luqman Azkiya)</h3>
-                    <span class="admin-badge">Status: Logged In as Admin</span>
-                </div>
-                <form id="form-tambah-post" onsubmit="tambahPostinganBlog(event)" class="admin-form">
-                    <div class="form-row">
-                        <input type="text" id="post-title" placeholder="Judul Postingan Blog..." required>
-                        <select id="post-category" required>
-                            <option value="pemikiran">Pemikiran Islam</option>
-                            <option value="sejarah">Sejarah & Tarbiyah</option>
-                            <option value="audio">Rekomendasi Nasyid & Audio</option>
-                        </select>
+            <div class="blog-main-layout">
+                <!-- KONTEN UTAMA BLOG (CUSTOMER VIEW) -->
+                <main class="blog-feed-container">
+                    <div class="blog-hero-banner">
+                        <div class="hero-crescent-bg">☪</div>
+                        <span class="blog-badge">Catatan Perjuangan & Pemikiran</span>
+                        <h2>Ruang Literasi & Inspirasi Islami</h2>
+                        <p>Menyajikan gagasan, peradaban, dan renungan islami modern dari Luqman Azkiya Athaillah.</p>
                     </div>
-                    <div class="form-row">
-                        <input type="text" id="post-author" value="Luqman Azkiya Athaillah" placeholder="Penulis" required>
+
+                    <!-- SPOTIFY BANNER DIRECT LINK -->
+                    <div class="blog-spotify-banner">
+                        <div class="sp-banner-info">
+                            <span class="sp-icon">🎧 ☪</span>
+                            <div>
+                                <h4>Sambil Membaca, Dengarkan Nasyid & Tilawah!</h4>
+                                <p>Nikmati alunan murottal dan nasyid perjuangan langsung di pemutar Spotify Islami kami.</p>
+                            </div>
+                        </div>
+                        <button class="btn-goto-spotify" onclick="tutupBlog(); bukaSpotify();">Putar Spotify &rarr;</button>
                     </div>
-                    <div class="form-row">
-                        <textarea id="post-content" rows="4" placeholder="Tuliskan isi artikel / postingan blog di sini..." required></textarea>
+
+                    <div class="blog-section-title">
+                        <h3>📌 Postingan Terbaru</h3>
                     </div>
-                    <div class="form-row form-checkbox-spotify">
-                        <label>
-                            <input type="checkbox" id="post-link-spotify" onchange="toggleSpotifyLinkInput(this)">
-                            Tautkan Postingan ini ke Spotify Islami (Navigasi ke Audio)?
-                        </label>
+
+                    <!-- WIDGET CONTAINER FEED BLOG (POSTINGAN DINAMIS & DEFAULT) -->
+                    <div id="blog-posts-feed" class="blog-posts-feed">
+                        
+                        <!-- POSTINGAN DEFAULT 1 -->
+                        <article class="blog-card">
+                            <div class="blog-card-meta">
+                                <span class="blog-category">Pemikiran Islam</span>
+                                <span class="blog-date">📅 24 Oktober 2026</span>
+                            </div>
+                            <h3 class="blog-card-title">Membangun Peradaban Digital Berlandaskan Taqwa</h3>
+                            <p class="blog-card-snippet">Teknologi bukan sekadar alat, melainkan sarana ikhtiar untuk menyebarkan risalah kebaikan. Di era serba cepat ini, peradaban digital harus diimbangi dengan kedalaman spiritual...</p>
+                            <div class="blog-card-footer">
+                                <span class="blog-author">✍️ Luqman Azkiya Athaillah</span>
+                                <button class="btn-read-more" onclick="tutupBlog(); bukaSpotify();">Dengarkan Nasyid &rarr;</button>
+                            </div>
+                        </article>
+
+                        <!-- POSTINGAN DEFAULT 2 -->
+                        <article class="blog-card">
+                            <div class="blog-card-meta">
+                                <span class="blog-category">Tarbiyah & Karakter</span>
+                                <span class="blog-date">📅 18 Oktober 2026</span>
+                            </div>
+                            <h3 class="blog-card-title">Pentingnya Istiqomah dalam Menuntut Ilmu di Usia Muda</h3>
+                            <p class="blog-card-snippet">Kedisiplinan dan keikhlasan adalah dua fondasi utama dalam menuntut ilmu. Seorang penuntut ilmu hendaknya senantiasa meluruskan niat demi mengharapkan keridhaan Allah SWT...</p>
+                            <div class="blog-card-footer">
+                                <span class="blog-author">✍️ Luqman Pasha</span>
+                                <button class="btn-read-more" onclick="tutupBlog(); bukaSpotify();">Dengarkan Nasyid &rarr;</button>
+                            </div>
+                        </article>
+
                     </div>
-                    <div id="spotify-link-options" class="form-row hidden-element">
-                        <input type="text" id="post-spotify-title" placeholder="Judul Lagu / Playlist Spotify yang Dirujuk">
+                </main>
+
+                <!-- SIDEBAR BLOGGER -->
+                <aside class="blog-sidebar">
+                    <div class="blog-widget">
+                        <h4>☪ Penulis Blog</h4>
+                        <div class="author-profile">
+                            <div class="author-avatar">🌙</div>
+                            <h5>Luqman Azkiya Athaillah</h5>
+                            <p>Pelajar SMPIT As-Syifa Boarding School yang berikhtiar memadukan teknologi IT dengan dakwah islami.</p>
+                        </div>
                     </div>
-                    <button type="submit" class="btn-publish-post">🚀 Publikasikan Postingan</button>
-                </form>
+
+                    <div class="blog-widget">
+                        <h4>🔗 Akses Cepat Spotify</h4>
+                        <div class="quick-spotify-card" onclick="tutupBlog(); bukaSpotify();">
+                            <span class="crescent-mini">☪</span>
+                            <p>Buka Spotify Islamic Edition untuk mendengarkan murottal & playlist nasyid.</p>
+                            <span class="link-sp">Buka Pemutar Musik &rarr;</span>
+                        </div>
+                    </div>
+                </aside>
             </div>
-
-            <!-- MAIN KONTEN BLOG (CUSTOMER VIEW) -->
-            <main class="blog-main-content">
-                <div id="blog-posts-container" class="blog-posts-grid">
-                    <article class="blog-post-card featured-post" data-category="audio">
-                        <div class="post-thumb">
-                            <span class="post-badge">☪ Audio & Nasyid</span>
-                            <div class="crescent-watermark">☪</div>
-                        </div>
-                        <div class="post-content-box">
-                            <div class="post-meta">
-                                <span>✍️ Luqman Pasha</span> • <span>📅 27 Oktober 2024</span>
-                            </div>
-                            <h2>Membangkitkan Spirit Perjuangan Lewat Nasyid & Tilawah Al-Qur'an</h2>
-                            <p>Alunan nada nasyid dan tilawah memiliki kekuatan tersendiri dalam menumbuhkan ketenangan jiwa serta mengobarkan semangat dakwah. Simak kompilasi audio pilihan yang telah dikurasi khusus di platform Spotify Islami kami.</p>
-                            
-                            <div class="blog-spotify-cta-box" onclick="bukaSpotifyDariBlog()">
-                                <div class="cta-icon">🎧</div>
-                                <div class="cta-info">
-                                    <h4>Dengarkan Nasyid Perjuangan di Spotify Islami</h4>
-                                    <p>Klik di sini untuk langsung mengarah ke Pemutar Audio & MP3</p>
-                                </div>
-                                <span class="btn-spotify-arrow">&rarr;</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="blog-post-card" data-category="pemikiran">
-                        <div class="post-thumb thumb-alt-1">
-                            <span class="post-badge">Pemikiran Islam</span>
-                        </div>
-                        <div class="post-content-box">
-                            <div class="post-meta">
-                                <span>✍️ Luqman Azkiya Athaillah</span> • <span>📅 24 Oktober 2024</span>
-                            </div>
-                            <h3>Integrasi Sains, Teknologi, dan Nilai Syariat di Era Digital</h3>
-                            <p>Memahami bagaimana generasi muda muslim dapat memanfaatkan keahlian teknologi informasi untuk kemaslahatan ummat tanpa kehilangan identitas keislamannya.</p>
-                            <a href="javascript:void(0)" class="blog-read-more">Baca Selengkapnya &rarr;</a>
-                        </div>
-                    </article>
-
-                    <article class="blog-post-card" data-category="sejarah">
-                        <div class="post-thumb thumb-alt-2">
-                            <span class="post-badge">Sejarah & Tarbiyah</span>
-                        </div>
-                        <div class="post-content-box">
-                            <div class="post-meta">
-                                <span>✍️ Luqman Azkiya Athaillah</span> • <span>📅 20 Oktober 2024</span>
-                            </div>
-                            <h3>Prinsip Pembinaan Karakter (Tarbiyah) Generasi Rabbani</h3>
-                            <p>Ulasan ringkas mengenai pentingnya kontinuitas dalam menuntut ilmu, memperbaiki ibadah, serta menjaga kebersihan hati di tengah arus modernisasi.</p>
-                            <a href="javascript:void(0)" class="blog-read-more">Baca Selengkapnya &rarr;</a>
-                        </div>
-                    </article>
-                </div>
-            </main>
-
-            <footer class="blog-footer">
-                <div class="crescent-star-icon small">☪</div>
-                <p>&copy; 2024 Jurnal Risalah Islami - Portofolio Luqman Azkiya Athaillah</p>
-            </footer>
         </div>
     </div>
 
-    <!-- MODAL POPUP LOGIN ADMIN BLOG -->
-    <div id="modal-login-admin" class="blog-modal-overlay hidden-element">
-        <div class="blog-modal-card">
+    <!-- MODAL LOGIN ADMIN BLOG -->
+    <div id="blog-login-modal" class="blog-modal hidden">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3>🔒 Autentikasi Admin Blog</h3>
-                <button class="btn-close-modal" onclick="tutupModalLoginAdmin()">&times;</button>
+                <h3>🔒 Login Admin Blog</h3>
+                <span class="close-modal" onclick="tutupModalLogin()">&times;</span>
             </div>
             <div class="modal-body">
-                <div class="crescent-star-icon">☪</div>
-                <p>Masukkan Kata Sandi Khusus Admin untuk Mengakses Halaman Pembuatan Postingan.</p>
-                <form onsubmit="prosesLoginAdmin(event)">
-                    <div class="input-group-modal">
-                        <label for="admin-pass">Kata Sandi (Password):</label>
-                        <input type="password" id="admin-pass" placeholder="Masukkan password..." required>
+                <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;">Masukkan password khusus Admin untuk mengelola dan membuat postingan baru.</p>
+                <div class="form-group">
+                    <label>Password Admin:</label>
+                    <input type="password" id="admin-password-input" placeholder="Masukkan password...">
+                    <span id="login-error-msg" class="error-msg">Password salah! Silakan coba lagi.</span>
+                </div>
+                <button class="btn-primary" style="width:100%; margin-top:10px;" onclick="verifikasiLoginAdmin()">Masuk Halaman Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PANELS HALAMAN ADMIN BLOGGER (UNTUK MEMBUAT POSTINGAN BARU) -->
+    <div id="blog-admin-modal" class="blog-modal hidden">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>⚙️ Dashboard Admin Blogger Islami</h3>
+                <span class="close-modal" onclick="tutupModalAdmin()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="form-buat-post" onsubmit="tambahPostinganBaru(event)">
+                    <div class="form-group">
+                        <label>Judul Postingan / Artikel:</label>
+                        <input type="text" id="post-title" placeholder="Contoh: Keutamaan Menjaga Waktu Shalat..." required>
                     </div>
-                    <p id="login-error-msg" class="error-msg hidden-element">⚠️ Password salah! Silakan coba lagi.</p>
-                    <button type="submit" class="btn-submit-login">Masuk Sebagai Admin 🔑</button>
+                    <div class="form-group">
+                        <label>Kategori Artikel:</label>
+                        <select id="post-category">
+                            <option value="Pemikiran Islam">Pemikiran Islam</option>
+                            <option value="Tarbiyah & Karakter">Tarbiyah & Karakter</option>
+                            <option value="Sejarah Peradaban">Sejarah Peradaban</option>
+                            <option value="Nasihat & Quotes">Nasihat & Quotes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Isi Postingan (Konten Blog):</label>
+                        <textarea id="post-content" rows="6" placeholder="Tuliskan artikel atau postingan Anda di sini..." required></textarea>
+                    </div>
+                    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:15px;">
+                        <button type="button" class="btn-back" style="margin:0; background:#64748b;" onclick="tutupModalAdmin()">Batal</button>
+                        <button type="submit" class="btn-primary"> Publish Postingan Baru ☪</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT INTERAKSI & SISTEM ADMIN BLOG -->
-    <script>
-        const ADMIN_PASSWORD_SECRET = "luqman123"; 
-        let isAdminLoggedIn = false;
-
-        function bukaBlog() {
-            document.getElementById('main-content').classList.add('hidden-page');
-            const pages = document.querySelectorAll('.hidden-page');
-            pages.forEach(p => { if (p.id !== 'blog-page') p.classList.add('hidden-page'); });
-            document.getElementById('blog-page').classList.remove('hidden-page');
-            window.scrollTo(0, 0);
-        }
-
-        function tutupBlog() {
-            document.getElementById('blog-page').classList.add('hidden-page');
-            document.getElementById('main-content').classList.remove('hidden-page');
-        }
-
-        function bukaSpotifyDariBlog() {
-            document.getElementById('blog-page').classList.add('hidden-page');
-            if (typeof bukaSpotify === "function") {
-                bukaSpotify();
-            } else {
-                document.getElementById('spotify-page').classList.remove('hidden-page');
-            }
-        }
-
-        function bukaModalLoginAdmin() {
-            document.getElementById('modal-login-admin').classList.remove('hidden-element');
-            document.getElementById('login-error-msg').classList.add('hidden-element');
-            document.getElementById('admin-pass').value = '';
-        }
-
-        function tutupModalLoginAdmin() {
-            document.getElementById('modal-login-admin').classList.add('hidden-element');
-        }
-
-        function prosesLoginAdmin(e) {
-            e.preventDefault();
-            const inputPass = document.getElementById('admin-pass').value;
-            if (inputPass === ADMIN_PASSWORD_SECRET) {
-                isAdminLoggedIn = true;
-                tutupModalLoginAdmin();
-                document.getElementById('admin-panel').classList.remove('hidden-element');
-                document.getElementById('btn-admin-access').classList.add('hidden-element');
-                document.getElementById('btn-admin-logout').classList.remove('hidden-element');
-                alert("Login Admin Berhasil! Anda sekarang dapat menambahkan postingan.");
-            } else {
-                document.getElementById('login-error-msg').classList.remove('hidden-element');
-            }
-        }
-
-        function logoutAdmin() {
-            isAdminLoggedIn = false;
-            document.getElementById('admin-panel').classList.add('hidden-element');
-            document.getElementById('btn-admin-access').classList.remove('hidden-element');
-            document.getElementById('btn-admin-logout').classList.add('hidden-element');
-            alert("Anda telah keluar dari mode Admin Blog.");
-        }
-
-        function toggleSpotifyLinkInput(checkbox) {
-            const spotifyOptions = document.getElementById('spotify-link-options');
-            if (checkbox.checked) {
-                spotifyOptions.classList.remove('hidden-element');
-            } else {
-                spotifyOptions.classList.add('hidden-element');
-            }
-        }
-
-        function tambahPostinganBlog(e) {
-            e.preventDefault();
-            const title = document.getElementById('post-title').value;
-            const category = document.getElementById('post-category').value;
-            const author = document.getElementById('post-author').value;
-            const content = document.getElementById('post-content').value;
-            const isSpotifyLink = document.getElementById('post-link-spotify').checked;
-            const spotifyTitle = document.getElementById('post-spotify-title').value || "Spotify Islami Audio";
-
-            const container = document.getElementById('blog-posts-container');
-            const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-
-            const article = document.createElement('article');
-            article.className = 'blog-post-card';
-            article.setAttribute('data-category', category);
-
-            let spotifyCTAHtml = '';
-            if (isSpotifyLink) {
-                spotifyCTAHtml = `
-                    <div class="blog-spotify-cta-box" onclick="bukaSpotifyDariBlog()">
-                        <div class="cta-icon">🎧</div>
-                        <div class="cta-info">
-                            <h4>Dengarkan "${spotifyTitle}" di Spotify Islami</h4>
-                            <p>Klik untuk membuka pemutar audio</p>
-                        </div>
-                        <span class="btn-spotify-arrow">&rarr;</span>
-                    </div>
-                `;
-            }
-
-            article.innerHTML = `
-                <div class="post-thumb">
-                    <span class="post-badge">☪ ${category.toUpperCase()}</span>
-                    <div class="crescent-watermark">☪</div>
-                </div>
-                <div class="post-content-box">
-                    <div class="post-meta">
-                        <span>✍️ ${author}</span> • <span>📅 ${todayStr}</span>
-                    </div>
-                    <h3>${title}</h3>
-                    <p>${content}</p>
-                    ${spotifyCTAHtml}
-                    ${!isSpotifyLink ? '<a href="javascript:void(0)" class="blog-read-more">Baca Selengkapnya &rarr;</a>' : ''}
-                </div>
-            `;
-
-            container.insertBefore(article, container.firstChild);
-            document.getElementById('form-tambah-post').reset();
-            document.getElementById('spotify-link-options').classList.add('hidden-element');
-            alert("Postingan blog baru berhasil dipublikasikan!");
-        }
-
-        function filterBlogCategory(kategori, elementNav) {
-            const navItems = document.querySelectorAll('.blog-nav li');
-            navItems.forEach(li => li.classList.remove('active'));
-            elementNav.classList.add('active');
-
-            const posts = document.querySelectorAll('.blog-post-card');
-            posts.forEach(post => {
-                const postCat = post.getAttribute('data-category');
-                if (kategori === 'semua' || postCat === kategori) {
-                    post.style.display = 'flex';
-                } else {
-                    post.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </body>
 </html>
