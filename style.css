@@ -230,7 +230,6 @@ footer {
     color: #64748b;
 }
 
-
 /* ==========================================
    STYLING KALKULATOR ISLAMI
    ========================================== */
@@ -282,18 +281,9 @@ footer {
     cursor: pointer;
 }
 
-.calc-buttons .btn-operator {
-    background: #0284c7;
-}
-
-.calc-buttons .btn-action {
-    background: #ef4444;
-}
-
-.calc-buttons .btn-equal {
-    background: #10b981;
-}
-
+.calc-buttons .btn-operator { background: #0284c7; }
+.calc-buttons .btn-action { background: #ef4444; }
+.calc-buttons .btn-equal { background: #10b981; }
 
 /* ==========================================
    STYLING ARTIKEL SUARA ISLAMI
@@ -314,9 +304,7 @@ footer {
     font-weight: 700;
 }
 
-.portal-logo span {
-    color: #10b981;
-}
+.portal-logo span { color: #10b981; }
 
 .featured-news {
     background: #1e293b;
@@ -361,7 +349,6 @@ footer {
     font-size: 0.8rem;
     font-weight: 600;
 }
-
 
 /* ==========================================
    STYLING GAME PUZZLE & MAPCHART
@@ -418,9 +405,7 @@ footer {
     cursor: pointer;
 }
 
-.diff-btn.active {
-    background: #10b981;
-}
+.diff-btn.active { background: #10b981; }
 
 .btn-reset-game {
     background: #ef4444;
@@ -473,7 +458,6 @@ footer {
     border-radius: 8px;
 }
 
-/* Mapchart Page Layout */
 .mapchart-container {
     max-width: 1200px;
     margin: 20px auto;
@@ -508,7 +492,6 @@ footer {
     overflow: hidden;
     border: 1px solid #334155;
 }
-
 
 /* ==========================================
    STYLING PENGECEK ARAH KIBLAT
@@ -590,7 +573,6 @@ footer {
     margin-bottom: 20px;
 }
 
-
 /* ==========================================
    STYLING SPOTIFY ISLAMI
    ========================================== */
@@ -640,9 +622,7 @@ footer {
     gap: 20px;
 }
 
-.nav-spotify {
-    list-style: none;
-}
+.nav-spotify { list-style: none; }
 
 .nav-spotify li {
     padding: 8px 0;
@@ -650,9 +630,7 @@ footer {
     cursor: pointer;
 }
 
-.nav-spotify li.active {
-    color: #fff;
-}
+.nav-spotify li.active { color: #fff; }
 
 .upload-box {
     background: #181818;
@@ -672,9 +650,7 @@ footer {
     margin-top: 10px;
 }
 
-.url-input-group {
-    margin-top: 10px;
-}
+.url-input-group { margin-top: 10px; }
 
 .url-input-group input {
     width: 100%;
@@ -696,9 +672,7 @@ footer {
     cursor: pointer;
 }
 
-.tracklist-container {
-    margin-top: 20px;
-}
+.tracklist-container { margin-top: 20px; }
 
 .tracklist-header, .track-row {
     display: grid;
@@ -718,9 +692,7 @@ footer {
     cursor: pointer;
 }
 
-.track-row:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
+.track-row:hover { background: rgba(255, 255, 255, 0.1); }
 
 .spotify-player-bar {
     position: fixed;
@@ -747,12 +719,9 @@ footer {
     object-fit: cover;
 }
 
-
 /* ==========================================
    STYLING KHUSUS BLOGGER ISLAMI (PROJECT BARU)
    ========================================== */
-
-/* Styling Badge Islami di Kartu Karya Pilihan */
 .card-badge-islamic {
     display: inline-block;
     background: linear-gradient(135deg, #059669, #10b981);
@@ -764,7 +733,6 @@ footer {
     margin-bottom: 8px;
 }
 
-/* Base Layout Blogger Theme */
 .blog-theme {
     background-color: #0b1329;
     color: #e2e8f0;
@@ -778,7 +746,6 @@ footer {
     padding: 20px 15px;
 }
 
-/* Header Navbar Blog */
 .blog-navbar {
     display: flex;
     justify-content: space-between;
@@ -810,11 +777,8 @@ footer {
     font-size: 1.6rem;
 }
 
-.blog-logo .logo-text span {
-    color: #10b981;
-}
+.blog-logo .logo-text span { color: #10b981; }
 
-/* Tombol Direct Spotify */
 .btn-spotify-direct {
     display: flex;
     align-items: center;
@@ -841,7 +805,6 @@ footer {
     height: 18px;
 }
 
-/* Tombol Admin Toggle */
 .btn-admin-toggle {
     background: rgba(255, 215, 0, 0.15);
     border: 1px solid #ffd700;
@@ -869,7 +832,6 @@ footer {
     font-weight: 600;
 }
 
-/* Tombol Ganti Password Admin */
 .btn-change-pass {
     background: #334155;
     color: #ffd700;
@@ -887,7 +849,6 @@ footer {
     color: #0f172a;
 }
 
-/* Blog Hero Banner */
 .blog-hero {
     position: relative;
     background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
@@ -935,7 +896,6 @@ footer {
     user-select: none;
 }
 
-/* Panel Admin Editor */
 .admin-panel {
     background: #1e293b;
     border: 2px solid #ffd700;
@@ -997,9 +957,7 @@ footer {
     outline: none;
 }
 
-.admin-panel input:focus, .admin-panel textarea:focus {
-    border-color: #10b981;
-}
+.admin-panel input:focus, .admin-panel textarea:focus { border-color: #10b981; }
 
 .btn-publish {
     background: linear-gradient(135deg, #10b981, #059669);
@@ -1017,7 +975,6 @@ footer {
     box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
 }
 
-/* Blog Layout Grid */
 .blog-layout {
     display: grid;
     grid-template-columns: 1fr 320px;
@@ -1043,7 +1000,6 @@ footer {
     color: #64748b;
 }
 
-/* Card Artikel */
 .posts-grid {
     display: flex;
     flex-direction: column;
@@ -1090,9 +1046,7 @@ footer {
     backdrop-filter: blur(5px);
 }
 
-.card-content {
-    padding: 22px;
-}
+.card-content { padding: 22px; }
 
 .card-meta {
     font-size: 0.8rem;
@@ -1114,7 +1068,6 @@ footer {
     margin-bottom: 15px;
 }
 
-/* Post Promo Spotify */
 .post-spotify-promo {
     background: rgba(29, 185, 84, 0.1);
     border: 1px dashed #1db954;
@@ -1128,9 +1081,7 @@ footer {
     transition: all 0.2s ease;
 }
 
-.post-spotify-promo:hover {
-    background: rgba(29, 185, 84, 0.2);
-}
+.post-spotify-promo:hover { background: rgba(29, 185, 84, 0.2); }
 
 .card-actions {
     display: flex;
@@ -1158,7 +1109,6 @@ footer {
     color: #38bdf8;
 }
 
-/* Sidebar Widgets */
 .blog-sidebar {
     display: flex;
     flex-direction: column;
@@ -1172,9 +1122,7 @@ footer {
     padding: 20px;
 }
 
-.author-widget {
-    text-align: center;
-}
+.author-widget { text-align: center; }
 
 .author-avatar-wrapper {
     width: 70px;
@@ -1193,10 +1141,7 @@ footer {
     color: #ffd700;
 }
 
-.author-widget h4 {
-    color: #fff;
-    font-size: 1.1rem;
-}
+.author-widget h4 { color: #fff; font-size: 1.1rem; }
 
 .author-title {
     font-size: 0.75rem;
@@ -1216,9 +1161,7 @@ footer {
     border: 1px solid #1db954;
 }
 
-.sp-widget-header {
-    margin-bottom: 8px;
-}
+.sp-widget-header { margin-bottom: 8px; }
 
 .sp-badge {
     background: rgba(29, 185, 84, 0.2);
@@ -1229,10 +1172,7 @@ footer {
     border-radius: 10px;
 }
 
-.spotify-widget h4 {
-    color: #fff;
-    margin-top: 5px;
-}
+.spotify-widget h4 { color: #fff; margin-top: 5px; }
 
 .spotify-widget p {
     font-size: 0.8rem;
@@ -1251,9 +1191,7 @@ footer {
     cursor: pointer;
 }
 
-.quote-widget {
-    border-left: 4px solid #ffd700;
-}
+.quote-widget { border-left: 4px solid #ffd700; }
 
 .quote-widget h4 {
     color: #ffd700;
@@ -1276,7 +1214,7 @@ footer {
     margin-top: 40px;
 }
 
-/* Modal Login & Ganti Password Styling */
+/* Modals & Popups */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1308,10 +1246,7 @@ footer {
     margin-bottom: 15px;
 }
 
-.modal-header h3 {
-    color: #ffd700;
-    font-size: 1.1rem;
-}
+.modal-header h3 { color: #ffd700; font-size: 1.1rem; }
 
 .btn-close-modal {
     background: none;
@@ -1339,9 +1274,23 @@ footer {
     box-sizing: border-box;
 }
 
-.modal-body input:focus {
-    border-color: #ffd700;
+.modal-body input:focus { border-color: #ffd700; }
+
+.modal-extra-links {
+    margin-top: 10px;
+    text-align: right;
 }
+
+.btn-forgot-pass {
+    background: none;
+    border: none;
+    color: #ffd700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-forgot-pass:hover { color: #10b981; }
 
 .error-msg {
     color: #ef4444;
@@ -1370,24 +1319,16 @@ footer {
     border: none;
 }
 
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }
 
 /* Responsif Mobile */
 @media (max-width: 768px) {
-    .blog-layout {
-        grid-template-columns: 1fr;
-    }
-    .form-group-row {
-        grid-template-columns: 1fr;
-    }
+    .blog-layout { grid-template-columns: 1fr; }
+    .form-group-row { grid-template-columns: 1fr; }
     .blog-hero {
         flex-direction: column;
         text-align: center;
         padding: 25px;
     }
-    .hero-crescent-art {
-        display: none;
-    }
+    .hero-crescent-art { display: none; }
 }
