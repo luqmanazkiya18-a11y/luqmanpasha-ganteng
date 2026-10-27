@@ -959,6 +959,12 @@ footer {
 
 .admin-panel input:focus, .admin-panel textarea:focus { border-color: #10b981; }
 
+.form-actions-admin {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 .btn-publish {
     background: linear-gradient(135deg, #10b981, #059669);
     color: #fff;
@@ -973,6 +979,16 @@ footer {
 .btn-publish:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.btn-cancel-edit {
+    background: #64748b;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .blog-layout {
@@ -1086,6 +1102,8 @@ footer {
 .card-actions {
     display: flex;
     gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .btn-like, .btn-share {
@@ -1108,6 +1126,32 @@ footer {
     border-color: #38bdf8;
     color: #38bdf8;
 }
+
+/* Tombol Edit & Hapus Khusus Mode Admin */
+.btn-edit-post {
+    background: #0284c7;
+    border: none;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-delete-post {
+    background: #ef4444;
+    border: none;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-edit-post:hover { background: #0369a1; }
+.btn-delete-post:hover { background: #dc2626; }
 
 .blog-sidebar {
     display: flex;
