@@ -150,12 +150,22 @@
                         </div>
                     </div>
 
-                    <!-- KARTU 5: SPOTIFY PLAYER (PROJECT BARU) -->
+                    <!-- KARTU 5: SPOTIFY PLAYER -->
                     <div class="project-card card-clickable" onclick="bukaSpotify()">
                         <div class="card-body">
                             <h3>Aplikasi Spotify Islami</h3>
                             <p>Streaming Nasyid Perjuangan dan Murottal Al-Qur'an pilihan. Bisa upload file MP3 Anda sendiri!</p>
                             <span class="btn-open">Buka Spotify &rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 6: PROJECT BARU - BLOG & JURNAL ISLAMI -->
+                    <div class="project-card card-clickable" onclick="bukaBlog()">
+                        <div class="card-body">
+                            <div class="card-badge-crescent">☪</div>
+                            <h3>Blog & Jurnal Perjuangan</h3>
+                            <p>Portal blog profesional berbasis pemikiran Islam, dilengkapi halaman Admin & Customer, serta tautan ke Spotify Perjuangan.</p>
+                            <span class="btn-open">Kunjungi Blog ☪ &rarr;</span>
                         </div>
                     </div>
 
@@ -463,7 +473,6 @@
     <!-- TAMPILAN UTAMA SPOTIFY ISLAMI -->
     <div id="spotify-page" class="hidden-page spotify-theme">
         <div class="spotify-app-container">
-            <!-- HEADER APP -->
             <header class="spotify-header">
                 <button class="btn-back" onclick="tutupSpotify()">&larr; Kembali ke Portofolio</button>
                 <div class="spotify-brand">
@@ -474,7 +483,6 @@
             </header>
 
             <div class="spotify-main-layout">
-                <!-- SIDEBAR NAVIGASI & INPUT MP3 -->
                 <aside class="spotify-sidebar">
                     <div class="sidebar-block">
                         <ul class="nav-spotify">
@@ -484,7 +492,6 @@
                         </ul>
                     </div>
 
-                    <!-- FITUR MASUKKAN FILE MP3 SUNGGUHAN -->
                     <div class="sidebar-block upload-box">
                         <h4>Tambah Lagu MP3 ☪</h4>
                         <label for="mp3-file-input" class="btn-upload-file">
@@ -526,7 +533,6 @@
                     </div>
                 </aside>
 
-                <!-- KONTEN UTAMA SPOTIFY -->
                 <main class="spotify-content">
                     <div class="spotify-hero">
                         <div class="hero-cover">
@@ -541,7 +547,6 @@
                         </div>
                     </div>
 
-                    <!-- DAFTAR LAGU / TRACKLIST -->
                     <div class="tracklist-container">
                         <div class="tracklist-header">
                             <span class="col-num">#</span>
@@ -557,7 +562,6 @@
                 </main>
             </div>
 
-            <!-- PLAYER BAR / PEMUTAR MUSIK DI BAWAH -->
             <div class="spotify-player-bar">
                 <div class="now-playing">
                     <img id="current-cover" src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Now Playing">
@@ -567,562 +571,296 @@
                     </div>
                     <button class="btn-like" onclick="toggleLike(this)">♥</button>
                 </div>
-
-                <div class="player-controls">
-                    <div class="control-buttons">
-                        <button onclick="laguSebelumnya()">⏮</button>
-                        <button id="btn-play-pause" class="btn-play" onclick="togglePlay()">▶</button>
-                        <button onclick="laguBerikutnya()">⏭</button>
-                    </div>
-                    <div class="progress-container">
-                        <span id="current-time">0:00</span>
-                        <input type="range" id="progress-bar" value="0" max="100" oninput="seekLagu(this.value)">
-                        <span id="total-duration">00:00</span>
-                    </div>
-                </div>
-
-                <div class="extra-controls">
-                    <span class="crescent-symbol-mini">☪</span>
-                    <span>🔊</span>
-                    <input type="range" class="volume-bar" value="80" max="100" oninput="setVolumeAudio(this.value)">
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT JAVASCRIPT LOGIKA UTAMA -->
-    <script>
-        // 1. Fungsi Jam WIB
-        function updateJam() {
-            const sekarang = new Date();
-            const opsi = {
-                timeZone: 'Asia/Jakarta',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            };
-            const waktuWIB = new Intl.DateTimeFormat('id-ID', opsi).format(sekarang);
-            document.getElementById('jam-wib').textContent = waktuWIB.replace(/\./g, ':');
-        }
-        setInterval(updateJam, 1000);
-        updateJam();
-
-        // 2. Alur Tampilan Kalkulator
-        function bukaKalkulator() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('calculator-page').style.display = 'flex';
-            window.scrollTo(0, 0);
-        }
-
-        function tutupKalkulator() {
-            document.getElementById('calculator-page').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        // 3. Alur Tampilan Artikel
-        function bukaArtikel() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('artikel-page').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function tutupArtikel() {
-            document.getElementById('artikel-page').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        // 4. Alur Tampilan Game (CrazyGames Style)
-        function bukaGame() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('games-page').style.display = 'block';
-            window.scrollTo(0, 0);
-            initPuzzle();
-        }
-
-        function tutupGame() {
-            document.getElementById('games-page').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        // 5. Alur Tampilan Kiblat Tracker
-        function bukaKiblat() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('kiblat-page').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function tutupKiblat() {
-            document.getElementById('kiblat-page').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        // 6. Alur Tampilan MapChart
-        function bukaMapChart() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('games-page').style.display = 'none';
-            document.getElementById('mapchart-page').style.display = 'block';
-            window.scrollTo(0, 0);
-            initMapChart();
-        }
-
-        function tutupMapChart() {
-            document.getElementById('mapchart-page').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        // 7. Alur Tampilan Spotify Islami
-        function bukaSpotify() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('spotify-page').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function tutupSpotify() {
-            hentikanAudio();
-            document.getElementById('spotify-page').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        // 8. Logika Kalkulator
-        const display = document.getElementById('calc-display');
-
-        function appendChar(char) {
-            if (display.value === 'Error') display.value = '';
-            display.value += char;
-        }
-
-        function clearDisplay() {
-            display.value = '';
-        }
-
-        function deleteLast() {
-            display.value = display.value.slice(0, -1);
-        }
-
-        function calculateResult() {
-            try {
-                if (display.value.trim() === '') return;
-                display.value = eval(display.value);
-            } catch (e) {
-                display.value = 'Error';
-            }
-        }
-
-        // 9. LOGIKA GAME PUZZLE LOGO (SLIDING PUZZLE)
-        const puzzleLogos = {
-            im: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg',
-            ht: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Hizb-ut-tahrir-logo.png/600px-Hizb-ut-tahrir-logo.png'
-        };
-
-        let puzzleGridSize = 2;
-        let puzzleBoardState = [];
-        let emptyIndex = 0;
-        let moveSteps = 0;
-
-        function setDifficulty(size, btn) {
-            puzzleGridSize = size;
-            document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            initPuzzle();
-        }
-
-        function initPuzzle() {
-            moveSteps = 0;
-            document.getElementById('step-count').textContent = moveSteps;
-            document.getElementById('game-status').textContent = 'Sedang Berjalan';
-            document.getElementById('puzzle-win-msg').classList.add('hidden');
-
-            const board = document.getElementById('puzzle-board');
-            const logoKey = document.getElementById('puzzle-image-select').value;
-            const imgUrl = puzzleLogos[logoKey];
-
-            board.style.gridTemplateColumns = `repeat(${puzzleGridSize}, 1fr)`;
-            board.style.gridTemplateRows = `repeat(${puzzleGridSize}, 1fr)`;
-            board.innerHTML = '';
-
-            const totalTiles = puzzleGridSize * puzzleGridSize;
-            puzzleBoardState = Array.from({length: totalTiles}, (_, i) => i);
-
-            do {
-                shuffleArray(puzzleBoardState);
-            } while (!isSolvable(puzzleBoardState, puzzleGridSize) || isAlreadySolved(puzzleBoardState));
-
-            emptyIndex = puzzleBoardState.indexOf(totalTiles - 1);
-            renderBoard(imgUrl);
-        }
-
-        function renderBoard(imgUrl) {
-            const board = document.getElementById('puzzle-board');
-            board.innerHTML = '';
-            const totalTiles = puzzleGridSize * puzzleGridSize;
-
-            puzzleBoardState.forEach((tileNum, index) => {
-                const tile = document.createElement('div');
-                tile.classList.add('puzzle-tile');
-
-                if (tileNum === totalTiles - 1) {
-                    tile.classList.add('empty-tile');
-                } else {
-                    const row = Math.floor(tileNum / puzzleGridSize);
-                    const col = tileNum % puzzleGridSize;
-                    const percentX = (col / (puzzleGridSize - 1)) * 100;
-                    const percentY = (row / (puzzleGridSize - 1)) * 100;
-
-                    tile.style.backgroundImage = `url('${imgUrl}')`;
-                    tile.style.backgroundSize = `${puzzleGridSize * 100}% ${puzzleGridSize * 100}%`;
-                    tile.style.backgroundPosition = `${percentX}% ${percentY}%`;
-                    
-                    tile.onclick = () => moveTile(index);
-                }
-                board.appendChild(tile);
-            });
-        }
-
-        function moveTile(index) {
-            const validMoves = getValidMoves(emptyIndex, puzzleGridSize);
-            if (validMoves.includes(index)) {
-                [puzzleBoardState[emptyIndex], puzzleBoardState[index]] = [puzzleBoardState[index], puzzleBoardState[emptyIndex]];
-                emptyIndex = index;
-                moveSteps++;
-                document.getElementById('step-count').textContent = moveSteps;
-                
-                const logoKey = document.getElementById('puzzle-image-select').value;
-                renderBoard(puzzleLogos[logoKey]);
-
-                if (isAlreadySolved(puzzleBoardState)) {
-                    document.getElementById('game-status').textContent = 'Selesai!';
-                    document.getElementById('puzzle-win-msg').classList.remove('hidden');
-                }
-            }
-        }
-
-        function getValidMoves(emptyIdx, size) {
-            const moves = [];
-            const row = Math.floor(emptyIdx / size);
-            const col = emptyIdx % size;
-
-            if (row > 0) moves.push(emptyIdx - size);
-            if (row < size - 1) moves.push(emptyIdx + size);
-            if (col > 0) moves.push(emptyIdx - 1);
-            if (col < size - 1) moves.push(emptyIdx + 1);
-
-            return moves;
-        }
-
-        function shuffleArray(arr) {
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-        }
-
-        function isAlreadySolved(arr) {
-            return arr.every((val, i) => val === i);
-        }
-
-        function isSolvable(arr, size) {
-            let inversions = 0;
-            const len = arr.length;
-            for (let i = 0; i < len - 1; i++) {
-                for (let j = i + 1; j < len; j++) {
-                    if (arr[i] !== len - 1 && arr[j] !== len - 1 && arr[i] > arr[j]) {
-                        inversions++;
-                    }
-                }
-            }
-            if (size % 2 !== 0) return inversions % 2 === 0;
-            const emptyRowFromBottom = size - Math.floor(arr.indexOf(len - 1) / size);
-            return (emptyRowFromBottom % 2 === 0) ? (inversions % 2 !== 0) : (inversions % 2 === 0);
-        }
-
-        // 10. LOGIKA MAPCHART INTERAKTIF DUNIA
-        let mapChartInstance = null;
-        let geojsonLayer = null;
-        let crescentMarkers = [];
-
-        function updateRGBText(hexColor) {
-            const r = parseInt(hexColor.slice(1, 3), 16);
-            const g = parseInt(hexColor.slice(3, 5), 16);
-            const b = parseInt(hexColor.slice(5, 7), 16);
-            document.getElementById('rgb-display').textContent = `RGB(${r}, ${g}, ${b})`;
-        }
-
-        function initMapChart() {
-            if (mapChartInstance) {
-                setTimeout(() => { mapChartInstance.invalidateSize(); }, 200);
-                return;
-            }
-
-            mapChartInstance = L.map('leaflet-map').setView([20, 0], 2);
-
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap &copy; CARTO',
-                maxZoom: 18
-            }).addTo(mapChartInstance);
-
-            // Load GeoJSON Peta Dunia
-            fetch('https://raw.githubusercontent.com/johan/world-geojson/master/countries.geo.json')
-                .then(res => res.json())
-                .then(data => {
-                    geojsonLayer = L.geoJSON(data, {
-                        style: function(feature) {
-                            return {
-                                fillColor: '#1e293b',
-                                weight: 1,
-                                opacity: 1,
-                                color: '#334155',
-                                fillOpacity: 0.7
-                            };
-                        },
-                        onEachFeature: function(feature, layer) {
-                            layer.on({
-                                click: function(e) {
-                                    const mode = document.getElementById('symbol-mode').value;
-                                    const regionName = feature.properties.name || "Negara/Wilayah";
-                                    document.getElementById('selected-region-name').value = regionName;
-
-                                    if (mode === 'fill') {
-                                        const color = document.getElementById('map-color-picker').value;
-                                        layer.setStyle({
-                                            fillColor: color,
-                                            fillOpacity: 0.85
-                                        });
-                                    }
-                                }
-                            });
-                        }
-                    }).addTo(mapChartInstance);
-                })
-                .catch(err => console.log('Gagal memuat GeoJSON MapChart:', err));
-
-            // Klik peta untuk mode Crescent & Star
-            mapChartInstance.on('click', function(e) {
-                const mode = document.getElementById('symbol-mode').value;
-                if (mode === 'crescent') {
-                    const crescentIcon = L.divIcon({
-                        className: 'custom-crescent-marker',
-                        html: '<span style="font-size:22px; color:#fbbf24; text-shadow:0 0 5px #000;">☪</span>',
-                        iconSize: [25, 25],
-                        iconAnchor: [12, 12]
-                    });
-                    const marker = L.marker([e.latlng.lat, e.latlng.lng], { icon: crescentIcon }).addTo(mapChartInstance);
-                    crescentMarkers.push(marker);
-                }
-            });
-        }
-
-        function resetWarnaPeta() {
-            if (geojsonLayer) {
-                geojsonLayer.eachLayer(function(layer) {
-                    geojsonLayer.resetStyle(layer);
-                });
-            }
-            crescentMarkers.forEach(m => mapChartInstance.removeLayer(m));
-            crescentMarkers = [];
-            document.getElementById('selected-region-name').value = "Klik area peta...";
-        }
-
-        // 11. LOGIKA PEMUTAR AUDIO SPOTIFY ISLAMI REAL & FITUR UPLOAD MP3
-        const audioPlayer = document.getElementById('spotify-audio-player');
-
-        let spotifyTracks = [
-            {
-                title: "Akhi Anta Hurrun (أخي أنت حر)",
-                artist: "Syair Sayyid Quthb",
-                album: "Nasyid Perjuangan",
-                cover: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop",
-                src: ""
-            },
-            {
-                title: "Al-Qaul Qaul Ash-Shawarim (القول قول الصوارم)",
-                artist: "Munasyid Perjuangan",
-                album: "Hamasah Islamiah",
-                cover: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=100&auto=format&fit=crop",
-                src: ""
-            },
-            {
-                title: "Allahu Akbar Khomeini Rahbar",
-                artist: "Nasyid Perjuangan Islam",
-                album: "Melodi Revolusi",
-                cover: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=100&auto=format&fit=crop",
-                src: ""
-            },
-            {
-                title: "Surah Al-Kahf (Ayat 1-10)",
-                artist: "Mishary Rashid Alafasy",
-                album: "Murottal Al-Qur'an",
-                cover: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop",
-                src: "https://server8.mp3quran.net/afs/018.mp3"
-            }
-        ];
-
-        let currentTrackIndex = -1;
-
-        function renderTracklist() {
-            const listContainer = document.getElementById('dynamic-tracklist');
-            listContainer.innerHTML = '';
-            document.getElementById('total-track-count').textContent = spotifyTracks.length;
-
-            spotifyTracks.forEach((track, i) => {
-                const row = document.createElement('div');
-                row.className = `track-row ${i === currentTrackIndex ? 'active-track' : ''}`;
-                row.onclick = () => putarLagu(i);
-
-                row.innerHTML = `
-                    <span class="col-num">${i + 1}</span>
-                    <div class="col-title track-info">
-                        <img src="${track.cover}" alt="Cover">
-                        <div>
-                            <h5>${track.title}</h5>
-                            <p>${track.artist}</p>
-                        </div>
+    <!-- TAMPILAN BLOG UTAMA (CUSTOMER & ADMIN VIEW) -->
+    <div id="blog-page" class="hidden-page blog-theme">
+        <div class="blog-wrapper">
+            <header class="blog-header">
+                <div class="blog-header-top">
+                    <button class="btn-back" onclick="tutupBlog()">&larr; Kembali ke Portofolio</button>
+                    <div class="blog-auth-actions">
+                        <button id="btn-admin-access" class="btn-blog-admin" onclick="bukaModalLoginAdmin()">🔒 Akses Admin</button>
+                        <button id="btn-admin-logout" class="btn-blog-logout hidden-element" onclick="logoutAdmin()">🔓 Keluar Admin</button>
                     </div>
-                    <span class="col-album">${track.album}</span>
-                    <span class="col-time">${track.src ? '🎵 Ready' : '📁 Upload MP3'}</span>
+                </div>
+
+                <div class="blog-branding">
+                    <div class="crescent-star-icon">☪</div>
+                    <h1 class="blog-title">JURNAL <span>RISALAH</span> ISLAMI</h1>
+                    <p class="blog-tagline">Catatan Pemikiran, Sejarah, & Perjuangan Generasi Rabbani</p>
+                    <div class="blog-crescent-divider">
+                        <span>✦</span><span>☪</span><span>✦</span>
+                    </div>
+                </div>
+
+                <nav class="blog-nav">
+                    <ul>
+                        <li class="active" onclick="filterBlogCategory('semua', this)">Semua Postingan</li>
+                        <li onclick="filterBlogCategory('pemikiran', this)">Pemikiran Islam</li>
+                        <li onclick="filterBlogCategory('sejarah', this)">Sejarah & Tarbiyah</li>
+                        <li onclick="filterBlogCategory('audio', this)">Rekomendasi Nasyid</li>
+                    </ul>
+                </nav>
+            </header>
+
+            <!-- DASHBOARD ADMIN (LOGGED IN ONLY) -->
+            <div id="admin-panel" class="admin-panel-container hidden-element">
+                <div class="admin-panel-header">
+                    <h3>🛠️ Admin Control Center (Khusus Luqman Azkiya)</h3>
+                    <span class="admin-badge">Status: Logged In as Admin</span>
+                </div>
+                <form id="form-tambah-post" onsubmit="tambahPostinganBlog(event)" class="admin-form">
+                    <div class="form-row">
+                        <input type="text" id="post-title" placeholder="Judul Postingan Blog..." required>
+                        <select id="post-category" required>
+                            <option value="pemikiran">Pemikiran Islam</option>
+                            <option value="sejarah">Sejarah & Tarbiyah</option>
+                            <option value="audio">Rekomendasi Nasyid & Audio</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="post-author" value="Luqman Azkiya Athaillah" placeholder="Penulis" required>
+                    </div>
+                    <div class="form-row">
+                        <textarea id="post-content" rows="4" placeholder="Tuliskan isi artikel / postingan blog di sini..." required></textarea>
+                    </div>
+                    <div class="form-row form-checkbox-spotify">
+                        <label>
+                            <input type="checkbox" id="post-link-spotify" onchange="toggleSpotifyLinkInput(this)">
+                            Tautkan Postingan ini ke Spotify Islami (Navigasi ke Audio)?
+                        </label>
+                    </div>
+                    <div id="spotify-link-options" class="form-row hidden-element">
+                        <input type="text" id="post-spotify-title" placeholder="Judul Lagu / Playlist Spotify yang Dirujuk">
+                    </div>
+                    <button type="submit" class="btn-publish-post">🚀 Publikasikan Postingan</button>
+                </form>
+            </div>
+
+            <!-- MAIN KONTEN BLOG (CUSTOMER VIEW) -->
+            <main class="blog-main-content">
+                <div id="blog-posts-container" class="blog-posts-grid">
+                    <article class="blog-post-card featured-post" data-category="audio">
+                        <div class="post-thumb">
+                            <span class="post-badge">☪ Audio & Nasyid</span>
+                            <div class="crescent-watermark">☪</div>
+                        </div>
+                        <div class="post-content-box">
+                            <div class="post-meta">
+                                <span>✍️ Luqman Pasha</span> • <span>📅 27 Oktober 2024</span>
+                            </div>
+                            <h2>Membangkitkan Spirit Perjuangan Lewat Nasyid & Tilawah Al-Qur'an</h2>
+                            <p>Alunan nada nasyid dan tilawah memiliki kekuatan tersendiri dalam menumbuhkan ketenangan jiwa serta mengobarkan semangat dakwah. Simak kompilasi audio pilihan yang telah dikurasi khusus di platform Spotify Islami kami.</p>
+                            
+                            <div class="blog-spotify-cta-box" onclick="bukaSpotifyDariBlog()">
+                                <div class="cta-icon">🎧</div>
+                                <div class="cta-info">
+                                    <h4>Dengarkan Nasyid Perjuangan di Spotify Islami</h4>
+                                    <p>Klik di sini untuk langsung mengarah ke Pemutar Audio & MP3</p>
+                                </div>
+                                <span class="btn-spotify-arrow">&rarr;</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post-card" data-category="pemikiran">
+                        <div class="post-thumb thumb-alt-1">
+                            <span class="post-badge">Pemikiran Islam</span>
+                        </div>
+                        <div class="post-content-box">
+                            <div class="post-meta">
+                                <span>✍️ Luqman Azkiya Athaillah</span> • <span>📅 24 Oktober 2024</span>
+                            </div>
+                            <h3>Integrasi Sains, Teknologi, dan Nilai Syariat di Era Digital</h3>
+                            <p>Memahami bagaimana generasi muda muslim dapat memanfaatkan keahlian teknologi informasi untuk kemaslahatan ummat tanpa kehilangan identitas keislamannya.</p>
+                            <a href="javascript:void(0)" class="blog-read-more">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-post-card" data-category="sejarah">
+                        <div class="post-thumb thumb-alt-2">
+                            <span class="post-badge">Sejarah & Tarbiyah</span>
+                        </div>
+                        <div class="post-content-box">
+                            <div class="post-meta">
+                                <span>✍️ Luqman Azkiya Athaillah</span> • <span>📅 20 Oktober 2024</span>
+                            </div>
+                            <h3>Prinsip Pembinaan Karakter (Tarbiyah) Generasi Rabbani</h3>
+                            <p>Ulasan ringkas mengenai pentingnya kontinuitas dalam menuntut ilmu, memperbaiki ibadah, serta menjaga kebersihan hati di tengah arus modernisasi.</p>
+                            <a href="javascript:void(0)" class="blog-read-more">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <footer class="blog-footer">
+                <div class="crescent-star-icon small">☪</div>
+                <p>&copy; 2024 Jurnal Risalah Islami - Portofolio Luqman Azkiya Athaillah</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP LOGIN ADMIN BLOG -->
+    <div id="modal-login-admin" class="blog-modal-overlay hidden-element">
+        <div class="blog-modal-card">
+            <div class="modal-header">
+                <h3>🔒 Autentikasi Admin Blog</h3>
+                <button class="btn-close-modal" onclick="tutupModalLoginAdmin()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="crescent-star-icon">☪</div>
+                <p>Masukkan Kata Sandi Khusus Admin untuk Mengakses Halaman Pembuatan Postingan.</p>
+                <form onsubmit="prosesLoginAdmin(event)">
+                    <div class="input-group-modal">
+                        <label for="admin-pass">Kata Sandi (Password):</label>
+                        <input type="password" id="admin-pass" placeholder="Masukkan password..." required>
+                    </div>
+                    <p id="login-error-msg" class="error-msg hidden-element">⚠️ Password salah! Silakan coba lagi.</p>
+                    <button type="submit" class="btn-submit-login">Masuk Sebagai Admin 🔑</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT INTERAKSI & SISTEM ADMIN BLOG -->
+    <script>
+        const ADMIN_PASSWORD_SECRET = "luqman123"; 
+        let isAdminLoggedIn = false;
+
+        function bukaBlog() {
+            document.getElementById('main-content').classList.add('hidden-page');
+            const pages = document.querySelectorAll('.hidden-page');
+            pages.forEach(p => { if (p.id !== 'blog-page') p.classList.add('hidden-page'); });
+            document.getElementById('blog-page').classList.remove('hidden-page');
+            window.scrollTo(0, 0);
+        }
+
+        function tutupBlog() {
+            document.getElementById('blog-page').classList.add('hidden-page');
+            document.getElementById('main-content').classList.remove('hidden-page');
+        }
+
+        function bukaSpotifyDariBlog() {
+            document.getElementById('blog-page').classList.add('hidden-page');
+            if (typeof bukaSpotify === "function") {
+                bukaSpotify();
+            } else {
+                document.getElementById('spotify-page').classList.remove('hidden-page');
+            }
+        }
+
+        function bukaModalLoginAdmin() {
+            document.getElementById('modal-login-admin').classList.remove('hidden-element');
+            document.getElementById('login-error-msg').classList.add('hidden-element');
+            document.getElementById('admin-pass').value = '';
+        }
+
+        function tutupModalLoginAdmin() {
+            document.getElementById('modal-login-admin').classList.add('hidden-element');
+        }
+
+        function prosesLoginAdmin(e) {
+            e.preventDefault();
+            const inputPass = document.getElementById('admin-pass').value;
+            if (inputPass === ADMIN_PASSWORD_SECRET) {
+                isAdminLoggedIn = true;
+                tutupModalLoginAdmin();
+                document.getElementById('admin-panel').classList.remove('hidden-element');
+                document.getElementById('btn-admin-access').classList.add('hidden-element');
+                document.getElementById('btn-admin-logout').classList.remove('hidden-element');
+                alert("Login Admin Berhasil! Anda sekarang dapat menambahkan postingan.");
+            } else {
+                document.getElementById('login-error-msg').classList.remove('hidden-element');
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('admin-panel').classList.add('hidden-element');
+            document.getElementById('btn-admin-access').classList.remove('hidden-element');
+            document.getElementById('btn-admin-logout').classList.add('hidden-element');
+            alert("Anda telah keluar dari mode Admin Blog.");
+        }
+
+        function toggleSpotifyLinkInput(checkbox) {
+            const spotifyOptions = document.getElementById('spotify-link-options');
+            if (checkbox.checked) {
+                spotifyOptions.classList.remove('hidden-element');
+            } else {
+                spotifyOptions.classList.add('hidden-element');
+            }
+        }
+
+        function tambahPostinganBlog(e) {
+            e.preventDefault();
+            const title = document.getElementById('post-title').value;
+            const category = document.getElementById('post-category').value;
+            const author = document.getElementById('post-author').value;
+            const content = document.getElementById('post-content').value;
+            const isSpotifyLink = document.getElementById('post-link-spotify').checked;
+            const spotifyTitle = document.getElementById('post-spotify-title').value || "Spotify Islami Audio";
+
+            const container = document.getElementById('blog-posts-container');
+            const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            const article = document.createElement('article');
+            article.className = 'blog-post-card';
+            article.setAttribute('data-category', category);
+
+            let spotifyCTAHtml = '';
+            if (isSpotifyLink) {
+                spotifyCTAHtml = `
+                    <div class="blog-spotify-cta-box" onclick="bukaSpotifyDariBlog()">
+                        <div class="cta-icon">🎧</div>
+                        <div class="cta-info">
+                            <h4>Dengarkan "${spotifyTitle}" di Spotify Islami</h4>
+                            <p>Klik untuk membuka pemutar audio</p>
+                        </div>
+                        <span class="btn-spotify-arrow">&rarr;</span>
+                    </div>
                 `;
-                listContainer.appendChild(row);
+            }
+
+            article.innerHTML = `
+                <div class="post-thumb">
+                    <span class="post-badge">☪ ${category.toUpperCase()}</span>
+                    <div class="crescent-watermark">☪</div>
+                </div>
+                <div class="post-content-box">
+                    <div class="post-meta">
+                        <span>✍️ ${author}</span> • <span>📅 ${todayStr}</span>
+                    </div>
+                    <h3>${title}</h3>
+                    <p>${content}</p>
+                    ${spotifyCTAHtml}
+                    ${!isSpotifyLink ? '<a href="javascript:void(0)" class="blog-read-more">Baca Selengkapnya &rarr;</a>' : ''}
+                </div>
+            `;
+
+            container.insertBefore(article, container.firstChild);
+            document.getElementById('form-tambah-post').reset();
+            document.getElementById('spotify-link-options').classList.add('hidden-element');
+            alert("Postingan blog baru berhasil dipublikasikan!");
+        }
+
+        function filterBlogCategory(kategori, elementNav) {
+            const navItems = document.querySelectorAll('.blog-nav li');
+            navItems.forEach(li => li.classList.remove('active'));
+            elementNav.classList.add('active');
+
+            const posts = document.querySelectorAll('.blog-post-card');
+            posts.forEach(post => {
+                const postCat = post.getAttribute('data-category');
+                if (kategori === 'semua' || postCat === kategori) {
+                    post.style.display = 'flex';
+                } else {
+                    post.style.display = 'none';
+                }
             });
         }
-
-        function uploadMP3Baru(input) {
-            const file = input.files[0];
-            if (file) {
-                const fileURL = URL.createObjectURL(file);
-                const newTrack = {
-                    title: file.name.replace(/\.[^/.]+$/, ""),
-                    artist: "Local Upload MP3",
-                    album: "Koleksi Saya",
-                    cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&auto=format&fit=crop",
-                    src: fileURL
-                };
-                spotifyTracks.unshift(newTrack);
-                renderTracklist();
-                putarLagu(0);
-            }
-        }
-
-        function tambahURLMP3() {
-            const urlInput = document.getElementById('custom-mp3-url');
-            const url = urlInput.value.trim();
-            if (url) {
-                const newTrack = {
-                    title: "Audio dari Link",
-                    artist: "Online MP3",
-                    album: "External Source",
-                    cover: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=100&auto=format&fit=crop",
-                    src: url
-                };
-                spotifyTracks.unshift(newTrack);
-                urlInput.value = '';
-                renderTracklist();
-                putarLagu(0);
-            } else {
-                alert('Silakan tempelkan link URL MP3 terlebih dahulu!');
-            }
-        }
-
-        function putarLagu(index) {
-            const track = spotifyTracks[index];
-
-            if (!track.src) {
-                alert(`Lagu "${track.title}" belum memiliki file MP3.\n\nSilakan klik tombol "Choose File MP3" di sebelah kiri untuk memasukkan file MP3 dari laptop/HP Anda!`);
-                return;
-            }
-
-            if (currentTrackIndex === index) {
-                togglePlay();
-                return;
-            }
-
-            currentTrackIndex = index;
-            document.getElementById('current-song').textContent = track.title;
-            document.getElementById('current-artist').textContent = track.artist;
-            document.getElementById('current-cover').src = track.cover;
-
-            audioPlayer.src = track.src;
-            audioPlayer.play().then(() => {
-                document.getElementById('btn-play-pause').textContent = '⏸';
-            }).catch(e => {
-                alert('Gagal memutar audio: File MP3 tidak valid atau terblokir.');
-            });
-
-            renderTracklist();
-        }
-
-        function togglePlay() {
-            if (currentTrackIndex === -1) {
-                putarLagu(0);
-                return;
-            }
-
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-                document.getElementById('btn-play-pause').textContent = '⏸';
-            } else {
-                audioPlayer.pause();
-                document.getElementById('btn-play-pause').textContent = '▶';
-            }
-        }
-
-        function laguBerikutnya() {
-            if (spotifyTracks.length === 0) return;
-            let nextIndex = (currentTrackIndex + 1) % spotifyTracks.length;
-            putarLagu(nextIndex);
-        }
-
-        function laguSebelumnya() {
-            if (spotifyTracks.length === 0) return;
-            let prevIndex = (currentTrackIndex - 1 + spotifyTracks.length) % spotifyTracks.length;
-            putarLagu(prevIndex);
-        }
-
-        function hentikanAudio() {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-            document.getElementById('btn-play-pause').textContent = '▶';
-        }
-
-        function formatWaktu(detik) {
-            if (isNaN(detik)) return "0:00";
-            const min = Math.floor(detik / 60);
-            const sec = Math.floor(detik % 60);
-            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-        }
-
-        audioPlayer.ontimeupdate = function() {
-            if (audioPlayer.duration) {
-                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-                document.getElementById('progress-bar').value = percent;
-                document.getElementById('current-time').textContent = formatWaktu(audioPlayer.currentTime);
-                document.getElementById('total-duration').textContent = formatWaktu(audioPlayer.duration);
-            }
-        };
-
-        audioPlayer.onended = function() {
-            laguBerikutnya();
-        };
-
-        function seekLagu(val) {
-            if (audioPlayer.duration) {
-                audioPlayer.currentTime = (val / 100) * audioPlayer.duration;
-            }
-        }
-
-        function setVolumeAudio(val) {
-            audioPlayer.volume = val / 100;
-        }
-
-        function toggleLike(btn) {
-            btn.classList.toggle('liked');
-        }
-
-        function pilihArtis(namaArtis) {
-            alert('Menampilkan audio koleksi: ' + namaArtis);
-        }
-
-        // Render Tracklist Pertama Kali
-        renderTracklist();
     </script>
 </body>
 </html>
