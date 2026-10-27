@@ -1,4 +1,22 @@
 // =================================================================
+// 0. KONFIGURASI FIREBASE DATABASE (PENYIMPANAN PERMANEN CLOUD)
+// =================================================================
+// Ganti nilai di bawah ini dengan konfigurasi dari Firebase Console Anda
+const firebaseConfig = {
+    apiKey: "PASTE_API_KEY_ANDA_DI_SINI",
+    authDomain: "NAMA_PROJECT.firebaseapp.com",
+    projectId: "NAMA_PROJECT",
+    storageBucket: "NAMA_PROJECT.appspot.com",
+    messagingSenderId: "XXXXXXXXXX",
+    appId: "X:XXXXXXXXXX:web:XXXXXXXXXX"
+};
+
+// Inisialisasi Firebase & Firestore
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+
+// =================================================================
 // 1. SISTEM WAKTU REAL-TIME (JAM WIB)
 // =================================================================
 function updateJamWIB() {
@@ -383,45 +401,9 @@ function pilihArtis(artisName) {
 
 
 // =================================================================
-// 7. LOGIKA SISTEM BLOGGER: FITUR CRUD LENGKAP (CREATE, READ, UPDATE, DELETE)
+// 7. LOGIKA SISTEM BLOGGER: CRUD PERMANEN VIA FIREBASE CLOUD
 // =================================================================
 let isAdminLoggedIn = false;
-
-// Data Artikel Default Blogger (READ & STORE DENGAN LOCALSTORAGE)
-function getBlogPosts() {
-    const stored = localStorage.getItem('luqman_blog_posts');
-    if (stored) {
-        return JSON.parse(stored);
-    }
-    const defaultPosts = [
-        {
-            id: 1,
-            title: "Membangun Karakter Rabbani di Tengah Era Kebisingan Teknologi",
-            category: "Tarbiyah & Pemikiran",
-            date: "25 Oktober 2024",
-            author: "Luqman Azkiya Athaillah",
-            image: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop",
-            content: "Di era serba cepat ini, seorang pemuda muslim dituntut memiliki benteng akidah yang kokoh. Pemikiran Islam memberikan fondasi bahwa kemajuan teknologi harus diimbangi dengan kedalaman spiritual...",
-            likes: 12
-        },
-        {
-            id: 2,
-            title: "Jejak Kejayaan Peradaban Islam dan Spirit Ikhwanul Muslimin",
-            category: "Sejarah Peradaban",
-            date: "20 Oktober 2024",
-            author: "Luqman Azkiya Athaillah",
-            image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop",
-            content: "Mengenal bagaimana spirit pembaruan sosial yang diusung oleh Hassan al-Banna mampu membawa dampak perubahan besar bagi kesadaran ummat Islam di era modern...",
-            likes: 28
-        }
-    ];
-    localStorage.setItem('luqman_blog_posts', JSON.stringify(defaultPosts));
-    return defaultPosts;
-}
-
-function saveBlogPosts(posts) {
-    localStorage.setItem('luqman_blog_posts', JSON.stringify(posts));
-}
 
 function getAdminPassword() {
     return localStorage.getItem('admin_blog_password') || 'luqman123';
@@ -563,55 +545,65 @@ function prosesResetPassword() {
 }
 
 // -----------------------------------------------------------------
-// METODE CRUD: 1. READ (MENAMPILKAN SEMUA POSTINGAN BLOG)
+// METODE CRUD 1: READ (MENAMPILKAN ARTIKEL REAL-TIME DARI FIREBASE)
 // -----------------------------------------------------------------
 function renderBlogPosts() {
     const container = document.getElementById('blog-posts-container');
     if (!container) return;
 
-    container.innerHTML = '';
-    const posts = getBlogPosts();
+    db.collection("posts").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+        container.innerHTML = '';
 
-    posts.forEach(post => {
-        const article = document.createElement('article');
-        article.className = 'blog-card';
-        article.style.animation = 'fadeIn 0.4s ease';
+        if (snapshot.empty) {
+            container.innerHTML = `<p style="color:#94a3b8; text-align:center;">Belum ada postingan artikel. Silakan buat melalui Mode Admin.</p>`;
+            return;
+        }
 
-        // Tampilkan Tombol UPDATE & DELETE Hanya Jika Login Admin
-        const adminButtonsHTML = isAdminLoggedIn ? `
-            <button class="btn-edit-post" onclick="editPost(${post.id})">✏️ Edit</button>
-            <button class="btn-delete-post" onclick="hapusPost(${post.id})">🗑️ Hapus</button>
-        ` : '';
+        snapshot.forEach((doc) => {
+            const post = doc.data();
+            const id = doc.id;
 
-        article.innerHTML = `
-            <div class="card-thumb">
-                <img src="${post.image}" alt="${post.title}">
-                <span class="card-cat">${post.category}</span>
-            </div>
-            <div class="card-content">
-                <div class="card-meta">
-                    <span>📅 ${post.date}</span> • <span>✍️ ${post.author}</span>
+            const article = document.createElement('article');
+            article.className = 'blog-card';
+            article.style.animation = 'fadeIn 0.4s ease';
+
+            const adminButtonsHTML = isAdminLoggedIn ? `
+                <button class="btn-edit-post" onclick="editPost('${id}')">✏️ Edit</button>
+                <button class="btn-delete-post" onclick="hapusPost('${id}')">🗑️ Hapus</button>
+            ` : '';
+
+            article.innerHTML = `
+                <div class="card-thumb">
+                    <img src="${post.image}" alt="${post.title}">
+                    <span class="card-cat">${post.category}</span>
                 </div>
-                <h3 class="card-title">${post.title}</h3>
-                <p class="card-snippet">${post.content}</p>
-                
-                <div class="post-spotify-promo" onclick="tutupBlog(); bukaSpotify();">
-                    <span>🎧 Dengarkan Nasyid & Tilawah Pendukung Artikel Ini di Spotify Islami &rarr;</span>
-                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span>📅 ${post.date}</span> • <span>✍️ ${post.author}</span>
+                    </div>
+                    <h3 class="card-title">${post.title}</h3>
+                    <p class="card-snippet">${post.content}</p>
+                    
+                    <div class="post-spotify-promo" onclick="tutupBlog(); bukaSpotify();">
+                        <span>🎧 Dengarkan Nasyid & Tilawah Pendukung Artikel Ini di Spotify Islami &rarr;</span>
+                    </div>
 
-                <div class="card-actions">
-                    <button class="btn-like" onclick="likePost(this, ${post.id})">❤️ <span>${post.likes}</span> Suka</button>
-                    <button class="btn-share" onclick="sharePost('${post.title.replace(/'/g, "\\'")}')">🔗 Bagikan</button>
-                    ${adminButtonsHTML}
+                    <div class="card-actions">
+                        <button class="btn-like" onclick="likePost(this, '${id}', ${post.likes || 0})">❤️ <span>${post.likes || 0}</span> Suka</button>
+                        <button class="btn-share" onclick="sharePost('${post.title.replace(/'/g, "\\'")}')">🔗 Bagikan</button>
+                        ${adminButtonsHTML}
+                    </div>
                 </div>
-            </div>
-        `;
-        container.appendChild(article);
+            `;
+            container.appendChild(article);
+        });
+    }, (error) => {
+        console.error("Gagal mengambil data dari Firebase:", error);
     });
 }
 
 // -----------------------------------------------------------------
-// METODE CRUD: 2. CREATE (MEMBUAT BARU) & 3. UPDATE (MEMPERBARUI)
+// METODE CRUD 2 & 3: CREATE & UPDATE (SIMPAN BARU / PERBARUI KE CLOUD)
 // -----------------------------------------------------------------
 function tambahPostinganBaru(e) {
     e.preventDefault();
@@ -622,58 +614,55 @@ function tambahPostinganBaru(e) {
     const imgUrl = document.getElementById('post-image').value || 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop';
     const konten = document.getElementById('post-content').value;
 
-    let posts = getBlogPosts();
-
     if (editId) {
-        // PERINTAH UPDATE: MEMPERBARUI ARTIKEL
-        const index = posts.findIndex(p => p.id === parseInt(editId));
-        if (index !== -1) {
-            posts[index].title = judul;
-            posts[index].category = kategori;
-            posts[index].image = imgUrl;
-            posts[index].content = konten;
-            saveBlogPosts(posts);
-            alert('✏️ Postingan artikel berhasil diperbarui!');
-        }
+        // PERINTAH UPDATE: MEMPERBARUI DOKUMEN DI FIREBASE CLOUD
+        db.collection("posts").doc(editId).update({
+            title: judul,
+            category: kategori,
+            image: imgUrl,
+            content: konten
+        }).then(() => {
+            alert('✏️ Postingan berhasil diperbarui di server cloud!');
+            batalEditPost();
+        }).catch((err) => alert("Gagal memperbarui artikel: " + err.message));
     } else {
-        // PERINTAH CREATE: MENAMBAHKAN ARTIKEL BARU
+        // PERINTAH CREATE: MENAMBAHKAN DOKUMEN BARU KE FIREBASE CLOUD
         const tglHariIni = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-        const newPost = {
-            id: Date.now(),
+        
+        db.collection("posts").add({
             title: judul,
             category: kategori,
             date: tglHariIni,
             author: "Luqman Azkiya Athaillah",
             image: imgUrl,
             content: konten,
-            likes: 0
-        };
-        posts.unshift(newPost);
-        saveBlogPosts(posts);
-        alert('🚀 Postingan artikel baru berhasil diterbitkan!');
+            likes: 0,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            alert('🚀 Postingan baru berhasil diterbitkan secara permanen!');
+            batalEditPost();
+        }).catch((err) => alert("Gagal menerbitkan artikel: " + err.message));
     }
-
-    batalEditPost();
-    renderBlogPosts();
 }
 
-// EKSEKUSI DATA UNTUK PROSES UPDATE (MENAMPILKAN DI FORM)
+// PERSIAPKAN DATA DOKUMEN UNTUK DI-EDIT
 function editPost(id) {
-    const posts = getBlogPosts();
-    const post = posts.find(p => p.id === id);
-    if (!post) return;
+    db.collection("posts").doc(id).get().then((doc) => {
+        if (doc.exists) {
+            const post = doc.data();
+            document.getElementById('edit-post-id').value = id;
+            document.getElementById('post-title').value = post.title;
+            document.getElementById('post-category').value = post.category;
+            document.getElementById('post-image').value = post.image;
+            document.getElementById('post-content').value = post.content;
 
-    document.getElementById('edit-post-id').value = post.id;
-    document.getElementById('post-title').value = post.title;
-    document.getElementById('post-category').value = post.category;
-    document.getElementById('post-image').value = post.image;
-    document.getElementById('post-content').value = post.content;
+            document.getElementById('form-panel-title').innerText = '✏️ Panel Admin Blogger - Edit Postingan';
+            document.getElementById('btn-submit-post').innerText = '💾 Simpan Perubahan Artikel';
+            document.getElementById('btn-cancel-edit').classList.remove('hidden');
 
-    document.getElementById('form-panel-title').innerText = '✏️ Panel Admin Blogger - Edit Postingan';
-    document.getElementById('btn-submit-post').innerText = '💾 Simpan Perubahan Artikel';
-    document.getElementById('btn-cancel-edit').classList.remove('hidden');
-
-    document.getElementById('admin-editor-panel').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('admin-editor-panel').scrollIntoView({ behavior: 'smooth' });
+        }
+    }).catch((err) => alert("Gagal memuat artikel: " + err.message));
 }
 
 function batalEditPost() {
@@ -685,29 +674,23 @@ function batalEditPost() {
 }
 
 // -----------------------------------------------------------------
-// METODE CRUD: 4. DELETE (MENGHAPUS POSTINGAN ARTIKEL)
+// METODE CRUD 4: DELETE (HAPUS PERMANEN DARI FIREBASE CLOUD)
 // -----------------------------------------------------------------
 function hapusPost(id) {
-    if (confirm('⚠️ Apakah Anda yakin ingin menghapus postingan artikel ini?')) {
-        let posts = getBlogPosts();
-        posts = posts.filter(p => p.id !== id);
-        saveBlogPosts(posts);
-        renderBlogPosts();
-        alert('🗑️ Postingan artikel berhasil dihapus!');
+    if (confirm('⚠️ Apakah Anda yakin ingin menghapus postingan artikel ini secara permanen dari server?')) {
+        db.collection("posts").doc(id).delete().then(() => {
+            alert('🗑️ Postingan artikel berhasil dihapus dari server cloud!');
+        }).catch((err) => alert("Gagal menghapus artikel: " + err.message));
     }
 }
 
-function likePost(btn, postId) {
-    let posts = getBlogPosts();
-    const post = posts.find(p => p.id === postId);
-    if (post) {
-        post.likes++;
-        saveBlogPosts(posts);
-        const countSpan = btn.querySelector('span');
-        countSpan.innerText = post.likes;
+function likePost(btn, id, currentLikes) {
+    db.collection("posts").doc(id).update({
+        likes: currentLikes + 1
+    }).then(() => {
         btn.style.color = '#ef4444';
         btn.style.borderColor = '#ef4444';
-    }
+    });
 }
 
 function sharePost(title) {
