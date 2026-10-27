@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -159,12 +159,12 @@
                         </div>
                     </div>
 
-                    <!-- KARTU 6: BLOG ISLAMI & CATATAN PERJUANGAN (PROJECT BARU BLOGGER) -->
+                    <!-- KARTU 6: BLOG ISLAMI & CATATAN PERJUANGAN -->
                     <div class="project-card card-clickable" onclick="bukaBlog()">
                         <div class="card-body">
                             <div class="card-badge-islamic">☪ Blog Utama</div>
                             <h3>Blog Islami & Catatan Perjuangan</h3>
-                            <p>Portal artikel, opini, dan catatan harian peradaban Islam. Dilengkapi akses cepat ke pemutar musik Spotify!</p>
+                            <p>Portal artikel, opini, dan catatan harian peradaban Islam. Fitur CRUD artikel penuh di Mode Admin!</p>
                             <span class="btn-open">Buka Blog &rarr;</span>
                         </div>
                     </div>
@@ -618,7 +618,7 @@
                 </div>
             </div>
 
-            <!-- PANEL PUBLISH / EDIT POSTINGAN (KHUSUS HANYA MUNCUL JIKA ADMIN LOGIN) -->
+            <!-- PANEL PUBLISH / EDIT POSTINGAN (FORM CRUD KHUSUS ADMIN) -->
             <div id="admin-editor-panel" class="admin-panel hidden">
                 <div class="admin-panel-header">
                     <h3 id="form-panel-title">✍️ Panel Admin Blogger - Buat Postingan Baru</h3>
@@ -659,7 +659,7 @@
                 </form>
             </div>
 
-            <!-- BODY UTAMA BLOG (TAMPILAN CUSTOMER / UNTUK UMUM) -->
+            <!-- BODY UTAMA BLOG (TAMPILAN HASIL READ ARTIKEL MEMAHAMI FITUR CRUD) -->
             <div class="blog-layout">
                 <!-- LIST POSTINGAN MAIN -->
                 <main class="blog-feed">
@@ -668,7 +668,7 @@
                         <span class="feed-count">Menampilkan Postingan Pilihan</span>
                     </div>
 
-                    <!-- CONTAINER DINAMIS POSTINGAN BLOG -->
+                    <!-- CONTAINER DINAMIS POSTINGAN BLOG UNTUK READ/UPDATE/DELETE -->
                     <div id="blog-posts-container" class="posts-grid">
                         <!-- Postingan dirender secara dinamis lewat JavaScript -->
                     </div>
