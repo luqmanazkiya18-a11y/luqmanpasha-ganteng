@@ -383,8 +383,34 @@ function pilihArtis(artisName) {
 
 
 // =================================================================
-// 7. LOGIKA BLOGGER, KONTROL ADMIN & FITUR LUPA / RESET PASSWORD
+// 7. LOGIKA BLOGGER: CRUD ARTIKEL (MEMBUAT, EDIT, HAPUS), KONTROL ADMIN & RESET PASSWORD
 // =================================================================
+let isAdminLoggedIn = false;
+
+// Data Artikel Default Blogger
+let blogPosts = [
+    {
+        id: 1,
+        title: "Membangun Karakter Rabbani di Tengah Era Kebisingan Teknologi",
+        category: "Tarbiyah & Pemikiran",
+        date: "25 Oktober 2024",
+        author: "Luqman Azkiya Athaillah",
+        image: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop",
+        content: "Di era serba cepat ini, seorang pemuda muslim dituntut memiliki benteng akidah yang kokoh. Pemikiran Islam memberikan fondasi bahwa kemajuan teknologi harus diimbangi dengan kedalaman spiritual...",
+        likes: 12
+    },
+    {
+        id: 2,
+        title: "Jejak Kejayaan Peradaban Islam dan Spirit Ikhwanul Muslimin",
+        category: "Sejarah Peradaban",
+        date: "20 Oktober 2024",
+        author: "Luqman Azkiya Athaillah",
+        image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop",
+        content: "Mengenal bagaimana spirit pembaruan sosial yang diusung oleh Hassan al-Banna mampu membawa dampak perubahan besar bagi kesadaran ummat Islam di era modern...",
+        likes: 28
+    }
+];
+
 function getAdminPassword() {
     return localStorage.getItem('admin_blog_password') || 'luqman123';
 }
@@ -397,6 +423,7 @@ function bukaBlog() {
     document.getElementById('main-content').classList.add('hidden-page');
     document.getElementById('blog-page').classList.remove('hidden-page');
     window.scrollTo(0, 0);
+    renderBlogPosts();
 }
 
 function tutupBlog() {
@@ -427,10 +454,12 @@ function verifikasiPasswordAdmin() {
     const currentPass = getAdminPassword();
 
     if (inputPass === currentPass) {
+        isAdminLoggedIn = true;
         tutupModalAdminLogin();
         document.getElementById('admin-editor-panel').classList.remove('hidden');
         document.getElementById('btn-admin-login').classList.add('hidden');
         document.getElementById('btn-admin-logout').classList.remove('hidden');
+        renderBlogPosts();
         alert('✅ Login Admin Berhasil! Selamat datang Luqman Pasha.');
     } else {
         errorMsg.classList.remove('hidden');
@@ -438,9 +467,12 @@ function verifikasiPasswordAdmin() {
 }
 
 function logoutAdmin() {
+    isAdminLoggedIn = false;
     document.getElementById('admin-editor-panel').classList.add('hidden');
     document.getElementById('btn-admin-login').classList.remove('hidden');
     document.getElementById('btn-admin-logout').classList.add('hidden');
+    batalEditPost();
+    renderBlogPosts();
     alert('🔒 Anda telah keluar dari Mode Admin.');
 }
 
@@ -477,10 +509,9 @@ function simpanPasswordBaru() {
 
     setAdminPassword(passBaru);
     tutupModalGantiPassword();
-    alert("🎉 Password Admin Anda berhasil diperbarui! Gunakan password baru ini untuk login berikutnya.");
+    alert("🎉 Password Admin Anda berhasil diperbarui!");
 }
 
-// LOGIKA KHUSUS RESET / LUPA PASSWORD
 function bukaModalResetPassword() {
     tutupModalAdminLogin();
     document.getElementById('modal-reset-password').classList.remove('hidden');
@@ -500,7 +531,6 @@ function prosesResetPassword() {
     const passBaru = document.getElementById('reset-pass-baru').value;
     const errorMsg = document.getElementById('reset-pass-error');
 
-    // Kunci Jawaban Verifikasi Keamanan (Berdasarkan profil Luqman Azkiya Athaillah / Luqman Pasha & SMPIT As-Syifa)
     const validAns1 = ans1.includes('luqman');
     const validAns2 = ans2.includes('syifa') || ans2.includes('assyifa') || ans2.includes('as-syifa');
 
@@ -513,61 +543,143 @@ function prosesResetPassword() {
 
         setAdminPassword(passBaru);
         tutupModalResetPassword();
-        alert("🎉 Password Admin berhasil di-reset! Silakan login kembali dengan password baru Anda.");
+        alert("🎉 Password Admin berhasil di-reset! Silakan login kembali.");
     } else {
-        errorMsg.innerText = "❌ Jawaban verifikasi keamanan salah! Akses reset ditolak.";
+        errorMsg.innerText = "❌ Jawaban verifikasi keamanan salah! Akses ditolak.";
         errorMsg.classList.remove('hidden');
     }
 }
 
-function tambahPostinganBaru(e) {
-    e.preventDefault();
-
-    const judul = document.getElementById('post-title').value;
-    const kategori = document.getElementById('post-category').value;
-    const imgUrl = document.getElementById('post-image').value || 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop';
-    const konten = document.getElementById('post-content').value;
-
+// RENDER ARTIKEL BLOG SAMA TOMBOL EDIT & HAPUS JIKA MODE ADMIN
+function renderBlogPosts() {
     const container = document.getElementById('blog-posts-container');
-    const tglHariIni = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    if (!container) return;
 
-    const newPostHTML = `
-        <article class="blog-card" style="animation: fadeIn 0.5s ease;">
+    container.innerHTML = '';
+
+    blogPosts.forEach(post => {
+        const article = document.createElement('article');
+        article.className = 'blog-card';
+        article.style.animation = 'fadeIn 0.4s ease';
+
+        const adminButtonsHTML = isAdminLoggedIn ? `
+            <button class="btn-edit-post" onclick="editPost(${post.id})">✏️ Edit</button>
+            <button class="btn-delete-post" onclick="hapusPost(${post.id})">🗑️ Hapus</button>
+        ` : '';
+
+        article.innerHTML = `
             <div class="card-thumb">
-                <img src="${imgUrl}" alt="${judul}">
-                <span class="card-cat">${kategori}</span>
+                <img src="${post.image}" alt="${post.title}">
+                <span class="card-cat">${post.category}</span>
             </div>
             <div class="card-content">
                 <div class="card-meta">
-                    <span>📅 ${tglHariIni}</span> • <span>✍️ Luqman Azkiya Athaillah</span>
+                    <span>📅 ${post.date}</span> • <span>✍️ ${post.author}</span>
                 </div>
-                <h3 class="card-title">${judul}</h3>
-                <p class="card-snippet">${konten}</p>
+                <h3 class="card-title">${post.title}</h3>
+                <p class="card-snippet">${post.content}</p>
                 
                 <div class="post-spotify-promo" onclick="tutupBlog(); bukaSpotify();">
                     <span>🎧 Dengarkan Nasyid & Tilawah Pendukung Artikel Ini di Spotify Islami &rarr;</span>
                 </div>
 
                 <div class="card-actions">
-                    <button class="btn-like" onclick="likePost(this)">❤️ <span>0</span> Suka</button>
-                    <button class="btn-share" onclick="sharePost('${judul}')">🔗 Bagikan</button>
+                    <button class="btn-like" onclick="likePost(this, ${post.id})">❤️ <span>${post.likes}</span> Suka</button>
+                    <button class="btn-share" onclick="sharePost('${post.title.replace(/'/g, "\\'")}')">🔗 Bagikan</button>
+                    ${adminButtonsHTML}
                 </div>
             </div>
-        </article>
-    `;
-
-    container.insertAdjacentHTML('afterbegin', newPostHTML);
-    document.getElementById('form-buat-post').reset();
-    alert('🚀 Postingan artikel baru berhasil diterbitkan!');
+        `;
+        container.appendChild(article);
+    });
 }
 
-function likePost(btn) {
-    const countSpan = btn.querySelector('span');
-    let count = parseInt(countSpan.innerText);
-    count++;
-    countSpan.innerText = count;
-    btn.style.color = '#ef4444';
-    btn.style.borderColor = '#ef4444';
+// BUAT BARU ATAU UPDATE (EDIT) POSTINGAN ARTIKEL
+function tambahPostinganBaru(e) {
+    e.preventDefault();
+
+    const editId = document.getElementById('edit-post-id').value;
+    const judul = document.getElementById('post-title').value;
+    const kategori = document.getElementById('post-category').value;
+    const imgUrl = document.getElementById('post-image').value || 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop';
+    const konten = document.getElementById('post-content').value;
+
+    if (editId) {
+        // MODE EDIT (UPDATE)
+        const index = blogPosts.findIndex(p => p.id === parseInt(editId));
+        if (index !== -1) {
+            blogPosts[index].title = judul;
+            blogPosts[index].category = kategori;
+            blogPosts[index].image = imgUrl;
+            blogPosts[index].content = konten;
+            alert('✏️ Postingan artikel berhasil diperbarui!');
+        }
+    } else {
+        // MODE TAMBAH BARU
+        const tglHariIni = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+        const newPost = {
+            id: Date.now(),
+            title: judul,
+            category: kategori,
+            date: tglHariIni,
+            author: "Luqman Azkiya Athaillah",
+            image: imgUrl,
+            content: konten,
+            likes: 0
+        };
+        blogPosts.unshift(newPost);
+        alert('🚀 Postingan artikel baru berhasil diterbitkan!');
+    }
+
+    batalEditPost();
+    renderBlogPosts();
+}
+
+// PERSIAPKAN FORM DENGAN DATA ARTIKEL YANG AKAN DI-EDIT
+function editPost(id) {
+    const post = blogPosts.find(p => p.id === id);
+    if (!post) return;
+
+    document.getElementById('edit-post-id').value = post.id;
+    document.getElementById('post-title').value = post.title;
+    document.getElementById('post-category').value = post.category;
+    document.getElementById('post-image').value = post.image;
+    document.getElementById('post-content').value = post.content;
+
+    document.getElementById('form-panel-title').innerText = '✏️ Panel Admin Blogger - Edit Postingan';
+    document.getElementById('btn-submit-post').innerText = '💾 Simpan Perubahan Artikel';
+    document.getElementById('btn-cancel-edit').classList.remove('hidden');
+
+    document.getElementById('admin-editor-panel').scrollIntoView({ behavior: 'smooth' });
+}
+
+// BATALKAN EDIT ARTIKEL (RESET FORM BALIK KE PERTAMA)
+function batalEditPost() {
+    document.getElementById('edit-post-id').value = '';
+    document.getElementById('form-buat-post').reset();
+    document.getElementById('form-panel-title').innerText = '✍️ Panel Admin Blogger - Buat Postingan Baru';
+    document.getElementById('btn-submit-post').innerText = '🚀 Terbitkan Postingan Baru';
+    document.getElementById('btn-cancel-edit').classList.add('hidden');
+}
+
+// HAPUS POSTINGAN ARTIKEL (MODE ADMIN)
+function hapusPost(id) {
+    if (confirm('⚠️ Apakah Anda yakin ingin menghapus postingan artikel ini?')) {
+        blogPosts = blogPosts.filter(p => p.id !== id);
+        renderBlogPosts();
+        alert('🗑️ Postingan artikel berhasil dihapus!');
+    }
+}
+
+function likePost(btn, postId) {
+    const post = blogPosts.find(p => p.id === postId);
+    if (post) {
+        post.likes++;
+        const countSpan = btn.querySelector('span');
+        countSpan.innerText = post.likes;
+        btn.style.color = '#ef4444';
+        btn.style.borderColor = '#ef4444';
+    }
 }
 
 function sharePost(title) {
