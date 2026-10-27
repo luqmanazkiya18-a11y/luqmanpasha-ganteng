@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -12,10 +12,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <!-- Firebase App (Core SDK) -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script> -
-<!-- Firebase Firestore (Database SDK) -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <!-- FIREBASE SDK (PENYIMPANAN CLOUD PERMANEN) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -169,7 +168,7 @@
                         <div class="card-body">
                             <div class="card-badge-islamic">☪ Blog Utama</div>
                             <h3>Blog Islami & Catatan Perjuangan</h3>
-                            <p>Portal artikel, opini, dan catatan harian peradaban Islam. Fitur CRUD artikel penuh di Mode Admin!</p>
+                            <p>Portal artikel, opini, dan catatan harian peradaban Islam. Simpan artikel permanen di cloud Firebase!</p>
                             <span class="btn-open">Buka Blog &rarr;</span>
                         </div>
                     </div>
@@ -664,7 +663,7 @@
                 </form>
             </div>
 
-            <!-- BODY UTAMA BLOG (TAMPILAN HASIL READ ARTIKEL MEMAHAMI FITUR CRUD) -->
+            <!-- BODY UTAMA BLOG (TAMPILAN HASIL READ ARTIKEL DARI FIREBASE CLOUD) -->
             <div class="blog-layout">
                 <!-- LIST POSTINGAN MAIN -->
                 <main class="blog-feed">
@@ -803,6 +802,7 @@
         </div>
     </div>
 
+    <!-- MAIN SCRIPT (DIKONEKSIKAN DENGAN FIREBASE) -->
     <script src="script.js"></script>
 </body>
 </html>
