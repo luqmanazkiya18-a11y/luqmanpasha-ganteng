@@ -623,7 +623,6 @@
                 <div class="admin-panel-header">
                     <h3>✍️ Panel Admin Blogger - Buat Postingan Baru</h3>
                     <div style="display: flex; gap: 10px; align-items: center;">
-                        <!-- FITUR GANTI PASSWORD ADMIN DI SINI -->
                         <button class="btn-change-pass" onclick="bukaModalGantiPassword()">⚙️ Ganti Password Admin</button>
                         <span class="admin-status-badge">Mode Editor Aktif</span>
                     </div>
@@ -773,6 +772,11 @@
                 <p>Masukkan kata sandi (Password) Admin untuk membuka akses fitur penerbitan artikel:</p>
                 <input type="password" id="admin-pass-input" placeholder="Password Admin Anda..." onkeypress="handleAdminEnter(event)">
                 <p id="login-error-msg" class="error-msg hidden">❌ Password salah! Silakan coba lagi.</p>
+                
+                <!-- TOMBOL LUPA PASSWORD DITAMBAHKAN DI SINI -->
+                <div class="modal-extra-links">
+                    <button class="btn-forgot-pass" onclick="bukaModalResetPassword()">🔑 Lupa Password?</button>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn-secondary" onclick="tutupModalAdminLogin()">Batal</button>
@@ -806,6 +810,36 @@
             <div class="modal-footer">
                 <button class="btn-secondary" onclick="tutupModalGantiPassword()">Batal</button>
                 <button class="btn-primary" onclick="simpanPasswordBaru()">Simpan Password Baru</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP RESET / LUPA PASSWORD ADMIN (FITUR BARU) -->
+    <div id="modal-reset-password" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>🔑 Reset / Lupa Password Admin</h3>
+                <button class="btn-close-modal" onclick="tutupModalResetPassword()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Jawab pertanyaan keamanan pemilik website untuk mereset password Anda:</p>
+                <div class="form-group">
+                    <label>Siapakah Nama Panggung/Lengkap Pemilik Blog Ini?</label>
+                    <input type="text" id="security-answer-1" placeholder="Nama pemilik...">
+                </div>
+                <div class="form-group">
+                    <label>Di Manakah Sekolah Pemilik Blog Ini?</label>
+                    <input type="text" id="security-answer-2" placeholder="Nama sekolah...">
+                </div>
+                <div class="form-group">
+                    <label>Masukkan Password Baru</label>
+                    <input type="password" id="reset-pass-baru" placeholder="Password baru...">
+                </div>
+                <p id="reset-pass-error" class="error-msg hidden">❌ Jawaban keamanan salah! Akses ditolak.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="tutupModalResetPassword()">Batal</button>
+                <button class="btn-primary" onclick="prosesResetPassword()">Reset Password Sekarang</button>
             </div>
         </div>
     </div>
