@@ -383,33 +383,45 @@ function pilihArtis(artisName) {
 
 
 // =================================================================
-// 7. LOGIKA BLOGGER: CRUD ARTIKEL (MEMBUAT, EDIT, HAPUS), KONTROL ADMIN & RESET PASSWORD
+// 7. LOGIKA SISTEM BLOGGER: FITUR CRUD LENGKAP (CREATE, READ, UPDATE, DELETE)
 // =================================================================
 let isAdminLoggedIn = false;
 
-// Data Artikel Default Blogger
-let blogPosts = [
-    {
-        id: 1,
-        title: "Membangun Karakter Rabbani di Tengah Era Kebisingan Teknologi",
-        category: "Tarbiyah & Pemikiran",
-        date: "25 Oktober 2024",
-        author: "Luqman Azkiya Athaillah",
-        image: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop",
-        content: "Di era serba cepat ini, seorang pemuda muslim dituntut memiliki benteng akidah yang kokoh. Pemikiran Islam memberikan fondasi bahwa kemajuan teknologi harus diimbangi dengan kedalaman spiritual...",
-        likes: 12
-    },
-    {
-        id: 2,
-        title: "Jejak Kejayaan Peradaban Islam dan Spirit Ikhwanul Muslimin",
-        category: "Sejarah Peradaban",
-        date: "20 Oktober 2024",
-        author: "Luqman Azkiya Athaillah",
-        image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop",
-        content: "Mengenal bagaimana spirit pembaruan sosial yang diusung oleh Hassan al-Banna mampu membawa dampak perubahan besar bagi kesadaran ummat Islam di era modern...",
-        likes: 28
+// Data Artikel Default Blogger (READ & STORE DENGAN LOCALSTORAGE)
+function getBlogPosts() {
+    const stored = localStorage.getItem('luqman_blog_posts');
+    if (stored) {
+        return JSON.parse(stored);
     }
-];
+    const defaultPosts = [
+        {
+            id: 1,
+            title: "Membangun Karakter Rabbani di Tengah Era Kebisingan Teknologi",
+            category: "Tarbiyah & Pemikiran",
+            date: "25 Oktober 2024",
+            author: "Luqman Azkiya Athaillah",
+            image: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop",
+            content: "Di era serba cepat ini, seorang pemuda muslim dituntut memiliki benteng akidah yang kokoh. Pemikiran Islam memberikan fondasi bahwa kemajuan teknologi harus diimbangi dengan kedalaman spiritual...",
+            likes: 12
+        },
+        {
+            id: 2,
+            title: "Jejak Kejayaan Peradaban Islam dan Spirit Ikhwanul Muslimin",
+            category: "Sejarah Peradaban",
+            date: "20 Oktober 2024",
+            author: "Luqman Azkiya Athaillah",
+            image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop",
+            content: "Mengenal bagaimana spirit pembaruan sosial yang diusung oleh Hassan al-Banna mampu membawa dampak perubahan besar bagi kesadaran ummat Islam di era modern...",
+            likes: 28
+        }
+    ];
+    localStorage.setItem('luqman_blog_posts', JSON.stringify(defaultPosts));
+    return defaultPosts;
+}
+
+function saveBlogPosts(posts) {
+    localStorage.setItem('luqman_blog_posts', JSON.stringify(posts));
+}
 
 function getAdminPassword() {
     return localStorage.getItem('admin_blog_password') || 'luqman123';
@@ -550,18 +562,22 @@ function prosesResetPassword() {
     }
 }
 
-// RENDER ARTIKEL BLOG SAMA TOMBOL EDIT & HAPUS JIKA MODE ADMIN
+// -----------------------------------------------------------------
+// METODE CRUD: 1. READ (MENAMPILKAN SEMUA POSTINGAN BLOG)
+// -----------------------------------------------------------------
 function renderBlogPosts() {
     const container = document.getElementById('blog-posts-container');
     if (!container) return;
 
     container.innerHTML = '';
+    const posts = getBlogPosts();
 
-    blogPosts.forEach(post => {
+    posts.forEach(post => {
         const article = document.createElement('article');
         article.className = 'blog-card';
         article.style.animation = 'fadeIn 0.4s ease';
 
+        // Tampilkan Tombol UPDATE & DELETE Hanya Jika Login Admin
         const adminButtonsHTML = isAdminLoggedIn ? `
             <button class="btn-edit-post" onclick="editPost(${post.id})">✏️ Edit</button>
             <button class="btn-delete-post" onclick="hapusPost(${post.id})">🗑️ Hapus</button>
@@ -594,7 +610,9 @@ function renderBlogPosts() {
     });
 }
 
-// BUAT BARU ATAU UPDATE (EDIT) POSTINGAN ARTIKEL
+// -----------------------------------------------------------------
+// METODE CRUD: 2. CREATE (MEMBUAT BARU) & 3. UPDATE (MEMPERBARUI)
+// -----------------------------------------------------------------
 function tambahPostinganBaru(e) {
     e.preventDefault();
 
@@ -604,18 +622,21 @@ function tambahPostinganBaru(e) {
     const imgUrl = document.getElementById('post-image').value || 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop';
     const konten = document.getElementById('post-content').value;
 
+    let posts = getBlogPosts();
+
     if (editId) {
-        // MODE EDIT (UPDATE)
-        const index = blogPosts.findIndex(p => p.id === parseInt(editId));
+        // PERINTAH UPDATE: MEMPERBARUI ARTIKEL
+        const index = posts.findIndex(p => p.id === parseInt(editId));
         if (index !== -1) {
-            blogPosts[index].title = judul;
-            blogPosts[index].category = kategori;
-            blogPosts[index].image = imgUrl;
-            blogPosts[index].content = konten;
+            posts[index].title = judul;
+            posts[index].category = kategori;
+            posts[index].image = imgUrl;
+            posts[index].content = konten;
+            saveBlogPosts(posts);
             alert('✏️ Postingan artikel berhasil diperbarui!');
         }
     } else {
-        // MODE TAMBAH BARU
+        // PERINTAH CREATE: MENAMBAHKAN ARTIKEL BARU
         const tglHariIni = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
         const newPost = {
             id: Date.now(),
@@ -627,7 +648,8 @@ function tambahPostinganBaru(e) {
             content: konten,
             likes: 0
         };
-        blogPosts.unshift(newPost);
+        posts.unshift(newPost);
+        saveBlogPosts(posts);
         alert('🚀 Postingan artikel baru berhasil diterbitkan!');
     }
 
@@ -635,9 +657,10 @@ function tambahPostinganBaru(e) {
     renderBlogPosts();
 }
 
-// PERSIAPKAN FORM DENGAN DATA ARTIKEL YANG AKAN DI-EDIT
+// EKSEKUSI DATA UNTUK PROSES UPDATE (MENAMPILKAN DI FORM)
 function editPost(id) {
-    const post = blogPosts.find(p => p.id === id);
+    const posts = getBlogPosts();
+    const post = posts.find(p => p.id === id);
     if (!post) return;
 
     document.getElementById('edit-post-id').value = post.id;
@@ -653,7 +676,6 @@ function editPost(id) {
     document.getElementById('admin-editor-panel').scrollIntoView({ behavior: 'smooth' });
 }
 
-// BATALKAN EDIT ARTIKEL (RESET FORM BALIK KE PERTAMA)
 function batalEditPost() {
     document.getElementById('edit-post-id').value = '';
     document.getElementById('form-buat-post').reset();
@@ -662,19 +684,25 @@ function batalEditPost() {
     document.getElementById('btn-cancel-edit').classList.add('hidden');
 }
 
-// HAPUS POSTINGAN ARTIKEL (MODE ADMIN)
+// -----------------------------------------------------------------
+// METODE CRUD: 4. DELETE (MENGHAPUS POSTINGAN ARTIKEL)
+// -----------------------------------------------------------------
 function hapusPost(id) {
     if (confirm('⚠️ Apakah Anda yakin ingin menghapus postingan artikel ini?')) {
-        blogPosts = blogPosts.filter(p => p.id !== id);
+        let posts = getBlogPosts();
+        posts = posts.filter(p => p.id !== id);
+        saveBlogPosts(posts);
         renderBlogPosts();
         alert('🗑️ Postingan artikel berhasil dihapus!');
     }
 }
 
 function likePost(btn, postId) {
-    const post = blogPosts.find(p => p.id === postId);
+    let posts = getBlogPosts();
+    const post = posts.find(p => p.id === postId);
     if (post) {
         post.likes++;
+        saveBlogPosts(posts);
         const countSpan = btn.querySelector('span');
         countSpan.innerText = post.likes;
         btn.style.color = '#ef4444';
