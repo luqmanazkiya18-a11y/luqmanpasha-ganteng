@@ -720,7 +720,7 @@ footer {
 }
 
 /* ==========================================
-   STYLING KHUSUS BLOGGER ISLAMI (PROJECT BARU)
+   STYLING KHUSUS BLOGGER ISLAMI (FITUR CRUD)
    ========================================== */
 .card-badge-islamic {
     display: inline-block;
@@ -1127,7 +1127,7 @@ footer {
     color: #38bdf8;
 }
 
-/* Tombol Edit & Hapus Khusus Mode Admin */
+/* Tombol Edit (Update) & Hapus (Delete) Khusus Mode Admin */
 .btn-edit-post {
     background: #0284c7;
     border: none;
