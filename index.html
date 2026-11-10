@@ -11,10 +11,6 @@
     <!-- Leaflet JS & CSS untuk MapChart Dunia dan Provinsi -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- FIREBASE SDK (PENYIMPANAN CLOUD PERMANEN) -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -163,13 +159,12 @@
                         </div>
                     </div>
 
-                    <!-- KARTU 6: BLOG ISLAMI & CATATAN PERJUANGAN -->
-                    <div class="project-card card-clickable" onclick="bukaBlog()">
+                    <!-- KARTU 6: CHATBOT AI HASAN AL-BANNA (PROJECT BARU) -->
+                    <div class="project-card card-clickable" onclick="bukaChatbot()">
                         <div class="card-body">
-                            <div class="card-badge-islamic">☪ Blog Utama</div>
-                            <h3>Blog Islami & Catatan Perjuangan</h3>
-                            <p>Portal artikel, opini, dan catatan harian peradaban Islam. Simpan artikel permanen di cloud Firebase!</p>
-                            <span class="btn-open">Buka Blog &rarr;</span>
+                            <h3>Asisten AI Hasan Al-Banna</h3>
+                            <p>Tanya jawab interaktif bersama Asisten AI berkepribadian Imam Hassan al-Banna yang bijaksana dan syar'i.</p>
+                            <span class="btn-open">Mulai Chat &rarr;</span>
                         </div>
                     </div>
 
@@ -185,624 +180,65 @@
         </footer>
     </div>
 
-    <!-- TAMPILAN KALKULATOR -->
-    <div id="calculator-page" class="hidden-page">
-        <div class="calc-wrapper">
-            <button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Portofolio</button>
-            <div class="calculator">
-                <div class="calc-header">
-                    <h3>Kalkulator Islami</h3>
-                </div>
-                <input type="text" id="calc-display" readonly placeholder="0">
-                <div class="calc-buttons">
-                    <button onclick="clearDisplay()" class="btn-action">C</button>
-                    <button onclick="deleteLast()" class="btn-action">&lArr;</button>
-                    <button onclick="appendChar('/')" class="btn-operator">&divide;</button>
-                    <button onclick="appendChar('*')" class="btn-operator">&times;</button>
-                    
-                    <button onclick="appendChar('7')">7</button>
-                    <button onclick="appendChar('8')">8</button>
-                    <button onclick="appendChar('9')">9</button>
-                    <button onclick="appendChar('-')" class="btn-operator">-</button>
-                    
-                    <button onclick="appendChar('4')">4</button>
-                    <button onclick="appendChar('5')">5</button>
-                    <button onclick="appendChar('6')">6</button>
-                    <button onclick="appendChar('+')" class="btn-operator">+</button>
-                    
-                    <button onclick="appendChar('1')">1</button>
-                    <button onclick="appendChar('2')">2</button>
-                    <button onclick="appendChar('3')">3</button>
-                    <button onclick="calculateResult()" class="btn-equal" style="grid-row: span 2;">=</button>
-                    
-                    <button onclick="appendChar('0')" style="grid-column: span 2;">0</button>
-                    <button onclick="appendChar('.')">.</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAMPILAN KOMPILASI ARTIKEL -->
-    <div id="artikel-page" class="hidden-page">
-        <div class="portal-container">
-            <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Portofolio</button>
-            
-            <div class="portal-header">
-                <div class="portal-logo">SUARA<span>ISLAMI</span></div>
-                <p class="portal-subtitle">Kompilasi Artikel & Pemikiran Islam Kontemporer</p>
-            </div>
-
-            <article class="featured-news">
-                <div class="featured-badge">Fokus Utama</div>
-                <h2>Mengenal Sejarah dan Kontribusi Ikhwanul Muslimin dalam Peradaban Islam Modern</h2>
-                <div class="news-meta">
-                    <span>Oleh: Luqman Azkiya Athaillah</span> | <span>Terbit: Oktober 2024</span>
-                </div>
-                <p class="news-excerpt">
-                    Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam. Fokus utamanya mencakup pembinaan moral, pendidikan Islam, serta pembaharuan sosial dan politik berbasis Syariat...
-                </p>
-                <div class="article-body-text">
-                    <p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara). Melalui pendekatan pendidikan berjenjang (Tarbiyah), gerakan ini menyebar ke berbagai belahan dunia Islam dan mempengaruhi banyak organisasi pergerakan modern saat ini.</p>
-                </div>
-            </article>
-
-            <div class="news-grid">
-                <article class="news-card">
-                    <span class="news-badge">Pemikiran Islam</span>
-                    <h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
-                    <div class="news-meta">12 Oktober 2024</div>
-                    <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang *Salimul Aqidah* (akidah yang lurus) dan *Sohihul Ibadah* (ibadah yang benar).</p>
-                </article>
-
-                <article class="news-card">
-                    <span class="news-badge">Sejarah Tokoh</span>
-                    <h3>Pemikiran Hassan al-Banna dan Gagasan Pembaharuan</h3>
-                    <div class="news-meta">08 Oktober 2024</div>
-                    <p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam dalam kehidupan bermasyarakat serta reformasi institusi pendidikan.</p>
-                </article>
-
-                <article class="news-card">
-                    <span class="news-badge">Dunia Islam</span>
-                    <h3>Tantangan Pergerakan Islam Kontemporer di Era Digital</h3>
-                    <div class="news-meta">01 Oktober 2024</div>
-                    <p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam yang moderat, inklusif, dan solutif bagi permasalahan pemuda modern.</p>
-                </article>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAMPILAN KOMPILASI GAME -->
-    <div id="games-page" class="hidden-page crazy-theme">
-        <div class="cg-container">
-            <header class="cg-header">
-                <button class="cg-btn-back btn-back" style="margin-bottom:0;" onclick="tutupGame()">&larr; Kembali ke Portofolio</button>
-                <div class="cg-logo">LUQMAN<span>GAMES</span></div>
-                <div class="cg-search">
-                    <input type="text" placeholder="Cari Game Islami..." readonly>
+    <!-- TAMPILAN CHATBOT AI HASAN AL-BANNA -->
+    <div id="chatbot-page" class="hidden-page chatbot-theme">
+        <div class="chatbot-container">
+            <!-- HEADER CHATBOT -->
+            <header class="chatbot-header">
+                <button class="btn-back btn-back-chatbot" onclick="tutupChatbot()">&larr; Kembali ke Portofolio</button>
+                <div class="chatbot-profile">
+                    <div class="avatar-wrapper">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Hassan_al-Banna.png/440px-Hassan_al-Banna.png" alt="Hasan Al-Banna" class="chatbot-avatar">
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="profile-info">
+                        <h2>Asisten AI Hasan Al-Banna <span class="crescent-badge">☪</span></h2>
+                        <p class="status-text">Perintis & Pembina Karakter Perjuangan</p>
+                    </div>
                 </div>
             </header>
 
-            <div class="cg-layout">
-                <main class="cg-viewport">
-                    <div class="cg-game-header">
-                        <h2 id="cg-game-title">Puzzle Logo: Ikhwanul Muslimin & Hizbut Tahrir</h2>
-                        <div class="cg-game-tags">
-                            <span class="cg-tag">Puzzle</span>
-                            <span class="cg-tag">Edukasi</span>
-                            <span class="cg-tag">Sejarah</span>
-                        </div>
-                    </div>
-
-                    <div class="puzzle-stage">
-                        <div class="puzzle-controls">
-                            <div class="ctrl-group">
-                                <label>Pilih Logo:</label>
-                                <select id="puzzle-image-select" onchange="initPuzzle()">
-                                    <option value="im">Logo Ikhwanul Muslimin</option>
-                                    <option value="ht">Logo Hizbut Tahrir</option>
-                                </select>
-                            </div>
-                            <div class="ctrl-group">
-                                <label>Tingkat Kesulitan:</label>
-                                <div class="diff-btn-group">
-                                    <button class="diff-btn active" onclick="setDifficulty(2, this)">Mudah (2x2)</button>
-                                    <button class="diff-btn" onclick="setDifficulty(3, this)">Sedang (3x3)</button>
-                                    <button class="diff-btn" onclick="setDifficulty(4, this)">Sulit (4x4)</button>
-                                </div>
-                            </div>
-                            <button class="btn-reset-game" onclick="initPuzzle()">Acak Ulang</button>
-                        </div>
-
-                        <div class="puzzle-board-wrapper">
-                            <div id="puzzle-board" class="puzzle-board"></div>
-                            <div id="puzzle-win-msg" class="puzzle-win-overlay hidden">
-                                <h3>MasyaAllah, Luar Biasa! 🎉</h3>
-                                <p>Anda berhasil menyusun logo dengan sempurna!</p>
-                                <button onclick="initPuzzle()">Main Lagi</button>
-                            </div>
-                        </div>
-
-                        <div class="puzzle-stats">
-                            <span>Langkah: <strong id="step-count">0</strong></span>
-                            <span>Status: <strong id="game-status" style="color: #00f2fe;">Siap Dimainkan</strong></span>
-                        </div>
-                    </div>
-                </main>
-
-                <aside class="cg-sidebar">
-                    <h3 class="cg-sidebar-title">Kompilasi Game</h3>
-                    <div class="cg-game-grid">
-                        <div class="cg-card active-game">
-                            <div class="cg-thumb thumb-puzzle">
-                                <span class="badge-play">Sedang Dimainkan</span>
-                            </div>
-                            <div class="cg-card-info">
-                                <h4>Puzzle Logo Islam</h4>
-                                <p>Susun potongan logo gerakan Islam secara presisi.</p>
-                            </div>
-                        </div>
-
-                        <div class="cg-card active-game" onclick="bukaMapChart()" style="cursor: pointer;">
-                            <div class="cg-thumb" style="background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center;">
-                                <span class="badge-play" style="background: #38bdf8; color: #0f172a;">Mainkan</span>
-                            </div>
-                            <div class="cg-card-info">
-                                <h4>World MapChart Builder</h4>
-                                <p>Peta dunia interaktif tingkat provinsi/wilayah & kustomisasi warna RGB.</p>
-                            </div>
-                        </div>
-
-                        <div class="cg-card disabled-game">
-                            <div class="cg-thumb thumb-memory">
-                                <span class="badge-soon">Soon</span>
-                            </div>
-                            <div class="cg-card-info">
-                                <h4>Memory Match Ayat</h4>
-                                <p>Cocokkan pasangan potongan ayat Al-Qur'an.</p>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAMPILAN PENGECEK ARAH KIBLAT -->
-    <div id="kiblat-page" class="hidden-page kiblat-theme">
-        <div class="kiblat-container">
-            <button class="btn-back btn-back-kiblat" onclick="tutupKiblat()">&larr; Kembali ke Portofolio</button>
-
-            <div class="kiblat-header">
-                <span class="kiblat-badge">Fitur Islami Real-Time</span>
-                <h2>Pencari Arah Kiblat</h2>
-                <p id="kiblat-status-text">Mendeteksi lokasi GPS Anda...</p>
-            </div>
-
-            <div class="compass-wrapper">
-                <div class="compass-outer-ring">
-                    <div class="cardinal-degree N">N</div>
-                    <div class="cardinal-degree E">E</div>
-                    <div class="cardinal-degree S">S</div>
-                    <div class="cardinal-degree W">W</div>
-
-                    <div class="compass-dial" id="compass-dial">
-                        <div class="north-pointer"></div>
-                        <div class="qibla-marker" id="qibla-marker">
-                            <div class="kabah-icon-wrapper">
-                                <svg class="kabah-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="12" y="16" width="40" height="40" rx="3" fill="#1A1A1A"/>
-                                    <path d="M12 24H52" stroke="#FFD700" stroke-width="4"/>
-                                    <rect x="26" y="38" width="12" height="18" fill="#FFD700" opacity="0.9"/>
-                                    <path d="M12 16L32 6L52 16" fill="#2A2A2A"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="center-needle"></div>
+            <!-- CHAT VIEWPORT / AREA PESAN -->
+            <main class="chat-viewport" id="chat-viewport">
+                <div class="chat-welcome-card">
+                    <div class="welcome-icon">☪</div>
+                    <h3>Assalamu’alaikum wa Rahmatullah wa Barakatuh</h3>
+                    <p>Saya adalah Asisten AI yang diinspirasi oleh pemikiran dan keteladanan Imam Hassan al-Banna. Silakan tanyakan hal-hal seputar ilmu, sejarah Islam, kebaikan, dan perjuangan.</p>
                 </div>
-            </div>
 
-            <div class="kiblat-info-card">
-                <div class="info-box">
-                    <span class="info-label">Arah Kiblat</span>
-                    <span class="info-value" id="qibla-degree">--°</span>
-                </div>
-                <div class="info-divider"></div>
-                <div class="info-box">
-                    <span class="info-label">Posisi Anda</span>
-                    <span class="info-value" id="user-coords">Mencari...</span>
-                </div>
-            </div>
-
-            <div class="kiblat-actions">
-                <button class="btn-primary btn-kiblat-refresh" onclick="initQiblaTracker()">🔄 Perbarui Lokasi GPS</button>
-                <p class="compass-note">
-                    📌 <strong>Catatan:</strong> Untuk hasil paling akurat di smartphone/laptop, izinkan akses lokasi (GPS) dan gerakkan perangkat membentuk angka "8" jika sensor kompas belum terkalibrasi.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAMPILAN MAPCHART INTERAKTIF WORLD MAP -->
-    <div id="mapchart-page" class="hidden-page">
-        <div class="mapchart-container">
-            <header class="mapchart-header">
-                <button class="btn-back" style="margin-bottom:0;" onclick="tutupMapChart()">&larr; Kembali ke Portofolio</button>
-                <div class="mapchart-title">
-                    <h2>🗺️ MapChart Interaktif Dunia</h2>
-                </div>
-                <button class="btn-back" style="margin-bottom:0; background:#ef4444;" onclick="resetWarnaPeta()">Reset Warna Peta</button>
-            </header>
-
-            <div class="mapchart-layout">
-                <aside class="mapchart-sidebar">
-                    <div class="panel-group">
-                        <label>Pilih Warna Isian (RGB Full):</label>
-                        <div class="color-picker-wrapper">
-                            <input type="color" id="map-color-picker" value="#38bdf8" onchange="updateRGBText(this.value)">
-                            <span class="rgb-preview" id="rgb-display">RGB(56, 189, 248)</span>
-                        </div>
-                    </div>
-
-                    <div class="panel-group">
-                        <label>Mode Interaksi Peta:</label>
-                        <select id="symbol-mode">
-                            <option value="fill">Mode Mewarnai Wilayah / Negara</option>
-                            <option value="crescent">Mode Tambah Crescent & Star ☪</option>
-                        </select>
-                    </div>
-
-                    <div class="panel-group">
-                        <label>Informasi Wilayah Terpilih:</label>
-                        <input type="text" id="selected-region-name" value="Klik area peta..." readonly style="width:100%; padding:8px; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
-                    </div>
-
-                    <div class="panel-group">
-                        <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4;">
-                            💡 <strong>Petunjuk MapChart:</strong><br>
-                            - Mode Mewarnai: Klik pada wilayah/negara untuk mewarnainya sesuai pilihan warna RGB.<br>
-                            - Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bulan Sabit & Bintang emas ☪.
-                        </p>
-                    </div>
-                </aside>
-
-                <main class="mapchart-viewport">
-                    <div id="leaflet-map" style="width:100%; height:100%;"></div>
-                </main>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAMPILAN UTAMA SPOTIFY ISLAMI -->
-    <div id="spotify-page" class="hidden-page spotify-theme">
-        <div class="spotify-app-container">
-            <!-- HEADER APP -->
-            <header class="spotify-header">
-                <button class="btn-back" onclick="tutupSpotify()">&larr; Kembali ke Portofolio</button>
-                <div class="spotify-brand">
-                    <svg viewBox="0 0 24 24" class="spotify-icon"><path fill="#1DB954" d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.899 4.62-1.02 8.52-.6 11.64 1.32.42.18.479.659.301 1.019zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
-                    <span>Spotify <strong>Islamic Edition</strong></span>
-                    <span class="islamic-symbol">☪</span>
-                </div>
-            </header>
-
-            <div class="spotify-main-layout">
-                <!-- SIDEBAR NAVIGASI & INPUT MP3 -->
-                <aside class="spotify-sidebar">
-                    <div class="sidebar-block">
-                        <ul class="nav-spotify">
-                            <li class="active"><span class="icon">🏠</span> Beranda</li>
-                            <li><span class="icon">🔍</span> Cari</li>
-                            <li><span class="icon">📚</span> Koleksi Perjuangan</li>
-                        </ul>
-                    </div>
-
-                    <!-- FITUR MASUKKAN FILE MP3 SUNGGUHAN -->
-                    <div class="sidebar-block upload-box">
-                        <h4>Tambah Lagu MP3 ☪</h4>
-                        <label for="mp3-file-input" class="btn-upload-file">
-                            📂 Choose File MP3
-                        </label>
-                        <input type="file" id="mp3-file-input" accept="audio/mp3,audio/*" style="display:none;" onchange="uploadMP3Baru(this)">
-                        
-                        <div class="url-input-group">
-                            <input type="text" id="custom-mp3-url" placeholder="Atau paste Link MP3 di sini...">
-                            <button class="btn-add-url" onclick="tambahURLMP3()">Tambah dari Link</button>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-block list-block">
-                        <h4>Tokoh & Artis ☪</h4>
-                        <div class="artist-list">
-                            <div class="artist-item active" onclick="pilihArtis('Sayyid Quthb / Nasyid Perjuangan')">
-                                <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Sayyid Quthb">
-                                <div>
-                                    <h5>Sayyid Quthb</h5>
-                                    <p>Nasyid Perjuangan</p>
-                                </div>
-                            </div>
-                            <div class="artist-item" onclick="pilihArtis('Nasyid Perjuangan Islam')">
-                                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&auto=format&fit=crop" alt="Nasyid Perjuangan">
-                                <div>
-                                    <h5>Munasyid Perjuangan</h5>
-                                    <p>Nasyid Gelora</p>
-                                </div>
-                            </div>
-                            <div class="artist-item" onclick="pilihArtis('Mishary Rashid Alafasy')">
-                                <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=100&auto=format&fit=crop" alt="Mishary Alafasy">
-                                <div>
-                                    <h5>Mishary Rashid</h5>
-                                    <p>Qori / Murottal</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-
-                <!-- KONTEN UTAMA SPOTIFY -->
-                <main class="spotify-content">
-                    <div class="spotify-hero">
-                        <div class="hero-cover">
-                            <span class="crescent-star-bg">☪</span>
-                            <span class="hero-emoji">☪️</span>
-                        </div>
-                        <div class="hero-details">
-                            <span class="tag">PLAYLIST PERJUANGAN ISLAMI</span>
-                            <h2>Nasyid Perjuangan & Tilawah Al-Qur'an</h2>
-                            <p>Upload file `.mp3` dari perangkat Anda di sidebar kiri untuk memutarnya dengan kualitas jernih!</p>
-                            <div class="hero-meta">Dibuat oleh <strong>Luqman Azkiya Athaillah</strong> • <span id="total-track-count">4</span> Audio</div>
-                        </div>
-                    </div>
-
-                    <!-- DAFTAR LAGU / TRACKLIST -->
-                    <div class="tracklist-container">
-                        <div class="tracklist-header">
-                            <span class="col-num">#</span>
-                            <span class="col-title">JUDUL</span>
-                            <span class="col-album">ALBUM / KATEGORI</span>
-                            <span class="col-time">⏱</span>
-                        </div>
-
-                        <div id="dynamic-tracklist">
-                            <!-- DAFTAR LAGU AKAN DIPERBARUI SECARA DINAMIS OLEH JAVASCRIPT -->
-                        </div>
-                    </div>
-                </main>
-            </div>
-
-            <!-- PLAYER BAR / PEMUTAR MUSIK DI BAWAH -->
-            <div class="spotify-player-bar">
-                <div class="now-playing">
-                    <img id="current-cover" src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=100&auto=format&fit=crop" alt="Now Playing">
-                    <div>
-                        <h5 id="current-song">Pilih atau Upload Lagu MP3</h5>
-                        <p id="current-artist">Koleksi Luqman Pasha</p>
+                <!-- SUGGESTED QUESTIONS -->
+                <div class="suggested-questions-container">
+                    <p class="suggested-title">💡 Pertanyaan Rekomendasi:</p>
+                    <div class="suggested-chips">
+                        <button class="chip-btn" onclick="sendSuggestedQuestion('Apa saja 5 Pasal Perjuangan Ikhwanul Muslimin?')">5 Pasal Perjuangan</button>
+                        <button class="chip-btn" onclick="sendSuggestedQuestion('Bagaimana cara membentuk karakter Salimul Aqidah?')">Karakter Salimul Aqidah</button>
+                        <button class="chip-btn" onclick="sendSuggestedQuestion('Nasihat untuk pemuda muslim di era digital?')">Nasihat Pemuda Digital</button>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- TAMPILAN UTAMA BLOGGER PROFESIONAL ISLAMI -->
-    <div id="blog-page" class="hidden-page blog-theme">
-        <div class="blog-app-container">
-            
-            <!-- NAVBAR BLOG -->
-            <header class="blog-navbar">
-                <div class="blog-nav-left">
-                    <button class="btn-back" onclick="tutupBlog()">&larr; Kembali ke Portofolio</button>
-                    <div class="blog-logo">
-                        <span class="crescent-icon">☪</span>
-                        <div class="logo-text">AL-FALAH<span>BLOG</span></div>
-                    </div>
+                <!-- CONTAINER LIST PESAN -->
+                <div id="chat-messages-list" class="messages-list">
+                    <!-- Pesan AI & User akan dirender di sini via JS -->
                 </div>
-                <div class="blog-nav-right">
-                    <!-- Tombol Navigasi Cepat ke Spotify -->
-                    <button class="btn-spotify-direct" onclick="tutupBlog(); bukaSpotify();">
-                        <svg viewBox="0 0 24 24" class="sp-icon"><path fill="currentColor" d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.899 4.62-1.02 8.52-.6 11.64 1.32.42.18.479.659.301 1.019zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
-                        Buka Spotify Perjuangan ☪
+            </main>
+
+            <!-- INPUT BOX CHATBOT -->
+            <footer class="chatbot-input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="chatbot-input" placeholder="Tuliskan pertanyaan Anda..." onkeypress="handleKeyPress(event)">
+                    <button id="btn-send-chat" onclick="sendMessage()">
+                        <svg viewBox="0 0 24 24" class="send-icon">
+                            <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
                     </button>
-
-                    <!-- Tombol Access Admin -->
-                    <button id="btn-admin-login" class="btn-admin-toggle" onclick="bukaModalAdminLogin()">🔐 Admin Login</button>
-                    <button id="btn-admin-logout" class="btn-admin-logout hidden" onclick="logoutAdmin()">🚪 Keluar Admin</button>
                 </div>
-            </header>
-
-            <!-- BANNER HERO BLOG -->
-            <div class="blog-hero">
-                <div class="blog-hero-content">
-                    <span class="hero-badge-islamic">☪ Catatan & Opini Pemuda Islam</span>
-                    <h1>Peradaban, Pemikiran & Dakwah Digital</h1>
-                    <p>Kumpulan tulisan inspiratif dari Luqman Azkiya Athaillah. Menyajikan analisis mendalam, nasehat, serta siraman rohani.</p>
+                <div class="syariat-notice">
+                    <span>☪ Sesuai Syariat Islam • Dilengkapi Sistem Filtering Otomatis</span>
                 </div>
-                <div class="hero-crescent-art">
-                    <span>☪</span>
-                </div>
-            </div>
-
-            <!-- PANEL PUBLISH / EDIT POSTINGAN (FORM CRUD KHUSUS ADMIN) -->
-            <div id="admin-editor-panel" class="admin-panel hidden">
-                <div class="admin-panel-header">
-                    <h3 id="form-panel-title">✍️ Panel Admin Blogger - Buat Postingan Baru</h3>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <button class="btn-change-pass" onclick="bukaModalGantiPassword()">⚙️ Ganti Password Admin</button>
-                        <span class="admin-status-badge">Mode Editor Aktif</span>
-                    </div>
-                </div>
-                <form id="form-buat-post" onsubmit="tambahPostinganBaru(event)">
-                    <input type="hidden" id="edit-post-id" value="">
-                    <div class="form-group">
-                        <label>Judul Postingan Artikel</label>
-                        <input type="text" id="post-title" placeholder="Masukkan judul artikel yang menarik..." required>
-                    </div>
-                    <div class="form-group-row">
-                        <div class="form-group">
-                            <label>Kategori Artikel</label>
-                            <select id="post-category">
-                                <option value="Tarbiyah & Pemikiran">Tarbiyah & Pemikiran</option>
-                                <option value="Sejarah Peradaban">Sejarah Peradaban</option>
-                                <option value="Nasehat & Motivasi">Nasehat & Motivasi</option>
-                                <option value="Opini Digital">Opini Digital</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>URL Gambar Banner (Opsional)</label>
-                            <input type="url" id="post-image" placeholder="https://images.unsplash.com/...">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Isi Konten Postingan Blog</label>
-                        <textarea id="post-content" rows="6" placeholder="Tuliskan isi artikel lengkap di sini..." required></textarea>
-                    </div>
-                    <div class="form-actions-admin">
-                        <button type="submit" id="btn-submit-post" class="btn-publish">🚀 Terbitkan Postingan Baru</button>
-                        <button type="button" id="btn-cancel-edit" class="btn-cancel-edit hidden" onclick="batalEditPost()">Batal Edit</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- BODY UTAMA BLOG (TAMPILAN HASIL READ ARTIKEL DARI FIREBASE CLOUD) -->
-            <div class="blog-layout">
-                <!-- LIST POSTINGAN MAIN -->
-                <main class="blog-feed">
-                    <div class="feed-header">
-                        <h2>Postingan Terbaru</h2>
-                        <span class="feed-count">Menampilkan Postingan Pilihan</span>
-                    </div>
-
-                    <!-- CONTAINER DINAMIS POSTINGAN BLOG UNTUK READ/UPDATE/DELETE -->
-                    <div id="blog-posts-container" class="posts-grid">
-                        <!-- Postingan dirender secara dinamis lewat JavaScript -->
-                    </div>
-                </main>
-
-                <!-- SIDEBAR BLOG (WIDGETS & PROFILE AUTHOR) -->
-                <aside class="blog-sidebar">
-                    
-                    <!-- WIDGET PROFIL PENULIS -->
-                    <div class="blog-widget author-widget">
-                        <div class="author-avatar-wrapper">
-                            <div class="avatar-crescent">☪</div>
-                        </div>
-                        <h4>Luqman Azkiya Athaillah</h4>
-                        <p class="author-title">Penulis & Pelajar SMPIT As-Syifa</p>
-                        <p class="author-bio">Berikhtiar menyebarkan nilai-nilai kebaikan dan dakwah edukatif melalui penulisan blog dan teknologi digital.</p>
-                    </div>
-
-                    <!-- WIDGET PROMO SPOTIFY INTEGRATED -->
-                    <div class="blog-widget spotify-widget">
-                        <div class="sp-widget-header">
-                            <span class="sp-badge">☪ Pemutar Musik</span>
-                            <h4>Spotify Perjuangan</h4>
-                        </div>
-                        <p>Putar Audio Nasyid & Tilawah favorit sambil membaca artikel blog!</p>
-                        <button class="btn-widget-spotify" onclick="tutupBlog(); bukaSpotify();">
-                            ▶ Layar Pemutar Audio
-                        </button>
-                    </div>
-
-                    <!-- WIDGET MOTTO ISLAMI -->
-                    <div class="blog-widget quote-widget">
-                        <h4>Motto Blog</h4>
-                        <p class="quote-text">"Al-Islam dinun wa daulatun — Islam adalah agama sekaligus jalan hidup."</p>
-                    </div>
-
-                </aside>
-            </div>
-
-            <!-- FOOTER BLOG -->
-            <footer class="blog-footer">
-                <p>&copy; 2024 Al-Falah Blog • Luqman Azkiya Athaillah. Didesain dengan nuansa Islami Modern.</p>
             </footer>
-
         </div>
     </div>
 
-    <!-- MODAL POPUP LOGIN ADMIN PASSWORD -->
-    <div id="modal-admin-login" class="modal-overlay hidden">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3>🔐 Login Admin Blog</h3>
-                <button class="btn-close-modal" onclick="tutupModalAdminLogin()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Masukkan kata sandi (Password) Admin untuk membuka akses fitur penerbitan artikel:</p>
-                <input type="password" id="admin-pass-input" placeholder="Password Admin Anda..." onkeypress="handleAdminEnter(event)">
-                <p id="login-error-msg" class="error-msg hidden">❌ Password salah! Silakan coba lagi.</p>
-                
-                <div class="modal-extra-links">
-                    <button class="btn-forgot-pass" onclick="bukaModalResetPassword()">🔑 Lupa Password?</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="tutupModalAdminLogin()">Batal</button>
-                <button class="btn-primary" onclick="verifikasiPasswordAdmin()">Masuk Admin</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL POPUP EDIT / GANTI PASSWORD ADMIN -->
-    <div id="modal-ganti-password" class="modal-overlay hidden">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3>⚙️ Ganti Password Admin</h3>
-                <button class="btn-close-modal" onclick="tutupModalGantiPassword()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Password Lama</label>
-                    <input type="password" id="pass-lama-input" placeholder="Masukkan password lama saat ini...">
-                </div>
-                <div class="form-group">
-                    <label>Password Baru</label>
-                    <input type="password" id="pass-baru-input" placeholder="Masukkan password baru Anda...">
-                </div>
-                <div class="form-group">
-                    <label>Konfirmasi Password Baru</label>
-                    <input type="password" id="pass-konfirmasi-input" placeholder="Ulangi password baru...">
-                </div>
-                <p id="change-pass-error" class="error-msg hidden">❌ Password lama salah atau konfirmasi tidak cocok!</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="tutupModalGantiPassword()">Batal</button>
-                <button class="btn-primary" onclick="simpanPasswordBaru()">Simpan Password Baru</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL POPUP RESET / LUPA PASSWORD ADMIN -->
-    <div id="modal-reset-password" class="modal-overlay hidden">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3>🔑 Reset / Lupa Password Admin</h3>
-                <button class="btn-close-modal" onclick="tutupModalResetPassword()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Jawab pertanyaan keamanan pemilik website untuk mereset password Anda:</p>
-                <div class="form-group">
-                    <label>Siapakah Nama Panggung/Lengkap Pemilik Blog Ini?</label>
-                    <input type="text" id="security-answer-1" placeholder="Nama pemilik...">
-                </div>
-                <div class="form-group">
-                    <label>Di Manakah Sekolah Pemilik Blog Ini?</label>
-                    <input type="text" id="security-answer-2" placeholder="Nama sekolah...">
-                </div>
-                <div class="form-group">
-                    <label>Masukkan Password Baru</label>
-                    <input type="password" id="reset-pass-baru" placeholder="Password baru...">
-                </div>
-                <p id="reset-pass-error" class="error-msg hidden">❌ Jawaban keamanan salah! Akses ditolak.</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="tutupModalResetPassword()">Batal</button>
-                <button class="btn-primary" onclick="prosesResetPassword()">Reset Password Sekarang</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN SCRIPT (DIKONEKSIKAN DENGAN FIREBASE) -->
     <script src="script.js"></script>
 </body>
 </html>
