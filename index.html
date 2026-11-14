@@ -1126,3 +1126,131 @@
                         <div id="dynamic-tracklist">
 
                             <!-- DAFTAR LAGU AKAN DIPERBARUI SECARA DINAMIS OLEH JAVASCRIPT -->
+
+                            <!-- =========================================================
+     TAMPILAN CHATBOT AI ISLAMI (AL-MURSYID) — PROJECT KE-6
+     ========================================================= -->
+<div id="chatbot-page" class="hidden-page chatbot-theme">
+
+    <div class="chatbot-bg-ornament">
+        <div class="ornament-crescent">☪</div>
+        <div class="ornament-pattern"></div>
+    </div>
+
+    <div class="chatbot-app-container">
+
+        <!-- HEADER -->
+        <header class="chatbot-header">
+            <button class="btn-back btn-back-chatbot" onclick="tutupChatbot()">&larr; Kembali ke Portofolio</button>
+
+            <div class="chatbot-brand">
+                <div class="chatbot-avatar-wrapper">
+                    <!-- ⚠️ GANTI src DENGAN GAMBAR HASSAN AL-BANNA ANDA -->
+                    <img id="hassan-avatar-img" src="hasan-albanna.png" alt="Hassan al-Banna"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;avatar-fallback&quot;>ح</span>';">
+                    <span class="avatar-online-dot"></span>
+                </div>
+                <div class="chatbot-brand-text">
+                    <h2>Al-Mursyid <span class="ai-badge">AI</span></h2>
+                    <p><span class="status-dot"></span> Asisten Pribadi Islami • Online</p>
+                </div>
+            </div>
+
+            <div class="chatbot-header-actions">
+                <button class="btn-chatbot-action" onclick="resetChatbotSession()" title="Mulai Percakapan Baru">🔄</button>
+                <button class="btn-chatbot-action" onclick="toggleChatbotInfo()" title="Tentang Chatbot">ℹ️</button>
+            </div>
+        </header>
+
+        <!-- PANEL INFO -->
+        <div id="chatbot-info-panel" class="chatbot-info-panel hidden">
+            <div class="info-panel-content">
+                <h3>☪ Tentang Al-Mursyid</h3>
+                <p><strong>Al-Mursyid</strong> adalah asisten AI Islami pribadi Anda, terinspirasi dari kepribadian <strong>Imam Hassan al-Banna</strong> (1906–1949) — pendidik, pembaharu, dan murabbi penuh hikmah.</p>
+                <ul>
+                    <li>🕌 Menjawab seputar aqidah, fiqih, sejarah Islam, dan tarbiyah</li>
+                    <li>📖 Berlandaskan Al-Qur'an & As-Sunnah</li>
+                    <li>🤝 Ramah, penuh hikmah, membangkitkan semangat dakwah</li>
+                    <li>🛡️ Menolak pertanyaan yang bertentangan dengan syariat Islam</li>
+                </ul>
+                <p class="info-warning">⚠️ <em>AI ini adalah alat bantu belajar. Untuk keputusan syar'i serius, rujuk kepada ulama dan kitab mu'tabar.</em></p>
+            </div>
+        </div>
+
+        <!-- AREA CHAT -->
+        <main class="chatbot-main">
+
+            <!-- SUGGESTED QUESTIONS -->
+            <div id="chatbot-suggestions" class="chatbot-suggestions">
+                <div class="suggestions-welcome">
+                    <div class="welcome-crescent">☪</div>
+                    <h2>Assalamualaikum Warahmatullahi Wabarakatuh</h2>
+                    <p>Saya <strong>Al-Mursyid</strong>, asisten AI Islami Anda. Silakan bertanya seputar Islam, dakwah, atau tarbiyah. Berikut beberapa topik untuk memulai:</p>
+                </div>
+
+                <div class="suggestions-grid">
+                    <button class="suggestion-chip" onclick="kirimSaranPertanyaan(this)">
+                        <span class="chip-icon">📚</span>
+                        <span class="chip-text">Apa itu konsep Tarbiyah dalam Islam?</span>
+                    </button>
+                    <button class="suggestion-chip" onclick="kirimSaranPertanyaan(this)">
+                        <span class="chip-icon">🕌</span>
+                        <span class="chip-text">Bagaimana cara memperkuat aqidah seorang muslim?</span>
+                    </button>
+                    <button class="suggestion-chip" onclick="kirimSaranPertanyaan(this)">
+                        <span class="chip-icon">🤲</span>
+                        <span class="chip-text">Apa keutamaan shalat tahajud?</span>
+                    </button>
+                    <button class="suggestion-chip" onclick="kirimSaranPertanyaan(this)">
+                        <span class="chip-icon">🌍</span>
+                        <span class="chip-text">Siapa itu Hassan al-Banna dan apa perjuangannya?</span>
+                    </button>
+                    <button class="suggestion-chip" onclick="kirimSaranPertanyaan(this)">
+                        <span class="chip-icon">💡</span>
+                        <span class="chip-text">Bagaimana adab menuntut ilmu dalam Islam?</span>
+                    </button>
+                    <button class="suggestion-chip" onclick="kirimSaranPertanyaan(this)">
+                        <span class="chip-icon">📖</span>
+                        <span class="chip-text">Apa makna Bismillah dan keberkahannya?</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- RUANG PESAN -->
+            <div id="chatbot-messages" class="chatbot-messages"></div>
+
+            <!-- TYPING INDICATOR -->
+            <div id="chatbot-typing" class="chatbot-typing hidden">
+                <div class="typing-avatar">☪</div>
+                <div class="typing-dots"><span></span><span></span><span></span></div>
+                <span class="typing-text">Al-Mursyid sedang menulis...</span>
+            </div>
+
+        </main>
+
+        <!-- INPUT AREA -->
+        <footer class="chatbot-input-area">
+            <div class="chatbot-input-wrapper">
+                <textarea id="chatbot-input-field" rows="1"
+                    placeholder="Tulis pertanyaan Anda kepada Al-Mursyid..."
+                    onkeydown="handleChatbotKeydown(event)"
+                    oninput="autoGrowChatbotInput(this)"></textarea>
+                <button class="btn-send-chatbot" onclick="kirimPesanChatbot()" title="Kirim Pesan">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="chatbot-disclaimer">☪ Al-Mursyid dapat membuat kesalahan. Selalu rujuk kepada Al-Qur'an, As-Sunnah, dan ulama untuk keputusan syar'i.</p>
+        </footer>
+
+    </div>
+</div>
+
+<!-- =========================================================
+     PUTER.JS — Akses AI GRATIS TANPA API KEY
+     ========================================================= -->
+<script src="https://js.puter.com/v2/"></script>
+
+</body>
+</html>
