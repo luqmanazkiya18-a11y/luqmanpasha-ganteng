@@ -226,18 +226,65 @@ footer {
 .badge-play, .badge-soon { background: #ffd700; color: #0f172a; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 12px; }
 .cg-card-info { padding: 12px; }
 
-/* MAPCHART */
+/* ==========================================
+   MAPCHART ASLI (KANVAS POLIGON NEGARA)
+   ========================================== */
 .mapchart-container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-.mapchart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-.mapchart-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; height: 520px; }
+.mapchart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+.mapchart-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; height: 550px; }
 .mapchart-sidebar {
-    background: #1e293b; padding: 20px; border-radius: 12px;
-    display: flex; flex-direction: column; gap: 15px;
+    background: #1e293b; padding: 18px; border-radius: 12px;
+    display: flex; flex-direction: column; gap: 14px; overflow-y: auto;
+    border: 1px solid #334155;
+}
+.mapchart-sidebar label {
+    display: block; font-size: 0.82rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;
+}
+.color-picker-wrapper {
+    display: flex; align-items: center; gap: 10px;
 }
 .mapchart-sidebar select {
     width: 100%; padding: 8px; background: #0f172a; color: #fff; border: 1px solid #334155; border-radius: 6px;
 }
 .mapchart-viewport { border-radius: 12px; overflow: hidden; border: 1px solid #334155; }
+#leaflet-map {
+    background-color: #0b192c !important;
+}
+.map-legend-box {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 10px;
+    max-height: 140px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #e2e8f0;
+}
+.legend-color-box {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+}
+.country-tooltip {
+    background: rgba(15, 23, 42, 0.92) !important;
+    color: #ffd700 !important;
+    border: 1px solid #10b981 !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+}
 
 /* KIBLAT */
 .kiblat-theme { background: #0b1329; min-height: 100vh; padding: 20px 0; }
@@ -297,7 +344,6 @@ footer {
     width: 100%;
 }
 
-/* Sidebar */
 .chat-sidebar {
     background: linear-gradient(180deg, #0b1426 0%, #071b18 100%);
     border-right: 1px solid rgba(255, 215, 0, 0.18);
@@ -444,7 +490,6 @@ footer {
     margin-bottom: 6px;
 }
 
-/* Main Area */
 .chat-main-area {
     display: flex;
     flex-direction: column;
@@ -519,7 +564,6 @@ footer {
     color: #ef4444;
 }
 
-/* Messages Scroll Area */
 .chat-messages-container {
     flex: 1;
     overflow-y: auto;
@@ -607,7 +651,6 @@ footer {
     color: #ffd700;
 }
 
-/* Chat Bubbles */
 .chat-row {
     max-width: 780px;
     width: 100%;
@@ -673,7 +716,48 @@ footer {
     margin-bottom: 6px;
 }
 
-/* Input Area */
+/* Suggested Questions di dalam balasan AI */
+.ai-followup-box {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(255, 215, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ai-followup-label {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.ai-followup-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.ai-chip-btn {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #6ee7b7;
+    font-size: 0.76rem;
+    padding: 5px 11px;
+    border-radius: 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.ai-chip-btn:hover {
+    background: #10b981;
+    color: #06221b;
+    border-color: #10b981;
+    font-weight: 600;
+}
+
 .chat-input-wrapper {
     max-width: 800px;
     width: 100%;
@@ -763,7 +847,8 @@ footer {
 
 /* Responsif Mobile */
 @media (max-width: 768px) {
-    .cg-layout, .mapchart-layout { grid-template-columns: 1fr; }
+    .cg-layout, .mapchart-layout { grid-template-columns: 1fr; height: auto; }
+    .mapchart-viewport { height: 400px; }
     .chat-app-shell { grid-template-columns: 1fr; }
     .chat-sidebar {
         position: fixed;
@@ -777,91 +862,4 @@ footer {
     .chat-sidebar.open { left: 0; }
     .btn-toggle-sidebar { display: inline-block; }
     .suggested-grid { grid-template-columns: 1fr; }
-}/* ==========================================
-   SUGGESTED QUESTIONS DI DALAM BALASAN AI
-   ========================================== */
-.ai-followup-box {
-    margin-top: 14px;
-    padding-top: 10px;
-    border-top: 1px dashed rgba(255, 215, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.ai-followup-label {
-    font-size: 0.72rem;
-    color: #94a3b8;
-    font-weight: 600;
-}
-
-.ai-followup-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.ai-chip-btn {
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid rgba(16, 185, 129, 0.35);
-    color: #6ee7b7;
-    font-size: 0.76rem;
-    padding: 5px 11px;
-    border-radius: 16px;
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.2s ease;
-    font-family: inherit;
-}
-
-.ai-chip-btn:hover {
-    background: #10b981;
-    color: #06221b;
-    border-color: #10b981;
-    font-weight: 600;
-}
-/* ==========================================
-   MAPCHART ASLI (KANVAS POLIGON NEGARA)
-   ========================================== */
-#leaflet-map {
-    background-color: #0b192c !important; /* Warna lautan MapChart */
-}
-
-.map-legend-box {
-    background: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 10px;
-    max-height: 140px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    color: #e2e8f0;
-}
-
-.legend-color-box {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    flex-shrink: 0;
-}
-
-.country-tooltip {
-    background: rgba(15, 23, 42, 0.92) !important;
-    color: #ffd700 !important;
-    border: 1px solid #10b981 !important;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 0.8rem;
-    padding: 4px 10px !important;
-    border-radius: 6px !important;
 }
