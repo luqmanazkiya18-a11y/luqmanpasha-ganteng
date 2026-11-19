@@ -134,7 +134,7 @@ b. Menjadi salah satu staff di Komunitas Literasi Sekolah (KLS) As-Syifa Boardin
 </div>
 </div>
 
-<!-- KARTU 5: CHATBOT AI ISLAMI (BARU) -->
+<!-- KARTU 5: CHATBOT AI ISLAMI -->
 <div class="project-card card-clickable" onclick="bukaChatbot()">
 <div class="card-body">
 <span class="card-badge-islamic">☪ Asisten AI</span>
@@ -309,7 +309,7 @@ Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, 
 </div>
 <div class="cg-card-info">
 <h4>World MapChart Builder</h4>
-<p>Peta dunia interaktif tingkat provinsi/wilayah & kustomisasi warna RGB.</p>
+<p>Peta dunia interaktif poligon negara asli & kustomisasi warna RGB.</p>
 </div>
 </div>
 <div class="cg-card disabled-game">
@@ -378,7 +378,7 @@ Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, 
 </div>
 </div>
 
-<!-- TAMPILAN MAPCHART INTERAKTIF -->
+<!-- TAMPILAN MAPCHART INTERAKTIF (VERSI POLIGON NEGARA ASLI) -->
 <div id="mapchart-page" class="hidden-page">
 <div class="mapchart-container">
 <header class="mapchart-header">
@@ -389,31 +389,43 @@ Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, 
 
 <div class="mapchart-layout">
 <aside class="mapchart-sidebar">
-<div class="panel-group">
-<label>Pilih Warna Isian (RGB Full):</label>
-<div class="color-picker-wrapper">
-<input type="color" id="map-color-picker" value="#38bdf8" onchange="updateRGBText(this.value)">
-<span class="rgb-preview" id="rgb-display">RGB(56, 189, 248)</span>
-</div>
-</div>
-<div class="panel-group">
-<label>Mode Interaksi Peta:</label>
-<select id="symbol-mode">
-<option value="fill">Mode Mewarnai Wilayah / Negara</option>
-<option value="crescent">Mode Tambah Crescent & Star ☪</option>
-</select>
-</div>
-<div class="panel-group">
-<label>Informasi Wilayah Terpilih:</label>
-<input type="text" id="selected-region-name" value="Klik area peta..." readonly style="width:100%; padding:8px; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
-</div>
-<div class="panel-group">
-<p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4;">
-💡 <strong>Petunjuk MapChart:</strong><br>
-Mode Mewarnai: Klik pada wilayah/negara untuk menandai warna pilihan RGB.<br>
-Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bulan Sabit & Bintang emas ☪.
-</p>
-</div>
+  <div class="panel-group">
+    <label>Pilih Warna Isian (RGB Full):</label>
+    <div class="color-picker-wrapper">
+      <input type="color" id="map-color-picker" value="#10b981" onchange="updateRGBText(this.value)">
+      <span class="rgb-preview" id="rgb-display">RGB(16, 185, 129)</span>
+    </div>
+  </div>
+
+  <div class="panel-group">
+    <label>Mode Interaksi Peta:</label>
+    <select id="symbol-mode">
+      <option value="fill">🖌️ Mode Warnai Negara (Klik Negara)</option>
+      <option value="erase">🧹 Mode Hapus Warna Negara</option>
+      <option value="crescent">☪ Mode Pin Crescent & Star</option>
+    </select>
+  </div>
+
+  <div class="panel-group">
+    <label>Negara / Wilayah Disorot:</label>
+    <input type="text" id="selected-region-name" value="Arahkan kursor ke negara..." readonly style="width:100%; padding:8px; background:#0f172a; border:1px solid #334155; color:#ffd700; font-weight:600; border-radius:6px;">
+  </div>
+
+  <div class="panel-group">
+    <label>Legenda Peta (Otomatis):</label>
+    <div id="map-legend-list" class="map-legend-box">
+      <p style="font-size:0.78rem; color:#64748b;">Klik negara di peta untuk mulai mewarnai & membuat legenda.</p>
+    </div>
+  </div>
+
+  <div class="panel-group">
+    <p style="font-size: 0.78rem; color: #94a3b8; line-height: 1.4;">
+      💡 <strong>Cara Pakai MapChart:</strong><br>
+      1. Pilih warna RGB di atas.<br>
+      2. Klik langsung pada bentuk negara mana pun untuk mewarnainya secara penuh.<br>
+      3. Gunakan mode <em>Crescent & Star</em> untuk menaruh simbol ☪ di wilayah pilihan.
+    </p>
+  </div>
 </aside>
 <main class="mapchart-viewport">
 <div id="leaflet-map" style="width:100%; height:100%;"></div>
@@ -425,7 +437,6 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
 <!-- TAMPILAN CHATBOT AI ISLAMI (HASSAN AL-BANNA PERSONA) -->
 <div id="chatbot-page" class="hidden-page chatbot-theme">
   <div class="chat-app-shell">
-    <!-- Sidebar Kiri (Gaya ChatGPT/DeepSeek) -->
     <aside class="chat-sidebar" id="chat-sidebar">
       <div class="chat-sidebar-top">
         <button class="btn-chat-back" onclick="tutupChatbot()">
@@ -463,9 +474,7 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
       </div>
     </aside>
 
-    <!-- Area Utama Chat -->
     <main class="chat-main-area">
-      <!-- Topbar Mobile & Desktop -->
       <header class="chat-topbar">
         <div class="chat-topbar-left">
           <button class="btn-toggle-sidebar" onclick="toggleChatSidebar()">☰</button>
@@ -478,9 +487,7 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
         <button class="btn-topbar-home" onclick="tutupChatbot()">Tutup</button>
       </header>
 
-      <!-- Area Pesan -->
       <div class="chat-messages-container" id="chat-messages">
-        <!-- Welcome Hero State -->
         <div class="chat-welcome-screen" id="chat-welcome">
           <div class="welcome-crescent-ornament">☪</div>
           <div class="welcome-avatar-box">
@@ -492,43 +499,41 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
           </div>
           <h2>Assalamualaikum Warahmatullahi Wabarakatuh</h2>
           <p>
-            Wahai saudaraku, selamat datang. Saya adalah asisten digital yang terinspirasi dari semangat pembaharuan dan tarbiyah <strong>Imam Hassan Al-Banna</strong>. Mari berdiskusi tentang Islam, sejarah peradaban, pembinaan diri, atau teknologi yang membawa keberkahan.
+            Wahai saudaraku, selamat datang. Saya adalah asisten digital yang terinspirasi dari semangat pembaharuan dan tarbiyah <strong>Imam Hassan Al-Banna</strong>. Mari berdiskusi tentang Sirah, Akidah, sejarah peradaban, atau karya di website ini.
           </p>
 
-          <!-- Suggested Questions -->
           <div class="suggested-grid" id="suggested-questions">
-            <button class="suggest-card" onclick="kirimPertanyaanSaran('Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!')">
-              <span class="suggest-icon">☪</span>
-              <span class="suggest-text">Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!</span>
-            </button>
-            <button class="suggest-card" onclick="kirimPertanyaanSaran('Bagaimana cara menjaga keistiqamahan pemuda Muslim di era digital?')">
-              <span class="suggest-icon">📖</span>
-              <span class="suggest-text">Bagaimana cara menjaga keistiqamahan pemuda Muslim di era digital?</span>
-            </button>
-            <button class="suggest-card" onclick="kirimPertanyaanSaran('Apa saja 10 Muwashafat (karakter) Muslim ideal dalam Tarbiyah?')">
+            <button class="suggest-card" onclick="kirimPertanyaanSaran('Ceritakan ringkasan Sirah Nabawiyah & perjuangan Rasulullah')">
               <span class="suggest-icon">🕌</span>
-              <span class="suggest-text">Apa saja 10 Muwashafat (karakter) Muslim ideal dalam Tarbiyah?</span>
+              <span class="suggest-text">Ceritakan ringkasan Sirah Nabawiyah & perjuangan Rasulullah</span>
             </button>
-            <button class="suggest-card" onclick="kirimPertanyaanSaran('Bagaimana sejarah berdirinya gerakan dakwah di Ismailiyah tahun 1928?')">
-              <span class="suggest-icon">🏛️</span>
-              <span class="suggest-text">Bagaimana sejarah berdirinya gerakan dakwah di Ismailiyah tahun 1928?</span>
+            <button class="suggest-card" onclick="kirimPertanyaanSaran('Jelaskan pilar utama Akidah Islamiyah (Tauhid)')">
+              <span class="suggest-icon">☪</span>
+              <span class="suggest-text">Jelaskan pilar utama Akidah Islamiyah (Tauhid)</span>
+            </button>
+            <button class="suggest-card" onclick="kirimPertanyaanSaran('Apa saja fitur dan profil pembuat website ini?')">
+              <span class="suggest-icon">💻</span>
+              <span class="suggest-text">Apa saja fitur dan profil pembuat website ini?</span>
+            </button>
+            <button class="suggest-card" onclick="kirimPertanyaanSaran('Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!')">
+              <span class="suggest-icon">📖</span>
+              <span class="suggest-text">Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Area Input Bawah -->
       <div class="chat-input-wrapper">
         <div class="quick-pills" id="quick-pills">
           <button onclick="kirimPertanyaanSaran('Berikan nasihat penguat iman hari ini')">✨ Nasihat Iman</button>
-          <button onclick="kirimPertanyaanSaran('Jelaskan konsep Al-Islam Dinun wa Daulatun')">⚖️ Islam & Peradaban</button>
+          <button onclick="kirimPertanyaanSaran('Apa saja 10 Muwashafat (karakter) Muslim ideal dalam Tarbiyah?')">⚖️ 10 Karakter Muslim</button>
           <button onclick="kirimPertanyaanSaran('Tips menghafal Al-Qur\'an dengan konsisten')">📿 Tips Hafalan</button>
         </div>
         <form class="chat-input-box" onsubmit="handleChatSubmit(event)">
           <textarea 
             id="chat-user-input" 
             rows="1" 
-            placeholder="Tanyakan seputar Islam, tarbiyah, sejarah, atau ilmu bermanfaat..."
+            placeholder="Tanyakan seputar Sirah, Akidah, isi website, atau ilmu bermanfaat..."
             onkeydown="handleChatKeydown(event)"
           ></textarea>
           <button type="submit" class="btn-send-chat" id="btn-send-chat" title="Kirim Pesan">
@@ -543,10 +548,10 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
   </div>
 </div>
 
-<!-- 1. Pasang CDN Supabase di sini -->
+<!-- 1. CDN Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- 2. Baru panggil file JS kamu yang tadi di bawahnya -->
+<!-- 2. Script Utama -->
 <script src="script.js"></script>
 
 </body>
