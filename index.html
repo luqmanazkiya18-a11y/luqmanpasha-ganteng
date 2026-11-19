@@ -11,7 +11,6 @@
 </head>
 <body>
 
-
 <div id="main-content">
 <nav>
 <div class="container-nav">
@@ -138,6 +137,7 @@ b. Menjadi salah satu staff di Komunitas Literasi Sekolah (KLS) As-Syifa Boardin
 <!-- KARTU 5: CHATBOT AI ISLAMI (BARU) -->
 <div class="project-card card-clickable" onclick="bukaChatbot()">
 <div class="card-body">
+<span class="card-badge-islamic">☪ Asisten AI</span>
 <h3>Asisten AI Islami</h3>
 <p>Chatbot cerdas dengan kepribadian Hassan Al-Banna. Tanya apa saja seputar Islam, sejarah, dan perjuangan dakwah.</p>
 <span class="btn-open">Buka Chatbot &rarr;</span>
@@ -148,7 +148,7 @@ b. Menjadi salah satu staff di Komunitas Literasi Sekolah (KLS) As-Syifa Boardin
 </div>
 </section>
 
-<footer>
+<footer id="contact">
 <div class="container">
 <p>Jazakumullah Khairan Katsiran telah berkunjung.</p>
 <p>&copy; 2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
@@ -215,7 +215,7 @@ Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, 
 <span class="news-badge">Pemikiran Islam</span>
 <h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
 <div class="news-meta">12 Oktober 2024</div>
-<p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang *Salimul Aqidah* (akidah yang lurus) dan *Sohihul Ibadah* (ibadah yang benar).</p>
+<p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang <em>Salimul Aqidah</em> (akidah yang lurus) dan <em>Shahihul Ibadah</em> (ibadah yang benar).</p>
 </article>
 <article class="news-card">
 <span class="news-badge">Sejarah Tokoh</span>
@@ -280,7 +280,7 @@ Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, 
 <div id="puzzle-win-msg" class="puzzle-win-overlay hidden">
 <h3>MasyaAllah, Luar Biasa! 🎉</h3>
 <p>Anda berhasil menyusun logo dengan sempurna!</p>
-<button onclick="initPuzzle()">Main Lagi</button>
+<button class="btn-primary" onclick="initPuzzle()">Main Lagi</button>
 </div>
 </div>
 
@@ -382,7 +382,7 @@ Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, 
 <div id="mapchart-page" class="hidden-page">
 <div class="mapchart-container">
 <header class="mapchart-header">
-<button class="btn-back" style="margin-bottom:0;" onclick="tutupMapChart()">&larr; Kembali ke Portofolio</button>
+<button class="btn-back" style="margin-bottom:0;" onclick="tutupMapChart()">&larr; Kembali ke Game</button>
 <div class="mapchart-title"><h2>🗺️ MapChart Interaktif Dunia</h2></div>
 <button class="btn-back" style="margin-bottom:0; background:#ef4444;" onclick="resetWarnaPeta()">Reset Warna Peta</button>
 </header>
@@ -410,7 +410,7 @@ Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, 
 <div class="panel-group">
 <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4;">
 💡 <strong>Petunjuk MapChart:</strong><br>
-Mode Mewarnai: Klik pada wilayah/negara untuk mewarnainya sesuai pilihan warna RGB.<br>
+Mode Mewarnai: Klik pada wilayah/negara untuk menandai warna pilihan RGB.<br>
 Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bulan Sabit & Bintang emas ☪.
 </p>
 </div>
@@ -421,11 +421,133 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
 </div>
 </div>
 </div>
-<!-- 1. Pasang CDN Supabase di sini -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- 2. Baru panggil file JS kamu yang tadi di bawahnya -->
-    <script src="script.js"></script>
+<!-- TAMPILAN CHATBOT AI ISLAMI (HASSAN AL-BANNA PERSONA) -->
+<div id="chatbot-page" class="hidden-page chatbot-theme">
+  <div class="chat-app-shell">
+    <!-- Sidebar Kiri (Gaya ChatGPT/DeepSeek) -->
+    <aside class="chat-sidebar" id="chat-sidebar">
+      <div class="chat-sidebar-top">
+        <button class="btn-chat-back" onclick="tutupChatbot()">
+          &larr; Kembali ke Portofolio
+        </button>
+        <button class="btn-new-chat" onclick="resetChatSession()">
+          <span>+</span> Percakapan Baru
+        </button>
+      </div>
+
+      <div class="chat-persona-card">
+        <div class="persona-avatar-ring">
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Hassan_al-Banna.jpg/440px-Hassan_al-Banna.jpg" 
+            alt="Hassan Al-Banna" 
+            class="persona-avatar-img"
+            onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg'"
+          >
+          <span class="crescent-badge">☪</span>
+        </div>
+        <h4>Al-Banna AI Assistant</h4>
+        <p class="persona-role">Asisten Tarbiyah & Pemikiran Islam</p>
+        <div class="syariah-shield-badge">
+          🛡️ Filter Syariat Aktif
+        </div>
+      </div>
+
+      <div class="chat-sidebar-info">
+        <p class="sidebar-label">Prinsip Panduan:</p>
+        <ul>
+          <li>☪ Al-Qur'an & As-Sunnah</li>
+          <li>☪ Adab & Hikmah dalam Dakwah</li>
+          <li>☪ Menolak Kemaksiatan & Syubhat</li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Area Utama Chat -->
+    <main class="chat-main-area">
+      <!-- Topbar Mobile & Desktop -->
+      <header class="chat-topbar">
+        <div class="chat-topbar-left">
+          <button class="btn-toggle-sidebar" onclick="toggleChatSidebar()">☰</button>
+          <div class="chat-model-badge">
+            <span class="crescent-gold">☪</span>
+            <span>Al-Banna Islamic AI</span>
+            <span class="model-tag">Syariah-Safe v1.0</span>
+          </div>
+        </div>
+        <button class="btn-topbar-home" onclick="tutupChatbot()">Tutup</button>
+      </header>
+
+      <!-- Area Pesan -->
+      <div class="chat-messages-container" id="chat-messages">
+        <!-- Welcome Hero State -->
+        <div class="chat-welcome-screen" id="chat-welcome">
+          <div class="welcome-crescent-ornament">☪</div>
+          <div class="welcome-avatar-box">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Hassan_al-Banna.jpg/440px-Hassan_al-Banna.jpg" 
+              alt="Hassan Al-Banna"
+              onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg'"
+            >
+          </div>
+          <h2>Assalamualaikum Warahmatullahi Wabarakatuh</h2>
+          <p>
+            Wahai saudaraku, selamat datang. Saya adalah asisten digital yang terinspirasi dari semangat pembaharuan dan tarbiyah <strong>Imam Hassan Al-Banna</strong>. Mari berdiskusi tentang Islam, sejarah peradaban, pembinaan diri, atau teknologi yang membawa keberkahan.
+          </p>
+
+          <!-- Suggested Questions -->
+          <div class="suggested-grid" id="suggested-questions">
+            <button class="suggest-card" onclick="kirimPertanyaanSaran('Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!')">
+              <span class="suggest-icon">☪</span>
+              <span class="suggest-text">Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!</span>
+            </button>
+            <button class="suggest-card" onclick="kirimPertanyaanSaran('Bagaimana cara menjaga keistiqamahan pemuda Muslim di era digital?')">
+              <span class="suggest-icon">📖</span>
+              <span class="suggest-text">Bagaimana cara menjaga keistiqamahan pemuda Muslim di era digital?</span>
+            </button>
+            <button class="suggest-card" onclick="kirimPertanyaanSaran('Apa saja 10 Muwashafat (karakter) Muslim ideal dalam Tarbiyah?')">
+              <span class="suggest-icon">🕌</span>
+              <span class="suggest-text">Apa saja 10 Muwashafat (karakter) Muslim ideal dalam Tarbiyah?</span>
+            </button>
+            <button class="suggest-card" onclick="kirimPertanyaanSaran('Bagaimana sejarah berdirinya gerakan dakwah di Ismailiyah tahun 1928?')">
+              <span class="suggest-icon">🏛️</span>
+              <span class="suggest-text">Bagaimana sejarah berdirinya gerakan dakwah di Ismailiyah tahun 1928?</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Area Input Bawah -->
+      <div class="chat-input-wrapper">
+        <div class="quick-pills" id="quick-pills">
+          <button onclick="kirimPertanyaanSaran('Berikan nasihat penguat iman hari ini')">✨ Nasihat Iman</button>
+          <button onclick="kirimPertanyaanSaran('Jelaskan konsep Al-Islam Dinun wa Daulatun')">⚖️ Islam & Peradaban</button>
+          <button onclick="kirimPertanyaanSaran('Tips menghafal Al-Qur\'an dengan konsisten')">📿 Tips Hafalan</button>
+        </div>
+        <form class="chat-input-box" onsubmit="handleChatSubmit(event)">
+          <textarea 
+            id="chat-user-input" 
+            rows="1" 
+            placeholder="Tanyakan seputar Islam, tarbiyah, sejarah, atau ilmu bermanfaat..."
+            onkeydown="handleChatKeydown(event)"
+          ></textarea>
+          <button type="submit" class="btn-send-chat" id="btn-send-chat" title="Kirim Pesan">
+            <span>&#10148;</span>
+          </button>
+        </form>
+        <p class="chat-footer-note">
+          ☪ Asisten ini diprogram untuk menjaga adab dan menolak pertanyaan yang bertentangan dengan Syariat Islam.
+        </p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- 1. Pasang CDN Supabase di sini -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- 2. Baru panggil file JS kamu yang tadi di bawahnya -->
+<script src="script.js"></script>
 
 </body>
 </html>
