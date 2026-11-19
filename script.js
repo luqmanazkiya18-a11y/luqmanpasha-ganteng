@@ -97,7 +97,7 @@ function tutupArtikel() {
 
 
 // =================================================================
-// 4. LOGIKA KOMPILASI GAME ISLAMI (PUZZLE LOGO & MAPCHART ASLI)
+// 4. LOGIKA KOMPILASI GAME ISLAMI (PUZZLE LOGO & MAPCHART PROVINSI)
 // =================================================================
 let puzzleGridSize = 2;
 let puzzleBoard = [];
@@ -108,16 +108,19 @@ function bukaGame() {
     window.scrollTo(0, 0);
     setTimeout(() => initPuzzle(), 50);
 }
+
 function tutupGame() {
     document.getElementById('games-page').classList.add('hidden-page');
     document.getElementById('main-content').classList.remove('hidden-page');
 }
+
 function setDifficulty(size, btn) {
     puzzleGridSize = size;
     document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     initPuzzle();
 }
+
 function initPuzzle() {
     const boardEl = document.getElementById('puzzle-board');
     const winMsg = document.getElementById('puzzle-win-msg');
@@ -203,6 +206,7 @@ function moveTile(index) {
         checkPuzzleWin();
     }
 }
+
 function checkPuzzleWin() {
     const isWin = puzzleBoard.every((val, idx) => val === idx);
     if (isWin) {
@@ -210,11 +214,19 @@ function checkPuzzleWin() {
     }
 }
 
-// MAPCHART INTERAKTIF DUNIA (GAYA MAPCHART.NET ASLI)
+// =================================================================
+// MAPCHART INTERAKTIF DUNIA (TINGKAT PROVINSI & NEGARA ASLI)
+// =================================================================
 let leafletMap = null;
 let geoJsonLayer = null;
 let mapMarkers = [];
-let coloredCountries = {};
+let coloredRegions = {}; // Menyimpan { "ID_WILAYAH": { name: "Jawa Barat (Indonesia)", color: "#10b981" } }
+let currentMapLevel = 'provinces';
+
+const GEOJSON_SOURCES = {
+    provinces: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson',
+    countries: 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json'
+};
 
 function bukaMapChart() {
     document.getElementById('games-page').classList.add('hidden-page');
@@ -224,98 +236,151 @@ function bukaMapChart() {
     setTimeout(() => {
         if (!leafletMap) {
             leafletMap = L.map('leaflet-map', {
-                center: [20, 15],
-                zoom: 2,
+                center: [-2.5, 118], // Fokus awal ke Indonesia agar langsung terlihat provinsinya
+                zoom: 4,
                 minZoom: 2,
-                maxZoom: 7,
-                worldCopyJump: true
+                maxZoom: 9,
+                worldCopyJump: true,
+                preferCanvas: true // Performa super cepat untuk ribuan poligon provinsi dunia
             });
-
-            const statusInput = document.getElementById('selected-region-name');
-            if (statusInput) statusInput.value = "Memuat batas negara dunia...";
-
-            fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
-                .then(res => res.json())
-                .then(data => {
-                    if (statusInput) statusInput.value = "Siap! Klik negara manapun";
-
-                    geoJsonLayer = L.geoJSON(data, {
-                        style: function () {
-                            return {
-                                fillColor: '#334155',
-                                weight: 1,
-                                opacity: 1,
-                                color: '#0f172a',
-                                fillOpacity: 0.9
-                            };
-                        },
-                        onEachFeature: function (feature, layer) {
-                            const countryName = feature.properties.name || "Wilayah";
-
-                            layer.bindTooltip(countryName, {
-                                sticky: true,
-                                className: 'country-tooltip'
-                            });
-
-                            layer.on('mouseover', function () {
-                                if (statusInput) statusInput.value = countryName;
-                                this.setStyle({
-                                    weight: 2,
-                                    color: '#ffd700'
-                                });
-                                this.bringToFront();
-                            });
-
-                            layer.on('mouseout', function () {
-                                geoJsonLayer.resetStyle(this);
-                                if (coloredCountries[countryName]) {
-                                    this.setStyle({
-                                        fillColor: coloredCountries[countryName],
-                                        fillOpacity: 0.95
-                                    });
-                                }
-                            });
-
-                            layer.on('click', function (e) {
-                                const mode = document.getElementById('symbol-mode').value;
-                                const selectedColor = document.getElementById('map-color-picker').value;
-
-                                if (mode === 'fill') {
-                                    coloredCountries[countryName] = selectedColor;
-                                    this.setStyle({
-                                        fillColor: selectedColor,
-                                        fillOpacity: 0.95
-                                    });
-                                    renderMapLegend();
-                                } else if (mode === 'erase') {
-                                    delete coloredCountries[countryName];
-                                    this.setStyle({
-                                        fillColor: '#334155',
-                                        fillOpacity: 0.9
-                                    });
-                                    renderMapLegend();
-                                } else if (mode === 'crescent') {
-                                    const crescentIcon = L.divIcon({
-                                        className: 'custom-crescent-pin',
-                                        html: '<span style="font-size:22px; color:#ffd700; text-shadow:0 0 6px #000;">☪</span>',
-                                        iconSize: [26, 26],
-                                        iconAnchor: [13, 13]
-                                    });
-                                    const marker = L.marker(e.latlng, { icon: crescentIcon }).addTo(leafletMap);
-                                    marker.bindPopup(`<strong>☪ ${countryName}</strong>`);
-                                    mapMarkers.push(marker);
-                                }
-                            });
-                        }
-                    }).addTo(leafletMap);
-                })
-                .catch(() => {
-                    if (statusInput) statusInput.value = "Gagal memuat GeoJSON (cek koneksi)";
-                });
+            loadGeoJsonLevel(currentMapLevel);
         } else {
             leafletMap.invalidateSize();
         }
     }, 250);
+}
+
+function gantiLevelPeta(level) {
+    currentMapLevel = level;
+    coloredRegions = {};
+    renderMapLegend();
+    loadGeoJsonLevel(level);
+}
+
+function loadGeoJsonLevel(level) {
+    const statusInput = document.getElementById('selected-region-name');
+    if (statusInput) {
+        statusInput.value = level === 'provinces'
+            ? "Memuat 4.500+ poligon provinsi dunia..."
+            : "Memuat poligon negara dunia...";
+    }
+
+    if (geoJsonLayer) {
+        leafletMap.removeLayer(geoJsonLayer);
+        geoJsonLayer = null;
+    }
+
+    fetch(GEOJSON_SOURCES[level])
+        .then(res => {
+            if (!res.ok) throw new Error("Gagal mengambil data peta");
+            return res.json();
+        })
+        .then(data => {
+            if (statusInput) {
+                statusInput.value = level === 'provinces'
+                    ? "Siap! Klik provinsi manapun (misal: Jawa Barat)"
+                    : "Siap! Klik negara manapun";
+            }
+
+            geoJsonLayer = L.geoJSON(data, {
+                style: function () {
+                    return {
+                        fillColor: '#334155', // Warna dasar daratan
+                        weight: level === 'provinces' ? 0.7 : 1,
+                        opacity: 1,
+                        color: '#0f172a',     // Garis batas antar provinsi/negara
+                        fillOpacity: 0.92
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    const props = feature.properties || {};
+                    let regionName = "";
+                    let regionId = "";
+
+                    if (level === 'provinces') {
+                        const provName = props.name || props.name_en || "Provinsi";
+                        const countryName = props.admin || props.geonunit || "";
+                        regionName = countryName ? `${provName} (${countryName})` : provName;
+                        regionId = props.adm1_code || `${provName}_${countryName}`;
+                    } else {
+                        regionName = props.name || "Negara";
+                        regionId = feature.id || regionName;
+                    }
+
+                    // Tooltip nama provinsi/negara saat kursor diarahkan
+                    layer.bindTooltip(regionName, {
+                        sticky: true,
+                        className: 'country-tooltip'
+                    });
+
+                    // Sorot batas poligon saat hover
+                    layer.on('mouseover', function () {
+                        if (statusInput) statusInput.value = regionName;
+                        this.setStyle({
+                            weight: 2,
+                            color: '#ffd700'
+                        });
+                        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                            this.bringToFront();
+                        }
+                    });
+
+                    layer.on('mouseout', function () {
+                        const saved = coloredRegions[regionId];
+                        this.setStyle({
+                            fillColor: saved ? saved.color : '#334155',
+                            weight: level === 'provinces' ? 0.7 : 1,
+                            color: '#0f172a',
+                            fillOpacity: saved ? 0.96 : 0.92
+                        });
+                    });
+
+                    // Klik poligon untuk mengisi warna penuh sesuai bentuk provinsi/negara
+                    layer.on('click', function (e) {
+                        const mode = document.getElementById('symbol-mode').value;
+                        const selectedColor = document.getElementById('map-color-picker').value;
+
+                        if (mode === 'fill') {
+                            coloredRegions[regionId] = { name: regionName, color: selectedColor };
+                            this.setStyle({
+                                fillColor: selectedColor,
+                                fillOpacity: 0.96
+                            });
+                            renderMapLegend();
+                        } else if (mode === 'erase') {
+                            delete coloredRegions[regionId];
+                            this.setStyle({
+                                fillColor: '#334155',
+                                fillOpacity: 0.92
+                            });
+                            renderMapLegend();
+                        } else if (mode === 'crescent') {
+                            const crescentIcon = L.divIcon({
+                                className: 'custom-crescent-pin',
+                                html: '<span style="font-size:22px; color:#ffd700; text-shadow:0 0 6px #000;">☪</span>',
+                                iconSize: [26, 26],
+                                iconAnchor: [13, 13]
+                            });
+                            const marker = L.marker(e.latlng, { icon: crescentIcon }).addTo(leafletMap);
+                            marker.bindPopup(`<strong>☪ ${regionName}</strong>`);
+                            mapMarkers.push(marker);
+                        }
+                    });
+                }
+            }).addTo(leafletMap);
+        })
+        .catch(() => {
+            // Cadangan otomatis ke peta negara jika jaringan lambat memuat file provinsi besar
+            if (level === 'provinces') {
+                if (statusInput) statusInput.value = "Mengalihkan ke peta negara...";
+                const levelSelect = document.getElementById('map-level-select');
+                if (levelSelect) levelSelect.value = 'countries';
+                currentMapLevel = 'countries';
+                loadGeoJsonLevel('countries');
+            } else if (statusInput) {
+                statusInput.value = "Gagal memuat data peta (periksa internet).";
+            }
+        });
 }
 
 function renderMapLegend() {
@@ -323,23 +388,23 @@ function renderMapLegend() {
     if (!legendContainer) return;
 
     const colorGroups = {};
-    Object.entries(coloredCountries).forEach(([country, color]) => {
-        if (!colorGroups[color]) colorGroups[color] = [];
-        colorGroups[color].push(country);
+    Object.values(coloredRegions).forEach(item => {
+        if (!colorGroups[item.color]) colorGroups[item.color] = [];
+        colorGroups[item.color].push(item.name);
     });
 
     const colors = Object.keys(colorGroups);
     if (colors.length === 0) {
-        legendContainer.innerHTML = `<p style="font-size:0.78rem; color:#64748b;">Klik negara di peta untuk mulai mewarnai & membuat legenda.</p>`;
+        legendContainer.innerHTML = `<p style="font-size:0.78rem; color:#64748b;">Klik provinsi/wilayah pada peta untuk mewarnai bentuk aslinya.</p>`;
         return;
     }
 
     legendContainer.innerHTML = colors.map(color => {
-        const listNegara = colorGroups[color].join(', ');
+        const listWilayah = colorGroups[color].join(', ');
         return `
             <div class="legend-item">
                 <span class="legend-color-box" style="background:${color};"></span>
-                <span><strong>${colorGroups[color].length} Negara:</strong> ${listNegara}</span>
+                <span><strong>${colorGroups[color].length} Wilayah:</strong> ${listWilayah}</span>
             </div>
         `;
     }).join('');
@@ -358,14 +423,14 @@ function updateRGBText(hexColor) {
 }
 
 function resetWarnaPeta() {
-    coloredCountries = {};
+    coloredRegions = {};
     if (geoJsonLayer) {
         geoJsonLayer.eachLayer(layer => {
             layer.setStyle({
                 fillColor: '#334155',
-                weight: 1,
+                weight: currentMapLevel === 'provinces' ? 0.7 : 1,
                 color: '#0f172a',
-                fillOpacity: 0.9
+                fillOpacity: 0.92
             });
         });
     }
@@ -375,99 +440,6 @@ function resetWarnaPeta() {
     mapMarkers = [];
     renderMapLegend();
 }
-
-
-// =================================================================
-// 5. LOGIKA PENGECEK ARAH KIBLAT REAL-TIME (GPS & KOMPAS)
-// =================================================================
-let currentQiblaBearing = 295;
-
-function bukaKiblat() {
-    document.getElementById('main-content').classList.add('hidden-page');
-    document.getElementById('kiblat-page').classList.remove('hidden-page');
-    window.scrollTo(0, 0);
-    initQiblaTracker();
-}
-function tutupKiblat() {
-    document.getElementById('kiblat-page').classList.add('hidden-page');
-    document.getElementById('main-content').classList.remove('hidden-page');
-}
-function initQiblaTracker() {
-    const statusText = document.getElementById('kiblat-status-text');
-    const coordsText = document.getElementById('user-coords');
-    const qiblaDegText = document.getElementById('qibla-degree');
-    const qiblaMarker = document.getElementById('qibla-marker');
-
-    if (!statusText || !coordsText || !qiblaDegText) return;
-
-    if ('geolocation' in navigator) {
-        statusText.textContent = "Mendeteksi lokasi GPS Anda...";
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                coordsText.textContent = `${lat.toFixed(4)}°, ${lng.toFixed(4)}°`;
-
-                const kaabaLat = 21.4225;
-                const kaabaLng = 39.8262;
-
-                const phiK = (kaabaLat * Math.PI) / 180;
-                const lambdaK = (kaabaLng * Math.PI) / 180;
-                const phi = (lat * Math.PI) / 180;
-                const lambda = (lng * Math.PI) / 180;
-
-                const qiblaRad = Math.atan2(
-                    Math.sin(lambdaK - lambda),
-                    Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda)
-                );
-
-                let qiblaDeg = (qiblaRad * 180) / Math.PI;
-                qiblaDeg = (qiblaDeg + 360) % 360;
-                currentQiblaBearing = qiblaDeg;
-
-                qiblaDegText.textContent = `${qiblaDeg.toFixed(1)}°`;
-                statusText.textContent = "Arah Kiblat ditemukan! Sejajarkan ikon Ka'bah dengan arah hadap Anda.";
-
-                if (qiblaMarker) {
-                    qiblaMarker.style.transform = `translateX(-50%) rotate(${qiblaDeg}deg)`;
-                    qiblaMarker.style.transformOrigin = '50% 115px';
-                }
-            },
-            () => {
-                const fallbackDeg = 295.1;
-                currentQiblaBearing = fallbackDeg;
-                coordsText.textContent = "Estimasi (Jawa Barat)";
-                qiblaDegText.textContent = `${fallbackDeg}°`;
-                statusText.textContent = "Izin GPS tidak aktif. Menampilkan estimasi arah Kiblat wilayah Indonesia Barat.";
-
-                if (qiblaMarker) {
-                    qiblaMarker.style.transform = `translateX(-50%) rotate(${fallbackDeg}deg)`;
-                    qiblaMarker.style.transformOrigin = '50% 115px';
-                }
-            },
-            { enableHighAccuracy: true, timeout: 10000 }
-        );
-    } else {
-        statusText.textContent = "Browser Anda tidak mendukung fitur geolokasi GPS.";
-    }
-}
-
-window.addEventListener('deviceorientation', (event) => {
-    const dial = document.getElementById('compass-dial');
-    const kiblatPage = document.getElementById('kiblat-page');
-    if (!dial || !kiblatPage || kiblatPage.classList.contains('hidden-page')) return;
-
-    let compassHeading = null;
-    if (typeof event.webkitCompassHeading !== 'undefined') {
-        compassHeading = event.webkitCompassHeading;
-    } else if (event.alpha !== null) {
-        compassHeading = 360 - event.alpha;
-    }
-
-    if (compassHeading !== null) {
-        dial.style.transform = `rotate(${-compassHeading}deg)`;
-    }
-});
 
 
 // =================================================================
