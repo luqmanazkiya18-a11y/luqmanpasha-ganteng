@@ -1,8 +1,8 @@
 // =================================================================
 // 0. KONFIGURASI SUPABASE DATABASE (PENYIMPANAN PERMANEN CLOUD)
 // =================================================================
-const SUPABASE_URL = "https://NAMA_PROJECT.supabase.co";
-const SUPABASE_ANON_KEY = "PASTE_SUPABASE_ANON_KEY_ANDA_DI_SINI";
+const SUPABASE_URL = "https://wyjdwrwizzxmtwmyrhah.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_0DBqgof5g7HiSw25CyF7iA_9kf778fB";
 
 // ===== PATCH: GUARD SUPABASE BELUM DIKONFIGURASI =====
 let supabaseReady = false;
