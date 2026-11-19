@@ -97,7 +97,7 @@ function tutupArtikel() {
 
 
 // =================================================================
-// 4. LOGIKA KOMPILASI GAME ISLAMI (PUZZLE LOGO & MAPCHART)
+// 4. LOGIKA KOMPILASI GAME ISLAMI (PUZZLE LOGO & MAPCHART ASLI)
 // =================================================================
 let puzzleGridSize = 2;
 let puzzleBoard = [];
@@ -210,8 +210,11 @@ function checkPuzzleWin() {
     }
 }
 
+// MAPCHART INTERAKTIF DUNIA (GAYA MAPCHART.NET ASLI)
 let leafletMap = null;
+let geoJsonLayer = null;
 let mapMarkers = [];
+let coloredCountries = {};
 
 function bukaMapChart() {
     document.getElementById('games-page').classList.add('hidden-page');
@@ -220,55 +223,157 @@ function bukaMapChart() {
 
     setTimeout(() => {
         if (!leafletMap) {
-            leafletMap = L.map('leaflet-map').setView([20, 0], 2);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(leafletMap);
-
-            leafletMap.on('click', function(e) {
-                const mode = document.getElementById('symbol-mode').value;
-                const color = document.getElementById('map-color-picker').value;
-                document.getElementById('selected-region-name').value =
-                    `Lat: ${e.latlng.lat.toFixed(2)}°, Lng: ${e.latlng.lng.toFixed(2)}°`;
-
-                if (mode === 'crescent') {
-                    const crescentIcon = L.divIcon({
-                        className: 'custom-crescent-pin',
-                        html: '<span style="font-size:24px; color:#ffd700; text-shadow:0 0 5px #000;">☪</span>',
-                        iconSize: [30, 30]
-                    });
-                    const marker = L.marker(e.latlng, { icon: crescentIcon }).addTo(leafletMap);
-                    mapMarkers.push(marker);
-                } else {
-                    const circle = L.circleMarker(e.latlng, {
-                        radius: 14,
-                        fillColor: color,
-                        color: '#ffffff',
-                        weight: 1,
-                        fillOpacity: 0.75
-                    }).addTo(leafletMap);
-                    mapMarkers.push(circle);
-                }
+            leafletMap = L.map('leaflet-map', {
+                center: [20, 15],
+                zoom: 2,
+                minZoom: 2,
+                maxZoom: 7,
+                worldCopyJump: true
             });
+
+            const statusInput = document.getElementById('selected-region-name');
+            if (statusInput) statusInput.value = "Memuat batas negara dunia...";
+
+            fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+                .then(res => res.json())
+                .then(data => {
+                    if (statusInput) statusInput.value = "Siap! Klik negara manapun";
+
+                    geoJsonLayer = L.geoJSON(data, {
+                        style: function () {
+                            return {
+                                fillColor: '#334155',
+                                weight: 1,
+                                opacity: 1,
+                                color: '#0f172a',
+                                fillOpacity: 0.9
+                            };
+                        },
+                        onEachFeature: function (feature, layer) {
+                            const countryName = feature.properties.name || "Wilayah";
+
+                            layer.bindTooltip(countryName, {
+                                sticky: true,
+                                className: 'country-tooltip'
+                            });
+
+                            layer.on('mouseover', function () {
+                                if (statusInput) statusInput.value = countryName;
+                                this.setStyle({
+                                    weight: 2,
+                                    color: '#ffd700'
+                                });
+                                this.bringToFront();
+                            });
+
+                            layer.on('mouseout', function () {
+                                geoJsonLayer.resetStyle(this);
+                                if (coloredCountries[countryName]) {
+                                    this.setStyle({
+                                        fillColor: coloredCountries[countryName],
+                                        fillOpacity: 0.95
+                                    });
+                                }
+                            });
+
+                            layer.on('click', function (e) {
+                                const mode = document.getElementById('symbol-mode').value;
+                                const selectedColor = document.getElementById('map-color-picker').value;
+
+                                if (mode === 'fill') {
+                                    coloredCountries[countryName] = selectedColor;
+                                    this.setStyle({
+                                        fillColor: selectedColor,
+                                        fillOpacity: 0.95
+                                    });
+                                    renderMapLegend();
+                                } else if (mode === 'erase') {
+                                    delete coloredCountries[countryName];
+                                    this.setStyle({
+                                        fillColor: '#334155',
+                                        fillOpacity: 0.9
+                                    });
+                                    renderMapLegend();
+                                } else if (mode === 'crescent') {
+                                    const crescentIcon = L.divIcon({
+                                        className: 'custom-crescent-pin',
+                                        html: '<span style="font-size:22px; color:#ffd700; text-shadow:0 0 6px #000;">☪</span>',
+                                        iconSize: [26, 26],
+                                        iconAnchor: [13, 13]
+                                    });
+                                    const marker = L.marker(e.latlng, { icon: crescentIcon }).addTo(leafletMap);
+                                    marker.bindPopup(`<strong>☪ ${countryName}</strong>`);
+                                    mapMarkers.push(marker);
+                                }
+                            });
+                        }
+                    }).addTo(leafletMap);
+                })
+                .catch(() => {
+                    if (statusInput) statusInput.value = "Gagal memuat GeoJSON (cek koneksi)";
+                });
         } else {
             leafletMap.invalidateSize();
         }
-    }, 300);
+    }, 250);
 }
+
+function renderMapLegend() {
+    const legendContainer = document.getElementById('map-legend-list');
+    if (!legendContainer) return;
+
+    const colorGroups = {};
+    Object.entries(coloredCountries).forEach(([country, color]) => {
+        if (!colorGroups[color]) colorGroups[color] = [];
+        colorGroups[color].push(country);
+    });
+
+    const colors = Object.keys(colorGroups);
+    if (colors.length === 0) {
+        legendContainer.innerHTML = `<p style="font-size:0.78rem; color:#64748b;">Klik negara di peta untuk mulai mewarnai & membuat legenda.</p>`;
+        return;
+    }
+
+    legendContainer.innerHTML = colors.map(color => {
+        const listNegara = colorGroups[color].join(', ');
+        return `
+            <div class="legend-item">
+                <span class="legend-color-box" style="background:${color};"></span>
+                <span><strong>${colorGroups[color].length} Negara:</strong> ${listNegara}</span>
+            </div>
+        `;
+    }).join('');
+}
+
 function tutupMapChart() {
     document.getElementById('mapchart-page').classList.add('hidden-page');
     document.getElementById('games-page').classList.remove('hidden-page');
 }
+
 function updateRGBText(hexColor) {
     const r = parseInt(hexColor.slice(1, 3), 16);
     const g = parseInt(hexColor.slice(3, 5), 16);
     const b = parseInt(hexColor.slice(5, 7), 16);
     document.getElementById('rgb-display').textContent = `RGB(${r}, ${g}, ${b})`;
 }
+
 function resetWarnaPeta() {
-    if (!leafletMap) return;
-    mapMarkers.forEach(m => leafletMap.removeLayer(m));
+    coloredCountries = {};
+    if (geoJsonLayer) {
+        geoJsonLayer.eachLayer(layer => {
+            layer.setStyle({
+                fillColor: '#334155',
+                weight: 1,
+                color: '#0f172a',
+                fillOpacity: 0.9
+            });
+        });
+    }
+    if (leafletMap) {
+        mapMarkers.forEach(m => leafletMap.removeLayer(m));
+    }
     mapMarkers = [];
+    renderMapLegend();
 }
 
 
@@ -564,7 +669,7 @@ function getHassanAlBannaReply(rawInput) {
             <strong>5 Fitur Karya Utama di Website Ini:</strong><br>
             1. <strong>Kalkulator Digital Islami</strong> — Perhitungan matematika cepat.<br>
             2. <strong>Suara Islami (Kompilasi Artikel)</strong> — Tulisan seputar pemikiran Islam & Ikhwanul Muslimin.<br>
-            3. <strong>LuqmanGames</strong> — Game Puzzle Logo Gerakan Islam & World MapChart Builder interaktif.<br>
+            3. <strong>LuqmanGames</strong> — Game Puzzle Logo Gerakan Islam & World MapChart Builder poligon negara asli.<br>
             4. <strong>Pengecek Arah Kiblat Real-Time</strong> — Kompas GPS menuju Ka'bah.<br>
             5. <strong>Asisten AI Islami (Al-Banna AI)</strong> — Chatbot edukasi berlandaskan syariat.`,
             suggestions: [
@@ -576,7 +681,7 @@ function getHassanAlBannaReply(rawInput) {
     }
 
     // 3. SIRAH NABAWIYAH & SEJARAH ISLAM
-    if (text.includes('sirah') || text.includes('rasulullah') || text.includes('nabi') || text.includes('hijrah') || text.includes('sahabat') || text.includes('badar')) {
+    if (text.includes('sirah') || text.includes('rasulullah') || text.includes('nabi') || text.includes('hijrah') || text.includes('sahabat') || text.includes('badar') || text.includes('darul arqam')) {
         return {
             isRestricted: false,
             reply: `Mempelajari <strong>Sirah Nabawiyah</strong> bukan sekadar membaca sejarah masa lalu, melainkan mengambil manhaj (metode) perjuangan untuk masa kini.<br><br>
