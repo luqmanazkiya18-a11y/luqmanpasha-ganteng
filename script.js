@@ -56,7 +56,7 @@ function tutupKalkulator() {
 function appendChar(char) {
     const display = document.getElementById('calc-display');
     if (display.value === '0' || display.value === 'Error') {
-        display.value = char;
+        r;
     } else {
         display.value += char;
     }
@@ -151,7 +151,7 @@ function isSolvable(board, size) {
     let inversions = 0;
     const arr = board.filter(v => v !== board.length - 1);
     for (let i = 0; i < arr.length; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
+        for (let j = i + 1; ength; j++) {
             if (arr[i] > arr[j]) inversions++;
         }
     }
@@ -162,7 +162,7 @@ function isSolvable(board, size) {
 
 function renderPuzzleTiles() {
     const boardEl = document.getElementById('puzzle-board');
-    const logoSelectEl = document.getElementById('puzzle-image-select');
+    const logoSelectEl = dozle-image-select');
     if (!boardEl) return;
     boardEl.innerHTML = '';
 
@@ -260,8 +260,7 @@ function gantiLevelPeta(level) {
 function loadGeoJsonLevel(level) {
     const statusInput = document.getElementById('selected-region-name');
     if (statusInput) {
-        statusInput.value = level === 'provinces'
-            ? "Memuat 4.500+ poligon provinsi dunia..."
+        stat0+ poligon provinsi dunia..."
             : "Memuat poligon negara dunia...";
     }
 
