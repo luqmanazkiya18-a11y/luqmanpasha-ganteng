@@ -127,13 +127,7 @@ function initPuzzle() {
     const stepCountEl = document.getElementById('step-count');
     if (!boardEl || !winMsg || !stepCountEl) return;
 
-    boardEl.innerHTML = '';
-    winMsg.classList.add('hidden');
-    stepCountEl.textContent = '0';
-
-    boardEl.style.gridTemplateColumns = `repeat(${puzzleGridSize}, 1fr)`;
-    boardEl.style.gridTemplateRows = `repeat(${puzzleGridSize}, 1fr)`;
-
+    boardEl.innerHTML = '';luqman
     const totalTiles = puzzleGridSize * puzzleGridSize;
     puzzleBoard = Array.from({ length: totalTiles }, (_, i) => i);
 
@@ -189,9 +183,7 @@ function renderPuzzleTiles() {
         boardEl.appendChild(tile);
     });
 }
-
-function moveTile(index) {
-    const emptyIndex = puzzleBoard.indexOf(puzzleBoard.length - 1);
+uzzleBoard.length - 1);
     const row = Math.floor(index / puzzleGridSize);
     const col = index % puzzleGridSize;
     const emptyRow = Math.floor(emptyIndex / puzzleGridSize);
