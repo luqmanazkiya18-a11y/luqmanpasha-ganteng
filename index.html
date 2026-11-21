@@ -5,435 +5,536 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portofolio Islami Profesional - Luqman Azkiya Athaillah</title>
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
+<!-- =================================================================
+     GERBANG PEMBUKA (ENTERING STYLE ALA IKHWANUL MUSLIMIN)
+     ================================================================= -->
+<div id="entering-overlay" class="entering-screen">
+    <div class="entering-pattern"></div>
+    <div class="entering-content">
+        <div class="entering-emblem-box">
+            <div class="emblem-glow"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Emblem Ikhwanul Muslimin" class="entering-emblem">
+        </div>
+        <p class="entering-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <h2 class="entering-motto-title">اللَّهُ غَايَتُنَا • الرَّسُولُ قُدْوَتُنَا • الْقُرْآنُ دُسْتُورُنَا</h2>
+        <p class="entering-sub">
+            "Allah tujuan kami, Rasulullah teladan kami, Al-Qur'an undang-undang kami, Jihad jalan perjuangan kami, Syahid cita-cita tertinggi kami."
+        </p>
+        <div class="entering-divider">
+            <span>☪</span>
+        </div>
+        <h1 class="entering-owner">Luqman Azkiya Athaillah</h1>
+        <p class="entering-role">Portofolio Digital & Dakwah Teknologi Islami</p>
+        <button class="btn-enter-portal" onclick="masukPortofolio()">
+            <span>Masuk ke Portofolio</span>
+            <span class="enter-arrow">&rarr;</span>
+        </button>
+    </div>
+</div>
+
+<!-- =================================================================
+     HALAMAN UTAMA WEBSITE (DENGAN NAVIGASI TAB TERPISAH)
+     ================================================================= -->
 <div id="main-content">
-<nav>
-<div class="container-nav">
-<div class="logo-wrapper">
-<img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin" class="logo-im">
-<div class="logo">Portofolio<span>Muslim</span></div>
-</div>
-<ul class="nav-links">
-<li><a href="#home">Beranda</a></li>
-<li><a href="#about">Tentang</a></li>
-<li><a href="#projects">Karya</a></li>
-<li><a href="#contact">Kontak</a></li>
-</ul>
-<div class="jam-container">
-<span id="jam-wib">00:00:00</span> WIB
-</div>
-</div>
-</nav>
+    <nav>
+        <div class="container-nav">
+            <div class="logo-wrapper" onclick="bukaTabUtama('home')" style="cursor: pointer;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin" class="logo-im">
+                <div class="logo">Portofolio<span>Muslim</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="javascript:void(0)" id="nav-home" class="nav-tab active-tab" onclick="bukaTabUtama('home')">Beranda</a></li>
+                <li><a href="javascript:void(0)" id="nav-about" class="nav-tab" onclick="bukaTabUtama('about')">Tentang Saya</a></li>
+                <li><a href="javascript:void(0)" id="nav-projects" class="nav-tab" onclick="bukaTabUtama('projects')">Projek & Karya</a></li>
+                <li><a href="javascript:void(0)" id="nav-contact" class="nav-tab" onclick="bukaTabUtama('contact')">Kontak</a></li>
+            </ul>
+            <div class="jam-container">
+                <span class="jam-dot"></span>
+                <span id="jam-wib">00:00:00</span> WIB
+            </div>
+        </div>
+    </nav>
 
-<header id="home">
-<div class="container">
-<div class="hero-content">
-<p class="salam">Assalamualaikum Warahmatullahi Wabarakatuh</p>
-<h1>Saya Luqman Azkiya Athaillah</h1>
-<p class="tagline">Berikhtiar menciptakan karya digital yang bermanfaat dan membawa keberkahan.</p>
-<a href="#projects" class="btn-primary">Lihat Portofolio</a>
-</div>
-</div>
-</header>
+    <!-- TAB 1: BERANDA (HERO) -->
+    <div id="tab-home" class="main-tab-section">
+        <header id="home">
+            <div class="hero-crescent-bg">☪</div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">☪ Ahlan Wa Sahlan di Ruang Karya Digital</div>
+                    <p class="salam">Assalamualaikum Warahmatullahi Wabarakatuh</p>
+                    <h1>Saya <span>Luqman Azkiya Athaillah</span></h1>
+                    <p class="tagline">Berikhtiar menciptakan karya digital yang bermanfaat, kokoh dalam akidah, dan membawa keberkahan bagi peradaban umat.</p>
+                    <div class="hero-btn-group">
+                        <button class="btn-primary" onclick="bukaTabUtama('projects')">Jelajahi Projek &rarr;</button>
+                        <button class="btn-secondary" onclick="bukaTabUtama('about')">Profil & Prinsip</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
 
-<section id="about">
-<div class="container">
-<div class="section-header"><h2>Tentang Saya</h2></div>
-<div class="about-content">
-<p>Saya adalah Luqman Azkiya Athaillah, biasa dipanggil Luqman atau untuk nama panggungnya Luqman Pasha. Saya adalah seorang pelajar di SMPIT As-Syifa Boarding School yang berniat memadukan kemajuan teknologi IT dengan prinsip islami.</p>
-</div>
-</div>
-</section>
+    <!-- TAB 2: TENTANG SAYA (PROFIL, 5 PASAL PERJUANGAN, JENJANG KARIER) -->
+    <div id="tab-about" class="main-tab-section hidden-page">
+        <section id="about">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Biografi & Visi</span>
+                    <h2>Tentang Saya</h2>
+                </div>
+                <div class="about-content">
+                    <p>Saya adalah <strong>Luqman Azkiya Athaillah</strong>, biasa dipanggil <strong>Luqman</strong> atau dengan nama panggung <strong>Luqman Pasha</strong>. Saya adalah seorang pelajar di <strong>SMPIT As-Syifa Boarding School JalanCagak 1</strong> yang bertekad memadukan kemajuan teknologi IT dengan prinsip-prinsip Islam yang murni.</p>
+                </div>
+            </div>
+        </section>
 
-<section id="principles" class="bg-alt">
-<div class="container">
-<div class="quote-im-wrapper">
-<div class="quote-im-container">
-<p class="quote-title">Motto & 5 Pasal Perjuangan (Ikhwanul Muslimin)</p>
-<p class="quote-motto">"Allah matsaalunil a'laa, Ar-Rasuulu qudwatunaa, Al-Qur'anu dustuurunaa, Al-Jihadu sabiilunaa, Asy-Syahadatu asmaa amaniyyinaa."</p>
-<ul class="quote-pasal">
-<li><strong>1.</strong> Allah adalah tujuan kami <em>(Allah is our goal)</em></li>
-<li><strong>2.</strong> Rasulullah adalah teladan kami <em>(The Messenger is our leader)</em></li>
-<li><strong>3.</strong> Al-Qur'an adalah undang-undang kami <em>(The Quran is our law)</em></li>
-<li><strong>4.</strong> Jihad adalah jalan perjuangan kami <em>(Jihad is our way)</em></li>
-<li><strong>5.</strong> Mati syahid adalah cita-cita tertinggi kami <em>(Death in the cause of Allah is our highest aspiration)</em></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
+        <section id="principles" class="bg-alt">
+            <div class="container">
+                <div class="quote-im-wrapper">
+                    <div class="quote-im-container">
+                        <div class="quote-emblem-top">☪</div>
+                        <p class="quote-title">Motto & 5 Pasal Perjuangan (Ikhwanul Muslimin)</p>
+                        <p class="quote-motto">"Allahu ghaayatunaa, Ar-Rasuulu qudwatunaa, Al-Qur'anu dustuurunaa, Al-Jihadu sabiilunaa, Asy-Syahadatu asmaa amaaniyyinaa."</p>
+                        <ul class="quote-pasal">
+                            <li><strong>1.</strong> Allah adalah tujuan kami <em>(Allah is our goal)</em></li>
+                            <li><strong>2.</strong> Rasulullah adalah teladan kami <em>(The Messenger is our leader)</em></li>
+                            <li><strong>3.</strong> Al-Qur'an adalah undang-undang kami <em>(The Quran is our law)</em></li>
+                            <li><strong>4.</strong> Jihad adalah jalan perjuangan kami <em>(Jihad is our way)</em></li>
+                            <li><strong>5.</strong> Mati syahid adalah cita-cita tertinggi kami <em>(Death in the cause of Allah is our highest aspiration)</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<section id="career" class="bg-alt">
-<div class="container">
-<div class="section-header"><h2>Jenjang Karier</h2></div>
-<div class="project-grid">
-<div class="project-card">
-<div class="card-body">
-<h3>Prestasi Akademik & Non-Akademik</h3>
-<p>a. Memenangkan juara kedelapan di Olimpiade PAI Nasional (OLPAIN) 2024<br>
-b. Mendapatkan juara kedua di lomba literasi internasional yang diselenggarakan Hayrat Foundation<br>
-c. Mendapatkan juara ziyadah terbanyak sekaligus hafalan terbanyak takhosus selama dua semester berturut-turut
-</p>
-</div>
-</div>
-<div class="project-card">
-<div class="card-body">
-<h3>Karier Organisasi</h3>
-<p>a. Menjadi salah satu pengurus angkatan di angkatan 29 SOUL SD Salman Al Farisi Bandung<br>
-b. Menjadi salah satu staff di Komunitas Literasi Sekolah (KLS) As-Syifa Boarding School JalanCagak 1
-</p>
-</div>
-</div>
-</div>
-</div>
-</section>
+        <section id="career">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Rekam Jejak</span>
+                    <h2>Jenjang Karier & Prestasi</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="card-body">
+                            <span class="card-icon">🏆</span>
+                            <h3>Prestasi Akademik & Non-Akademik</h3>
+                            <p>
+                                <strong>a.</strong> Memenangkan juara kedelapan di Olimpiade PAI Nasional (OLPAIN) 2024<br><br>
+                                <strong>b.</strong> Mendapatkan juara kedua di lomba literasi internasional yang diselenggarakan Hayrat Foundation<br><br>
+                                <strong>c.</strong> Mendapatkan juara ziyadah terbanyak sekaligus hafalan terbanyak takhosus selama dua semester berturut-turut
+                            </p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="card-body">
+                            <span class="card-icon">🎖️</span>
+                            <h3>Karier Organisasi</h3>
+                            <p>
+                                <strong>a.</strong> Menjadi salah satu pengurus angkatan di angkatan 29 SOUL SD Salman Al Farisi Bandung<br><br>
+                                <strong>b.</strong> Menjadi salah satu staff di Komunitas Literasi Sekolah (KLS) As-Syifa Boarding School JalanCagak 1
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 36px;">
+                    <button class="btn-primary" onclick="bukaTabUtama('projects')">Lihat Projek Karya Saya &rarr;</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
-<section id="projects">
-<div class="container">
-<div class="section-header"><h2>Karya Pilihan</h2></div>
-<div class="project-grid">
+    <!-- TAB 3: PROJEK & KARYA PILIHAN (TERPISAH DARI TENTANG SAYA) -->
+    <div id="tab-projects" class="main-tab-section hidden-page">
+        <section id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Inovasi Digital Islami</span>
+                    <h2>Projek & Karya Pilihan</h2>
+                    <p class="section-desc">Pilih salah satu aplikasi di bawah ini untuk membuka dan mencobanya secara langsung.</p>
+                </div>
+                <div class="project-grid">
 
-<!-- KARTU 1: KALKULATOR DIGITAL -->
-<div class="project-card card-clickable" onclick="bukaKalkulator()">
-<div class="card-body">
-<h3>Kalkulator Digital</h3>
-<p>Aplikasi kalkulator interaktif untuk perhitungan matematika cepat dan akurat. Klik untuk membuka.</p>
-<span class="btn-open">Buka Kalkulator &rarr;</span>
-</div>
+                    <!-- KARTU 1: KALKULATOR DIGITAL -->
+                    <div class="project-card card-clickable" onclick="bukaKalkulator()">
+                        <div class="card-body">
+                            <span class="card-icon">🧮</span>
+                            <h3>Kalkulator Digital</h3>
+                            <p>Aplikasi kalkulator interaktif untuk perhitungan matematika cepat dan akurat. Klik untuk membuka.</p>
+                            <span class="btn-open">Buka Kalkulator &rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 2: KOMPILASI ARTIKEL ISLAM -->
+                    <div class="project-card card-clickable" onclick="bukaArtikel()">
+                        <div class="card-body">
+                            <span class="card-icon">📰</span>
+                            <h3>Kompilasi Artikel Islam & Ikhwanul Muslimin</h3>
+                            <p>Kumpulan tulisan dan analisis mendalam seputar sejarah, pemikiran Islam, dan pergerakan Ikhwanul Muslimin.</p>
+                            <span class="btn-open">Baca Artikel &rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 3: KOMPILASI GAME ISLAMI -->
+                    <div class="project-card card-clickable" onclick="bukaGame()">
+                        <div class="card-body">
+                            <span class="card-icon">🎮</span>
+                            <h3>Kompilasi Game Islami</h3>
+                            <p>Arcade game interaktif dan edukatif berbasis web. Mainkan Puzzle Logo Gerakan Islam dan World MapChart Builder!</p>
+                            <span class="btn-open">Mainkan Game &rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 4: PENGECEK ARAH KIBLAT -->
+                    <div class="project-card card-clickable" onclick="bukaKiblat()">
+                        <div class="card-body">
+                            <span class="card-icon">🧭</span>
+                            <h3>Pengecek Arah Kiblat</h3>
+                            <p>Deteksi arah Kiblat secara real-time berdasarkan koordinat GPS lokasi Anda dengan kompas interaktif.</p>
+                            <span class="btn-open">Cek Arah Kiblat &rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 5: CHATBOT AI ISLAMI -->
+                    <div class="project-card card-clickable featured-project-card" onclick="bukaChatbot()">
+                        <div class="card-body">
+                            <span class="card-badge-new">AI Groq • Persona Murabbi</span>
+                            <span class="card-icon">☪️</span>
+                            <h3>Asisten AI Islami (Hassan Al-Banna)</h3>
+                            <p>Chatbot cerdas dengan kepribadian Hassan Al-Banna. Tanya seputar Siroh Abad 6–21 M, Akidah, Madzhab, Fikih, dan perjuangan dakwah.</p>
+                            <span class="btn-open">Buka Chatbot &rarr;</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- TAB 4: KONTAK -->
+    <div id="tab-contact" class="main-tab-section hidden-page">
+        <section id="contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Silaturahmi & Kolaborasi</span>
+                    <h2>Hubungi Saya</h2>
+                </div>
+                <div class="contact-card-box">
+                    <div class="contact-emblem">☪</div>
+                    <h3>Mari Membangun Peradaban Digital Islami Bersama</h3>
+                    <p>Terbuka untuk diskusi keilmuan, literasi Islam, maupun kolaborasi pengembangan proyek web dan teknologi pendidikan.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <strong>Nama:</strong> Luqman Azkiya Athaillah (Luqman Pasha)
+                        </div>
+                        <div class="contact-item">
+                            <strong>Institusi:</strong> SMPIT As-Syifa Boarding School JalanCagak 1, Subang
+                        </div>
+                        <div class="contact-item">
+                            <strong>Organisasi:</strong> Komunitas Literasi Sekolah (KLS) As-Syifa
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="footer-arabic">جَزَاكُمُ اللَّهُ خَيْرًا كَثِيرًا</p>
+            <p>Jazakumullah Khairan Katsiran telah berkunjung.</p>
+            <p>&copy; 2024–2026 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
+        </div>
+    </footer>
 </div>
 
-<!-- KARTU 2: KOMPILASI ARTIKEL ISLAM -->
-<div class="project-card card-clickable" onclick="bukaArtikel()">
-<div class="card-body">
-<h3>Kompilasi Artikel Islam & Ikhwanul Muslimin</h3>
-<p>Kumpulan tulisan dan analisis mendalam seputar sejarah, pemikiran Islam, dan pergerakan Ikhwanul Muslimin.</p>
-<span class="btn-open">Baca Artikel &rarr;</span>
-</div>
-</div>
-
-<!-- KARTU 3: KOMPILASI GAME ISLAMI -->
-<div class="project-card card-clickable" onclick="bukaGame()">
-<div class="card-body">
-<h3>Kompilasi Game Islami</h3>
-<p>Arcade game interaktif dan edukatif berbasis web. Mainkan Puzzle Logo Gerakan Islam dan World MapChart Builder!</p>
-<span class="btn-open">Mainkan Game &rarr;</span>
-</div>
-</div>
-
-<!-- KARTU 4: PENGECEK ARAH KIBLAT -->
-<div class="project-card card-clickable" onclick="bukaKiblat()">
-<div class="card-body">
-<h3>Pengecek Arah Kiblat</h3>
-<p>Deteksi arah Kiblat secara real-time berdasarkan koordinat GPS lokasi Anda dengan kompas interaktif.</p>
-<span class="btn-open">Cek Arah Kiblat &rarr;</span>
-</div>
-</div>
-
-<!-- KARTU 5: CHATBOT AI ISLAMI (BARU) -->
-<div class="project-card card-clickable" onclick="bukaChatbot()">
-<div class="card-body">
-<h3>Asisten AI Islami</h3>
-<p>Chatbot cerdas dengan kepribadian Hassan Al-Banna. Tanya apa saja seputar Islam, sejarah, dan perjuangan dakwah.</p>
-<span class="btn-open">Buka Chatbot &rarr;</span>
-</div>
-</div>
-
-</div>
-</div>
-</section>
-
-<footer id="contact">
-<div class="container">
-<p>Jazakumullah Khairan Katsiran telah berkunjung.</p>
-<p>&copy; 2024 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
-</div>
-</footer>
-</div>
+<!-- =================================================================
+     HALAMAN-HALAMAN APLIKASI PROJEK (TERPISAH)
+     ================================================================= -->
 
 <!-- TAMPILAN KALKULATOR -->
 <div id="calculator-page" class="hidden-page">
-<div class="calc-wrapper">
-<button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Portofolio</button>
-<div class="calculator">
-<div class="calc-header"><h3>Kalkulator Islami</h3></div>
-<input type="text" id="calc-display" readonly placeholder="0">
-<div class="calc-buttons">
-<button onclick="clearDisplay()" class="btn-action">C</button>
-<button onclick="deleteLast()" class="btn-action">&lArr;</button>
-<button onclick="appendChar('/')" class="btn-operator">&divide;</button>
-<button onclick="appendChar('*')" class="btn-operator">&times;</button>
-<button onclick="appendChar('7')">7</button>
-<button onclick="appendChar('8')">8</button>
-<button onclick="appendChar('9')">9</button>
-<button onclick="appendChar('-')" class="btn-operator">-</button>
-<button onclick="appendChar('4')">4</button>
-<button onclick="appendChar('5')">5</button>
-<button onclick="appendChar('6')">6</button>
-<button onclick="appendChar('+')" class="btn-operator">+</button>
-<button onclick="appendChar('1')">1</button>
-<button onclick="appendChar('2')">2</button>
-<button onclick="appendChar('3')">3</button>
-<button onclick="calculateResult()" class="btn-equal" style="grid-row: span 2;">=</button>
-<button onclick="appendChar('0')" style="grid-column: span 2;">0</button>
-<button onclick="appendChar('.')">.</button>
-</div>
-</div>
-</div>
+    <div class="calc-wrapper">
+        <button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Projek</button>
+        <div class="calculator">
+            <div class="calc-header"><h3>☪ Kalkulator Islami</h3></div>
+            <input type="text" id="calc-display" readonly placeholder="0">
+            <div class="calc-buttons">
+                <button onclick="clearDisplay()" class="btn-action">C</button>
+                <button onclick="deleteLast()" class="btn-action">&lArr;</button>
+                <button onclick="appendChar('/')" class="btn-operator">&divide;</button>
+                <button onclick="appendChar('*')" class="btn-operator">&times;</button>
+                <button onclick="appendChar('7')">7</button>
+                <button onclick="appendChar('8')">8</button>
+                <button onclick="appendChar('9')">9</button>
+                <button onclick="appendChar('-')" class="btn-operator">-</button>
+                <button onclick="appendChar('4')">4</button>
+                <button onclick="appendChar('5')">5</button>
+                <button onclick="appendChar('6')">6</button>
+                <button onclick="appendChar('+')" class="btn-operator">+</button>
+                <button onclick="appendChar('1')">1</button>
+                <button onclick="appendChar('2')">2</button>
+                <button onclick="appendChar('3')">3</button>
+                <button onclick="calculateResult()" class="btn-equal" style="grid-row: span 2;">=</button>
+                <button onclick="appendChar('0')" style="grid-column: span 2;">0</button>
+                <button onclick="appendChar('.')">.</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- TAMPILAN KOMPILASI ARTIKEL -->
 <div id="artikel-page" class="hidden-page">
-<div class="portal-container">
-<button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Portofolio</button>
-<div class="portal-header">
-<div class="portal-logo">SUARA<span>ISLAMI</span></div>
-<p class="portal-subtitle">Kompilasi Artikel & Pemikiran Islam Kontemporer</p>
-</div>
+    <div class="portal-container">
+        <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Projek</button>
+        <div class="portal-header">
+            <div class="portal-logo">SUARA<span>ISLAMI</span></div>
+            <p class="portal-subtitle">Kompilasi Artikel & Pemikiran Islam Kontemporer</p>
+        </div>
 
-<article class="featured-news">
-<div class="featured-badge">Fokus Utama</div>
-<h2>Mengenal Sejarah dan Kontribusi Ikhwanul Muslimin dalam Peradaban Islam Modern</h2>
-<div class="news-meta">
-<span>Oleh: Luqman Azkiya Athaillah</span> | <span>Terbit: Oktober 2024</span>
-</div>
-<p class="news-excerpt">
-Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam. Fokus utamanya mencakup pembinaan moral, pendidikan Islam, serta pembaharuan sosial dan politik berbasis Syariat...
-</p>
-<div class="article-body-text">
-<p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara). Melalui pendekatan pendidikan berjenjang (Tarbiyah), gerakan ini menyebar ke berbagai belahan dunia Islam dan mempengaruhi banyak organisasi pergerakan modern saat ini.</p>
-</div>
-</article>
+        <article class="featured-news">
+            <div class="featured-badge">Fokus Utama</div>
+            <h2>Mengenal Sejarah dan Kontribusi Ikhwanul Muslimin dalam Peradaban Islam Modern</h2>
+            <div class="news-meta">
+                <span>Oleh: Luqman Azkiya Athaillah</span> | <span>Terbit: Oktober 2024</span>
+            </div>
+            <p class="news-excerpt">
+                Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam. Fokus utamanya mencakup pembinaan moral, pendidikan Islam, serta pembaharuan sosial dan politik berbasis Syariat...
+            </p>
+            <div class="article-body-text">
+                <p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara). Melalui pendekatan pendidikan berjenjang (Tarbiyah), gerakan ini menyebar ke berbagai belahan dunia Islam dan mempengaruhi banyak organisasi pergerakan modern saat ini.</p>
+            </div>
+        </article>
 
-<div class="news-grid">
-<article class="news-card">
-<span class="news-badge">Pemikiran Islam</span>
-<h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
-<div class="news-meta">12 Oktober 2024</div>
-<p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang <em>Salimul Aqidah</em> (akidah yang lurus) dan <em>Sohihul Ibadah</em> (ibadah yang benar).</p>
-</article>
-<article class="news-card">
-<span class="news-badge">Sejarah Tokoh</span>
-<h3>Pemikiran Hassan al-Banna dan Gagasan Pembaharuan</h3>
-<div class="news-meta">08 Oktober 2024</div>
-<p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam dalam kehidupan bermasyarakat serta reformasi institusi pendidikan.</p>
-</article>
-<article class="news-card">
-<span class="news-badge">Dunia Islam</span>
-<h3>Tantangan Pergerakan Islam Kontemporer di Era Digital</h3>
-<div class="news-meta">01 Oktober 2024</div>
-<p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam yang moderat, inklusif, dan solutif bagi permasalahan pemuda modern.</p>
-</article>
-</div>
-</div>
+        <div class="news-grid">
+            <article class="news-card">
+                <span class="news-badge">Pemikiran Islam</span>
+                <h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
+                <div class="news-meta">12 Oktober 2024</div>
+                <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang <em>Salimul Aqidah</em> (akidah yang lurus) dan <em>Sohihul Ibadah</em> (ibadah yang benar).</p>
+            </article>
+            <article class="news-card">
+                <span class="news-badge">Sejarah Tokoh</span>
+                <h3>Pemikiran Hassan al-Banna dan Gagasan Pembaharuan</h3>
+                <div class="news-meta">08 Oktober 2024</div>
+                <p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam dalam kehidupan bermasyarakat serta reformasi institusi pendidikan.</p>
+            </article>
+            <article class="news-card">
+                <span class="news-badge">Dunia Islam</span>
+                <h3>Tantangan Pergerakan Islam Kontemporer di Era Digital</h3>
+                <div class="news-meta">01 Oktober 2024</div>
+                <p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam yang moderat, inklusif, dan solutif bagi permasalahan pemuda modern.</p>
+            </article>
+        </div>
+    </div>
 </div>
 
 <!-- TAMPILAN KOMPILASI GAME -->
 <div id="games-page" class="hidden-page crazy-theme">
-<div class="cg-container">
-<header class="cg-header">
-<button class="cg-btn-back btn-back" style="margin-bottom:0;" onclick="tutupGame()">&larr; Kembali ke Portofolio</button>
-<div class="cg-logo">LUQMAN<span>GAMES</span></div>
-<div class="cg-search">
-<input type="text" placeholder="Cari Game Islami..." readonly>
-</div>
-</header>
+    <div class="cg-container">
+        <header class="cg-header">
+            <button class="cg-btn-back btn-back" style="margin-bottom:0;" onclick="tutupGame()">&larr; Kembali ke Projek</button>
+            <div class="cg-logo">LUQMAN<span>GAMES</span></div>
+            <div class="cg-search">
+                <input type="text" placeholder="Cari Game Islami..." readonly>
+            </div>
+        </header>
 
-<div class="cg-layout">
-<main class="cg-viewport">
-<div class="cg-game-header">
-<h2 id="cg-game-title">Puzzle Logo: Ikhwanul Muslimin & Hizbut Tahrir</h2>
-<div class="cg-game-tags">
-<span class="cg-tag">Puzzle</span>
-<span class="cg-tag">Edukasi</span>
-<span class="cg-tag">Sejarah</span>
-</div>
-</div>
+        <div class="cg-layout">
+            <main class="cg-viewport">
+                <div class="cg-game-header">
+                    <h2 id="cg-game-title">Puzzle Logo: Ikhwanul Muslimin & Hizbut Tahrir</h2>
+                    <div class="cg-game-tags">
+                        <span class="cg-tag">Puzzle</span>
+                        <span class="cg-tag">Edukasi</span>
+                        <span class="cg-tag">Sejarah</span>
+                    </div>
+                </div>
 
-<div class="puzzle-stage">
-<div class="puzzle-controls">
-<div class="ctrl-group">
-<label>Pilih Logo:</label>
-<select id="puzzle-image-select" onchange="initPuzzle()">
-<option value="im">Logo Ikhwanul Muslimin</option>
-<option value="ht">Logo Hizbut Tahrir</option>
-</select>
-</div>
-<div class="ctrl-group">
-<label>Tingkat Kesulitan:</label>
-<div class="diff-btn-group">
-<button class="diff-btn active" onclick="setDifficulty(2, this)">Mudah (2x2)</button>
-<button class="diff-btn" onclick="setDifficulty(3, this)">Sedang (3x3)</button>
-<button class="diff-btn" onclick="setDifficulty(4, this)">Sulit (4x4)</button>
-</div>
-</div>
-<button class="btn-reset-game" onclick="initPuzzle()">Acak Ulang</button>
-</div>
+                <div class="puzzle-stage">
+                    <div class="puzzle-controls">
+                        <div class="ctrl-group">
+                            <label>Pilih Logo:</label>
+                            <select id="puzzle-image-select" onchange="initPuzzle()">
+                                <option value="im">Logo Ikhwanul Muslimin</option>
+                                <option value="ht">Logo Hizbut Tahrir</option>
+                            </select>
+                        </div>
+                        <div class="ctrl-group">
+                            <label>Tingkat Kesulitan:</label>
+                            <div class="diff-btn-group">
+                                <button class="diff-btn active" onclick="setDifficulty(2, this)">Mudah (2x2)</button>
+                                <button class="diff-btn" onclick="setDifficulty(3, this)">Sedang (3x3)</button>
+                                <button class="diff-btn" onclick="setDifficulty(4, this)">Sulit (4x4)</button>
+                            </div>
+                        </div>
+                        <button class="btn-reset-game" onclick="initPuzzle()">Acak Ulang</button>
+                    </div>
 
-<div class="puzzle-board-wrapper">
-<div id="puzzle-board" class="puzzle-board"></div>
-<div id="puzzle-win-msg" class="puzzle-win-overlay hidden">
-<h3>MasyaAllah, Luar Biasa! 🎉</h3>
-<p>Anda berhasil menyusun logo dengan sempurna!</p>
-<button onclick="initPuzzle()">Main Lagi</button>
-</div>
-</div>
+                    <div class="puzzle-board-wrapper">
+                        <div id="puzzle-board" class="puzzle-board"></div>
+                        <div id="puzzle-win-msg" class="puzzle-win-overlay hidden">
+                            <h3>MasyaAllah, Luar Biasa! 🎉</h3>
+                            <p>Anda berhasil menyusun logo dengan sempurna!</p>
+                            <button onclick="initPuzzle()">Main Lagi</button>
+                        </div>
+                    </div>
 
-<div class="puzzle-stats">
-<span>Langkah: <strong id="step-count">0</strong></span>
-<span>Status: <strong id="game-status" style="color: #00f2fe;">Siap Dimainkan</strong></span>
-</div>
-</div>
-</main>
+                    <div class="puzzle-stats">
+                        <span>Langkah: <strong id="step-count">0</strong></span>
+                        <span>Status: <strong id="game-status" style="color: #00f2fe;">Siap Dimainkan</strong></span>
+                    </div>
+                </div>
+            </main>
 
-<aside class="cg-sidebar">
-<h3 class="cg-sidebar-title">Kompilasi Game</h3>
-<div class="cg-game-grid">
-<div class="cg-card active-game">
-<div class="cg-thumb thumb-puzzle">
-<span class="badge-play">Sedang Dimainkan</span>
-</div>
-<div class="cg-card-info">
-<h4>Puzzle Logo Islam</h4>
-<p>Susun potongan logo gerakan Islam secara presisi.</p>
-</div>
-</div>
-<div class="cg-card active-game" onclick="bukaMapChart()" style="cursor: pointer;">
-<div class="cg-thumb" style="background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center;">
-<span class="badge-play" style="background: #38bdf8; color: #0f172a;">Mainkan</span>
-</div>
-<div class="cg-card-info">
-<h4>World MapChart Builder</h4>
-<p>Peta dunia interaktif tingkat provinsi/wilayah & kustomisasi warna RGB.</p>
-</div>
-</div>
-<div class="cg-card disabled-game">
-<div class="cg-thumb thumb-memory">
-<span class="badge-soon">Soon</span>
-</div>
-<div class="cg-card-info">
-<h4>Memory Match Ayat</h4>
-<p>Cocokkan pasangan potongan ayat Al-Qur'an.</p>
-</div>
-</div>
-</div>
-</aside>
-</div>
-</div>
+            <aside class="cg-sidebar">
+                <h3 class="cg-sidebar-title">Kompilasi Game</h3>
+                <div class="cg-game-grid">
+                    <div class="cg-card active-game">
+                        <div class="cg-thumb thumb-puzzle">
+                            <span class="badge-play">Sedang Dimainkan</span>
+                        </div>
+                        <div class="cg-card-info">
+                            <h4>Puzzle Logo Islam</h4>
+                            <p>Susun potongan logo gerakan Islam secara presisi.</p>
+                        </div>
+                    </div>
+                    <div class="cg-card active-game" onclick="bukaMapChart()" style="cursor: pointer;">
+                        <div class="cg-thumb" style="background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center;">
+                            <span class="badge-play" style="background: #38bdf8; color: #0f172a;">Mainkan</span>
+                        </div>
+                        <div class="cg-card-info">
+                            <h4>World MapChart Builder</h4>
+                            <p>Peta dunia interaktif tingkat provinsi/wilayah & kustomisasi warna RGB.</p>
+                        </div>
+                    </div>
+                    <div class="cg-card disabled-game">
+                        <div class="cg-thumb thumb-memory">
+                            <span class="badge-soon">Soon</span>
+                        </div>
+                        <div class="cg-card-info">
+                            <h4>Memory Match Ayat</h4>
+                            <p>Cocokkan pasangan potongan ayat Al-Qur'an.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
 </div>
 
 <!-- TAMPILAN PENGECEK ARAH KIBLAT -->
 <div id="kiblat-page" class="hidden-page kiblat-theme">
-<div class="kiblat-container">
-<button class="btn-back btn-back-kiblat" onclick="tutupKiblat()">&larr; Kembali ke Portofolio</button>
-<div class="kiblat-header">
-<span class="kiblat-badge">Fitur Islami Real-Time</span>
-<h2>Pencari Arah Kiblat</h2>
-<p id="kiblat-status-text">Mendeteksi lokasi GPS Anda...</p>
-</div>
-<div class="compass-wrapper">
-<div class="compass-outer-ring">
-<div class="cardinal-degree N">N</div>
-<div class="cardinal-degree E">E</div>
-<div class="cardinal-degree S">S</div>
-<div class="cardinal-degree W">W</div>
-<div class="compass-dial" id="compass-dial">
-<div class="north-pointer"></div>
-<div class="qibla-marker" id="qibla-marker">
-<div class="kabah-icon-wrapper">
-<svg class="kabah-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="12" y="16" width="40" height="40" rx="3" fill="#1A1A1A"/>
-<path d="M12 24H52" stroke="#FFD700" stroke-width="4"/>
-<rect x="26" y="38" width="12" height="18" fill="#FFD700" opacity="0.9"/>
-<path d="M12 16L32 6L52 16" fill="#2A2A2A"/>
-</svg>
-</div>
-</div>
-</div>
-<div class="center-needle"></div>
-</div>
-</div>
-<div class="kiblat-info-card">
-<div class="info-box">
-<span class="info-label">Arah Kiblat</span>
-<span class="info-value" id="qibla-degree">--°</span>
-</div>
-<div class="info-divider"></div>
-<div class="info-box">
-<span class="info-label">Posisi Anda</span>
-<span class="info-value" id="user-coords">Mencari...</span>
-</div>
-</div>
-<div class="kiblat-actions">
-<button class="btn-primary btn-kiblat-refresh" onclick="initQiblaTracker()">🔄 Perbarui Lokasi GPS</button>
-<p class="compass-note">
-📌 <strong>Catatan:</strong> Untuk hasil paling akurat di smartphone/laptop, izinkan akses lokasi (GPS) dan gerakkan perangkat membentuk angka "8" jika sensor kompas belum terkalibrasi.
-</p>
-</div>
-</div>
+    <div class="kiblat-container">
+        <button class="btn-back btn-back-kiblat" onclick="tutupKiblat()">&larr; Kembali ke Projek</button>
+        <div class="kiblat-header">
+            <span class="kiblat-badge">Fitur Islami Real-Time</span>
+            <h2>Pencari Arah Kiblat</h2>
+            <p id="kiblat-status-text">Mendeteksi lokasi GPS Anda...</p>
+        </div>
+        <div class="compass-wrapper">
+            <div class="compass-outer-ring">
+                <div class="cardinal-degree N">N</div>
+                <div class="cardinal-degree E">E</div>
+                <div class="cardinal-degree S">S</div>
+                <div class="cardinal-degree W">W</div>
+                <div class="compass-dial" id="compass-dial">
+                    <div class="north-pointer"></div>
+                    <div class="qibla-marker" id="qibla-marker">
+                        <div class="kabah-icon-wrapper">
+                            <svg class="kabah-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="12" y="16" width="40" height="40" rx="3" fill="#1A1A1A"/>
+                                <path d="M12 24H52" stroke="#FFD700" stroke-width="4"/>
+                                <rect x="26" y="38" width="12" height="18" fill="#FFD700" opacity="0.9"/>
+                                <path d="M12 16L32 6L52 16" fill="#2A2A2A"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="center-needle"></div>
+            </div>
+        </div>
+        <div class="kiblat-info-card">
+            <div class="info-box">
+                <span class="info-label">Arah Kiblat</span>
+                <span class="info-value" id="qibla-degree">--°</span>
+            </div>
+            <div class="info-divider"></div>
+            <div class="info-box">
+                <span class="info-label">Posisi Anda</span>
+                <span class="info-value" id="user-coords">Mencari...</span>
+            </div>
+        </div>
+        <div class="kiblat-actions">
+            <button class="btn-primary btn-kiblat-refresh" onclick="initQiblaTracker()">🔄 Perbarui Lokasi GPS</button>
+            <p class="compass-note">
+                📌 <strong>Catatan:</strong> Untuk hasil paling akurat di smartphone/laptop, izinkan akses lokasi (GPS) dan gerakkan perangkat membentuk angka "8" jika sensor kompas belum terkalibrasi.
+            </p>
+        </div>
+    </div>
 </div>
 
 <!-- TAMPILAN MAPCHART INTERAKTIF -->
 <div id="mapchart-page" class="hidden-page">
-<div class="mapchart-container">
-<header class="mapchart-header">
-<button class="btn-back" style="margin-bottom:0;" onclick="tutupMapChart()">&larr; Kembali ke Portofolio</button>
-<div class="mapchart-title"><h2>🗺️ MapChart Interaktif Dunia</h2></div>
-<button class="btn-back" style="margin-bottom:0; background:#ef4444;" onclick="resetWarnaPeta()">Reset Warna Peta</button>
-</header>
+    <div class="mapchart-container">
+        <header class="mapchart-header">
+            <button class="btn-back" style="margin-bottom:0;" onclick="tutupMapChart()">&larr; Kembali ke Game</button>
+            <div class="mapchart-title"><h2>🗺️ MapChart Interaktif Dunia</h2></div>
+            <button class="btn-back" style="margin-bottom:0; background:#ef4444;" onclick="resetWarnaPeta()">Reset Warna Peta</button>
+        </header>
 
-<div class="mapchart-layout">
-<aside class="mapchart-sidebar">
-<div class="panel-group">
-<label>Pilih Warna Isian (RGB Full):</label>
-<div class="color-picker-wrapper">
-<input type="color" id="map-color-picker" value="#38bdf8" onchange="updateRGBText(this.value)">
-<span class="rgb-preview" id="rgb-display">RGB(56, 189, 248)</span>
-</div>
-</div>
-<div class="panel-group">
-<label>Mode Interaksi Peta:</label>
-<select id="symbol-mode">
-<option value="fill">Mode Mewarnai Wilayah / Negara</option>
-<option value="crescent">Mode Tambah Crescent & Star ☪</option>
-</select>
-</div>
-<div class="panel-group">
-<label>Informasi Wilayah Terpilih:</label>
-<input type="text" id="selected-region-name" value="Klik area peta..." readonly style="width:100%; padding:8px; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
-</div>
-<div class="panel-group">
-<p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4;">
-💡 <strong>Petunjuk MapChart:</strong><br>
-Mode Mewarnai: Klik pada wilayah/negara untuk mewarnainya sesuai pilihan warna RGB.<br>
-Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bulan Sabit & Bintang emas ☪.
-</p>
-</div>
-</aside>
-<main class="mapchart-viewport">
-<div id="leaflet-map" style="width:100%; height:100%;"></div>
-</main>
-</div>
-</div>
+        <div class="mapchart-layout">
+            <aside class="mapchart-sidebar">
+                <div class="panel-group">
+                    <label>Pilih Warna Isian (RGB Full):</label>
+                    <div class="color-picker-wrapper">
+                        <input type="color" id="map-color-picker" value="#38bdf8" onchange="updateRGBText(this.value)">
+                        <span class="rgb-preview" id="rgb-display">RGB(56, 189, 248)</span>
+                    </div>
+                </div>
+                <div class="panel-group">
+                    <label>Mode Interaksi Peta:</label>
+                    <select id="symbol-mode">
+                        <option value="fill">Mode Mewarnai Wilayah / Negara</option>
+                        <option value="crescent">Mode Tambah Crescent & Star ☪</option>
+                    </select>
+                </div>
+                <div class="panel-group">
+                    <label>Informasi Wilayah Terpilih:</label>
+                    <input type="text" id="selected-region-name" value="Klik area peta..." readonly style="width:100%; padding:8px; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
+                </div>
+                <div class="panel-group">
+                    <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4;">
+                        💡 <strong>Petunjuk MapChart:</strong><br>
+                        Mode Mewarnai: Klik pada wilayah/negara untuk mewarnainya sesuai pilihan warna RGB.<br>
+                        Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bulan Sabit & Bintang emas ☪.
+                    </p>
+                </div>
+            </aside>
+            <main class="mapchart-viewport">
+                <div id="leaflet-map" style="width:100%; height:100%;"></div>
+            </main>
+        </div>
+    </div>
 </div>
 
 <!-- TAMPILAN CHATBOT AI ISLAMI (IMAM HASSAN AL-BANNA PERSONA) -->
 <div id="chatbot-page" class="hidden-page chatbot-theme">
     <div class="chat-app-wrapper">
-        <!-- Header Chatbot -->
         <header class="chat-header">
             <div class="chat-header-left">
-                <button class="btn-back-chat" onclick="tutupChatbot()" title="Kembali ke Portofolio">
-                    &larr; <span>Portofolio</span>
+                <button class="btn-back-chat" onclick="tutupChatbot()" title="Kembali ke Projek">
+                    &larr; <span>Projek</span>
                 </button>
                 <div class="ai-profile">
                     <div class="ai-avatar-wrapper">
-                        <!-- GANTI src DI BAWAH DENGAN FILE FOTO HASSAN AL-BANNA MILIKMU (misal: "hassan-albanna.jpg") -->
-                        <img src="http://qudsday.org/hassanimages/per/slides/pic2.jpg" alt="Hassan Al-Banna" class="ai-avatar" id="ai-avatar-img">
+                        <!-- GANTI src DI BAWAH DENGAN LINK FOTO HASSAN AL-BANNA PILIHANMU -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Hassan_al-Banna.jpg" alt="Hassan Al-Banna" class="ai-avatar" id="ai-avatar-img">
                         <span class="ai-online-dot"></span>
                     </div>
                     <div class="ai-info">
@@ -455,12 +556,8 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
             </div>
         </header>
 
-        <!-- Area Pesan Obrolan -->
-        <main class="chat-messages-area" id="chat-messages">
-            <!-- Pesan sambutan akan diisi otomatis oleh JavaScript -->
-        </main>
+        <main class="chat-messages-area" id="chat-messages"></main>
 
-        <!-- Suggested Questions (Siroh Abad 6-21 M, Akidah, Madzhab, Fikih, Pembuat & Isi Website) -->
         <div class="suggested-questions-bar" id="suggested-questions">
             <button class="suggest-chip" onclick="kirimPertanyaanSaran('Ceritakan ringkasan Siroh Islam dari abad ke-6 hingga abad ke-21 Masehi!')">
                 📜 Siroh Islam (Abad 6–21 M)
@@ -482,7 +579,6 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
             </button>
         </div>
 
-        <!-- Area Input Pesan -->
         <footer class="chat-input-area">
             <form id="chat-form" onsubmit="handleChatSubmit(event)">
                 <input type="text" id="chat-input" placeholder="Tanyakan seputar Siroh Abad 6-21 M, Akidah, Madzhab, Fikih, atau Website ini..." autocomplete="off" required>
@@ -500,7 +596,7 @@ Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bul
 <!-- 1. Pasang CDN Supabase di sini -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- 2. Baru panggil file JS kamu yang tadi di bawahnya -->
+<!-- 2. Baru panggil file JS kamu di bawahnya -->
 <script src="script.js"></script>
 
 </body>
