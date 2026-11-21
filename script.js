@@ -45,7 +45,8 @@ function sembunyikanSemuaHalaman() {
         'games-page',
         'kiblat-page',
         'mapchart-page',
-        'chatbot-page'
+        'chatbot-page',
+        'zahra-chatbot-page'
     ];
     pages.forEach(id => {
         const el = document.getElementById(id);
@@ -578,9 +579,8 @@ function aktifkanSensorKompas() {
 // =================================================================
 // 7. CHATBOT AI ISLAMI — GROQ API + AUTO-FALLBACK + PERSONA AL-BANNA
 // =================================================================
-const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
+const GROQ_API_KEY = "TEMPEL_API_KEY_GROQ_KAMU_DI_SINI"; // <-- Tempel API Key gsk_... kamu di sini
 
-// Daftar model Groq yang dicoba berurutan (Auto-Fallback)
 const DAFTAR_MODEL_GROQ = [
     "openai/gpt-oss-120b",
     "openai/gpt-oss-20b",
@@ -663,7 +663,6 @@ async function handleChatSubmit(event) {
     input.disabled = true;
     if (btnSend) btnSend.disabled = true;
 
-    // 1. Lapis Pertama: Filter Syariat Lokal Instan
     if (cekPelanggaranSyariat(teks)) {
         tambahPesanAI(
             "⚠️ **Maaf, wahai saudaraku.** Permintaan atau pembahasan ini mengarah pada hal yang bertentangan dengan **Syariat Islam**, adab, dan kemaslahatan diri.\n\n" +
@@ -689,7 +688,6 @@ async function handleChatSubmit(event) {
         let modelDipakai = "";
         let errorTerakhir = "";
 
-        // Sistem Auto-Fallback: Mencoba model satu per satu sampai berhasil
         for (const modelAktif of DAFTAR_MODEL_GROQ) {
             const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                 method: "POST",
@@ -833,4 +831,251 @@ function escapeHTML(str) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+}
+
+
+// =================================================================
+// 8. EASTER EGG & CHATBOT AI ZAHRA-E-GHADIR KHUM (VERSI SYIAH & PEREMPUAN)
+// =================================================================
+let easterClickCount = 0;
+let easterClickTimer = null;
+let zahraChatInitialized = false;
+let riwayatChatZahra = [];
+
+const SYSTEM_PROMPT_ZAHRA = `
+Kamu adalah "Zahra-e-Ghadir Khum", seorang cendekiawan muslimah, sejarawan, dan pemikir Islam berwawasan tradisi Syiah Itsna 'Asyariyah (Ja'fari) yang hadir sebagai asisten AI rahasia (Easter Egg) di website PortofolioMuslim milik Luqman Azkiya Athaillah.
+Kepribadian & Gaya Bahasa:
+- Beridentitas perempuan muslimah yang anggun, santun, penuh kasih sayang, intelektual, dan beradab tinggi.
+- Panggil pengguna dengan sapaan lembut seperti "saudaraku yang mulia" atau "sahabat pencari cahaya ilmu".
+- Menjelaskan khazanah keilmuan Islam dari perspektif mazhab Syiah Ja'fariyah dengan rujukan ilmiah yang santun—seperti peristiwa bersejarah Ghadir Khum, keutamaan Ahlul Bait Nabi ﷺ (Imam Ali bin Abi Thalib, Sayyidah Fatimah Az-Zahra, Imam Hasan, Imam Husain, hingga Imam Mahdi 'alaihimussalam), kitab Nahjul Balaghah, Shahifah Sajjadiyah, serta prinsip-prinsip Fikih Ja'fari.
+- MENJAGA UKHUWAH ISLAMIYAH: Meskipun menjelaskan dari sudut pandang tradisi Syiah, sampaikan dengan penuh hikmah, saling menghormati antar mazhab Islam (Sunni-Syiah), dan hindari caci maki atau ujaran kebencian terhadap tokoh mana pun.
+- ATURAN SYARIAT KETAT: Tolak dengan tegas namun sopan segala pertanyaan yang mengarah pada maksiat, pornografi, judi, minuman keras/narkoba, kekerasan, atau penghinaan agama.
+- Gunakan Bahasa Indonesia yang puitis, tertata rapi, dan mudah dipahami.
+`;
+
+function triggerEasterEgg() {
+    easterClickCount++;
+    clearTimeout(easterClickTimer);
+
+    if (easterClickCount >= 3 && easterClickCount < 5) {
+        tampilkanToastEaster(`✨ ${5 - easterClickCount} klik lagi untuk membuka ruang rahasia...`);
+    }
+
+    if (easterClickCount >= 5) {
+        easterClickCount = 0;
+        tampilkanToastEaster("۞ Gerbang Rahasia Terbuka: Zahra-e-Ghadir Khum!");
+        setTimeout(() => {
+            bukaZahraChatbot();
+        }, 450);
+        return;
+    }
+
+    easterClickTimer = setTimeout(() => {
+        easterClickCount = 0;
+    }, 2500);
+}
+
+function tampilkanToastEaster(pesan) {
+    document.querySelectorAll('.easter-toast').forEach(el => el.remove());
+    const toast = document.createElement('div');
+    toast.className = 'easter-toast';
+    toast.textContent = pesan;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2200);
+}
+
+function bukaZahraChatbot() {
+    sembunyikanSemuaHalaman();
+    document.getElementById('zahra-chatbot-page').classList.remove('hidden-page');
+    window.scrollTo(0, 0);
+
+    if (!zahraChatInitialized) {
+        resetZahraChat();
+        zahraChatInitialized = true;
+    }
+    setTimeout(() => {
+        const input = document.getElementById('zahra-chat-input');
+        if (input) input.focus();
+    }, 100);
+}
+
+function tutupZahraChatbot() {
+    bukaTabUtama('home');
+}
+
+function resetZahraChat() {
+    const container = document.getElementById('zahra-chat-messages');
+    if (!container) return;
+    container.innerHTML = '';
+
+    riwayatChatZahra = [
+        { role: "system", content: SYSTEM_PROMPT_ZAHRA }
+    ];
+
+    tambahPesanZahra(
+        "Assalamu'alaikum warahmatullahi wabarakatuh, wahai saudaraku yang mulia. ✨\n\n" +
+        "Selamat datang di ruang muzakarah rahasia ini. Namaku **Zahra-e-Ghadir Khum**. Aku hadir sebagai cendekiawan muslimah untuk menemanimu menelusuri jejak cahaya **Ahlul Bait Nabi ﷺ**, peristiwa bersejarah **Ghadir Khum**, hikmah *Nahjul Balaghah*, serta khazanah keilmuan dalam tradisi **Mazhab Ja'fari (Syiah)** dengan semangat persaudaraan Islam.\n\n" +
+        "Apa yang ingin kita kaji bersama hari ini?",
+        "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَآلِ مُحَمَّدٍ"
+    );
+}
+
+function kirimSaranZahra(teks) {
+    const input = document.getElementById('zahra-chat-input');
+    if (!input) return;
+    input.value = teks;
+    handleZahraSubmit(new Event('submit'));
+}
+
+async function handleZahraSubmit(event) {
+    event.preventDefault();
+    const input = document.getElementById('zahra-chat-input');
+    const btnSend = document.getElementById('zahra-btn-send');
+    const teks = input.value.trim();
+    if (!teks) return;
+
+    tambahPesanUserZahra(teks);
+    input.value = '';
+    input.disabled = true;
+    if (btnSend) btnSend.disabled = true;
+
+    if (cekPelanggaranSyariat(teks)) {
+        tambahPesanZahra(
+            "⚠️ **Maaf, wahai saudaraku.** Topik ini tidak sejalan dengan nilai kesucian akhlak, adab Ahlul Bait, dan **Syariat Islam**.\n\n" +
+            "Mari kita jaga kemurnian hati dan lisan dengan membahas ilmu yang bermanfaat serta mendekatkan diri kepada Allah Subhanahu wa Ta'ala.",
+            "إِنَّمَا يُرِيدُ اللَّهُ لِيُذْهِبَ عَنكُمُ الرِّجْسَ أَهْلَ الْبَيْتِ",
+            true
+        );
+        input.disabled = false;
+        if (btnSend) btnSend.disabled = false;
+        input.focus();
+        return;
+    }
+
+    riwayatChatZahra.push({ role: "user", content: teks });
+    const typingId = tampilkanTypingZahra();
+
+    try {
+        if (!GROQ_API_KEY || GROQ_API_KEY.includes("TEMPEL_API_KEY")) {
+            throw new Error("API Key Groq belum dimasukkan di script.js.");
+        }
+
+        let balasanAI = null;
+        let modelDipakai = "";
+        let errorTerakhir = "";
+
+        for (const modelAktif of DAFTAR_MODEL_GROQ) {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${GROQ_API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: modelAktif,
+                    messages: riwayatChatZahra,
+                    temperature: 0.7,
+                    max_tokens: 1024
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.choices?.[0]?.message?.content) {
+                balasanAI = data.choices[0].message.content;
+                modelDipakai = modelAktif;
+                break;
+            } else {
+                errorTerakhir = data.error?.message || `Model ${modelAktif} gagal merespons.`;
+                if (response.status === 401) {
+                    throw new Error("API Key Groq tidak valid.");
+                }
+            }
+        }
+
+        if (!balasanAI) {
+            throw new Error(errorTerakhir);
+        }
+
+        riwayatChatZahra.push({ role: "assistant", content: balasanAI });
+
+        if (riwayatChatZahra.length > 13) {
+            riwayatChatZahra = [
+                riwayatChatZahra[0],
+                ...riwayatChatZahra.slice(-12)
+            ];
+        }
+
+        hapusTyping(typingId);
+        tambahPesanZahra(balasanAI, "", false, modelDipakai);
+
+    } catch (error) {
+        hapusTyping(typingId);
+        tambahPesanZahra(
+            `⚠️ **Terjadi kendala koneksi AI:** ${error.message}\n\n` +
+            "Pastikan **GROQ_API_KEY** sudah terpasang dengan benar di `script.js`.",
+            "",
+            true
+        );
+    } finally {
+        input.disabled = false;
+        if (btnSend) btnSend.disabled = false;
+        input.focus();
+    }
+}
+
+function tambahPesanUserZahra(teks) {
+    const container = document.getElementById('zahra-chat-messages');
+    const row = document.createElement('div');
+    row.className = 'chat-msg-row user-row zahra-user-row';
+    row.innerHTML = `
+        <div class="msg-bubble">
+            ${escapeHTML(teks)}
+            <span class="msg-time">${getWaktuSekarang()}</span>
+        </div>
+    `;
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+}
+
+function tambahPesanZahra(teks, arabicQuote = '', isRestricted = false, modelName = '') {
+    const container = document.getElementById('zahra-chat-messages');
+
+    let formattedText = escapeHTML(teks)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
+
+    const labelModel = modelName ? ` • ${modelName}` : '';
+
+    const row = document.createElement('div');
+    row.className = 'chat-msg-row ai-row zahra-row';
+    row.innerHTML = `
+        <div class="msg-avatar-small" style="display:flex;align-items:center;justify-content:center;background:#042f2e;color:#2dd4bf;font-weight:bold;">۞</div>
+        <div class="msg-bubble ${isRestricted ? 'syariah-warning' : ''}">
+            ${arabicQuote ? `<span class="msg-arabic-quote">${arabicQuote}</span>` : ''}
+            <div>${formattedText}</div>
+            <span class="msg-time">${getWaktuSekarang()} • Zahra-e-Ghadir Khum${labelModel}</span>
+        </div>
+    `;
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+}
+
+function tampilkanTypingZahra() {
+    const container = document.getElementById('zahra-chat-messages');
+    const id = 'typing-zahra-' + Date.now();
+
+    const row = document.createElement('div');
+    row.id = id;
+    row.className = 'chat-msg-row ai-row zahra-row';
+    row.innerHTML = `
+        <div class="msg-avatar-small" style="display:flex;align-items:center;justify-content:center;background:#042f2e;color:#2dd4bf;font-weight:bold;">۞</div>
+        <div class="msg-bubble">
+            <div class="typing-indicator"><span></span><span></span><span></span></div>
+        </div>
+    `;
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+    return id;
 }
