@@ -24,7 +24,63 @@ try {
 
 
 // =================================================================
-// 1. SISTEM WAKTU REAL-TIME (JAM WIB KAFFAH - ASIA/JAKARTA)
+// 1. GERBANG PEMBUKA (ENTERING SCREEN) & PEMISAH HALAMAN UTAMA
+// =================================================================
+function masukPortofolio() {
+    const overlay = document.getElementById('entering-overlay');
+    if (overlay) {
+        overlay.classList.add('portal-opened');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 850);
+    }
+    bukaTabUtama('home');
+}
+
+function sembunyikanSemuaHalaman() {
+    const pages = [
+        'main-content',
+        'calculator-page',
+        'artikel-page',
+        'games-page',
+        'kiblat-page',
+        'mapchart-page',
+        'chatbot-page'
+    ];
+    pages.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden-page');
+    });
+}
+
+function bukaTabUtama(namaTab) {
+    sembunyikanSemuaHalaman();
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) mainContent.classList.remove('hidden-page');
+
+    document.querySelectorAll('.main-tab-section').forEach(sec => {
+        sec.classList.add('hidden-page');
+    });
+
+    const targetTab = document.getElementById('tab-' + namaTab);
+    if (targetTab) {
+        targetTab.classList.remove('hidden-page');
+    }
+
+    document.querySelectorAll('.nav-tab').forEach(link => {
+        link.classList.remove('active-tab');
+    });
+    const activeLink = document.getElementById('nav-' + namaTab);
+    if (activeLink) {
+        activeLink.classList.add('active-tab');
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+// =================================================================
+// 2. SISTEM WAKTU REAL-TIME (JAM WIB KAFFAH - ASIA/JAKARTA)
 // =================================================================
 function updateJamWIB() {
     const jamElement = document.getElementById('jam-wib');
@@ -55,27 +111,7 @@ updateJamWIB();
 
 
 // =================================================================
-// HELPER NAVIGASI HALAMAN
-// =================================================================
-function sembunyikanSemuaHalaman() {
-    const pages = [
-        'main-content',
-        'calculator-page',
-        'artikel-page',
-        'games-page',
-        'kiblat-page',
-        'mapchart-page',
-        'chatbot-page'
-    ];
-    pages.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.classList.add('hidden-page');
-    });
-}
-
-
-// =================================================================
-// 2. LOGIKA KALKULATOR DIGITAL ISLAMI
+// 3. LOGIKA KALKULATOR DIGITAL ISLAMI
 // =================================================================
 function bukaKalkulator() {
     sembunyikanSemuaHalaman();
@@ -83,8 +119,7 @@ function bukaKalkulator() {
     window.scrollTo(0, 0);
 }
 function tutupKalkulator() {
-    sembunyikanSemuaHalaman();
-    document.getElementById('main-content').classList.remove('hidden-page');
+    bukaTabUtama('projects');
 }
 function appendChar(char) {
     const display = document.getElementById('calc-display');
@@ -121,7 +156,7 @@ function calculateResult() {
 
 
 // =================================================================
-// 3. LOGIKA PORTAL ARTIKEL SUARA ISLAMI (BLOG DINAMIS + SUPABASE)
+// 4. LOGIKA PORTAL ARTIKEL SUARA ISLAMI (BLOG DINAMIS + SUPABASE)
 // =================================================================
 let blogInitialized = false;
 
@@ -136,8 +171,7 @@ function bukaArtikel() {
     muatArtikelDinamis();
 }
 function tutupArtikel() {
-    sembunyikanSemuaHalaman();
-    document.getElementById('main-content').classList.remove('hidden-page');
+    bukaTabUtama('projects');
 }
 
 function initPortalArtikel() {
@@ -229,7 +263,7 @@ async function muatArtikelDinamis() {
 
 
 // =================================================================
-// 4. LOGIKA KOMPILASI GAME ISLAMI (PUZZLE LOGO & MAPCHART)
+// 5. LOGIKA KOMPILASI GAME ISLAMI (PUZZLE LOGO & MAPCHART)
 // =================================================================
 let puzzleGridSize = 2;
 let puzzleBoard = [];
@@ -241,8 +275,7 @@ function bukaGame() {
     setTimeout(() => initPuzzle(), 50);
 }
 function tutupGame() {
-    sembunyikanSemuaHalaman();
-    document.getElementById('main-content').classList.remove('hidden-page');
+    bukaTabUtama('projects');
 }
 function setDifficulty(size, btn) {
     puzzleGridSize = size;
@@ -429,7 +462,7 @@ function resetWarnaPeta() {
 
 
 // =================================================================
-// 5. LOGIKA PENGECEK ARAH KIBLAT REAL-TIME (GPS + KOMPAS DEVICE)
+// 6. LOGIKA PENGECEK ARAH KIBLAT REAL-TIME (GPS + KOMPAS DEVICE)
 // =================================================================
 let qiblaBearingGlobal = 295.1;
 let compassListenerActive = false;
@@ -441,8 +474,7 @@ function bukaKiblat() {
     initQiblaTracker();
 }
 function tutupKiblat() {
-    sembunyikanSemuaHalaman();
-    document.getElementById('main-content').classList.remove('hidden-page');
+    bukaTabUtama('projects');
 }
 
 function getArahMataAngin(deg) {
@@ -544,9 +576,9 @@ function aktifkanSensorKompas() {
 
 
 // =================================================================
-// 6. CHATBOT AI ISLAMI — GROQ API + AUTO-FALLBACK + PERSONA AL-BANNA
+// 7. CHATBOT AI ISLAMI — GROQ API + AUTO-FALLBACK + PERSONA AL-BANNA
 // =================================================================
-const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
+const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
 
 // Daftar model Groq yang dicoba berurutan (Auto-Fallback)
 const DAFTAR_MODEL_GROQ = [
@@ -587,8 +619,7 @@ function bukaChatbot() {
 }
 
 function tutupChatbot() {
-    sembunyikanSemuaHalaman();
-    document.getElementById('main-content').classList.remove('hidden-page');
+    bukaTabUtama('projects');
 }
 
 function getWaktuSekarang() {
