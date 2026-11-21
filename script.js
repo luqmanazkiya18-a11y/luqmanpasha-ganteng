@@ -547,7 +547,7 @@ function aktifkanSensorKompas() {
 // 6. CHATBOT AI ISLAMI — TERHUBUNG KE GROQ API (PERSONA AL-BANNA)
 // =================================================================
 const GROQ_API_KEY = "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"; // Contoh: "gsk_xxxxxxxxxxxx"
-const GROQ_MODEL = "llama-3.3-70b-versatile"; // Model cerdas & super cepat dari Groq
+const GROQ_MODEL = "openai/gpt-oss-120b"; // Model cerdas & super cepat dari Groq
 
 // Menyimpan riwayat percakapan agar AI ingat konteks obrolan sebelumnya
 let riwayatChatGroq = [];
