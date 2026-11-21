@@ -863,3 +863,460 @@ footer {
     .btn-toggle-sidebar { display: inline-block; }
     .suggested-grid { grid-template-columns: 1fr; }
 }
+/* =================================================================
+   UTILITY PERPINDAHAN HALAMAN (WAJIB ADA)
+   ================================================================= */
+.hidden-page, .hidden {
+    display: none !important;
+}
+
+/* =================================================================
+   STYLING CHATBOT AI ISLAMI (GAYA CHATGPT/DEEPSEEK + EMERALD GOLD)
+   ================================================================= */
+.chatbot-theme {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top right, #064e3b, #022c22 60%, #011813 100%);
+    color: #f8fafc;
+    font-family: 'Poppins', sans-serif;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Watermark Crescent & Star di Latar Belakang */
+.chatbot-theme::before {
+    content: "☪";
+    position: absolute;
+    font-size: 380px;
+    color: rgba(212, 175, 55, 0.045);
+    right: -30px;
+    bottom: -50px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.chat-app-wrapper {
+    width: 100%;
+    max-width: 980px;
+    height: 100vh;
+    max-height: 100dvh;
+    background: rgba(6, 36, 29, 0.88);
+    backdrop-filter: blur(16px);
+    border-left: 1px solid rgba(212, 175, 55, 0.28);
+    border-right: 1px solid rgba(212, 175, 55, 0.28);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+}
+
+/* Header Chatbot */
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: rgba(2, 24, 19, 0.94);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.32);
+    gap: 12px;
+}
+
+.chat-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.btn-back-chat {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-back-chat:hover {
+    background: #d4af37;
+    color: #022c22;
+}
+
+.ai-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ai-avatar-wrapper {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(135deg, #d4af37, #10b981);
+    flex-shrink: 0;
+}
+
+.ai-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #064e3b;
+}
+
+.ai-online-dot {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 11px;
+    height: 11px;
+    background: #10b981;
+    border: 2px solid #022c22;
+    border-radius: 50%;
+}
+
+.ai-info h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fef3c7;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.crescent-badge {
+    color: #d4af37;
+    font-size: 1.05rem;
+}
+
+.ai-info p {
+    margin: 2px 0 0;
+    font-size: 0.75rem;
+    color: #6ee7b7;
+}
+
+.chat-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.crescent-star-emblem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.45));
+}
+
+.btn-clear-chat {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-clear-chat:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+/* Area Pesan Chat */
+.chat-messages-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    scroll-behavior: smooth;
+}
+
+.chat-messages-area::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-messages-area::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.35);
+    border-radius: 99px;
+}
+
+.chat-msg-row {
+    display: flex;
+    gap: 12px;
+    max-width: 85%;
+    animation: fadeSlideUp 0.3s ease;
+}
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-msg-row.user-row {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.chat-msg-row.ai-row {
+    align-self: flex-start;
+}
+
+.msg-avatar-small {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid #d4af37;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.msg-bubble {
+    padding: 14px 18px;
+    border-radius: 16px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.ai-row .msg-bubble {
+    background: rgba(15, 58, 47, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: #f1f5f9;
+    border-top-left-radius: 4px;
+}
+
+.user-row .msg-bubble {
+    background: linear-gradient(135deg, #d4af37, #b48a1e);
+    color: #022c22;
+    font-weight: 500;
+    border-top-right-radius: 4px;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
+}
+
+/* Styling Peringatan Syariat (Restriction) */
+.msg-bubble.syariah-warning {
+    background: rgba(127, 29, 29, 0.88);
+    border: 1px solid #f87171;
+    color: #fee2e2;
+}
+
+.msg-arabic-quote {
+    font-family: 'Amiri', serif;
+    font-size: 1.22rem;
+    color: #fcd34d;
+    display: block;
+    margin-bottom: 6px;
+    text-align: right;
+    direction: rtl;
+}
+
+.msg-time {
+    display: block;
+    font-size: 0.68rem;
+    opacity: 0.72;
+    margin-top: 6px;
+    text-align: right;
+}
+
+/* Indikator Mengetik (Typing Dots) */
+.typing-indicator {
+    display: inline-flex;
+    gap: 5px;
+    padding: 6px 4px;
+}
+.typing-indicator span {
+    width: 7px;
+    height: 7px;
+    background: #d4af37;
+    border-radius: 50%;
+    animation: bounceDot 1.2s infinite ease-in-out;
+}
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounceDot {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+/* Suggested Questions Bar */
+.suggested-questions-bar {
+    display: flex;
+    gap: 8px;
+    padding: 10px 20px;
+    overflow-x: auto;
+    background: rgba(2, 24, 19, 0.65);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.suggested-questions-bar::-webkit-scrollbar {
+    height: 4px;
+}
+.suggested-questions-bar::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.35);
+    border-radius: 99px;
+}
+
+.suggest-chip {
+    background: rgba(6, 78, 59, 0.88);
+    color: #fde68a;
+    border: 1px solid rgba(212, 175, 55, 0.42);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.suggest-chip:hover {
+    background: #d4af37;
+    color: #022c22;
+    font-weight: 600;
+    transform: translateY(-1px);
+}
+
+/* Input Area */
+.chat-input-area {
+    padding: 14px 20px 16px;
+    background: rgba(2, 24, 19, 0.96);
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+#chat-form {
+    display: flex;
+    gap: 10px;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 13px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    background: rgba(6, 44, 35, 0.92);
+    color: #fff;
+    font-size: 0.94rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#chat-input::placeholder {
+    color: #94a3b8;
+}
+
+#chat-input:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.btn-send-chat {
+    background: linear-gradient(135deg, #d4af37, #eab308);
+    color: #022c22;
+    border: none;
+    padding: 0 22px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.15s, filter 0.2s;
+}
+
+.btn-send-chat:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.chat-footer-note {
+    text-align: center;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    margin-top: 8px;
+}
+
+/* =================================================================
+   PERBAIKAN TAMPILAN KOMPAS KIBLAT & FORM BLOG ARTIKEL
+   ================================================================= */
+.compass-dial {
+    position: relative;
+    transition: transform 0.25s ease-out;
+}
+
+.qibla-marker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 40px;
+    height: 50%;
+    margin-left: -20px;
+    transform-origin: bottom center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    pointer-events: none;
+}
+
+.kabah-icon-wrapper {
+    width: 34px;
+    height: 34px;
+    margin-top: 6px;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
+}
+
+.blog-admin-box {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px 0;
+    color: #f8fafc;
+}
+
+.blog-admin-box h3 {
+    margin-top: 0;
+    color: #38bdf8;
+    margin-bottom: 12px;
+}
+
+.blog-form-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.blog-form-grid input,
+.blog-form-grid select,
+.blog-form-grid textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #fff;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+    .chat-msg-row { max-width: 92%; }
+    .btn-back-chat span { display: none; }
+    .ai-info h3 { font-size: 0.9rem; }
+}
