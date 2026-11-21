@@ -544,16 +544,21 @@ function aktifkanSensorKompas() {
 
 
 // =================================================================
-// 6. CHATBOT AI ISLAMI — TERHUBUNG KE GROQ API (PERSONA AL-BANNA)
+// 6. CHATBOT AI ISLAMI — GROQ API + AUTO-FALLBACK + PERSONA AL-BANNA
 // =================================================================
-const GROQ_API_KEY = "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"; // Contoh: "gsk_xxxxxxxxxxxx"
-const GROQ_MODEL = "openai/gpt-oss-120b"; // Model cerdas & super cepat dari Groq
+const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
 
-// Menyimpan riwayat percakapan agar AI ingat konteks obrolan sebelumnya
+// Daftar model Groq yang dicoba berurutan (Auto-Fallback)
+const DAFTAR_MODEL_GROQ = [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
+    "llama-3.1-8b-instant",
+    "qwen/qwen3.8-27b"
+];
+
 let riwayatChatGroq = [];
 let chatInitialized = false;
 
-// Instruksi Kepribadian (System Prompt) untuk Groq
 const SYSTEM_PROMPT_AL_BANNA = `
 Kamu adalah Asisten AI Islami pada website PortofolioMuslim milik Luqman Azkiya Athaillah (Luqman Pasha), seorang pelajar SMPIT As-Syifa Boarding School JalanCagak 1 yang memadukan teknologi IT dengan prinsip Islam.
 Kepribadian & Gaya Bahasa:
@@ -561,7 +566,7 @@ Kepribadian & Gaya Bahasa:
 - Panggil pengguna dengan sapaan hangat seperti "wahai saudaraku" atau "saudaraku seperjuangan".
 - Berikan jawaban yang terstruktur, mendalam, mencerahkan, dan mudah dipahami (gaya asisten modern seperti ChatGPT/DeepSeek namun berjiwa murabbi).
 - Sesekali sertakan kutipan ayat Al-Qur'an, Hadits shahih, atau kaidah hikmah/Risalah Ta'lim yang relevan.
-- Menguasai secara mendalam: Siroh & Sejarah Peradaban Islam dari abad ke-6 hingga abad ke-21 Masehi, Akidah Ahlus Sunnah wal Jamaah, 4 Madzhab Fikih (Hanafi, Maliki, Syafi'i, Hanbali) dengan sikap tasamuh/toleran terhadap perbedaan furu'iyah, Ilmu Fikih ibadah & muamalah, serta informasi lengkap tentang Luqman Azkiya Athaillah dan fitur-fitur di website ini (Kalkulator Digital, Portal Artikel Suara Islami, Game Puzzle & MapChart Dunia, Pengecek Arah Kiblat GPS, dan Chatbot ini).
+- Menguasai secara mendalam: Siroh & Sejarah Peradaban Islam dari abad ke-6 hingga abad ke-21 Masehi, Akidah Ahlus Sunnah wal Jamaah, 4 Madzhab Fikih (Hanafi, Maliki, Syafi'i, Hanbali) dengan sikap tasamuh/toleran terhadap perbedaan furu'iyah, Ilmu Fikih ibadah & muamalah, serta informasi lengkap tentang Luqman Azkiya Athaillah (Juara 8 OLPAIN 2024, Juara 2 Lomba Literasi Internasional Hayrat Foundation, Juara Ziyadah & Hafalan Takhosus 2 semester berturut-turut, Pengurus Angkatan 29 SOUL SD Salman Al Farisi Bandung, Staff KLS As-Syifa) dan fitur-fitur di website ini (Kalkulator Digital, Portal Artikel Suara Islami, Game Puzzle & MapChart Dunia, Pengecek Arah Kiblat GPS, dan Chatbot ini).
 - ATURAN SYARIAT KETAT: Jika pengguna bertanya atau meminta hal yang mengarah pada maksiat, judi, pornografi, pacaran/zina, minuman keras/narkoba, syirik/perdukunan, kekerasan/melukai diri, atau penghinaan terhadap agama, TOLAK dengan tegas namun berwibawa menggunakan dalil/nasihat Islam, lalu arahkan kembali ke kebaikan.
 - Gunakan Bahasa Indonesia yang fasih dan beradab. Gunakan format **tebal** untuk poin-poin penting.
 `;
@@ -596,7 +601,6 @@ function resetChat() {
     if (!container) return;
     container.innerHTML = '';
 
-    // Reset memori percakapan Groq
     riwayatChatGroq = [
         { role: "system", content: SYSTEM_PROMPT_AL_BANNA }
     ];
@@ -623,13 +627,12 @@ async function handleChatSubmit(event) {
     const teks = input.value.trim();
     if (!teks) return;
 
-    // Tampilkan pesan user di layar
     tambahPesanUser(teks);
     input.value = '';
     input.disabled = true;
     if (btnSend) btnSend.disabled = true;
 
-    // 1. Lapis Pertama: Filter Syariat Lokal Instan (agar langsung terblokir sebelum kirim ke API)
+    // 1. Lapis Pertama: Filter Syariat Lokal Instan
     if (cekPelanggaranSyariat(teks)) {
         tambahPesanAI(
             "⚠️ **Maaf, wahai saudaraku.** Permintaan atau pembahasan ini mengarah pada hal yang bertentangan dengan **Syariat Islam**, adab, dan kemaslahatan diri.\n\n" +
@@ -643,60 +646,69 @@ async function handleChatSubmit(event) {
         return;
     }
 
-    // Tambahkan pertanyaan user ke memori riwayat Groq
     riwayatChatGroq.push({ role: "user", content: teks });
-
-    // Tampilkan animasi mengetik
     const typingId = tampilkanTyping();
 
     try {
-        // Cek apakah API Key sudah diisi
         if (!GROQ_API_KEY || GROQ_API_KEY.includes("TEMPEL_API_KEY")) {
             throw new Error("API Key Groq belum dimasukkan di script.js.");
         }
 
-        // Panggil API Groq
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${GROQ_API_KEY}`
-            },
-            body: JSON.stringify({
-                model: GROQ_MODEL,
-                messages: riwayatChatGroq,
-                temperature: 0.7,
-                max_tokens: 1024
-            })
-        });
+        let balasanAI = null;
+        let modelDipakai = "";
+        let errorTerakhir = "";
 
-        const data = await response.json();
+        // Sistem Auto-Fallback: Mencoba model satu per satu sampai berhasil
+        for (const modelAktif of DAFTAR_MODEL_GROQ) {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${GROQ_API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: modelAktif,
+                    messages: riwayatChatGroq,
+                    temperature: 0.7,
+                    max_tokens: 1024
+                })
+            });
 
-        if (!response.ok) {
-            throw new Error(data.error?.message || "Gagal terhubung ke server Groq.");
+            const data = await response.json();
+
+            if (response.ok && data.choices?.[0]?.message?.content) {
+                balasanAI = data.choices[0].message.content;
+                modelDipakai = modelAktif;
+                break;
+            } else {
+                errorTerakhir = data.error?.message || `Model ${modelAktif} gagal merespons.`;
+                if (response.status === 401) {
+                    throw new Error("API Key Groq tidak valid atau sudah dicabut (Invalid API Key).");
+                }
+            }
         }
 
-        const balasanAI = data.choices[0].message.content;
+        if (!balasanAI) {
+            throw new Error(errorTerakhir);
+        }
 
-        // Simpan balasan AI ke memori percakapan agar nyambung untuk pertanyaan berikutnya
         riwayatChatGroq.push({ role: "assistant", content: balasanAI });
 
-        // Batasi riwayat maksimal 12 pesan terakhir agar tetap ringan & hemat token
         if (riwayatChatGroq.length > 13) {
             riwayatChatGroq = [
-                riwayatChatGroq[0], // Pertahankan system prompt
+                riwayatChatGroq[0],
                 ...riwayatChatGroq.slice(-12)
             ];
         }
 
         hapusTyping(typingId);
-        tambahPesanAI(balasanAI);
+        tambahPesanAI(balasanAI, "", false, modelDipakai);
 
     } catch (error) {
         hapusTyping(typingId);
         tambahPesanAI(
             `⚠️ **Terjadi kendala koneksi AI:** ${error.message}\n\n` +
-            "Pastikan kamu sudah menempelkan **GROQ_API_KEY** yang valid di bagian atas blok Chatbot pada file `script.js` dan perangkat terhubung ke internet.",
+            "Silakan periksa kembali **GROQ_API_KEY** dan daftar model aktif di **console.groq.com/settings/limits**.",
             "",
             true
         );
@@ -735,15 +747,16 @@ function tambahPesanUser(teks) {
     container.scrollTop = container.scrollHeight;
 }
 
-function tambahPesanAI(teks, arabicQuote = '', isRestricted = false) {
+function tambahPesanAI(teks, arabicQuote = '', isRestricted = false, modelName = '') {
     const container = document.getElementById('chat-messages');
     const avatarSrc = document.getElementById('ai-avatar-img')?.src || 'https://upload.wikimedia.org/wikipedia/commons/5/53/Hassan_al-Banna.jpg';
 
-    // Format Markdown sederhana dari balasan Groq (bold, italic, list, baris baru)
     let formattedText = escapeHTML(teks)
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/\n/g, '<br>');
+
+    const labelModel = modelName ? ` • ${modelName}` : '';
 
     const row = document.createElement('div');
     row.className = 'chat-msg-row ai-row';
@@ -752,7 +765,7 @@ function tambahPesanAI(teks, arabicQuote = '', isRestricted = false) {
         <div class="msg-bubble ${isRestricted ? 'syariah-warning' : ''}">
             ${arabicQuote ? `<span class="msg-arabic-quote">${arabicQuote}</span>` : ''}
             <div>${formattedText}</div>
-            <span class="msg-time">${getWaktuSekarang()} • Groq AI (Al-Banna Persona)</span>
+            <span class="msg-time">${getWaktuSekarang()} • Asisten Al-Banna${labelModel}</span>
         </div>
     `;
     container.appendChild(row);
