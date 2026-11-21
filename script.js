@@ -544,9 +544,27 @@ function aktifkanSensorKompas() {
 
 
 // =================================================================
-// 6. CHATBOT AI ISLAMI — KEPRIBADIAN IMAM HASSAN AL-BANNA
+// 6. CHATBOT AI ISLAMI — TERHUBUNG KE GROQ API (PERSONA AL-BANNA)
 // =================================================================
+const GROQ_API_KEY = "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"; // Contoh: "gsk_xxxxxxxxxxxx"
+const GROQ_MODEL = "llama-3.3-70b-versatile"; // Model cerdas & super cepat dari Groq
+
+// Menyimpan riwayat percakapan agar AI ingat konteks obrolan sebelumnya
+let riwayatChatGroq = [];
 let chatInitialized = false;
+
+// Instruksi Kepribadian (System Prompt) untuk Groq
+const SYSTEM_PROMPT_AL_BANNA = `
+Kamu adalah Asisten AI Islami pada website PortofolioMuslim milik Luqman Azkiya Athaillah (Luqman Pasha), seorang pelajar SMPIT As-Syifa Boarding School JalanCagak 1 yang memadukan teknologi IT dengan prinsip Islam.
+Kepribadian & Gaya Bahasa:
+- Mengadopsi gaya dakwah, kelembutan nasihat, ketegasan akidah, dan kebijaksanaan Imam Syahid Hassan Al-Banna (pendiri Ikhwanul Muslimin, 1928).
+- Panggil pengguna dengan sapaan hangat seperti "wahai saudaraku" atau "saudaraku seperjuangan".
+- Berikan jawaban yang terstruktur, mendalam, mencerahkan, dan mudah dipahami (gaya asisten modern seperti ChatGPT/DeepSeek namun berjiwa murabbi).
+- Sesekali sertakan kutipan ayat Al-Qur'an, Hadits shahih, atau kaidah hikmah/Risalah Ta'lim yang relevan.
+- Menguasai secara mendalam: Siroh & Sejarah Peradaban Islam dari abad ke-6 hingga abad ke-21 Masehi, Akidah Ahlus Sunnah wal Jamaah, 4 Madzhab Fikih (Hanafi, Maliki, Syafi'i, Hanbali) dengan sikap tasamuh/toleran terhadap perbedaan furu'iyah, Ilmu Fikih ibadah & muamalah, serta informasi lengkap tentang Luqman Azkiya Athaillah dan fitur-fitur di website ini (Kalkulator Digital, Portal Artikel Suara Islami, Game Puzzle & MapChart Dunia, Pengecek Arah Kiblat GPS, dan Chatbot ini).
+- ATURAN SYARIAT KETAT: Jika pengguna bertanya atau meminta hal yang mengarah pada maksiat, judi, pornografi, pacaran/zina, minuman keras/narkoba, syirik/perdukunan, kekerasan/melukai diri, atau penghinaan terhadap agama, TOLAK dengan tegas namun berwibawa menggunakan dalil/nasihat Islam, lalu arahkan kembali ke kebaikan.
+- Gunakan Bahasa Indonesia yang fasih dan beradab. Gunakan format **tebal** untuk poin-poin penting.
+`;
 
 function bukaChatbot() {
     sembunyikanSemuaHalaman();
@@ -578,10 +596,15 @@ function resetChat() {
     if (!container) return;
     container.innerHTML = '';
 
+    // Reset memori percakapan Groq
+    riwayatChatGroq = [
+        { role: "system", content: SYSTEM_PROMPT_AL_BANNA }
+    ];
+
     tambahPesanAI(
         "Assalamu'alaikum warahmatullahi wabarakatuh, wahai saudaraku seperjuangan. ☪️\n\n" +
-        "Selamat datang di majelis ilmu digital pada portofolio **Luqman Azkiya Athaillah**. Anggaplah ruang ini sebagai majelis muzakarah kita—tempat kita mengokohkan **Akidah**, meneladani **Siroh Islam dari abad ke-6 hingga ke-21 Masehi**, memahami khazanah **Madzhab & Fikih**, serta menyiapkan diri menjadi generasi pembangun peradaban.\n\n" +
-        "Silakan pilih salah satu topik rekomendasi di bawah atau tuliskan pertanyaanmu dengan adab yang mulia.",
+        "Selamat datang di majelis ilmu digital pada portofolio **Luqman Azkiya Athaillah**. Sekarang aku telah terhubung dengan kecerdasan buatan **Groq** untuk menemani muzakarah kita.\n\n" +
+        "Silakan tanyakan apa saja seputar **Siroh Islam (Abad ke-6 hingga ke-21 M)**, **Akidah**, **Madzhab-madzhab Islam**, **Ilmu Fikih**, atau tentang **pembuat dan isi website ini**!",
         "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
     );
 }
@@ -593,22 +616,109 @@ function kirimPertanyaanSaran(teks) {
     handleChatSubmit(new Event('submit'));
 }
 
-function handleChatSubmit(event) {
+async function handleChatSubmit(event) {
     event.preventDefault();
     const input = document.getElementById('chat-input');
+    const btnSend = document.getElementById('btn-send');
     const teks = input.value.trim();
     if (!teks) return;
 
+    // Tampilkan pesan user di layar
     tambahPesanUser(teks);
     input.value = '';
+    input.disabled = true;
+    if (btnSend) btnSend.disabled = true;
 
+    // 1. Lapis Pertama: Filter Syariat Lokal Instan (agar langsung terblokir sebelum kirim ke API)
+    if (cekPelanggaranSyariat(teks)) {
+        tambahPesanAI(
+            "⚠️ **Maaf, wahai saudaraku.** Permintaan atau pembahasan ini mengarah pada hal yang bertentangan dengan **Syariat Islam**, adab, dan kemaslahatan diri.\n\n" +
+            "Sebagai seorang Muslim, kita diperintahkan menjaga hati, lisan, dan langkah dari segala pintu keburukan. Mari kita alihkan diskusi kepada hal-hal yang mendatangkan ilmu bermanfaat dan ridha Allah Subhanahu wa Ta'ala.",
+            "وَلَا تَقْرَبُوا الْفَوَاحِشَ مَا ظَهَرَ مِنْهَا وَمَا بَطَنَ",
+            true
+        );
+        input.disabled = false;
+        if (btnSend) btnSend.disabled = false;
+        input.focus();
+        return;
+    }
+
+    // Tambahkan pertanyaan user ke memori riwayat Groq
+    riwayatChatGroq.push({ role: "user", content: teks });
+
+    // Tampilkan animasi mengetik
     const typingId = tampilkanTyping();
 
-    setTimeout(() => {
+    try {
+        // Cek apakah API Key sudah diisi
+        if (!GROQ_API_KEY || GROQ_API_KEY.includes("TEMPEL_API_KEY")) {
+            throw new Error("API Key Groq belum dimasukkan di script.js.");
+        }
+
+        // Panggil API Groq
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${GROQ_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: GROQ_MODEL,
+                messages: riwayatChatGroq,
+                temperature: 0.7,
+                max_tokens: 1024
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error?.message || "Gagal terhubung ke server Groq.");
+        }
+
+        const balasanAI = data.choices[0].message.content;
+
+        // Simpan balasan AI ke memori percakapan agar nyambung untuk pertanyaan berikutnya
+        riwayatChatGroq.push({ role: "assistant", content: balasanAI });
+
+        // Batasi riwayat maksimal 12 pesan terakhir agar tetap ringan & hemat token
+        if (riwayatChatGroq.length > 13) {
+            riwayatChatGroq = [
+                riwayatChatGroq[0], // Pertahankan system prompt
+                ...riwayatChatGroq.slice(-12)
+            ];
+        }
+
         hapusTyping(typingId);
-        const respon = prosesResponAlBanna(teks);
-        tambahPesanAI(respon.text, respon.arabic, respon.isRestricted);
-    }, 750);
+        tambahPesanAI(balasanAI);
+
+    } catch (error) {
+        hapusTyping(typingId);
+        tambahPesanAI(
+            `⚠️ **Terjadi kendala koneksi AI:** ${error.message}\n\n` +
+            "Pastikan kamu sudah menempelkan **GROQ_API_KEY** yang valid di bagian atas blok Chatbot pada file `script.js` dan perangkat terhubung ke internet.",
+            "",
+            true
+        );
+    } finally {
+        input.disabled = false;
+        if (btnSend) btnSend.disabled = false;
+        input.focus();
+    }
+}
+
+function cekPelanggaranSyariat(inputUser) {
+    const q = inputUser.toLowerCase();
+    const kataTerlarang = [
+        'judi', 'slot', 'togel', 'gacor', 'taruhan',
+        'bokep', 'porno', 'porn', 'xxx', 'zina', 'pacaran', 'maksiat',
+        'mabuk', 'miras', 'khamr', 'narkoba', 'sabu', 'ganja',
+        'bunuh diri', 'self harm', 'silet', 'lukai diri',
+        'santet', 'pelet', 'pesugihan', 'dukun', 'ramalan zodiak', 'syirik',
+        'hina islam', 'hina allah', 'hina nabi', 'murtad', 'kafirkan',
+        'cara mencuri', 'hack akun', 'nipu', 'penipuan', 'riba', 'pinjol ilegal'
+    ];
+    return kataTerlarang.some(kata => q.includes(kata));
 }
 
 function tambahPesanUser(teks) {
@@ -629,8 +739,10 @@ function tambahPesanAI(teks, arabicQuote = '', isRestricted = false) {
     const container = document.getElementById('chat-messages');
     const avatarSrc = document.getElementById('ai-avatar-img')?.src || 'https://upload.wikimedia.org/wikipedia/commons/5/53/Hassan_al-Banna.jpg';
 
+    // Format Markdown sederhana dari balasan Groq (bold, italic, list, baris baru)
     let formattedText = escapeHTML(teks)
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/\n/g, '<br>');
 
     const row = document.createElement('div');
@@ -640,7 +752,7 @@ function tambahPesanAI(teks, arabicQuote = '', isRestricted = false) {
         <div class="msg-bubble ${isRestricted ? 'syariah-warning' : ''}">
             ${arabicQuote ? `<span class="msg-arabic-quote">${arabicQuote}</span>` : ''}
             <div>${formattedText}</div>
-            <span class="msg-time">${getWaktuSekarang()} • Asisten Al-Banna</span>
+            <span class="msg-time">${getWaktuSekarang()} • Groq AI (Al-Banna Persona)</span>
         </div>
     `;
     container.appendChild(row);
@@ -677,130 +789,4 @@ function escapeHTML(str) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
-}
-
-
-// =================================================================
-// OTAK & FILTER SYARIAT CHATBOT (PERSONA HASSAN AL-BANNA)
-// =================================================================
-function prosesResponAlBanna(inputUser) {
-    const q = inputUser.toLowerCase();
-
-    // 1. FILTER RESTRICTION SYARIAT ISLAM
-    const kataTerlarang = [
-        'judi', 'slot', 'togel', 'gacor', 'taruhan',
-        'bokep', 'porno', 'porn', 'xxx', 'zina', 'pacaran', 'maksiat',
-        'mabuk', 'miras', 'khamr', 'narkoba', 'sabu', 'ganja',
-        'bunuh diri', 'self harm', 'silet', 'lukai diri',
-        'santet', 'pelet', 'pesugihan', 'dukun', 'ramalan zodiak', 'syirik',
-        'hina islam', 'hina allah', 'hina nabi', 'murtad', 'kafirkan',
-        'cara mencuri', 'hack akun', 'nipu', 'penipuan', 'riba', 'pinjol ilegal'
-    ];
-
-    if (kataTerlarang.some(kata => q.includes(kata))) {
-        return {
-            isRestricted: true,
-            arabic: "وَلَا تَقْرَبُوا الْفَوَاحِشَ مَا ظَهَرَ مِنْهَا وَمَا بَطَنَ",
-            text: "⚠️ **Maaf, wahai saudaraku.** Permintaan atau pembahasan ini mengarah pada hal yang bertentangan dengan **Syariat Islam**, adab, dan kemaslahatan diri.\n\n" +
-                  "Sebagai seorang Muslim, kita diperintahkan menjauhi segala pintu keburukan maupun syubhat. Mari kita alihkan diskusi kepada hal-hal yang mendatangkan ilmu bermanfaat, ketenangan jiwa, dan ridha Allah Subhanahu wa Ta'ala."
-        };
-    }
-
-    // 2. SIROH ISLAM ABAD KE-6 SAMPAI ABAD KE-21 MASEHI
-    if (q.includes('siroh') || q.includes('sejarah') || q.includes('abad') || q.includes('khulafaur') || q.includes('utsmaniyah') || q.includes('abbasiyah')) {
-        return {
-            arabic: "تِلْكَ أُمَّةٌ قَدْ خَلَتْ ۖ لَهَا مَا كَسَبَتْ وَلَكُم مَّا كَسَبْتُمْ",
-            text: "Wahai saudaraku, memahami **Siroh & Sejarah Peradaban Islam dari Abad ke-6 hingga ke-21 M** adalah kunci kebangkitan umat:\n\n" +
-                  "• **Abad ke-6 & ke-7 M (Masa Kenabian & Khulafaur Rasyidin):** Kelahiran Rasulullah ﷺ (570 M), turunnya wahyu (610 M), Hijrah ke Madinah (622 M), Fathu Makkah, lalu dilanjutkan kepemimpinan Abu Bakar, Umar, Utsman, dan Ali radhiyallahu 'anhum yang membebaskan Syam, Persia, dan Mesir.\n" +
-                  "• **Abad ke-8 – ke-13 M (Era Keemasan Dinasti Umayyah & Abbasiyah):** Puncak ilmu pengetahuan di Baghdad, Cordoba (Andalusia), dan Kairo. Lahirnya Baitul Hikmah, Imam Empat Madzhab, Al-Khawarizmi, Ibnu Sina, hingga pembebasan Al-Quds oleh Shalahuddin Al-Ayyubi (1187 M).\n" +
-                  "• **Abad ke-14 – ke-19 M (Khilafah Utsmaniyah & Penyebaran di Nusantara):** Penaklukan Konstantinopel oleh Sultan Muhammad Al-Fatih (1453 M), kejayaan Kesultanan Islam di Nusantara, serta perlawanan ulama melawan kolonialisme Barat.\n" +
-                  "• **Abad ke-20 – ke-21 M (Kebangkitan Modern & Era Digital):** Runtuhnya Khilafah Utsmaniyah (1924), lahirnya gerakan tajdid seperti **Ikhwanul Muslimin (1928)**, kemerdekaan negeri-negeri Muslim, hingga perjuangan dakwah dan penguasaan teknologi oleh pemuda Islam hari ini."
-        };
-    }
-
-    // 3. AKIDAH ISLAM
-    if (q.includes('akidah') || q.includes('aqidah') || q.includes('tauhid') || q.includes('iman') || q.includes('rukun iman')) {
-        return {
-            arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ",
-            text: "Saudaraku, **Akidah** adalah pondasi utama bangunan Islam. Jika akidah lurus (*Salimul Aqidah*), maka seluruh amal akan kokoh:\n\n" +
-                  "1. **Tauhid yang Murni:** Mengesakan Allah dalam Rububiyah (penciptaan & pengaturan), Uluhiyah (hanya Allah yang berhak disembah), serta Asma wa Sifat sesuai Al-Qur'an dan As-Sunnah tanpa menyerupakan-Nya dengan makhluk.\n" +
-                  "2. **Enam Rukun Iman:** Iman kepada Allah, Malaikat-malaikat-Nya, Kitab-kitab-Nya, Rasul-rasul-Nya, Hari Akhir, serta Qadha dan Qadar (takdir baik maupun buruk).\n" +
-                  "3. **Kaidah Akidah Imam Hassan Al-Banna:** Menjauhi khurafat, takhayul, dan bid'ah dalam keyakinan, serta tidak berlebih-lebihan dalam memperdebatkan masalah *mutasyabihat* yang justru memecah belah ukhuwah umat."
-        };
-    }
-
-    // 4. MADZHAB-MADZHAB DALAM ISLAM
-    if (q.includes('madzhab') || q.includes('mazhab') || q.includes('hanafi') || q.includes('maliki') || q.includes('syafii') || q.includes('hanbali')) {
-        return {
-            arabic: "وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا",
-            text: "Khazanah keilmuan Islam sangat kaya dengan lahirnya **Madzhab-Madzhab Fikih** yang merumuskan hukum dari Al-Qur'an dan As-Sunnah secara metodologis (*Ushul Fikih*):\n\n" +
-                  "1. **Madzhab Hanafi (Imam Abu Hanifah, w. 150 H):** Dikenal kuat dalam penggunaan *ra'yu* (nalar analogi/qiyas) dan istihsan. Banyak dianut di Turki, Asia Selatan, dan Asia Tengah.\n" +
-                  "2. **Madzhab Maliki (Imam Malik bin Anas, w. 179 H):** Menjadikan amal penduduk Madinah (*'Amal Ahlil Madinah*) sebagai salah satu hujjah utama. Dominan di Afrika Utara dan Barat.\n" +
-                  "3. **Madzhab Syafi'i (Imam Muhammad bin Idris Asy-Syafi'i, w. 204 H):** Peletak dasar ilmu *Ushul Fikih* melalui kitab *Ar-Risalah*, memadukan metode ahli hadits dan ahli ra'yu. Mayoritas dianut di Indonesia dan Asia Tenggara.\n" +
-                  "4. **Madzhab Hanbali (Imam Ahmad bin Hanbal, w. 241 H):** Sangat berpegang teguh pada nash hadits dan atsar sahabat. Banyak dianut di Jazirah Arab.\n\n" +
-                  "📌 **Sikap Kita:** Perbedaan cabang fikih (*furu'iyah*) antar madzhab adalah rahmat dan keluasan ilmu—bukan alasan untuk bermusuhan!"
-        };
-    }
-
-    // 5. ILMU FIKIH & KAIDAHNYA
-    if (q.includes('fikih') || q.includes('fiqih') || q.includes('hukum islam') || q.includes('ibadah') || q.includes('muamalah') || q.includes('halal')) {
-        return {
-            arabic: "مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ",
-            text: "Rasulullah ﷺ bersabda: *\"Barangsiapa yang Allah kehendaki kebaikan baginya, niscaya Allah pahamkan ia dalam urusan agama (fikih).\"*\n\n" +
-                  "Secara garis besar, **Ilmu Fikih** terbagi menjadi beberapa bidang utama:\n" +
-                  "• **Fikih Ibadah:** Mengatur hubungan hamba dengan Allah—seperti Thaharah (bersuci), Shalat 5 waktu, Zakat, Puasa Ramadhan, dan Haji.\n" +
-                  "• **Fikih Muamalah:** Mengatur interaksi antar manusia—seperti jual beli yang halal, larangan riba, amanah harta, dan keadilan sosial.\n" +
-                  "• **Fikih Munakahat & Jinayat:** Mengatur tatanan keluarga sakinah serta hukum penjagaan jiwa dan harta.\n\n" +
-                  "**Kaidah Emas Fikih:** *\"Al-ashlu fil 'ibadati at-tahrim\"* (Hukum asal ibadah adalah terlarang kecuali ada dalilnya), sedangkan *\"Al-ashlu fil mu'amalati al-ibahah\"* (Hukum asal muamalah dan teknologi adalah boleh selama tidak ada dalil yang mengharamkannya)."
-        };
-    }
-
-    // 6. PEMBUAT & ISI WEBSITE INI
-    if (q.includes('pembuat') || q.includes('luqman') || q.includes('isi website') || q.includes('website ini') || q.includes('portofolio') || q.includes('fitur')) {
-        return {
-            arabic: "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ",
-            text: "Website **PortofolioMuslim** ini dirancang dan dibangun oleh **Luqman Azkiya Athaillah** (dikenal juga dengan nama panggung **Luqman Pasha**), seorang pelajar di **SMPIT As-Syifa Boarding School JalanCagak 1** yang bertekad memadukan kemajuan teknologi IT dengan nilai-nilai Islam.\n\n" +
-                  "**Prestasi & Rekam Jejak Pembuat:**\n" +
-                  "• Juara 8 Olimpiade PAI Nasional (OLPAIN) 2024.\n" +
-                  "• Juara 2 Lomba Literasi Internasional oleh Hayrat Foundation.\n" +
-                  "• Juara Ziyadah & Hafalan Terbanyak Takhosus selama 2 semester berturut-turut.\n" +
-                  "• Pengurus Angkatan 29 SOUL SD Salman Al Farisi Bandung & Staff Komunitas Literasi Sekolah (KLS) As-Syifa.\n\n" +
-                  "**Isi & Fitur Utama Website Ini:**\n" +
-                  "1. **Kalkulator Digital Islami** untuk perhitungan matematika presisi.\n" +
-                  "2. **Portal Artikel Suara Islami** berisi kajian sejarah, tarbiyah, dan publikasi tulisan.\n" +
-                  "3. **Kompilasi Game Islami** (Puzzle Logo Gerakan Islam & World MapChart Builder).\n" +
-                  "4. **Pengecek Arah Kiblat Real-Time** berbasis koordinat GPS dan kompas.\n" +
-                  "5. **Asisten AI Islami** ini sebagai ruang diskusi ilmu dan dakwah."
-        };
-    }
-
-    // 7. 5 PASAL PERJUANGAN & PRINSIP IKHWANUL MUSLIMIN
-    if (q.includes('5 pasal') || q.includes('lima pasal') || q.includes('motto') || q.includes('semboyan')) {
-        return {
-            arabic: "اللَّهُ غَايَتُنَا وَالرَّسُولُ قُدْوَتُنَا وَالْقُرْآنُ دُسْتُورُنَا",
-            text: "Saudaraku, **5 Pasal Perjuangan** adalah kompas ruhani setiap aktivis dakwah:\n\n" +
-                  "1. **Allah tujuan kami (Allahu Ghayatuna):** Seluruh amal, belajar, dan karya digitalmu harus diniatkan ikhlas mencari ridha Allah.\n" +
-                  "2. **Rasulullah teladan kami (Ar-Rasulu Qudwatuna):** Menjadikan akhlak dan sunnah Nabi ﷺ sebagai standar tertinggi.\n" +
-                  "3. **Al-Qur'an undang-undang kami (Al-Qur'anu Dusturuna):** Membaca, menghafal, memahami, dan mengamalkannya dalam kehidupan nyata.\n" +
-                  "4. **Jihad jalan perjuangan kami (Al-Jihadu Sabiluna):** Bersungguh-sungguh mengerahkan segenap potensi—termasuk ilmu, pena, dan teknologi—untuk membela kebenaran.\n" +
-                  "5. **Syahid cita-cita tertinggi kami:** Kesiapan berkorban total demi tegaknya kalimat Allah."
-        };
-    }
-
-    // 8. SALAM & SAPAAN
-    if (q.includes('salam') || q.includes('assalam') || q.includes('halo') || q.includes('hai')) {
-        return {
-            arabic: "وَعَلَيْكُمُ السَّلَامُ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
-            text: "Wa'alaikumussalam warahmatullahi wabarakatuh, wahai saudaraku yang dicintai Allah.\n\n" +
-                  "Semoga Allah melimpahkan keberkahan pada waktu, ilmu, dan langkah perjuanganmu hari ini. Silakan tanyakan seputar Siroh Islam, Akidah, Madzhab, Fikih, ataupun karya-karya di website ini!"
-        };
-    }
-
-    // 9. RESPON DEFAULT KEPRIBADIAN HASSAN AL-BANNA
-    return {
-        arabic: "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ",
-        text: `Pertanyaan yang baik, wahai saudaraku mengenai **"${inputUser}"**.\n\n` +
-              "Dalam pandangan Islam, setiap persoalan hendaknya ditimbang dengan neraca **Al-Qur'an, As-Sunnah yang shahih, dan kemaslahatan umat**. Prinsip kita adalah memadukan **kekokohan prinsip** dengan **kelembutan cara penyampaian**.\n\n" +
-              "Silakan klik salah satu topik rekomendasi di bawah (Siroh Abad 6–21 M, Akidah, Madzhab Islam, Fikih, atau Profil Pembuat & Isi Website) untuk mengkaji bahasan secara lebih mendalam!"
-    };
 }
