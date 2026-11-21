@@ -16,7 +16,7 @@ try {
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         supabaseReady = true;
     } else {
-        console.warn('⚠️ Supabase belum dikonfigurasi. Fitur blog cloud dinonaktifkan.');
+        console.warn('⚠️ Supabase belum dikonfigurasi. Menggunakan mode LocalStorage.');
     }
 } catch (e) {
     console.warn('⚠️ Supabase init gagal:', e.message);
@@ -24,58 +24,96 @@ try {
 
 
 // =================================================================
-// 1. SISTEM WAKTU REAL-TIME (JAM WIB)
+// 1. SISTEM WAKTU REAL-TIME (JAM WIB KAFFAH - ASIA/JAKARTA)
 // =================================================================
 function updateJamWIB() {
-    const now = new Date();
-    const wib = new Date(now.getTime() + (7 * 60 + now.getTimezoneOffset()) * 60000);
     const jamElement = document.getElementById('jam-wib');
-    if (jamElement) {
+    if (!jamElement) return;
+
+    try {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('id-ID', {
+            timeZone: 'Asia/Jakarta',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        });
+        jamElement.textContent = formatter.format(now).replace(/\./g, ':');
+    } catch (err) {
+        const now = new Date();
+        const wib = new Date(now.getTime() + (7 * 60 + now.getTimezoneOffset()) * 60000);
         const jam = String(wib.getHours()).padStart(2, '0');
         const menit = String(wib.getMinutes()).padStart(2, '0');
         const detik = String(wib.getSeconds()).padStart(2, '0');
         jamElement.textContent = `${jam}:${menit}:${detik}`;
     }
 }
+document.addEventListener('DOMContentLoaded', updateJamWIB);
 setInterval(updateJamWIB, 1000);
 updateJamWIB();
+
+
+// =================================================================
+// HELPER NAVIGASI HALAMAN
+// =================================================================
+function sembunyikanSemuaHalaman() {
+    const pages = [
+        'main-content',
+        'calculator-page',
+        'artikel-page',
+        'games-page',
+        'kiblat-page',
+        'mapchart-page',
+        'chatbot-page'
+    ];
+    pages.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden-page');
+    });
+}
 
 
 // =================================================================
 // 2. LOGIKA KALKULATOR DIGITAL ISLAMI
 // =================================================================
 function bukaKalkulator() {
-    document.getElementById('main-content').classList.add('hidden-page');
+    sembunyikanSemuaHalaman();
     document.getElementById('calculator-page').classList.remove('hidden-page');
     window.scrollTo(0, 0);
 }
 function tutupKalkulator() {
-    document.getElementById('calculator-page').classList.add('hidden-page');
+    sembunyikanSemuaHalaman();
     document.getElementById('main-content').classList.remove('hidden-page');
 }
 function appendChar(char) {
     const display = document.getElementById('calc-display');
+    if (!display) return;
     if (display.value === '0' || display.value === 'Error') {
         display.value = char;
     } else {
         display.value += char;
     }
 }
-function clearDisplay() { document.getElementById('calc-display').value = ''; }
+function clearDisplay() {
+    const display = document.getElementById('calc-display');
+    if (display) display.value = '';
+}
 function deleteLast() {
     const display = document.getElementById('calc-display');
-    display.value = display.value.slice(0, -1);
+    if (display) display.value = display.value.slice(0, -1);
 }
 function calculateResult() {
     const display = document.getElementById('calc-display');
+    if (!display || display.value.trim() === '') return;
     try {
-        if (display.value.trim() === '') return;
         const sanitized = display.value.replace(/×/g, '*').replace(/÷/g, '/');
-        if (/^[0-9+\-*/.() ]+$/.test(sanitized)) {
-            display.value = Function('"use strict";return (' + sanitized + ')')();
-        } else {
-            display.value = 'Error';
+        if (!/^[0-9+\-*/().\s]+$/.test(sanitized)) {
+            throw new Error('Karakter tidak valid');
         }
+        const result = Function('"use strict";return (' + sanitized + ')')();
+        if (!isFinite(result)) throw new Error('Tidak terdefinisi');
+        display.value = Number(result.toFixed(10));
     } catch (e) {
         display.value = 'Error';
     }
@@ -83,51 +121,148 @@ function calculateResult() {
 
 
 // =================================================================
-// 3. LOGIKA PORTAL ARTIKEL SUARA ISLAMI
+// 3. LOGIKA PORTAL ARTIKEL SUARA ISLAMI (BLOG DINAMIS + SUPABASE)
 // =================================================================
+let blogInitialized = false;
+
 function bukaArtikel() {
-    document.getElementById('main-content').classList.add('hidden-page');
+    sembunyikanSemuaHalaman();
     document.getElementById('artikel-page').classList.remove('hidden-page');
     window.scrollTo(0, 0);
+    if (!blogInitialized) {
+        initPortalArtikel();
+        blogInitialized = true;
+    }
+    muatArtikelDinamis();
 }
 function tutupArtikel() {
-    document.getElementById('artikel-page').classList.add('hidden-page');
+    sembunyikanSemuaHalaman();
     document.getElementById('main-content').classList.remove('hidden-page');
 }
 
+function initPortalArtikel() {
+    const portalContainer = document.querySelector('#artikel-page .portal-container');
+    const newsGrid = document.querySelector('#artikel-page .news-grid');
+    if (!portalContainer || !newsGrid) return;
+
+    const adminBox = document.createElement('div');
+    adminBox.className = 'blog-admin-box';
+    adminBox.innerHTML = `
+        <h3>✍️ Tulis & Publikasikan Artikel Dakwah Baru</h3>
+        <form id="form-tambah-artikel" class="blog-form-grid">
+            <input type="text" id="art-judul" placeholder="Judul Artikel..." required>
+            <select id="art-kategori">
+                <option value="Pemikiran Islam">Pemikiran Islam</option>
+                <option value="Sejarah & Siroh">Sejarah & Siroh</option>
+                <option value="Akidah & Fikih">Akidah & Fikih</option>
+                <option value="Dunia Islam">Dunia Islam</option>
+            </select>
+            <textarea id="art-isi" rows="3" placeholder="Tulis ringkasan atau isi artikel di sini..." required></textarea>
+            <button type="submit" class="btn-primary" style="cursor:pointer; border:none;">Terbitkan Artikel</button>
+        </form>
+    `;
+    portalContainer.insertBefore(adminBox, newsGrid);
+
+    document.getElementById('form-tambah-artikel').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const judul = document.getElementById('art-judul').value.trim();
+        const kategori = document.getElementById('art-kategori').value;
+        const isi = document.getElementById('art-isi').value.trim();
+        const tanggal = new Date().toLocaleDateString('id-ID', {
+            day: '2-digit', month: 'long', year: 'numeric'
+        });
+
+        const artikelBaru = { title: judul, category: kategori, content: isi, created_label: tanggal };
+
+        const saved = JSON.parse(localStorage.getItem('luqman_articles') || '[]');
+        saved.unshift(artikelBaru);
+        localStorage.setItem('luqman_articles', JSON.stringify(saved));
+
+        if (supabaseReady && supabaseClient) {
+            try {
+                await supabaseClient.from('articles').insert([artikelBaru]);
+            } catch (err) {
+                console.warn('Info Supabase:', err.message);
+            }
+        }
+
+        e.target.reset();
+        muatArtikelDinamis();
+        alert('Alhamdulillah, artikel berhasil diterbitkan!');
+    });
+}
+
+async function muatArtikelDinamis() {
+    const newsGrid = document.querySelector('#artikel-page .news-grid');
+    if (!newsGrid) return;
+
+    newsGrid.querySelectorAll('.dynamic-news-card').forEach(el => el.remove());
+
+    let daftarArtikel = JSON.parse(localStorage.getItem('luqman_articles') || '[]');
+
+    if (supabaseReady && supabaseClient) {
+        try {
+            const { data, error } = await supabaseClient
+                .from('articles')
+                .select('*')
+                .order('id', { ascending: false });
+            if (!error && data && data.length > 0) {
+                daftarArtikel = data;
+            }
+        } catch (err) {
+            // Fallback ke localStorage
+        }
+    }
+
+    daftarArtikel.forEach(art => {
+        const card = document.createElement('article');
+        card.className = 'news-card dynamic-news-card';
+        card.innerHTML = `
+            <span class="news-badge">${escapeHTML(art.category || 'Artikel Islam')}</span>
+            <h3>${escapeHTML(art.title)}</h3>
+            <div class="news-meta">${escapeHTML(art.created_label || 'Terbaru')}</div>
+            <p>${escapeHTML(art.content)}</p>
+        `;
+        newsGrid.prepend(card);
+    });
+}
+
 
 // =================================================================
-// 4. LOGIKA KOMPILASI GAME ISLAMI (PUZZLE LOGO & MAPCHART PROVINSI)
+// 4. LOGIKA KOMPILASI GAME ISLAMI (PUZZLE LOGO & MAPCHART)
 // =================================================================
 let puzzleGridSize = 2;
 let puzzleBoard = [];
 
 function bukaGame() {
-    document.getElementById('main-content').classList.add('hidden-page');
+    sembunyikanSemuaHalaman();
     document.getElementById('games-page').classList.remove('hidden-page');
     window.scrollTo(0, 0);
     setTimeout(() => initPuzzle(), 50);
 }
-
 function tutupGame() {
-    document.getElementById('games-page').classList.add('hidden-page');
+    sembunyikanSemuaHalaman();
     document.getElementById('main-content').classList.remove('hidden-page');
 }
-
 function setDifficulty(size, btn) {
     puzzleGridSize = size;
     document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     initPuzzle();
 }
-
 function initPuzzle() {
     const boardEl = document.getElementById('puzzle-board');
     const winMsg = document.getElementById('puzzle-win-msg');
     const stepCountEl = document.getElementById('step-count');
     if (!boardEl || !winMsg || !stepCountEl) return;
 
-    boardEl.innerHTML = '';luqman
+    boardEl.innerHTML = '';
+    winMsg.classList.add('hidden');
+    stepCountEl.textContent = '0';
+
+    boardEl.style.gridTemplateColumns = `repeat(${puzzleGridSize}, 1fr)`;
+    boardEl.style.gridTemplateRows = `repeat(${puzzleGridSize}, 1fr)`;
+
     const totalTiles = puzzleGridSize * puzzleGridSize;
     puzzleBoard = Array.from({ length: totalTiles }, (_, i) => i);
 
@@ -136,7 +271,7 @@ function initPuzzle() {
             const j = Math.floor(Math.random() * (i + 1));
             [puzzleBoard[i], puzzleBoard[j]] = [puzzleBoard[j], puzzleBoard[i]];
         }
-    } while (!isSolvable(puzzleBoard, puzzleGridSize) || puzzleBoard.every((v, i) => v === i));
+    } while (!isSolvable(puzzleBoard, puzzleGridSize) || puzzleBoard.every((v, idx) => v === idx));
 
     renderPuzzleTiles();
 }
@@ -183,7 +318,9 @@ function renderPuzzleTiles() {
         boardEl.appendChild(tile);
     });
 }
-uzzleBoard.length - 1);
+
+function moveTile(index) {
+    const emptyIndex = puzzleBoard.indexOf(puzzleBoard.length - 1);
     const row = Math.floor(index / puzzleGridSize);
     const col = index % puzzleGridSize;
     const emptyRow = Math.floor(emptyIndex / puzzleGridSize);
@@ -198,7 +335,6 @@ uzzleBoard.length - 1);
         checkPuzzleWin();
     }
 }
-
 function checkPuzzleWin() {
     const isWin = puzzleBoard.every((val, idx) => val === idx);
     if (isWin) {
@@ -206,587 +342,465 @@ function checkPuzzleWin() {
     }
 }
 
-// =================================================================
-// MAPCHART INTERAKTIF DUNIA (TINGKAT PROVINSI & NEGARA ASLI)
-// =================================================================
+// --- MAPCHART INTERAKTIF DUNIA ---
 let leafletMap = null;
-let geoJsonLayer = null;
 let mapMarkers = [];
-let coloredRegions = {}; // Menyimpan { "ID_WILAYAH": { name: "Jawa Barat (Indonesia)", color: "#10b981" } }
-let currentMapLevel = 'provinces';
-
-const GEOJSON_SOURCES = {
-    provinces: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson',
-    countries: 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json'
-};
+let geoJsonLayer = null;
 
 function bukaMapChart() {
-    document.getElementById('games-page').classList.add('hidden-page');
+    sembunyikanSemuaHalaman();
     document.getElementById('mapchart-page').classList.remove('hidden-page');
     window.scrollTo(0, 0);
 
     setTimeout(() => {
         if (!leafletMap) {
-            leafletMap = L.map('leaflet-map', {
-                center: [-2.5, 118], // Fokus awal ke Indonesia agar langsung terlihat provinsinya
-                zoom: 4,
-                minZoom: 2,
-                maxZoom: 9,
-                worldCopyJump: true,
-                preferCanvas: true // Performa super cepat untuk ribuan poligon provinsi dunia
+            leafletMap = L.map('leaflet-map').setView([20, 15], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(leafletMap);
+
+            fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+                .then(res => res.json())
+                .then(data => {
+                    geoJsonLayer = L.geoJSON(data, {
+                        style: {
+                            fillColor: '#1e293b',
+                            weight: 1,
+                            opacity: 1,
+                            color: '#475569',
+                            fillOpacity: 0.45
+                        },
+                        onEachFeature: (feature, layer) => {
+                            layer.on('click', (e) => {
+                                const mode = document.getElementById('symbol-mode').value;
+                                const namaWilayah = feature.properties.name || 'Wilayah Tidak Diketahui';
+                                document.getElementById('selected-region-name').value = namaWilayah;
+
+                                if (mode === 'fill') {
+                                    L.DomEvent.stopPropagation(e);
+                                    const warna = document.getElementById('map-color-picker').value;
+                                    layer.setStyle({
+                                        fillColor: warna,
+                                        fillOpacity: 0.8
+                                    });
+                                }
+                            });
+                        }
+                    }).addTo(leafletMap);
+                })
+                .catch(() => console.warn('Gagal memuat layer GeoJSON negara.'));
+
+            leafletMap.on('click', function(e) {
+                const mode = document.getElementById('symbol-mode').value;
+                if (mode === 'crescent') {
+                    const crescentIcon = L.divIcon({
+                        className: 'custom-crescent-pin',
+                        html: '<span style="font-size:24px; color:#ffd700; text-shadow:0 0 5px #000;">☪</span>',
+                        iconSize: [30, 30]
+                    });
+                    const marker = L.marker(e.latlng, { icon: crescentIcon }).addTo(leafletMap);
+                    mapMarkers.push(marker);
+                }
             });
-            loadGeoJsonLevel(currentMapLevel);
         } else {
             leafletMap.invalidateSize();
         }
-    }, 250);
+    }, 300);
 }
-
-function gantiLevelPeta(level) {
-    currentMapLevel = level;
-    coloredRegions = {};
-    renderMapLegend();
-    loadGeoJsonLevel(level);
-}
-
-function loadGeoJsonLevel(level) {
-    const statusInput = document.getElementById('selected-region-name');
-    if (statusInput) {
-        statusInput.value = level === 'provinces'
-            ? "Memuat 4.500+ poligon provinsi dunia..."
-            : "Memuat poligon negara dunia...";
-    }
-
-    if (geoJsonLayer) {
-        leafletMap.removeLayer(geoJsonLayer);
-        geoJsonLayer = null;
-    }
-
-    fetch(GEOJSON_SOURCES[level])
-        .then(res => {
-            if (!res.ok) throw new Error("Gagal mengambil data peta");
-            return res.json();
-        })
-        .then(data => {
-            if (statusInput) {
-                statusInput.value = level === 'provinces'
-                    ? "Siap! Klik provinsi manapun (misal: Jawa Barat)"
-                    : "Siap! Klik negara manapun";
-            }
-
-            geoJsonLayer = L.geoJSON(data, {
-                style: function () {
-                    return {
-                        fillColor: '#334155', // Warna dasar daratan
-                        weight: level === 'provinces' ? 0.7 : 1,
-                        opacity: 1,
-                        color: '#0f172a',     // Garis batas antar provinsi/negara
-                        fillOpacity: 0.92
-                    };
-                },
-                onEachFeature: function (feature, layer) {
-                    const props = feature.properties || {};
-                    let regionName = "";
-                    let regionId = "";
-
-                    if (level === 'provinces') {
-                        const provName = props.name || props.name_en || "Provinsi";
-                        const countryName = props.admin || props.geonunit || "";
-                        regionName = countryName ? `${provName} (${countryName})` : provName;
-                        regionId = props.adm1_code || `${provName}_${countryName}`;
-                    } else {
-                        regionName = props.name || "Negara";
-                        regionId = feature.id || regionName;
-                    }
-
-                    // Tooltip nama provinsi/negara saat kursor diarahkan
-                    layer.bindTooltip(regionName, {
-                        sticky: true,
-                        className: 'country-tooltip'
-                    });
-
-                    // Sorot batas poligon saat hover
-                    layer.on('mouseover', function () {
-                        if (statusInput) statusInput.value = regionName;
-                        this.setStyle({
-                            weight: 2,
-                            color: '#ffd700'
-                        });
-                        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                            this.bringToFront();
-                        }
-                    });
-
-                    layer.on('mouseout', function () {
-                        const saved = coloredRegions[regionId];
-                        this.setStyle({
-                            fillColor: saved ? saved.color : '#334155',
-                            weight: level === 'provinces' ? 0.7 : 1,
-                            color: '#0f172a',
-                            fillOpacity: saved ? 0.96 : 0.92
-                        });
-                    });
-
-                    // Klik poligon untuk mengisi warna penuh sesuai bentuk provinsi/negara
-                    layer.on('click', function (e) {
-                        const mode = document.getElementById('symbol-mode').value;
-                        const selectedColor = document.getElementById('map-color-picker').value;
-
-                        if (mode === 'fill') {
-                            coloredRegions[regionId] = { name: regionName, color: selectedColor };
-                            this.setStyle({
-                                fillColor: selectedColor,
-                                fillOpacity: 0.96
-                            });
-                            renderMapLegend();
-                        } else if (mode === 'erase') {
-                            delete coloredRegions[regionId];
-                            this.setStyle({
-                                fillColor: '#334155',
-                                fillOpacity: 0.92
-                            });
-                            renderMapLegend();
-                        } else if (mode === 'crescent') {
-                            const crescentIcon = L.divIcon({
-                                className: 'custom-crescent-pin',
-                                html: '<span style="font-size:22px; color:#ffd700; text-shadow:0 0 6px #000;">☪</span>',
-                                iconSize: [26, 26],
-                                iconAnchor: [13, 13]
-                            });
-                            const marker = L.marker(e.latlng, { icon: crescentIcon }).addTo(leafletMap);
-                            marker.bindPopup(`<strong>☪ ${regionName}</strong>`);
-                            mapMarkers.push(marker);
-                        }
-                    });
-                }
-            }).addTo(leafletMap);
-        })
-        .catch(() => {
-            // Cadangan otomatis ke peta negara jika jaringan lambat memuat file provinsi besar
-            if (level === 'provinces') {
-                if (statusInput) statusInput.value = "Mengalihkan ke peta negara...";
-                const levelSelect = document.getElementById('map-level-select');
-                if (levelSelect) levelSelect.value = 'countries';
-                currentMapLevel = 'countries';
-                loadGeoJsonLevel('countries');
-            } else if (statusInput) {
-                statusInput.value = "Gagal memuat data peta (periksa internet).";
-            }
-        });
-}
-
-function renderMapLegend() {
-    const legendContainer = document.getElementById('map-legend-list');
-    if (!legendContainer) return;
-
-    const colorGroups = {};
-    Object.values(coloredRegions).forEach(item => {
-        if (!colorGroups[item.color]) colorGroups[item.color] = [];
-        colorGroups[item.color].push(item.name);
-    });
-
-    const colors = Object.keys(colorGroups);
-    if (colors.length === 0) {
-        legendContainer.innerHTML = `<p style="font-size:0.78rem; color:#64748b;">Klik provinsi/wilayah pada peta untuk mewarnai bentuk aslinya.</p>`;
-        return;
-    }
-
-    legendContainer.innerHTML = colors.map(color => {
-        const listWilayah = colorGroups[color].join(', ');
-        return `
-            <div class="legend-item">
-                <span class="legend-color-box" style="background:${color};"></span>
-                <span><strong>${colorGroups[color].length} Wilayah:</strong> ${listWilayah}</span>
-            </div>
-        `;
-    }).join('');
-}
-
 function tutupMapChart() {
-    document.getElementById('mapchart-page').classList.add('hidden-page');
+    sembunyikanSemuaHalaman();
     document.getElementById('games-page').classList.remove('hidden-page');
 }
-
 function updateRGBText(hexColor) {
     const r = parseInt(hexColor.slice(1, 3), 16);
     const g = parseInt(hexColor.slice(3, 5), 16);
     const b = parseInt(hexColor.slice(5, 7), 16);
     document.getElementById('rgb-display').textContent = `RGB(${r}, ${g}, ${b})`;
 }
-
 function resetWarnaPeta() {
-    coloredRegions = {};
-    if (geoJsonLayer) {
-        geoJsonLayer.eachLayer(layer => {
-            layer.setStyle({
-                fillColor: '#334155',
-                weight: currentMapLevel === 'provinces' ? 0.7 : 1,
-                color: '#0f172a',
-                fillOpacity: 0.92
-            });
-        });
-    }
-    if (leafletMap) {
-        mapMarkers.forEach(m => leafletMap.removeLayer(m));
-    }
+    mapMarkers.forEach(m => leafletMap.removeLayer(m));
     mapMarkers = [];
-    renderMapLegend();
+    if (geoJsonLayer) {
+        geoJsonLayer.resetStyle();
+    }
+    document.getElementById('selected-region-name').value = 'Klik area peta...';
+    alert("MapChart berhasil di-reset!");
 }
 
 
 // =================================================================
-// 6. LOGIKA CHATBOT AI ISLAMI (KEPRIBADIAN HASSAN AL-BANNA)
+// 5. LOGIKA PENGECEK ARAH KIBLAT REAL-TIME (GPS + KOMPAS DEVICE)
 // =================================================================
-const HASSAN_ALBANNA_AVATAR = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Hassan_al-Banna.jpg/440px-Hassan_al-Banna.jpg";
+let qiblaBearingGlobal = 295.1;
+let compassListenerActive = false;
 
-const SYARIAH_BLOCKED_KEYWORDS = [
-    'judi', 'slot', 'togel', 'gacor', 'taruhan', 'casino', 'poker', 'sabung ayam',
-    'porn', 'bokep', 'zina', 'mesum', 'telanjang', 'seks bebas', 'pacaran', 'maksiat',
-    'mabuk', 'miras', 'khamr', 'alkohol', 'narkoba', 'sabu', 'ganja', 'ekstasi',
-    'riba', 'pinjol ilegal', 'pesugihan', 'santet', 'dukun', 'pelet', 'syirik', 'ramalan zodiak',
-    'bunuh diri', 'melukai diri', 'bom', 'teror', 'mencuri', 'hack akun', 'carding', 'menipu'
-];
+function bukaKiblat() {
+    sembunyikanSemuaHalaman();
+    document.getElementById('kiblat-page').classList.remove('hidden-page');
+    window.scrollTo(0, 0);
+    initQiblaTracker();
+}
+function tutupKiblat() {
+    sembunyikanSemuaHalaman();
+    document.getElementById('main-content').classList.remove('hidden-page');
+}
+
+function getArahMataAngin(deg) {
+    const arah = ['Utara', 'Timur Laut', 'Timur', 'Tenggara', 'Selatan', 'Barat Daya', 'Barat', 'Barat Laut'];
+    return arah[Math.round(deg / 45) % 8];
+}
+
+function initQiblaTracker() {
+    const statusText = document.getElementById('kiblat-status-text');
+    const coordsText = document.getElementById('user-coords');
+    const qiblaDegText = document.getElementById('qibla-degree');
+    const qiblaMarker = document.getElementById('qibla-marker');
+
+    if (!('geolocation' in navigator)) {
+        statusText.textContent = "Browser tidak mendukung GPS. Menampilkan perkiraan wilayah Indonesia.";
+        qiblaDegText.textContent = `${qiblaBearingGlobal.toFixed(1)}° (${getArahMataAngin(qiblaBearingGlobal)})`;
+        if (qiblaMarker) qiblaMarker.style.transform = `rotate(${qiblaBearingGlobal}deg)`;
+        return;
+    }
+
+    statusText.textContent = "Mendeteksi lokasi GPS Anda...";
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            coordsText.textContent = `${lat.toFixed(4)}°, ${lng.toFixed(4)}°`;
+
+            const kaabaLat = 21.4225;
+            const kaabaLng = 39.8262;
+
+            const phiK = (kaabaLat * Math.PI) / 180;
+            const lambdaK = (kaabaLng * Math.PI) / 180;
+            const phi = (lat * Math.PI) / 180;
+            const lambda = (lng * Math.PI) / 180;
+
+            const qiblaRad = Math.atan2(
+                Math.sin(lambdaK - lambda),
+                Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda)
+            );
+
+            let qiblaDeg = ((qiblaRad * 180) / Math.PI + 360) % 360;
+            qiblaBearingGlobal = qiblaDeg;
+
+            qiblaDegText.textContent = `${qiblaDeg.toFixed(1)}° (${getArahMataAngin(qiblaDeg)})`;
+            statusText.textContent = "✅ Lokasi GPS terkunci! Arahkan ikon Ka'bah ke depan Anda.";
+
+            if (qiblaMarker) {
+                qiblaMarker.style.transform = `rotate(${qiblaDeg}deg)`;
+            }
+
+            aktifkanSensorKompas();
+        },
+        () => {
+            statusText.textContent = "⚠️ Izin GPS tidak aktif. Menggunakan koordinat default Jawa Barat.";
+            coordsText.textContent = "-6.5700°, 107.7600°";
+            qiblaDegText.textContent = `${qiblaBearingGlobal.toFixed(1)}° (${getArahMataAngin(qiblaBearingGlobal)})`;
+            if (qiblaMarker) {
+                qiblaMarker.style.transform = `rotate(${qiblaBearingGlobal}deg)`;
+            }
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+    );
+}
+
+function aktifkanSensorKompas() {
+    if (compassListenerActive) return;
+
+    const handleOrientation = (event) => {
+        const dial = document.getElementById('compass-dial');
+        if (!dial) return;
+
+        let heading = null;
+        if (typeof event.webkitCompassHeading !== 'undefined') {
+            heading = event.webkitCompassHeading;
+        } else if (event.alpha !== null) {
+            heading = 360 - event.alpha;
+        }
+
+        if (heading !== null) {
+            dial.style.transform = `rotate(${-heading}deg)`;
+        }
+    };
+
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+            .then(state => {
+                if (state === 'granted') {
+                    window.addEventListener('deviceorientation', handleOrientation, true);
+                    compassListenerActive = true;
+                }
+            })
+            .catch(() => {});
+    } else {
+        window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+        window.addEventListener('deviceorientation', handleOrientation, true);
+        compassListenerActive = true;
+    }
+}
+
+
+// =================================================================
+// 6. CHATBOT AI ISLAMI — KEPRIBADIAN IMAM HASSAN AL-BANNA
+// =================================================================
+let chatInitialized = false;
 
 function bukaChatbot() {
-    const pagesToHide = ['main-content', 'calculator-page', 'artikel-page', 'games-page', 'kiblat-page', 'mapchart-page'];
-    pagesToHide.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.classList.add('hidden-page');
-    });
+    sembunyikanSemuaHalaman();
+    document.getElementById('chatbot-page').classList.remove('hidden-page');
+    window.scrollTo(0, 0);
 
-    const chatPage = document.getElementById('chatbot-page');
-    if (chatPage) {
-        chatPage.classList.remove('hidden-page');
-        window.scrollTo(0, 0);
-        const input = document.getElementById('chat-user-input');
-        if (input) setTimeout(() => input.focus(), 100);
+    if (!chatInitialized) {
+        resetChat();
+        chatInitialized = true;
     }
+    setTimeout(() => {
+        const input = document.getElementById('chat-input');
+        if (input) input.focus();
+    }, 100);
 }
 
 function tutupChatbot() {
-    const chatPage = document.getElementById('chatbot-page');
-    if (chatPage) chatPage.classList.add('hidden-page');
-    const mainPage = document.getElementById('main-content');
-    if (mainPage) mainPage.classList.remove('hidden-page');
+    sembunyikanSemuaHalaman();
+    document.getElementById('main-content').classList.remove('hidden-page');
 }
 
-function toggleChatSidebar() {
-    const sidebar = document.getElementById('chat-sidebar');
-    if (sidebar) sidebar.classList.toggle('open');
+function getWaktuSekarang() {
+    const now = new Date();
+    return now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 }
 
-function resetChatSession() {
-    const messagesContainer = document.getElementById('chat-messages');
-    const welcomeScreen = document.getElementById('chat-welcome');
-    if (!messagesContainer) return;
+function resetChat() {
+    const container = document.getElementById('chat-messages');
+    if (!container) return;
+    container.innerHTML = '';
 
-    Array.from(messagesContainer.children).forEach(node => {
-        if (node.id !== 'chat-welcome') {
-            node.remove();
-        }
-    });
-
-    if (welcomeScreen) {
-        welcomeScreen.style.display = 'block';
-    }
+    tambahPesanAI(
+        "Assalamu'alaikum warahmatullahi wabarakatuh, wahai saudaraku seperjuangan. ☪️\n\n" +
+        "Selamat datang di majelis ilmu digital pada portofolio **Luqman Azkiya Athaillah**. Anggaplah ruang ini sebagai majelis muzakarah kita—tempat kita mengokohkan **Akidah**, meneladani **Siroh Islam dari abad ke-6 hingga ke-21 Masehi**, memahami khazanah **Madzhab & Fikih**, serta menyiapkan diri menjadi generasi pembangun peradaban.\n\n" +
+        "Silakan pilih salah satu topik rekomendasi di bawah atau tuliskan pertanyaanmu dengan adab yang mulia.",
+        "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
+    );
 }
 
-function handleChatKeydown(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        handleChatSubmit(event);
-    }
-}
-
-function kirimPertanyaanSaran(pertanyaan) {
-    const input = document.getElementById('chat-user-input');
+function kirimPertanyaanSaran(teks) {
+    const input = document.getElementById('chat-input');
     if (!input) return;
-    input.value = pertanyaan;
+    input.value = teks;
     handleChatSubmit(new Event('submit'));
 }
 
-function sanitizeHTML(text) {
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
-    };
-    return text.replace(/[&<>"']/g, m => map[m]);
-}
-
 function handleChatSubmit(event) {
-    if (event) event.preventDefault();
+    event.preventDefault();
+    const input = document.getElementById('chat-input');
+    const teks = input.value.trim();
+    if (!teks) return;
 
-    const inputEl = document.getElementById('chat-user-input');
-    const messagesContainer = document.getElementById('chat-messages');
-    const welcomeScreen = document.getElementById('chat-welcome');
-    if (!inputEl || !messagesContainer) return;
+    tambahPesanUser(teks);
+    input.value = '';
 
-    const userText = inputEl.value.trim();
-    if (!userText) return;
-
-    if (welcomeScreen) {
-        welcomeScreen.style.display = 'none';
-    }
-
-    renderChatBubble('user', userText, false, []);
-    inputEl.value = '';
-    inputEl.style.height = 'auto';
-
-    const typingId = 'typing-' + Date.now();
-    const typingRow = document.createElement('div');
-    typingRow.id = typingId;
-    typingRow.className = 'chat-row ai-row';
-    typingRow.innerHTML = `
-        <div class="chat-avatar">
-            <img src="${HASSAN_ALBANNA_AVATAR}" alt="Hassan Al-Banna" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg'">
-        </div>
-        <div class="chat-bubble">
-            <div class="bubble-header"><span>☪ Imam Hassan Al-Banna AI</span></div>
-            <div style="color:#94a3b8; font-style:italic;">Sedang merangkai hikmah dan jawaban...</div>
-        </div>
-    `;
-    messagesContainer.appendChild(typingRow);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    const typingId = tampilkanTyping();
 
     setTimeout(() => {
-        const typingEl = document.getElementById(typingId);
-        if (typingEl) typingEl.remove();
-
-        const responseObj = getHassanAlBannaReply(userText);
-        renderChatBubble('ai', responseObj.reply, responseObj.isRestricted, responseObj.suggestions || []);
-    }, 550);
+        hapusTyping(typingId);
+        const respon = prosesResponAlBanna(teks);
+        tambahPesanAI(respon.text, respon.arabic, respon.isRestricted);
+    }, 750);
 }
 
-function renderChatBubble(sender, content, isRestricted, suggestions) {
-    const messagesContainer = document.getElementById('chat-messages');
-    if (!messagesContainer) return;
+function tambahPesanUser(teks) {
+    const container = document.getElementById('chat-messages');
+    const row = document.createElement('div');
+    row.className = 'chat-msg-row user-row';
+    row.innerHTML = `
+        <div class="msg-bubble">
+            ${escapeHTML(teks)}
+            <span class="msg-time">${getWaktuSekarang()}</span>
+        </div>
+    `;
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+}
+
+function tambahPesanAI(teks, arabicQuote = '', isRestricted = false) {
+    const container = document.getElementById('chat-messages');
+    const avatarSrc = document.getElementById('ai-avatar-img')?.src || 'https://upload.wikimedia.org/wikipedia/commons/5/53/Hassan_al-Banna.jpg';
+
+    let formattedText = escapeHTML(teks)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
 
     const row = document.createElement('div');
-    row.className = `chat-row ${sender === 'user' ? 'user-row' : 'ai-row'} ${isRestricted ? 'restricted-row' : ''}`;
-
-    if (sender === 'user') {
-        row.innerHTML = `<div class="chat-bubble">${sanitizeHTML(content)}</div>`;
-    } else {
-        let suggestionsHTML = '';
-        if (suggestions && suggestions.length > 0) {
-            const buttons = suggestions
-                .map(q => `<button type="button" class="ai-chip-btn" onclick="kirimPertanyaanSaran('${q.replace(/'/g, "\\'")}')">☪ ${q}</button>`)
-                .join('');
-            suggestionsHTML = `
-                <div class="ai-followup-box">
-                    <span class="ai-followup-label">Pertanyaan lanjutan yang disarankan:</span>
-                    <div class="ai-followup-chips">${buttons}</div>
-                </div>
-            `;
-        }
-
-        row.innerHTML = `
-            <div class="chat-avatar">
-                <img src="${HASSAN_ALBANNA_AVATAR}" alt="Hassan Al-Banna" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg'">
-            </div>
-            <div class="chat-bubble">
-                <div class="bubble-header">
-                    <span>☪ Imam Hassan Al-Banna AI</span>
-                </div>
-                <div>${content}</div>
-                ${suggestionsHTML}
-            </div>
-        `;
-    }
-
-    messagesContainer.appendChild(row);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    row.className = 'chat-msg-row ai-row';
+    row.innerHTML = `
+        <img src="${avatarSrc}" alt="Hassan Al-Banna" class="msg-avatar-small">
+        <div class="msg-bubble ${isRestricted ? 'syariah-warning' : ''}">
+            ${arabicQuote ? `<span class="msg-arabic-quote">${arabicQuote}</span>` : ''}
+            <div>${formattedText}</div>
+            <span class="msg-time">${getWaktuSekarang()} • Asisten Al-Banna</span>
+        </div>
+    `;
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
 }
 
-function getHassanAlBannaReply(rawInput) {
-    const text = rawInput.toLowerCase();
+function tampilkanTyping() {
+    const container = document.getElementById('chat-messages');
+    const avatarSrc = document.getElementById('ai-avatar-img')?.src || 'https://upload.wikimedia.org/wikipedia/commons/5/53/Hassan_al-Banna.jpg';
+    const id = 'typing-' + Date.now();
 
-    // 1. FILTER SYARIAT ISLAM
-    const melanggarSyariat = SYARIAH_BLOCKED_KEYWORDS.some(keyword => text.includes(keyword));
-    if (melanggarSyariat) {
+    const row = document.createElement('div');
+    row.id = id;
+    row.className = 'chat-msg-row ai-row';
+    row.innerHTML = `
+        <img src="${avatarSrc}" alt="Hassan Al-Banna" class="msg-avatar-small">
+        <div class="msg-bubble">
+            <div class="typing-indicator"><span></span><span></span><span></span></div>
+        </div>
+    `;
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+    return id;
+}
+
+function hapusTyping(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+}
+
+function escapeHTML(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+
+// =================================================================
+// OTAK & FILTER SYARIAT CHATBOT (PERSONA HASSAN AL-BANNA)
+// =================================================================
+function prosesResponAlBanna(inputUser) {
+    const q = inputUser.toLowerCase();
+
+    // 1. FILTER RESTRICTION SYARIAT ISLAM
+    const kataTerlarang = [
+        'judi', 'slot', 'togel', 'gacor', 'taruhan',
+        'bokep', 'porno', 'porn', 'xxx', 'zina', 'pacaran', 'maksiat',
+        'mabuk', 'miras', 'khamr', 'narkoba', 'sabu', 'ganja',
+        'bunuh diri', 'self harm', 'silet', 'lukai diri',
+        'santet', 'pelet', 'pesugihan', 'dukun', 'ramalan zodiak', 'syirik',
+        'hina islam', 'hina allah', 'hina nabi', 'murtad', 'kafirkan',
+        'cara mencuri', 'hack akun', 'nipu', 'penipuan', 'riba', 'pinjol ilegal'
+    ];
+
+    if (kataTerlarang.some(kata => q.includes(kata))) {
         return {
             isRestricted: true,
-            reply: `<strong>Astaghfirullahal 'Adzim.</strong><br><br>
-            Wahai saudaraku, mohon maaf. Saya tidak dapat menjawab atau membantu permintaan yang mengarah pada perkara yang melanggar <strong>Syariat Islam</strong>, kemaksiatan, ataupun mudarat.<br><br>
-            Ingatlah prinsip perjuangan kita: <em>"Al-Qur'an adalah undang-undang kami"</em>. Mari kita gunakan akal dan teknologi ini untuk kebaikan serta ridha Allah SWT.`,
-            suggestions: [
-                "Bagaimana cara menjaga hati dari maksiat?",
-                "Jelaskan hakikat Akidah yang lurus (Salimul Aqidah)",
-                "Apa saja karya di website Luqman Azkiya Athaillah?"
-            ]
+            arabic: "وَلَا تَقْرَبُوا الْفَوَاحِشَ مَا ظَهَرَ مِنْهَا وَمَا بَطَنَ",
+            text: "⚠️ **Maaf, wahai saudaraku.** Permintaan atau pembahasan ini mengarah pada hal yang bertentangan dengan **Syariat Islam**, adab, dan kemaslahatan diri.\n\n" +
+                  "Sebagai seorang Muslim, kita diperintahkan menjauhi segala pintu keburukan maupun syubhat. Mari kita alihkan diskusi kepada hal-hal yang mendatangkan ilmu bermanfaat, ketenangan jiwa, dan ridha Allah Subhanahu wa Ta'ala."
         };
     }
 
-    // 2. INFORMASI ISI WEBSITE & PROFIL LUQMAN AZKIYA ATHAILLAH
-    if (text.includes('website') || text.includes('web ini') || text.includes('luqman') || text.includes('portofolio') || text.includes('karya') || text.includes('fitur')) {
+    // 2. SIROH ISLAM ABAD KE-6 SAMPAI ABAD KE-21 MASEHI
+    if (q.includes('siroh') || q.includes('sejarah') || q.includes('abad') || q.includes('khulafaur') || q.includes('utsmaniyah') || q.includes('abbasiyah')) {
         return {
-            isRestricted: false,
-            reply: `Website <strong>PortofolioMuslim</strong> ini adalah karya digital milik <strong>Luqman Azkiya Athaillah</strong> (nama panggung: <em>Luqman Pasha</em>), seorang pelajar berprestasi di <strong>SMPIT As-Syifa Boarding School</strong> yang memadukan teknologi IT dengan prinsip Islam.<br><br>
-            <strong>Prestasi Luqman di Website Ini:</strong><br>
-            • Juara 8 Olimpiade PAI Nasional (OLPAIN) 2024.<br>
-            • Juara 2 Lomba Literasi Internasional oleh Hayrat Foundation.<br>
-            • Juara Ziyadah & Hafalan Terbanyak Takhosus dua semester berturut-turut.<br>
-            • Pengurus Angkatan 29 SOUL SD Salman Al Farisi Bandung & Staff Komunitas Literasi Sekolah (KLS) As-Syifa.<br><br>
-            <strong>5 Fitur Karya Utama di Website Ini:</strong><br>
-            1. <strong>Kalkulator Digital Islami</strong> — Perhitungan matematika cepat.<br>
-            2. <strong>Suara Islami (Kompilasi Artikel)</strong> — Tulisan seputar pemikiran Islam & Ikhwanul Muslimin.<br>
-            3. <strong>LuqmanGames</strong> — Game Puzzle Logo Gerakan Islam & World MapChart Builder poligon negara asli.<br>
-            4. <strong>Pengecek Arah Kiblat Real-Time</strong> — Kompas GPS menuju Ka'bah.<br>
-            5. <strong>Asisten AI Islami (Al-Banna AI)</strong> — Chatbot edukasi berlandaskan syariat.`,
-            suggestions: [
-                "Ceritakan sirah dakwah Rasulullah di Makkah dan Madinah",
-                "Apa saja cabang utama dalam Akidah Islamiyah?",
-                "Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!"
-            ]
+            arabic: "تِلْكَ أُمَّةٌ قَدْ خَلَتْ ۖ لَهَا مَا كَسَبَتْ وَلَكُم مَّا كَسَبْتُمْ",
+            text: "Wahai saudaraku, memahami **Siroh & Sejarah Peradaban Islam dari Abad ke-6 hingga ke-21 M** adalah kunci kebangkitan umat:\n\n" +
+                  "• **Abad ke-6 & ke-7 M (Masa Kenabian & Khulafaur Rasyidin):** Kelahiran Rasulullah ﷺ (570 M), turunnya wahyu (610 M), Hijrah ke Madinah (622 M), Fathu Makkah, lalu dilanjutkan kepemimpinan Abu Bakar, Umar, Utsman, dan Ali radhiyallahu 'anhum yang membebaskan Syam, Persia, dan Mesir.\n" +
+                  "• **Abad ke-8 – ke-13 M (Era Keemasan Dinasti Umayyah & Abbasiyah):** Puncak ilmu pengetahuan di Baghdad, Cordoba (Andalusia), dan Kairo. Lahirnya Baitul Hikmah, Imam Empat Madzhab, Al-Khawarizmi, Ibnu Sina, hingga pembebasan Al-Quds oleh Shalahuddin Al-Ayyubi (1187 M).\n" +
+                  "• **Abad ke-14 – ke-19 M (Khilafah Utsmaniyah & Penyebaran di Nusantara):** Penaklukan Konstantinopel oleh Sultan Muhammad Al-Fatih (1453 M), kejayaan Kesultanan Islam di Nusantara, serta perlawanan ulama melawan kolonialisme Barat.\n" +
+                  "• **Abad ke-20 – ke-21 M (Kebangkitan Modern & Era Digital):** Runtuhnya Khilafah Utsmaniyah (1924), lahirnya gerakan tajdid seperti **Ikhwanul Muslimin (1928)**, kemerdekaan negeri-negeri Muslim, hingga perjuangan dakwah dan penguasaan teknologi oleh pemuda Islam hari ini."
         };
     }
 
-    // 3. SIRAH NABAWIYAH & SEJARAH ISLAM
-    if (text.includes('sirah') || text.includes('rasulullah') || text.includes('nabi') || text.includes('hijrah') || text.includes('sahabat') || text.includes('badar') || text.includes('darul arqam')) {
+    // 3. AKIDAH ISLAM
+    if (q.includes('akidah') || q.includes('aqidah') || q.includes('tauhid') || q.includes('iman') || q.includes('rukun iman')) {
         return {
-            isRestricted: false,
-            reply: `Mempelajari <strong>Sirah Nabawiyah</strong> bukan sekadar membaca sejarah masa lalu, melainkan mengambil manhaj (metode) perjuangan untuk masa kini.<br><br>
-            <strong>Fase Utama Sirah Rasulullah SAW:</strong><br>
-            1. <strong>Fase Makkah (13 Tahun — Pembinaan Akidah):</strong> Rasulullah SAW menanamkan tauhid yang kokoh di Darul Arqam, menempa mental para sahabat seperti Abu Bakar, Umar, Utsman, Ali, Bilal, dan Mush'ab bin Umair menghadapi boikot dan siksaan Quraisy.<br>
-            2. <strong>Hijrah ke Madinah (Membangun Masyarakat):</strong> Nabi mempersaudarakan kaum Muhajirin dan Anshar, membangun Masjid Nabawi sebagai pusat peradaban, dan menyusun Piagam Madinah.<br>
-            3. <strong>Perjuangan & Fathu Makkah:</strong> Kemenangan di Perang Badar dengan 313 pasukan mukmin yang ikhlas membuktikan bahwa kemenangan datang dari pertolongan Allah dan kesatuan hati umat.`,
-            suggestions: [
-                "Apa pelajaran utama dari kisah Hijrah Nabi ke Madinah?",
-                "Bagaimana strategi tarbiyah Rasulullah di Darul Arqam?",
-                "Jelaskan hubungan Sirah dengan Akidah seorang Muslim"
-            ]
+            arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ",
+            text: "Saudaraku, **Akidah** adalah pondasi utama bangunan Islam. Jika akidah lurus (*Salimul Aqidah*), maka seluruh amal akan kokoh:\n\n" +
+                  "1. **Tauhid yang Murni:** Mengesakan Allah dalam Rububiyah (penciptaan & pengaturan), Uluhiyah (hanya Allah yang berhak disembah), serta Asma wa Sifat sesuai Al-Qur'an dan As-Sunnah tanpa menyerupakan-Nya dengan makhluk.\n" +
+                  "2. **Enam Rukun Iman:** Iman kepada Allah, Malaikat-malaikat-Nya, Kitab-kitab-Nya, Rasul-rasul-Nya, Hari Akhir, serta Qadha dan Qadar (takdir baik maupun buruk).\n" +
+                  "3. **Kaidah Akidah Imam Hassan Al-Banna:** Menjauhi khurafat, takhayul, dan bid'ah dalam keyakinan, serta tidak berlebih-lebihan dalam memperdebatkan masalah *mutasyabihat* yang justru memecah belah ukhuwah umat."
         };
     }
 
-    // 4. AKIDAH ISLAMIYAH & TAUHID
-    if (text.includes('akidah') || text.includes('aqidah') || text.includes('tauhid') || text.includes('iman') || text.includes('salimul aqidah')) {
+    // 4. MADZHAB-MADZHAB DALAM ISLAM
+    if (q.includes('madzhab') || q.includes('mazhab') || q.includes('hanafi') || q.includes('maliki') || q.includes('syafii') || q.includes('hanbali')) {
         return {
-            isRestricted: false,
-            reply: `Dalam risalah <em>Al-'Aqa'id</em>, saya selalu menekankan bahwa <strong>Akidah yang lurus (Salimul Aqidah)</strong> adalah fondasi utama seluruh amal. Tanpa akidah yang benar, amal sebesar gunung pun tidak bernilai di sisi Allah.<br><br>
-            <strong>Pilar Utama Akidah Islamiyah:</strong><br>
-            1. <strong>Tauhid Rububiyah:</strong> Meyakini hanya Allah satu-satunya Pencipta, Pemilik, dan Pengatur alam semesta.<br>
-            2. <strong>Tauhid Uluhiyah:</strong> Memurnikan seluruh bentuk ibadah, doa, tawakal, dan ketaatan hanya kepada Allah SWT semata.<br>
-            3. <strong>Tauhid Asma wa Sifat:</strong> Mengimani nama-nama dan sifat-sifat Allah yang mulia sesuai Al-Qur'an dan As-Sunnah tanpa menyerupakan-Nya dengan makhluk.<br>
-            4. <strong>Rukun Iman yang Enam:</strong> Iman kepada Allah, Malaikat, Kitab-kitab-Nya, Rasul-rasul-Nya, Hari Akhir, serta Qadha dan Qadar.`,
-            suggestions: [
-                "Apa saja pembatal keislaman dan syirik yang harus dihindari?",
-                "Bagaimana cara memperkuat iman di era fitnah digital?",
-                "Apa saja 10 Muwashafat (karakter) Muslim ideal dalam Tarbiyah?"
-            ]
+            arabic: "وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا",
+            text: "Khazanah keilmuan Islam sangat kaya dengan lahirnya **Madzhab-Madzhab Fikih** yang merumuskan hukum dari Al-Qur'an dan As-Sunnah secara metodologis (*Ushul Fikih*):\n\n" +
+                  "1. **Madzhab Hanafi (Imam Abu Hanifah, w. 150 H):** Dikenal kuat dalam penggunaan *ra'yu* (nalar analogi/qiyas) dan istihsan. Banyak dianut di Turki, Asia Selatan, dan Asia Tengah.\n" +
+                  "2. **Madzhab Maliki (Imam Malik bin Anas, w. 179 H):** Menjadikan amal penduduk Madinah (*'Amal Ahlil Madinah*) sebagai salah satu hujjah utama. Dominan di Afrika Utara dan Barat.\n" +
+                  "3. **Madzhab Syafi'i (Imam Muhammad bin Idris Asy-Syafi'i, w. 204 H):** Peletak dasar ilmu *Ushul Fikih* melalui kitab *Ar-Risalah*, memadukan metode ahli hadits dan ahli ra'yu. Mayoritas dianut di Indonesia dan Asia Tenggara.\n" +
+                  "4. **Madzhab Hanbali (Imam Ahmad bin Hanbal, w. 241 H):** Sangat berpegang teguh pada nash hadits dan atsar sahabat. Banyak dianut di Jazirah Arab.\n\n" +
+                  "📌 **Sikap Kita:** Perbedaan cabang fikih (*furu'iyah*) antar madzhab adalah rahmat dan keluasan ilmu—bukan alasan untuk bermusuhan!"
         };
     }
 
-    // 5. 5 PASAL PERJUANGAN
-    if (text.includes('5 pasal') || text.includes('semboyan') || text.includes('motto')) {
+    // 5. ILMU FIKIH & KAIDAHNYA
+    if (q.includes('fikih') || q.includes('fiqih') || q.includes('hukum islam') || q.includes('ibadah') || q.includes('muamalah') || q.includes('halal')) {
         return {
-            isRestricted: false,
-            reply: `Assalamualaikum warahmatullah, saudaraku. Lima Pasal Perjuangan (<em>Al-Ghayah wal Wasilah</em>) adalah kompas hidup bagi setiap Muslim yang berjuang di jalan dakwah:<br><br>
-1. <strong>Allahu Ghayatuna</strong> (Allah adalah tujuan kami) — Segala ikhtiar kita semata-mata mengharap ridha-Nya.<br>
-2. <strong>Ar-Rasulu Qudwatuna</strong> (Rasulullah adalah teladan kami) — Menjadikan akhlak dan sunnah Nabi SAW sebagai panutan utama.<br>
-3. <strong>Al-Qur'anu Dusturuna</strong> (Al-Qur'an adalah undang-undang kami) — Menjadikan wahyu Ilahi sebagai pedoman dalam seluruh aspek kehidupan.<br>
-4. <strong>Al-Jihadu Sabiluna</strong> (Jihad adalah jalan kami) — Bersungguh-sungguh mengerahkan tenaga, pikiran, dan harta demi kebenaran.<br>
-5. <strong>Asy-Syahadatu Asma Amaniyyina</strong> (Mati syahid adalah cita-cita tertinggi kami) — Keikhlasan berkorban di jalan Allah.`,
-            suggestions: [
-                "Bagaimana penerapan 'Al-Qur'anu Dusturuna' bagi pelajar?",
-                "Ceritakan Sirah perjuangan Rasulullah SAW",
-                "Apa saja fitur karya di website PortofolioMuslim ini?"
-            ]
+            arabic: "مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ",
+            text: "Rasulullah ﷺ bersabda: *\"Barangsiapa yang Allah kehendaki kebaikan baginya, niscaya Allah pahamkan ia dalam urusan agama (fikih).\"*\n\n" +
+                  "Secara garis besar, **Ilmu Fikih** terbagi menjadi beberapa bidang utama:\n" +
+                  "• **Fikih Ibadah:** Mengatur hubungan hamba dengan Allah—seperti Thaharah (bersuci), Shalat 5 waktu, Zakat, Puasa Ramadhan, dan Haji.\n" +
+                  "• **Fikih Muamalah:** Mengatur interaksi antar manusia—seperti jual beli yang halal, larangan riba, amanah harta, dan keadilan sosial.\n" +
+                  "• **Fikih Munakahat & Jinayat:** Mengatur tatanan keluarga sakinah serta hukum penjagaan jiwa dan harta.\n\n" +
+                  "**Kaidah Emas Fikih:** *\"Al-ashlu fil 'ibadati at-tahrim\"* (Hukum asal ibadah adalah terlarang kecuali ada dalilnya), sedangkan *\"Al-ashlu fil mu'amalati al-ibahah\"* (Hukum asal muamalah dan teknologi adalah boleh selama tidak ada dalil yang mengharamkannya)."
         };
     }
 
-    // 6. 10 MUWASHAFAT / TARBIYAH
-    if (text.includes('10 muwashafat') || text.includes('karakter') || text.includes('tarbiyah') || text.includes('muslim ideal')) {
+    // 6. PEMBUAT & ISI WEBSITE INI
+    if (q.includes('pembuat') || q.includes('luqman') || q.includes('isi website') || q.includes('website ini') || q.includes('portofolio') || q.includes('fitur')) {
         return {
-            isRestricted: false,
-            reply: `Dalam manhaj <strong>Tarbiyah Islamiyah</strong>, kebangkitan peradaban dimulai dari perbaikan pribadi (<em>Ishlahun Nafs</em>). Sepuluh karakter Muslim ideal yang harus kita tempa adalah:<br><br>
-1. <strong>Salimul Aqidah</strong> (Akidah yang bersih dan lurus)<br>
-2. <strong>Shahihul Ibadah</strong> (Ibadah yang benar sesuai sunnah)<br>
-3. <strong>Matinul Khuluq</strong> (Akhlak yang kokoh dan mulia)<br>
-4. <strong>Qadirun 'alal Kasbi</strong> (Mampu bekerja dan mandiri secara ekonomi)<br>
-5. <strong>Mutsaqqaful Fikri</strong> (Berwawasan luas dan cerdas)<br>
-6. <strong>Qawiyyul Jismi</strong> (Jasmani yang sehat dan kuat)<br>
-7. <strong>Mujahidun linafsihi</strong> (Bersungguh-sungguh mengendalikan hawa nafsu)<br>
-8. <strong>Munazhzhamun fi Syu'unihi</strong> (Teratur dan disiplin dalam segala urusannya)<br>
-9. <strong>Harishun 'ala Waqtihi</strong> (Sangat menghargai dan menjaga waktunya)<br>
-10. <strong>Nafi'un lighairihi</strong> (Bermanfaat bagi sesama dan umat).`,
-            suggestions: [
-                "Jelaskan secara mendalam tentang Salimul Aqidah!",
-                "Bagaimana cara menjadi Mutsaqqaful Fikri di bidang IT?",
-                "Ceritakan sejarah berdirinya gerakan di Ismailiyah 1928"
-            ]
+            arabic: "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ",
+            text: "Website **PortofolioMuslim** ini dirancang dan dibangun oleh **Luqman Azkiya Athaillah** (dikenal juga dengan nama panggung **Luqman Pasha**), seorang pelajar di **SMPIT As-Syifa Boarding School JalanCagak 1** yang bertekad memadukan kemajuan teknologi IT dengan nilai-nilai Islam.\n\n" +
+                  "**Prestasi & Rekam Jejak Pembuat:**\n" +
+                  "• Juara 8 Olimpiade PAI Nasional (OLPAIN) 2024.\n" +
+                  "• Juara 2 Lomba Literasi Internasional oleh Hayrat Foundation.\n" +
+                  "• Juara Ziyadah & Hafalan Terbanyak Takhosus selama 2 semester berturut-turut.\n" +
+                  "• Pengurus Angkatan 29 SOUL SD Salman Al Farisi Bandung & Staff Komunitas Literasi Sekolah (KLS) As-Syifa.\n\n" +
+                  "**Isi & Fitur Utama Website Ini:**\n" +
+                  "1. **Kalkulator Digital Islami** untuk perhitungan matematika presisi.\n" +
+                  "2. **Portal Artikel Suara Islami** berisi kajian sejarah, tarbiyah, dan publikasi tulisan.\n" +
+                  "3. **Kompilasi Game Islami** (Puzzle Logo Gerakan Islam & World MapChart Builder).\n" +
+                  "4. **Pengecek Arah Kiblat Real-Time** berbasis koordinat GPS dan kompas.\n" +
+                  "5. **Asisten AI Islami** ini sebagai ruang diskusi ilmu dan dakwah."
         };
     }
 
-    // 7. SEJARAH ISMAILIYAH 1928
-    if (text.includes('ismailiyah') || text.includes('1928') || text.includes('sejarah')) {
+    // 7. 5 PASAL PERJUANGAN & PRINSIP IKHWANUL MUSLIMIN
+    if (q.includes('5 pasal') || q.includes('lima pasal') || q.includes('motto') || q.includes('semboyan')) {
         return {
-            isRestricted: false,
-            reply: `Pada bulan Dzulqa'dah 1347 H bertepatan dengan <strong>Maret 1928 M</strong> di kota Ismailiyah, Mesir, enam orang pekerja datang dengan hati yang tulus dan gelisah melihat kondisi umat Islam pasca keruntuhan Khilafah.<br><br>
-            Kami berbaiat untuk bekerja dan berdakwah demi kejayaan Islam, membangun masjid, madrasah, serta menanamkan kesadaran bahwa Islam adalah sistem hidup yang menyeluruh (<em>Al-Islam Dinun wa Daulatun</em>).`,
-            suggestions: [
-                "Apa isi utama dari 5 Pasal Perjuangan?",
-                "Bagaimana Sirah Nabi menginspirasi kebangkitan umat?",
-                "Siapa pembuat website portofolio ini?"
-            ]
+            arabic: "اللَّهُ غَايَتُنَا وَالرَّسُولُ قُدْوَتُنَا وَالْقُرْآنُ دُسْتُورُنَا",
+            text: "Saudaraku, **5 Pasal Perjuangan** adalah kompas ruhani setiap aktivis dakwah:\n\n" +
+                  "1. **Allah tujuan kami (Allahu Ghayatuna):** Seluruh amal, belajar, dan karya digitalmu harus diniatkan ikhlas mencari ridha Allah.\n" +
+                  "2. **Rasulullah teladan kami (Ar-Rasulu Qudwatuna):** Menjadikan akhlak dan sunnah Nabi ﷺ sebagai standar tertinggi.\n" +
+                  "3. **Al-Qur'an undang-undang kami (Al-Qur'anu Dusturuna):** Membaca, menghafal, memahami, dan mengamalkannya dalam kehidupan nyata.\n" +
+                  "4. **Jihad jalan perjuangan kami (Al-Jihadu Sabiluna):** Bersungguh-sungguh mengerahkan segenap potensi—termasuk ilmu, pena, dan teknologi—untuk membela kebenaran.\n" +
+                  "5. **Syahid cita-cita tertinggi kami:** Kesiapan berkorban total demi tegaknya kalimat Allah."
         };
     }
 
-    // 8. PEMUDA, HAFALAN QURAN & NASIHAT
-    if (text.includes('pemuda') || text.includes('digital') || text.includes('istiqamah')) {
+    // 8. SALAM & SAPAAN
+    if (q.includes('salam') || q.includes('assalam') || q.includes('halo') || q.includes('hai')) {
         return {
-            isRestricted: false,
-            reply: `Wahai pemuda Islam! Ketahuilah bahwa dalam setiap kebangkitan umat, <strong>pemuda adalah rahasia kekuatannya</strong>, dan dalam setiap fikrah, pemuda adalah pengibar panjinya.<br><br>
-            Di era digital saat ini, jadilah generasi yang unggul dalam teknologi dan literasi—seperti ikhtiar saudara <strong>Luqman Azkiya Athaillah</strong>—namun hatinya tetap terpaut pada masjid dan Al-Qur'an.`,
-            suggestions: [
-                "Tips menghafal Al-Qur'an dengan konsisten",
-                "Siapa saja pemuda teladan dalam Sirah Nabawiyah?",
-                "Apa saja karya digital yang ada di website ini?"
-            ]
+            arabic: "وَعَلَيْكُمُ السَّلَامُ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
+            text: "Wa'alaikumussalam warahmatullahi wabarakatuh, wahai saudaraku yang dicintai Allah.\n\n" +
+                  "Semoga Allah melimpahkan keberkahan pada waktu, ilmu, dan langkah perjuanganmu hari ini. Silakan tanyakan seputar Siroh Islam, Akidah, Madzhab, Fikih, ataupun karya-karya di website ini!"
         };
     }
 
-    if (text.includes('hafal') || text.includes('quran') || text.includes("qur'an")) {
-        return {
-            isRestricted: false,
-            reply: `Al-Qur'an adalah cahaya hati dan sumber kekuatan jiwa seorang mukmin. Untuk menjaga hafalan dan ziyadah Al-Qur'an:<br><br>
-- Perbarui niat setiap hari agar Allah memakaikan mahkota cahaya kepada kedua orang tua kita di akhirat.<br>
-- Manfaatkan waktu fajar dan setelah subuh ketika pikiran masih jernih.<br>
-- Jauhi maksiat mata dan telinga, karena ilmu Allah adalah cahaya yang tidak diberikan kepada pelaku maksiat.`,
-            suggestions: [
-                "Jelaskan pilar utama Akidah Islamiyah",
-                "Ceritakan Sirah Nabawiyah fase Makkah",
-                "Berikan nasihat penguat iman hari ini"
-            ]
-        };
-    }
-
-    if (text.includes('nasihat') || text.includes('motivasi') || text.includes('dinun wa daulatun') || text.includes('peradaban')) {
-        return {
-            isRestricted: false,
-            reply: `Saudaraku tercinta, renungkanlah kalimat ini:<br><br>
-            <em>"Tegakkanlah daulah Islam di dalam hatimu, niscaya ia akan tegak di atas bumimu."</em><br><br>
-            Islam adalah agama yang paripurna (<em>Al-Islam Dinun wa Daulatun</em>)—mengatur ibadah, akidah, akhlak, pendidikan, serta kemajuan teknologi demi kemaslahatan umat.`,
-            suggestions: [
-                "Apa saja 10 karakter Muslim ideal dalam Tarbiyah?",
-                "Jelaskan Sirah Hijrah Rasulullah ke Madinah",
-                "Apa saja fitur yang tersedia di website ini?"
-            ]
-        };
-    }
-
-    // 9. JAWABAN DEFAULT DENGAN SUGGESTED QUESTIONS (SIRAH, AKIDAH, ISI WEB)
+    // 9. RESPON DEFAULT KEPRIBADIAN HASSAN AL-BANNA
     return {
-        isRestricted: false,
-        reply: `Assalamualaikum warahmatullahi wabarakatuh, wahai saudaraku.<br><br>
-        Terima kasih atas pertanyaanmu mengenai <em>"${sanitizeHTML(rawInput)}"</em>. Dalam pandangan Islam yang menyeluruh, setiap langkah, ilmu, dan karya yang kita bangun haruslah berlandaskan <strong>Akidah yang lurus</strong>, meneladani <strong>Sirah Rasulullah SAW</strong>, dan membawa manfaat bagi umat.<br><br>
-        Silakan pilih salah satu topik di bawah ini atau ajukan pertanyaan spesifik seputar Sirah, Akidah, maupun isi website portofolio ini:`,
-        suggestions: [
-            "Ceritakan ringkasan Sirah Nabawiyah & perjuangan Rasulullah",
-            "Jelaskan pilar utama Akidah Islamiyah (Tauhid)",
-            "Apa saja fitur dan profil pembuat website ini?"
-        ]
+        arabic: "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ",
+        text: `Pertanyaan yang baik, wahai saudaraku mengenai **"${inputUser}"**.\n\n` +
+              "Dalam pandangan Islam, setiap persoalan hendaknya ditimbang dengan neraca **Al-Qur'an, As-Sunnah yang shahih, dan kemaslahatan umat**. Prinsip kita adalah memadukan **kekokohan prinsip** dengan **kelembutan cara penyampaian**.\n\n" +
+              "Silakan klik salah satu topik rekomendasi di bawah (Siroh Abad 6–21 M, Akidah, Madzhab Islam, Fikih, atau Profil Pembuat & Isi Website) untuk mengkaji bahasan secara lebih mendalam!"
     };
 }
