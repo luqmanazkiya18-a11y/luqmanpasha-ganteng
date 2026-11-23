@@ -579,7 +579,7 @@ function aktifkanSensorKompas() {
 // =================================================================
 // 7. CHATBOT AI ISLAMI — GROQ API + AUTO-FALLBACK + PERSONA AL-BANNA
 // =================================================================
-const GROQ_API_KEY = "TEMPEL_API_KEY_GROQ_KAMU_DI_SINI"; // <-- Tempel API Key gsk_... kamu di sini
+const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
 
 const DAFTAR_MODEL_GROQ = [
     "openai/gpt-oss-120b",
