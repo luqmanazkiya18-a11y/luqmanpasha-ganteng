@@ -40,7 +40,7 @@ body {
 }
 
 /* =================================================================
-   1. ENTERING STYLE (SPLASH SCREEN GERBANG IKHWANUL MUSLIMIN)
+   1. ENTERING STYLE & LOADING SCREEN SEJARAH IKHWAN (1928, 1948, 1965, 2013)
    ================================================================= */
 .entering-screen {
     position: fixed;
@@ -51,7 +51,8 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 24px;
+    padding: 20px;
+    overflow-y: auto;
     transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -71,21 +72,22 @@ body {
 
 .entering-content {
     position: relative;
-    max-width: 680px;
+    max-width: 720px;
+    width: 100%;
     z-index: 2;
-    animation: fadeInScale 1s ease forwards;
+    animation: fadeInScale 0.9s ease forwards;
 }
 
 @keyframes fadeInScale {
-    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    from { opacity: 0; transform: translateY(18px) scale(0.96); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .entering-emblem-box {
     position: relative;
-    width: 135px;
-    height: 135px;
-    margin: 0 auto 20px;
+    width: 105px;
+    height: 105px;
+    margin: 0 auto 12px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,8 +107,8 @@ body {
 }
 
 .entering-emblem {
-    width: 120px;
-    height: 120px;
+    width: 92px;
+    height: 92px;
     object-fit: contain;
     position: relative;
     z-index: 2;
@@ -115,65 +117,152 @@ body {
 
 .entering-arabic {
     font-family: 'Amiri', serif;
-    font-size: 1.8rem;
+    font-size: 1.55rem;
     color: var(--gold-bright);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .entering-motto-title {
     font-family: 'Amiri', serif;
-    font-size: 1.45rem;
+    font-size: 1.25rem;
     color: #fef3c7;
     letter-spacing: 0.5px;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
-.entering-sub {
-    font-size: 0.88rem;
-    color: #a7f3d0;
-    font-style: italic;
-    max-width: 560px;
-    margin: 0 auto 18px;
+/* History Timeline Loader Box */
+.history-loader-box {
+    background: rgba(2, 24, 18, 0.85);
+    border: 1.5px solid rgba(212, 175, 55, 0.45);
+    border-radius: 18px;
+    padding: 18px 22px;
+    margin: 0 auto 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
 }
 
-.entering-divider {
+.history-milestones {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.milestone-item {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.45;
+    transition: all 0.35s ease;
+}
+
+.milestone-item.active,
+.milestone-item.passed {
+    opacity: 1;
+}
+
+.ms-year {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--gold-soft);
+}
+
+.milestone-item.active .ms-year {
+    color: var(--gold-bright);
+    transform: scale(1.1);
+}
+
+.ms-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #1e293b;
+    border: 2px solid var(--gold-primary);
+    transition: all 0.35s ease;
+}
+
+.milestone-item.passed .ms-dot {
+    background: #10b981;
+    border-color: #6ee7b7;
+}
+
+.milestone-item.active .ms-dot {
+    background: var(--gold-bright);
+    box-shadow: 0 0 12px var(--gold-bright);
+    transform: scale(1.2);
+}
+
+.ms-label {
+    font-size: 0.72rem;
+    color: #a7f3d0;
+    font-weight: 500;
+}
+
+.history-progress-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.history-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #10b981, #d4af37, #facc15);
+    border-radius: 999px;
+    transition: width 0.25s linear;
+}
+
+.history-caption-card {
+    background: rgba(6, 78, 59, 0.45);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 12px;
+    padding: 12px 16px;
+    min-height: 74px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    margin: 14px 0;
-    color: var(--gold-primary);
-    font-size: 1.4rem;
+    gap: 4px;
 }
 
-.entering-divider::before,
-.entering-divider::after {
-    content: "";
-    height: 1px;
-    width: 90px;
-    background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+.history-year-badge {
+    background: var(--gold-primary);
+    color: #021c15;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 10px;
+    border-radius: 999px;
+}
+
+#history-active-desc {
+    font-size: 0.85rem;
+    color: #f1f5f9;
+    line-height: 1.5;
 }
 
 .entering-owner {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 800;
     color: #ffffff;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
 }
 
 .entering-role {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     color: var(--gold-soft);
-    margin-bottom: 28px;
+    margin-bottom: 18px;
 }
 
 .btn-enter-portal {
     background: linear-gradient(135deg, #d4af37, #f59e0b);
     color: #021c15;
     border: 2px solid #fef08a;
-    padding: 14px 34px;
+    padding: 12px 30px;
     border-radius: 999px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     font-family: inherit;
     cursor: pointer;
@@ -184,7 +273,13 @@ body {
     transition: all 0.3s ease;
 }
 
-.btn-enter-portal:hover {
+.btn-enter-portal:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    filter: grayscale(0.3);
+}
+
+.btn-enter-portal:not(:disabled):hover {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 15px 38px rgba(212, 175, 55, 0.65);
 }
@@ -298,7 +393,7 @@ nav {
 }
 
 /* =================================================================
-   3. HERO SECTION (BERANDA)
+   3. HERO SECTION (BERANDA) & ORBIT SIMBOL IKHWAN
    ================================================================= */
 header#home {
     position: relative;
@@ -322,8 +417,15 @@ header#home {
     user-select: none;
 }
 
+.hero-flex-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
 .hero-content {
-    max-width: 720px;
+    max-width: 700px;
     position: relative;
     z-index: 2;
 }
@@ -348,21 +450,159 @@ header#home {
 }
 
 .hero-content h1 {
-    font-size: 3rem;
+    font-size: 2.9rem;
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 16px;
     color: #fff;
 }
 
-.hero-content h1 span {
+.hero-name-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.gold-name {
     background: linear-gradient(135deg, #fde68a, #d4af37);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+.inline-im-emblem {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.25), rgba(6, 78, 59, 0.8));
+    border: 2px solid var(--gold-primary);
+    padding: 6px;
+    cursor: pointer;
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-shrink: 0;
+}
+
+.inline-im-emblem:hover {
+    transform: rotate(12deg) scale(1.1);
+    box-shadow: 0 0 26px rgba(250, 204, 21, 0.75);
+}
+
+.inline-im-emblem img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Orbit Simbol-Simbol Ikhwan di Sisi Kanan Hero */
+.im-orbit-showcase {
+    position: relative;
+    width: 270px;
+    height: 270px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(212, 175, 55, 0.45);
+}
+
+.outer-orbit {
+    inset: 0;
+    animation: spinOrbit 24s linear infinite;
+}
+
+.inner-orbit {
+    inset: 36px;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    animation: spinOrbitReverse 16s linear infinite;
+}
+
+@keyframes spinOrbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spinOrbitReverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+.orbit-symbol {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    background: #021c15;
+    border: 1.5px solid var(--gold-primary);
+    color: var(--gold-bright);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+.sym-1 { top: -18px; left: 50%; transform: translateX(-50%); }
+.sym-2 { bottom: -18px; left: 50%; transform: translateX(-50%); }
+.sym-3 { left: -18px; top: 50%; transform: translateY(-50%); }
+.sym-4 { right: -18px; top: 50%; transform: translateY(-50%); }
+
+.orbit-arabic-tag {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #064e3b;
+    color: var(--gold-soft);
+    font-family: 'Amiri', serif;
+    font-size: 0.85rem;
+    padding: 1px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--gold-primary);
+}
+
+.orbit-arabic-tag.bottom-tag {
+    top: auto;
+    bottom: -12px;
+}
+
+.orbit-center-logo {
+    width: 122px;
+    height: 122px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #064e3b, #021c15);
+    border: 2.5px solid var(--gold-primary);
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.im-orbit-showcase:hover .orbit-center-logo {
+    transform: scale(1.06);
+}
+
+.orbit-center-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .tagline {
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     color: var(--text-muted);
     margin-bottom: 30px;
 }
@@ -464,7 +704,6 @@ section.bg-alt {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
-/* 5 Pasal Perjuangan Card */
 .quote-im-wrapper {
     max-width: 860px;
     margin: 0 auto;
@@ -524,7 +763,6 @@ section.bg-alt {
     margin-right: 6px;
 }
 
-/* Grid Kartu Karya & Karier */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -602,7 +840,6 @@ section.bg-alt {
     color: var(--gold-bright);
 }
 
-/* Kontak Card */
 .contact-card-box {
     max-width: 720px;
     margin: 0 auto;
@@ -640,7 +877,6 @@ section.bg-alt {
     font-size: 0.92rem;
 }
 
-/* Footer */
 footer {
     background: #01140f;
     border-top: 1px solid var(--border-gold);
@@ -657,7 +893,6 @@ footer {
     margin-bottom: 4px;
 }
 
-/* Tombol Kembali Umum */
 .btn-back {
     background: rgba(6, 78, 59, 0.85);
     color: #fef3c7;
@@ -742,7 +977,6 @@ footer {
 .calc-buttons .btn-action { background: rgba(239, 68, 68, 0.25); color: #fca5a5; }
 .calc-buttons .btn-equal { background: var(--gold-primary); color: #021c15; }
 
-/* Portal Artikel */
 .portal-container {
     max-width: 1040px;
     margin: 0 auto;
@@ -820,7 +1054,6 @@ footer {
     font-family: inherit;
 }
 
-/* Game Arcade */
 .cg-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -921,7 +1154,6 @@ footer {
     padding: 14px;
 }
 
-/* Pengecek Arah Kiblat */
 .kiblat-container {
     max-width: 560px;
     margin: 0 auto;
@@ -997,7 +1229,6 @@ footer {
 .info-label { display: block; font-size: 0.78rem; color: var(--text-muted); }
 .info-value { font-size: 1.15rem; font-weight: 700; color: var(--gold-bright); }
 
-/* MapChart */
 .mapchart-container {
     height: 100vh;
     display: flex;
@@ -1037,7 +1268,7 @@ footer {
 }
 
 /* =================================================================
-   6. STYLING CHATBOT AI ISLAMI (GAYA CHATGPT/DEEPSEEK + EMERALD GOLD)
+   6. STYLING CHATBOT MULTI-SESSION & SIDEBAR RIWAYAT (AL-BANNA & ZAHRA)
    ================================================================= */
 .chatbot-theme {
     position: fixed;
@@ -1052,81 +1283,249 @@ footer {
     overflow: hidden;
 }
 
-.chatbot-theme::before {
-    content: "☪";
-    position: absolute;
-    font-size: 380px;
-    color: rgba(212, 175, 55, 0.045);
-    right: -30px;
-    bottom: -50px;
-    pointer-events: none;
-    user-select: none;
+.zahra-theme {
+    background: radial-gradient(circle at top left, #115e59, #042f2e 55%, #021818 100%);
 }
 
-.chat-app-wrapper {
+.chat-app-shell {
     width: 100%;
-    max-width: 980px;
+    max-width: 1240px;
     height: 100vh;
     max-height: 100dvh;
-    background: rgba(6, 36, 29, 0.88);
-    backdrop-filter: blur(16px);
+    display: flex;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     border-left: 1px solid rgba(212, 175, 55, 0.28);
     border-right: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+/* Sidebar Riwayat Percakapan */
+.chat-history-sidebar {
+    width: 280px;
+    background: rgba(1, 20, 15, 0.96);
+    border-right: 1px solid rgba(212, 175, 55, 0.3);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+    padding: 14px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    z-index: 20;
+}
+
+.zahra-sidebar {
+    background: rgba(2, 24, 24, 0.96);
+    border-right: 1px solid rgba(45, 212, 191, 0.35);
+}
+
+.sidebar-top-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.btn-new-session {
+    flex: 1;
+    background: linear-gradient(135deg, #d4af37, #eab308);
+    color: #021c15;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.86rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: transform 0.2s;
+}
+
+.btn-new-session:hover {
+    transform: translateY(-1px);
+}
+
+.zahra-new-btn {
+    background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+    color: #042f2e;
+}
+
+.btn-close-sidebar-mobile {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 0 12px;
+    cursor: pointer;
+}
+
+.sidebar-section-label {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+
+.chat-sessions-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.session-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.session-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.session-item.active {
+    background: rgba(212, 175, 55, 0.18);
+    border-color: rgba(212, 175, 55, 0.5);
+}
+
+.zahra-sidebar .session-item.active {
+    background: rgba(45, 212, 191, 0.18);
+    border-color: rgba(45, 212, 191, 0.5);
+}
+
+.session-info-text {
+    overflow: hidden;
+    flex: 1;
+}
+
+.session-title {
+    display: block;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.session-meta {
+    display: block;
+    font-size: 0.68rem;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+.btn-delete-session {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.btn-delete-session:hover {
+    color: #f87171;
+    background: rgba(239, 68, 68, 0.15);
+}
+
+/* Wrapper Chat Utama */
+.chat-app-wrapper {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    background: rgba(6, 36, 29, 0.88);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+}
+
+.zahra-wrapper {
+    background: rgba(4, 47, 46, 0.9);
 }
 
 .chat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 20px;
-    background: rgba(2, 24, 19, 0.94);
+    padding: 12px 18px;
+    background: rgba(2, 24, 19, 0.95);
     border-bottom: 1px solid rgba(212, 175, 55, 0.32);
-    gap: 12px;
+    gap: 10px;
+}
+
+.zahra-header, .zahra-input-area {
+    background: rgba(2, 26, 26, 0.96);
+    border-color: rgba(45, 212, 191, 0.35);
 }
 
 .chat-header-left {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
+    min-width: 0;
 }
 
-.btn-back-chat {
+.btn-toggle-history, .btn-back-chat {
     background: rgba(255, 255, 255, 0.08);
     color: #e2e8f0;
     border: 1px solid rgba(212, 175, 55, 0.35);
-    padding: 8px 14px;
+    padding: 7px 12px;
     border-radius: 10px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
+    flex-shrink: 0;
 }
 
-.btn-back-chat:hover {
+.btn-toggle-history:hover, .btn-back-chat:hover {
     background: #d4af37;
     color: #022c22;
+}
+
+.zahra-btn-back {
+    border-color: rgba(45, 212, 191, 0.45);
+}
+.zahra-btn-back:hover {
+    background: #14b8a6;
+    color: #042f2e;
 }
 
 .ai-profile {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    min-width: 0;
 }
 
 .ai-avatar-wrapper {
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     padding: 2px;
     background: linear-gradient(135deg, #d4af37, #10b981);
     flex-shrink: 0;
+}
+
+.zahra-avatar-ring {
+    background: linear-gradient(135deg, #2dd4bf, #f59e0b);
 }
 
 .ai-avatar {
@@ -1141,30 +1540,47 @@ footer {
     position: absolute;
     bottom: 1px;
     right: 1px;
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
     background: #10b981;
     border: 2px solid #022c22;
     border-radius: 50%;
 }
 
+.ai-info {
+    min-width: 0;
+}
+
 .ai-info h3 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.96rem;
     font-weight: 700;
     color: #fef3c7;
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.crescent-badge { color: #d4af37; font-size: 1.05rem; }
-.ai-info p { margin: 2px 0 0; font-size: 0.75rem; color: #6ee7b7; }
+.easter-tag {
+    background: rgba(45, 212, 191, 0.2);
+    color: #5eead4;
+    border: 1px solid #2dd4bf;
+    font-size: 0.65rem;
+    padding: 1px 7px;
+    border-radius: 999px;
+}
 
-.chat-header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.crescent-badge { color: #d4af37; }
+.ai-info p {
+    margin: 2px 0 0;
+    font-size: 0.74rem;
+    color: #6ee7b7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn-clear-chat {
@@ -1173,9 +1589,9 @@ footer {
     border: 1px solid rgba(239, 68, 68, 0.35);
     padding: 7px 12px;
     border-radius: 8px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     cursor: pointer;
-    transition: all 0.2s;
+    flex-shrink: 0;
 }
 
 .btn-clear-chat:hover { background: #ef4444; color: #fff; }
@@ -1183,10 +1599,10 @@ footer {
 .chat-messages-area {
     flex: 1;
     overflow-y: auto;
-    padding: 24px 20px;
+    padding: 22px 20px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     scroll-behavior: smooth;
 }
 
@@ -1216,9 +1632,9 @@ footer {
 }
 
 .msg-bubble {
-    padding: 14px 18px;
+    padding: 13px 17px;
     border-radius: 16px;
-    font-size: 0.92rem;
+    font-size: 0.91rem;
     line-height: 1.65;
     word-wrap: break-word;
 }
@@ -1230,11 +1646,21 @@ footer {
     border-top-left-radius: 4px;
 }
 
+.zahra-row .msg-bubble {
+    background: rgba(13, 74, 71, 0.92);
+    border: 1px solid rgba(45, 212, 191, 0.35);
+}
+
 .user-row .msg-bubble {
     background: linear-gradient(135deg, #d4af37, #b48a1e);
     color: #022c22;
     font-weight: 500;
     border-top-right-radius: 4px;
+}
+
+.zahra-user-row .msg-bubble {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #ffffff;
 }
 
 .msg-bubble.syariah-warning {
@@ -1245,7 +1671,7 @@ footer {
 
 .msg-arabic-quote {
     font-family: 'Amiri', serif;
-    font-size: 1.22rem;
+    font-size: 1.2rem;
     color: #fcd34d;
     display: block;
     margin-bottom: 6px;
@@ -1289,7 +1715,7 @@ footer {
     border: 1px solid rgba(212, 175, 55, 0.42);
     padding: 7px 14px;
     border-radius: 999px;
-    font-size: 0.8rem;
+    font-size: 0.79rem;
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -1302,36 +1728,41 @@ footer {
     font-weight: 600;
 }
 
+.zahra-chip {
+    background: rgba(17, 94, 89, 0.85);
+    color: #99f6e4;
+    border-color: rgba(45, 212, 191, 0.45);
+}
+.zahra-chip:hover {
+    background: #2dd4bf;
+    color: #042f2e;
+}
+
 .chat-input-area {
-    padding: 14px 20px 16px;
+    padding: 12px 18px 14px;
     background: rgba(2, 24, 19, 0.96);
     border-top: 1px solid rgba(212, 175, 55, 0.25);
 }
 
-#chat-form { display: flex; gap: 10px; }
+#chat-form, #zahra-chat-form { display: flex; gap: 10px; }
 
-#chat-input {
+#chat-input, #zahra-chat-input {
     flex: 1;
-    padding: 13px 18px;
+    padding: 12px 16px;
     border-radius: 12px;
     border: 1px solid rgba(212, 175, 55, 0.4);
     background: rgba(6, 44, 35, 0.92);
     color: #fff;
-    font-size: 0.94rem;
+    font-size: 0.92rem;
     font-family: inherit;
     outline: none;
-}
-
-#chat-input:focus {
-    border-color: #d4af37;
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
 }
 
 .btn-send-chat {
     background: linear-gradient(135deg, #d4af37, #eab308);
     color: #022c22;
     border: none;
-    padding: 0 22px;
+    padding: 0 20px;
     border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
@@ -1340,17 +1771,69 @@ footer {
     gap: 6px;
 }
 
-.chat-footer-note {
-    text-align: center;
-    font-size: 0.72rem;
-    color: #94a3b8;
-    margin-top: 8px;
+.zahra-send-btn {
+    background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+    color: #042f2e;
 }
 
-@media (max-width: 768px) {
-    .hero-content h1 { font-size: 2.1rem; }
-    .cg-layout, .mapchart-layout { grid-template-columns: 1fr; }
-    .nav-links { width: 100%; justify-content: center; }
-    .chat-msg-row { max-width: 92%; }
-    .btn-back-chat span { display: none; }
+.chat-footer-note {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-top: 6px;
+}
+
+/* Notifikasi Toast Easter Egg */
+.easter-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #0f766e, #042f2e);
+    color: #ccfbf1;
+    border: 1.5px solid #2dd4bf;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    z-index: 10001;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: fadeSlideUp 0.3s ease;
+}
+
+@media (max-width: 860px) {
+    .hero-flex-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-name-row, .hero-btn-group {
+        justify-content: center;
+    }
+    .im-orbit-showcase {
+        width: 220px;
+        height: 220px;
+    }
+    .orbit-center-logo {
+        width: 100px;
+        height: 100px;
+    }
+    .cg-layout, .mapchart-layout {
+        grid-template-columns: 1fr;
+    }
+    .chat-history-sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+    }
+    .chat-history-sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+    .btn-close-sidebar-mobile {
+        display: block;
+    }
+    .btn-toggle-history span, .btn-back-chat span {
+        display: none;
+    }
 }
