@@ -12,7 +12,7 @@
 <body>
 
 <!-- =================================================================
-     GERBANG PEMBUKA (LOADING SCREEN SEJARAH: 1928, 1948, 1965, 2013)
+     GERBANG PEMBUKA & LOADING SCREEN SEJARAH IKHWAN (1928, 1948, 1965, 2013)
      ================================================================= -->
 <div id="entering-overlay" class="entering-screen">
     <div class="entering-pattern"></div>
@@ -24,24 +24,28 @@
         <p class="entering-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
         <h2 class="entering-motto-title">اللَّهُ غَايَتُنَا • الرَّسُولُ قُدْوَتُنَا • الْقُرْآنُ دُسْتُورُنَا</h2>
 
-        <!-- Timeline Sejarah Loading Screen (1928, 1948, 1965, 2013) -->
+        <!-- TIMELINE SEJARAH IKHWANUL MUSLIMIN (1928 - 1948 - 1965 - 2013) -->
         <div class="history-loader-box">
             <div class="history-milestones">
-                <div class="milestone-node active" id="node-1928">
-                    <span class="m-year">1928</span>
-                    <span class="m-dot"></span>
+                <div class="milestone-item active" id="ms-1928">
+                    <span class="ms-year">1928</span>
+                    <span class="ms-dot"></span>
+                    <span class="ms-label">Ismailiyah</span>
                 </div>
-                <div class="milestone-node" id="node-1948">
-                    <span class="m-year">1948</span>
-                    <span class="m-dot"></span>
+                <div class="milestone-item" id="ms-1948">
+                    <span class="ms-year">1948</span>
+                    <span class="ms-dot"></span>
+                    <span class="ms-label">Palestina</span>
                 </div>
-                <div class="milestone-node" id="node-1965">
-                    <span class="m-year">1965</span>
-                    <span class="m-dot"></span>
+                <div class="milestone-item" id="ms-1965">
+                    <span class="ms-year">1965</span>
+                    <span class="ms-dot"></span>
+                    <span class="ms-label">Keteguhan</span>
                 </div>
-                <div class="milestone-node" id="node-2013">
-                    <span class="m-year">2013</span>
-                    <span class="m-dot"></span>
+                <div class="milestone-item" id="ms-2013">
+                    <span class="ms-year">2013</span>
+                    <span class="ms-dot"></span>
+                    <span class="ms-label">Ketabahan</span>
                 </div>
             </div>
 
@@ -49,25 +53,19 @@
                 <div class="history-progress-fill" id="history-progress-bar"></div>
             </div>
 
-            <div class="history-caption-card" id="history-caption-box">
-                <span class="history-year-badge" id="history-year-label">1928 M • Ismailiyah, Mesir</span>
-                <p id="history-desc-label">Pendirian Ikhwanul Muslimin oleh Imam Hassan Al-Banna sebagai gerakan pembinaan akhlak, pendidikan, dan kebangkitan umat.</p>
+            <div class="history-caption-card">
+                <span class="history-year-badge" id="history-active-year">1928 M</span>
+                <p id="history-active-desc">Pendirian Ikhwanul Muslimin di Ismailiyah, Mesir oleh Imam Hassan Al-Banna sebagai gerakan tajdid dan tarbiyah umat.</p>
             </div>
         </div>
 
-        <div class="entering-divider">
-            <span>☪</span>
-        </div>
         <h1 class="entering-owner">Luqman Azkiya Athaillah</h1>
         <p class="entering-role">Portofolio Digital & Dakwah Teknologi Islami</p>
 
-        <div class="entering-actions">
-            <button id="btn-enter-portal" class="btn-enter-portal" onclick="masukPortofolio()" disabled>
-                <span id="btn-enter-text">Memuat Jejak Sejarah... (0%)</span>
-                <span class="enter-arrow">&rarr;</span>
-            </button>
-            <button class="btn-skip-intro" onclick="masukPortofolio()">Lewati Animasi</button>
-        </div>
+        <button class="btn-enter-portal" id="btn-enter-portal" onclick="masukPortofolio()" disabled>
+            <span id="btn-enter-text">Memuat Linimasa Sejarah...</span>
+            <span class="enter-arrow">&rarr;</span>
+        </button>
     </div>
 </div>
 
@@ -104,7 +102,7 @@
                     <p class="salam">Assalamualaikum Warahmatullahi Wabarakatuh</p>
                     <h1 class="hero-name-row">
                         <span>Saya <span class="gold-name">Luqman Azkiya Athaillah</span></span>
-                        <span class="inline-im-emblem" onclick="triggerEasterEgg()" title="Emblem Ikhwanul Muslimin">
+                        <span class="inline-im-emblem" onclick="triggerEasterEgg()" title="Klik 5x untuk kejutan...">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin">
                         </span>
                     </h1>
@@ -116,7 +114,7 @@
                 </div>
 
                 <!-- Emblem Besar Dikelilingi Orbit Simbol-Simbol Ikhwan -->
-                <div class="im-orbit-showcase" onclick="triggerEasterEgg()" title="Emblem Perjuangan">
+                <div class="im-orbit-showcase" onclick="triggerEasterEgg()" title="Emblem Perjuangan (Klik 5x untuk membuka ruang rahasia)">
                     <div class="orbit-ring outer-orbit">
                         <span class="orbit-symbol sym-1">☪</span>
                         <span class="orbit-symbol sym-2">۞</span>
@@ -214,6 +212,8 @@
                     <p class="section-desc">Pilih salah satu aplikasi di bawah ini untuk membuka dan mencobanya secara langsung.</p>
                 </div>
                 <div class="project-grid">
+
+                    <!-- KARTU 1: KALKULATOR DIGITAL -->
                     <div class="project-card card-clickable" onclick="bukaKalkulator()">
                         <div class="card-body">
                             <span class="card-icon">🧮</span>
@@ -223,6 +223,7 @@
                         </div>
                     </div>
 
+                    <!-- KARTU 2: KOMPILASI ARTIKEL ISLAM -->
                     <div class="project-card card-clickable" onclick="bukaArtikel()">
                         <div class="card-body">
                             <span class="card-icon">📰</span>
@@ -232,6 +233,7 @@
                         </div>
                     </div>
 
+                    <!-- KARTU 3: KOMPILASI GAME ISLAMI -->
                     <div class="project-card card-clickable" onclick="bukaGame()">
                         <div class="card-body">
                             <span class="card-icon">🎮</span>
@@ -241,6 +243,7 @@
                         </div>
                     </div>
 
+                    <!-- KARTU 4: PENGECEK ARAH KIBLAT -->
                     <div class="project-card card-clickable" onclick="bukaKiblat()">
                         <div class="card-body">
                             <span class="card-icon">🧭</span>
@@ -250,15 +253,17 @@
                         </div>
                     </div>
 
+                    <!-- KARTU 5: CHATBOT AI ISLAMI -->
                     <div class="project-card card-clickable featured-project-card" onclick="bukaChatbot()">
                         <div class="card-body">
-                            <span class="card-badge-new">AI Groq • Multi-Sesi & Riwayat</span>
+                            <span class="card-badge-new">Multi-Chat • Riwayat Tersimpan</span>
                             <span class="card-icon">☪️</span>
                             <h3>Asisten AI Islami (Hassan Al-Banna)</h3>
-                            <p>Chatbot cerdas dengan kepribadian Hassan Al-Banna. Dilengkapi riwayat multi-percakapan untuk kajian Siroh, Akidah, Madzhab, & Fikih.</p>
+                            <p>Chatbot cerdas multi-percakapan dengan kepribadian Hassan Al-Banna. Tanya seputar Siroh Abad 6–21 M, Akidah, Madzhab, dan Fikih.</p>
                             <span class="btn-open">Buka Chatbot &rarr;</span>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -572,31 +577,31 @@
 </div>
 
 <!-- =================================================================
-     CHATBOT AI 1: ASISTEN DAKWAH AL-BANNA (DENGAN MULTI-SESSION HISTORY)
+     TAMPILAN CHATBOT AI ISLAMI (IMAM HASSAN AL-BANNA) + MULTI-CHAT HISTORY
      ================================================================= -->
 <div id="chatbot-page" class="hidden-page chatbot-theme">
-    <div class="chat-shell-layout">
-        <!-- Sidebar Riwayat Percakapan Al-Banna -->
+    <div class="chat-app-shell">
+        <!-- SIDEBAR RIWAYAT PERCAKAPAN AL-BANNA -->
         <aside class="chat-history-sidebar" id="albanna-sidebar">
-            <div class="sidebar-top-bar">
-                <button class="btn-new-chat" onclick="buatPercakapanBaruAlBanna()">
+            <div class="sidebar-top-actions">
+                <button class="btn-new-session" onclick="buatSesiBaru('albanna')">
                     <span>+</span> Obrolan Baru
                 </button>
-                <button class="btn-close-sidebar-mobile" onclick="toggleSidebarAlBanna()">✕</button>
+                <button class="btn-close-sidebar-mobile" onclick="toggleChatSidebar('albanna')">✕</button>
             </div>
-            <div class="sidebar-section-label">Riwayat Percakapan</div>
-            <div class="chat-session-list" id="albanna-session-list"></div>
+            <div class="sidebar-section-label">Riwayat Majelis Ilmu</div>
+            <div class="chat-sessions-list" id="albanna-sessions-list"></div>
         </aside>
 
-        <!-- Area Utama Chat Al-Banna -->
+        <!-- AREA UTAMA CHAT AL-BANNA -->
         <div class="chat-app-wrapper">
             <header class="chat-header">
                 <div class="chat-header-left">
+                    <button class="btn-toggle-history" onclick="toggleChatSidebar('albanna')" title="Lihat Riwayat Obrolan">
+                        ☰ <span>Riwayat</span>
+                    </button>
                     <button class="btn-back-chat" onclick="tutupChatbot()" title="Kembali ke Projek">
                         &larr; <span>Projek</span>
-                    </button>
-                    <button class="btn-toggle-history" onclick="toggleSidebarAlBanna()" title="Lihat Riwayat Obrolan">
-                        ☰ <span>Riwayat</span>
                     </button>
                     <div class="ai-profile">
                         <div class="ai-avatar-wrapper">
@@ -605,13 +610,13 @@
                         </div>
                         <div class="ai-info">
                             <h3>Asisten Dakwah Al-Banna <span class="crescent-badge">☪</span></h3>
-                            <p id="albanna-active-title">Obrolan Baru</p>
+                            <p id="albanna-active-session-title">Sesi Baru • Murabbi & Pemikir Islam</p>
                         </div>
                     </div>
                 </div>
                 <div class="chat-header-right">
-                    <button class="btn-clear-chat" onclick="buatPercakapanBaruAlBanna()" title="Mulai Sesi Obrolan Baru">
-                        + Baru
+                    <button class="btn-clear-chat" onclick="resetSesiAktif('albanna')" title="Bersihkan Isi Sesi Ini">
+                        🔄 Bersihkan
                     </button>
                 </div>
             </header>
@@ -628,12 +633,6 @@
                 <button class="suggest-chip" onclick="kirimPertanyaanSaran('Apa saja 4 Madzhab Fikih utama dan madzhab-madzhab dalam sejarah Islam?')">
                     📚 Madzhab-Madzhab Islam
                 </button>
-                <button class="suggest-chip" onclick="kirimPertanyaanSaran('Jelaskan kaidah dasar Fikih ibadah dan muamalah dalam kehidupan sehari-hari!')">
-                    ⚖️ Ilmu Fikih & Kaidahnya
-                </button>
-                <button class="suggest-chip" onclick="kirimPertanyaanSaran('Siapa pembuat website ini dan apa saja fitur lengkap di dalamnya?')">
-                    👤 Pembuat & Isi Website
-                </button>
                 <button class="suggest-chip" onclick="kirimPertanyaanSaran('Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!')">
                     ☪️ 5 Pasal Perjuangan
                 </button>
@@ -647,7 +646,7 @@
                     </button>
                 </form>
                 <div class="chat-footer-note">
-                    ☪ Riwayat percakapan tersimpan otomatis • Dijaga oleh filter adab & Syariat Islam
+                    ☪ Multi-Percakapan Otomatis Tersimpan • Dijaga oleh filter adab & Syariat Islam
                 </div>
             </footer>
         </div>
@@ -655,31 +654,31 @@
 </div>
 
 <!-- =================================================================
-     CHATBOT AI 2 (EASTER EGG): ZAHRA-E-GHADIR KHUM (MULTI-SESSION HISTORY)
+     EASTER EGG: CHATBOT AI ZAHRA-E-GHADIR KHUM + MULTI-CHAT HISTORY
      ================================================================= -->
-<div id="zahra-chatbot-page" class="hidden-page chatbot-theme zahra-theme">
-    <div class="chat-shell-layout">
-        <!-- Sidebar Riwayat Percakapan Zahra -->
+<div id="zahra-chatbot-page" class="hidden-page zahra-theme">
+    <div class="chat-app-shell">
+        <!-- SIDEBAR RIWAYAT PERCAKAPAN ZAHRA -->
         <aside class="chat-history-sidebar zahra-sidebar" id="zahra-sidebar">
-            <div class="sidebar-top-bar">
-                <button class="btn-new-chat zahra-new-chat" onclick="buatPercakapanBaruZahra()">
+            <div class="sidebar-top-actions">
+                <button class="btn-new-session zahra-new-btn" onclick="buatSesiBaru('zahra')">
                     <span>+</span> Obrolan Baru
                 </button>
-                <button class="btn-close-sidebar-mobile" onclick="toggleSidebarZahra()">✕</button>
+                <button class="btn-close-sidebar-mobile" onclick="toggleChatSidebar('zahra')">✕</button>
             </div>
             <div class="sidebar-section-label">Riwayat Kajian Zahra</div>
-            <div class="chat-session-list" id="zahra-session-list"></div>
+            <div class="chat-sessions-list" id="zahra-sessions-list"></div>
         </aside>
 
-        <!-- Area Utama Chat Zahra -->
+        <!-- AREA UTAMA CHAT ZAHRA -->
         <div class="chat-app-wrapper zahra-wrapper">
             <header class="chat-header zahra-header">
                 <div class="chat-header-left">
+                    <button class="btn-toggle-history zahra-btn-back" onclick="toggleChatSidebar('zahra')" title="Lihat Riwayat Obrolan">
+                        ☰ <span>Riwayat</span>
+                    </button>
                     <button class="btn-back-chat zahra-btn-back" onclick="tutupZahraChatbot()" title="Kembali ke Beranda">
                         &larr; <span>Beranda</span>
-                    </button>
-                    <button class="btn-toggle-history zahra-btn-back" onclick="toggleSidebarZahra()" title="Lihat Riwayat Obrolan">
-                        ☰ <span>Riwayat</span>
                     </button>
                     <div class="ai-profile">
                         <div class="ai-avatar-wrapper zahra-avatar-ring">
@@ -704,13 +703,13 @@
                         </div>
                         <div class="ai-info">
                             <h3>Zahra-e-Ghadir Khum <span class="easter-tag">✨ Easter Egg</span></h3>
-                            <p id="zahra-active-title">Kajian Baru</p>
+                            <p id="zahra-active-session-title">Sesi Baru • Cendekiawan Muslimah Ahlul Bait</p>
                         </div>
                     </div>
                 </div>
                 <div class="chat-header-right">
-                    <button class="btn-clear-chat zahra-btn-back" onclick="buatPercakapanBaruZahra()" title="Mulai Obrolan Baru">
-                        + Baru
+                    <button class="btn-clear-chat" onclick="resetSesiAktif('zahra')" title="Bersihkan Isi Sesi Ini">
+                        🔄 Bersihkan
                     </button>
                 </div>
             </header>
@@ -740,7 +739,7 @@
                     </button>
                 </form>
                 <div class="chat-footer-note">
-                    ۞ Riwayat kajian tersimpan otomatis • Dijaga oleh adab Ahlul Bait & Ukhuwah Islamiyah
+                    ۞ Multi-Percakapan Otomatis Tersimpan • Dijaga oleh adab Ahlul Bait & Ukhuwah Islamiyah
                 </div>
             </footer>
         </div>
