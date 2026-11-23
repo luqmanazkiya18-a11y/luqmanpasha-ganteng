@@ -61,19 +61,41 @@
         </div>
     </nav>
 
-    <!-- TAB 1: BERANDA (HERO) -->
+    <!-- TAB 1: BERANDA (HERO DENGAN LOGO IKHWAN & ORBIT SIMBOL + EASTER EGG) -->
     <div id="tab-home" class="main-tab-section">
         <header id="home">
-            <div class="hero-crescent-bg">☪</div>
-            <div class="container">
+            <div class="hero-crescent-bg" onclick="triggerEasterEgg()" title="☪">☪</div>
+            <div class="container hero-flex-layout">
                 <div class="hero-content">
                     <div class="hero-badge">☪ Ahlan Wa Sahlan di Ruang Karya Digital</div>
                     <p class="salam">Assalamualaikum Warahmatullahi Wabarakatuh</p>
-                    <h1>Saya <span>Luqman Azkiya Athaillah</span></h1>
+                    <h1 class="hero-name-row">
+                        <span>Saya <span class="gold-name">Luqman Azkiya Athaillah</span></span>
+                        <span class="inline-im-emblem" onclick="triggerEasterEgg()" title="Emblem Ikhwanul Muslimin">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin">
+                        </span>
+                    </h1>
                     <p class="tagline">Berikhtiar menciptakan karya digital yang bermanfaat, kokoh dalam akidah, dan membawa keberkahan bagi peradaban umat.</p>
                     <div class="hero-btn-group">
                         <button class="btn-primary" onclick="bukaTabUtama('projects')">Jelajahi Projek &rarr;</button>
                         <button class="btn-secondary" onclick="bukaTabUtama('about')">Profil & Prinsip</button>
+                    </div>
+                </div>
+
+                <!-- Emblem Besar Dikelilingi Orbit Simbol-Simbol Ikhwan -->
+                <div class="im-orbit-showcase" onclick="triggerEasterEgg()" title="Emblem Perjuangan">
+                    <div class="orbit-ring outer-orbit">
+                        <span class="orbit-symbol sym-1">☪</span>
+                        <span class="orbit-symbol sym-2">۞</span>
+                        <span class="orbit-symbol sym-3">📖</span>
+                        <span class="orbit-symbol sym-4">⚔️</span>
+                    </div>
+                    <div class="orbit-ring inner-orbit">
+                        <span class="orbit-arabic-tag">وَأَعِدُّوا</span>
+                        <span class="orbit-arabic-tag bottom-tag">الْحَقُّ</span>
+                    </div>
+                    <div class="orbit-center-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin">
                     </div>
                 </div>
             </div>
@@ -149,7 +171,7 @@
         </section>
     </div>
 
-    <!-- TAB 3: PROJEK & KARYA PILIHAN (TERPISAH DARI TENTANG SAYA) -->
+    <!-- TAB 3: PROJEK & KARYA PILIHAN -->
     <div id="tab-projects" class="main-tab-section hidden-page">
         <section id="projects">
             <div class="container">
@@ -533,7 +555,6 @@
                 </button>
                 <div class="ai-profile">
                     <div class="ai-avatar-wrapper">
-                        <!-- GANTI src DI BAWAH DENGAN LINK FOTO HASSAN AL-BANNA PILIHANMU -->
                         <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Hassan_al-Banna.jpg" alt="Hassan Al-Banna" class="ai-avatar" id="ai-avatar-img">
                         <span class="ai-online-dot"></span>
                     </div>
@@ -588,6 +609,84 @@
             </form>
             <div class="chat-footer-note">
                 ☪ Dijaga oleh filter adab & Syariat Islam • Terinspirasi dari Risalah Ta'lim Imam Hassan Al-Banna
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- =================================================================
+     EASTER EGG: CHATBOT AI ZAHRA-E-GHADIR KHUM (VERSI SYIAH & PEREMPUAN)
+     ================================================================= -->
+<div id="zahra-chatbot-page" class="hidden-page chatbot-theme zahra-theme">
+    <div class="chat-app-wrapper zahra-wrapper">
+        <header class="chat-header zahra-header">
+            <div class="chat-header-left">
+                <button class="btn-back-chat zahra-btn-back" onclick="tutupZahraChatbot()" title="Kembali ke Beranda">
+                    &larr; <span>Beranda</span>
+                </button>
+                <div class="ai-profile">
+                    <div class="ai-avatar-wrapper zahra-avatar-ring">
+                        <svg viewBox="0 0 100 100" class="ai-avatar" id="zahra-avatar-svg" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="hijabGrad" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#0d9488"/>
+                                    <stop offset="100%" stop-color="#115e59"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="50" fill="#042f2e"/>
+                            <path d="M22 88 C22 52, 26 24, 50 22 C74 24, 78 52, 78 88 Z" fill="url(#hijabGrad)" stroke="#f59e0b" stroke-width="2"/>
+                            <ellipse cx="50" cy="48" rx="16" ry="20" fill="#fde68a"/>
+                            <path d="M41 44 Q44 42 47 44" stroke="#1e293b" stroke-width="1.5" fill="none"/>
+                            <path d="M53 44 Q56 42 59 44" stroke="#1e293b" stroke-width="1.5" fill="none"/>
+                            <circle cx="44" cy="47" r="1.8" fill="#0f172a"/>
+                            <circle cx="56" cy="47" r="1.8" fill="#0f172a"/>
+                            <path d="M46 56 Q50 59 54 56" stroke="#b45309" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+                            <text x="50" y="29" text-anchor="middle" fill="#fbbf24" font-size="9">☪</text>
+                        </svg>
+                        <span class="ai-online-dot"></span>
+                    </div>
+                    <div class="ai-info">
+                        <h3>Zahra-e-Ghadir Khum <span class="easter-tag">✨ Easter Egg</span></h3>
+                        <p>Cendekiawan Muslimah Ahlul Bait • Khazanah Syiah Ja'fariyah</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-header-right">
+                <div class="crescent-star-emblem" title="Cahaya Ghadir Khum">
+                    <span style="font-size: 1.5rem; color: #2dd4bf;">۞</span>
+                </div>
+                <button class="btn-clear-chat" onclick="resetZahraChat()" title="Mulai Obrolan Baru">
+                    🗑️ Reset
+                </button>
+            </div>
+        </header>
+
+        <main class="chat-messages-area" id="zahra-chat-messages"></main>
+
+        <div class="suggested-questions-bar zahra-suggest-bar">
+            <button class="suggest-chip zahra-chip" onclick="kirimSaranZahra('Ceritakan peristiwa bersejarah Ghadir Khum dalam literatur Islam!')">
+                🌊 Peristiwa Ghadir Khum
+            </button>
+            <button class="suggest-chip zahra-chip" onclick="kirimSaranZahra('Siapa saja Ahlul Bait dan Dua Belas Imam dalam tradisi Syiah Itsna Asyariyah?')">
+                🕌 Ahlul Bait & 12 Imam
+            </button>
+            <button class="suggest-chip zahra-chip" onclick="kirimSaranZahra('Bagaimana keteladanan Sayyidah Fatimah Az-Zahra bagi muslimah modern?')">
+                🌸 Teladan Fatimah Az-Zahra
+            </button>
+            <button class="suggest-chip zahra-chip" onclick="kirimSaranZahra('Jelaskan perbedaan dan titik temu antara Fikih Jafari dengan 4 Madzhab Sunni!')">
+                🤝 Fikih Ja'fari & Ukhuwah Islam
+            </button>
+        </div>
+
+        <footer class="chat-input-area zahra-input-area">
+            <form id="zahra-chat-form" onsubmit="handleZahraSubmit(event)">
+                <input type="text" id="zahra-chat-input" placeholder="Tanyakan seputar Ghadir Khum, Ahlul Bait, Fikih Ja'fari, atau sejarah Islam..." autocomplete="off" required>
+                <button type="submit" class="btn-send-chat zahra-send-btn" id="zahra-btn-send">
+                    <span>Kirim</span> &#10148;
+                </button>
+            </form>
+            <div class="chat-footer-note">
+                ۞ Ruang Easter Egg Tersembunyi • Dijaga oleh adab Ahlul Bait, Ukhuwah Islamiyah & Filter Syariat
             </div>
         </footer>
     </div>
