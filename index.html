@@ -802,40 +802,46 @@
     </div>
 </div>
 
-<!-- TAMPILAN MAPCHART INTERAKTIF -->
+<!-- TAMPILAN MAPCHART INTERAKTIF (TINGKAT PROVINSI / ADMIN-1) -->
 <div id="mapchart-page" class="hidden-page">
     <div class="mapchart-container">
         <header class="mapchart-header">
             <button class="btn-back" style="margin-bottom:0;" onclick="tutupMapChart()">&larr; Kembali ke Game</button>
-            <div class="mapchart-title"><h2>🗺️ MapChart Interaktif Dunia</h2></div>
-            <button class="btn-back" style="margin-bottom:0; background:#ef4444;" onclick="resetWarnaPeta()">Reset Warna Peta</button>
+            <div class="mapchart-title"><h2>🗺️ MapChart Provinsi Dunia</h2></div>
+            <div style="display:flex; gap:8px;">
+                <button class="btn-back" style="margin-bottom:0; background:#0284c7;" onclick="fokusPetaIndonesia()">🇮🇩 Fokus Indonesia</button>
+                <button class="btn-back" style="margin-bottom:0; background:#059669;" onclick="fokusPetaDunia()">🌍 Peta Dunia</button>
+                <button class="btn-back" style="margin-bottom:0; background:#ef4444;" onclick="resetWarnaPeta()">Reset Warna</button>
+            </div>
         </header>
 
         <div class="mapchart-layout">
             <aside class="mapchart-sidebar">
                 <div class="panel-group">
-                    <label>Pilih Warna Isian (RGB Full):</label>
+                    <label>Pilih Warna Provinsi (RGB Full):</label>
                     <div class="color-picker-wrapper">
-                        <input type="color" id="map-color-picker" value="#38bdf8" onchange="updateRGBText(this.value)">
-                        <span class="rgb-preview" id="rgb-display">RGB(56, 189, 248)</span>
+                        <input type="color" id="map-color-picker" value="#10b981" onchange="updateRGBText(this.value)">
+                        <span class="rgb-preview" id="rgb-display">RGB(16, 185, 129)</span>
                     </div>
                 </div>
                 <div class="panel-group">
                     <label>Mode Interaksi Peta:</label>
                     <select id="symbol-mode">
-                        <option value="fill">Mode Mewarnai Wilayah / Negara</option>
-                        <option value="crescent">Mode Tambah Crescent & Star ☪</option>
+                        <option value="fill">Mode Mewarnai Provinsi (Klik Wilayah)</option>
+                        <option value="eraser">Mode Hapus Warna Provinsi (Kembali Default)</option>
+                        <option value="crescent">Mode Tambah Pin Crescent & Star ☪</option>
                     </select>
                 </div>
                 <div class="panel-group">
-                    <label>Informasi Wilayah Terpilih:</label>
-                    <input type="text" id="selected-region-name" value="Klik area peta..." readonly style="width:100%; padding:8px; background:#0f172a; border:1px solid #334155; color:#fff; border-radius:4px;">
+                    <label>Provinsi / Wilayah Terpilih:</label>
+                    <input type="text" id="selected-region-name" value="Memuat batas provinsi..." readonly style="width:100%; padding:8px; background:#0f172a; border:1px solid #334155; color:#fde68a; font-weight:600; border-radius:6px;">
                 </div>
                 <div class="panel-group">
-                    <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.4;">
-                        💡 <strong>Petunjuk MapChart:</strong><br>
-                        Mode Mewarnai: Klik pada wilayah/negara untuk mewarnainya sesuai pilihan warna RGB.<br>
-                        Mode Crescent & Star: Klik lokasi manapun pada peta untuk menaruh pin simbol Bulan Sabit & Bintang emas ☪.
+                    <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.5;">
+                        💡 <strong>Petunjuk MapChart Provinsi:</strong><br>
+                        • Arahkan kursor (hover) untuk melihat nama <strong>Provinsi & Negara</strong>.<br>
+                        • Klik pada provinsi manapun (misal: <em>Jawa Barat, Aceh, Kairo, Makkah</em>) untuk mewarnainya.<br>
+                        • Gunakan tombol <strong>Fokus Indonesia</strong> untuk langsung menuju kepulauan Nusantara.
                     </p>
                 </div>
             </aside>
