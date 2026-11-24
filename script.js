@@ -22,7 +22,7 @@ try {
 
 
 // =================================================================
-// 1. LOADING SCREEN SEJARAH + ANIMASI 4 KARAKTER TOKOH (1928, 1948, 1965, 2013)
+// 1. LOADING SCREEN SEJARAH + ANIMASI 4 TOKOH (1928, 1948, 1965, 2013)
 // =================================================================
 const SEJARAH_IKHWAN_MILESTONES = [
     {
@@ -658,7 +658,7 @@ function aktifkanSensorKompas() {
 // =================================================================
 // 7. SISTEM MULTI-PERCAKAPAN & RIWAYAT TERPADU (AL-BANNA & ZAHRA)
 // =================================================================
-const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
+const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
 
 const DAFTAR_MODEL_GROQ = [
     "openai/gpt-oss-120b",
@@ -1362,7 +1362,6 @@ function bukaTimeCapsule() {
     document.getElementById('time-capsule-page').classList.remove('hidden-page');
     window.scrollTo(0, 0);
 
-    // Cek status lencana gabungan kedua Easter Egg
     const ee1 = localStorage.getItem('luqman_ee1_unlocked') === 'true';
     const badgeEl = document.getElementById('vault-badge-status');
     if (badgeEl) {
