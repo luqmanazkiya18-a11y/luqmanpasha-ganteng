@@ -12,7 +12,7 @@
 <body>
 
 <!-- =================================================================
-     GERBANG PEMBUKA & LOADING SCREEN SEJARAH IKHWAN (1928, 1948, 1965, 2013)
+     GERBANG PEMBUKA & LOADING SCREEN SEJARAH + ANIMASI KARAKTER TOKOH
      ================================================================= -->
 <div id="entering-overlay" class="entering-screen">
     <div class="entering-pattern"></div>
@@ -24,8 +24,97 @@
         <p class="entering-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
         <h2 class="entering-motto-title">اللَّهُ غَايَتُنَا • الرَّسُولُ قُدْوَتُنَا • الْقُرْآنُ دُسْتُورُنَا</h2>
 
-        <!-- TIMELINE SEJARAH IKHWANUL MUSLIMIN (1928 - 1948 - 1965 - 2013) -->
+        <!-- TIMELINE SEJARAH & ANIMASI KARAKTER TOKOH (AL-BANNA, AL-HUDAYBI, QUTB, MURSI) -->
         <div class="history-loader-box">
+            <!-- Panggung Animasi 4 Karakter Tokoh -->
+            <div class="characters-stage">
+                <!-- Karakter 1: Imam Hassan Al-Banna (1928) -->
+                <div class="char-card active" id="char-1928">
+                    <div class="char-avatar-bob">
+                        <svg viewBox="0 0 80 80" width="58" height="58">
+                            <circle cx="40" cy="40" r="38" fill="#064e3b" stroke="#d4af37" stroke-width="2"/>
+                            <!-- Tarbus / Peci Khas Al-Banna -->
+                            <path d="M27 25 L53 25 L50 13 L30 13 Z" fill="#991b1b" stroke="#fbbf24" stroke-width="1.2"/>
+                            <path d="M51 15 Q56 20 55 26" stroke="#fbbf24" stroke-width="1.5" fill="none"/>
+                            <!-- Wajah & Janggut Rapi -->
+                            <ellipse cx="40" cy="37" rx="12" ry="13" fill="#fde68a"/>
+                            <path d="M29 39 Q40 54 51 39 Q48 48 40 49 Q32 48 29 39 Z" fill="#1e293b"/>
+                            <circle cx="36" cy="35" r="1.5" fill="#0f172a"/>
+                            <circle cx="44" cy="35" r="1.5" fill="#0f172a"/>
+                            <!-- Jubah -->
+                            <path d="M18 74 C20 54, 60 54, 62 74 Z" fill="#022c22" stroke="#d4af37" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <span class="char-name">Hassan Al-Banna</span>
+                    <span class="char-role-tag">1928 • Al-Mu'assis</span>
+                </div>
+
+                <!-- Karakter 2: Hasan Al-Hudaybi (1948) -->
+                <div class="char-card" id="char-1948">
+                    <div class="char-avatar-bob">
+                        <svg viewBox="0 0 80 80" width="58" height="58">
+                            <circle cx="40" cy="40" r="38" fill="#064e3b" stroke="#d4af37" stroke-width="2"/>
+                            <!-- Tarbus Hakim -->
+                            <path d="M27 25 L53 25 L50 13 L30 13 Z" fill="#7f1d1d" stroke="#fbbf24" stroke-width="1.2"/>
+                            <!-- Wajah & Kumis/Janggut Putih -->
+                            <ellipse cx="40" cy="37" rx="12" ry="13" fill="#fde68a"/>
+                            <path d="M33 42 Q40 40 47 42" stroke="#e2e8f0" stroke-width="2.2" fill="none"/>
+                            <path d="M31 43 Q40 52 49 43" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+                            <circle cx="36" cy="35" r="1.5" fill="#0f172a"/>
+                            <circle cx="44" cy="35" r="1.5" fill="#0f172a"/>
+                            <!-- Jubah & Simbol Neraca -->
+                            <path d="M18 74 C20 54, 60 54, 62 74 Z" fill="#1e293b" stroke="#d4af37" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <span class="char-name">Hasan Al-Hudaybi</span>
+                    <span class="char-role-tag">1948 • Al-Mursyid II</span>
+                </div>
+
+                <!-- Karakter 3: Sayyid Qutb (1965) -->
+                <div class="char-card" id="char-1965">
+                    <div class="char-avatar-bob">
+                        <svg viewBox="0 0 80 80" width="58" height="58">
+                            <circle cx="40" cy="40" r="38" fill="#064e3b" stroke="#d4af37" stroke-width="2"/>
+                            <!-- Rambut Rapi -->
+                            <path d="M27 32 C27 18, 53 18, 53 32 C50 24, 30 24, 27 32 Z" fill="#334155"/>
+                            <!-- Wajah & Kumis Khas -->
+                            <ellipse cx="40" cy="37" rx="11.5" ry="13" fill="#fde68a"/>
+                            <path d="M34 42 Q40 40 46 42" stroke="#1e293b" stroke-width="2.2" fill="none"/>
+                            <circle cx="36" cy="35" r="1.5" fill="#0f172a"/>
+                            <circle cx="44" cy="35" r="1.5" fill="#0f172a"/>
+                            <!-- Jas & Pena Emas -->
+                            <path d="M18 74 C20 54, 60 54, 62 74 Z" fill="#0f172a" stroke="#d4af37" stroke-width="1.5"/>
+                            <line x1="54" y1="50" x2="63" y2="38" stroke="#facc15" stroke-width="2.2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="char-name">Sayyid Qutb</span>
+                    <span class="char-role-tag">1965 • Al-Mufakkir</span>
+                </div>
+
+                <!-- Karakter 4: Dr. Muhammad Mursi (2013) -->
+                <div class="char-card" id="char-2013">
+                    <div class="char-avatar-bob">
+                        <svg viewBox="0 0 80 80" width="58" height="58">
+                            <circle cx="40" cy="40" r="38" fill="#064e3b" stroke="#d4af37" stroke-width="2"/>
+                            <!-- Rambut Beruban Rapi -->
+                            <path d="M27 31 C27 18, 53 18, 53 31 C49 23, 31 23, 27 31 Z" fill="#94a3b8"/>
+                            <!-- Wajah & Janggut Putih -->
+                            <ellipse cx="40" cy="37" rx="12" ry="13" fill="#fde68a"/>
+                            <path d="M29 40 Q40 53 51 40 Q47 48 40 49 Q33 48 29 40 Z" fill="#cbd5e1"/>
+                            <!-- Kacamata Cendekiawan -->
+                            <rect x="31" y="32" width="7" height="5" rx="1" fill="none" stroke="#0f172a" stroke-width="1.3"/>
+                            <rect x="42" y="32" width="7" height="5" rx="1" fill="none" stroke="#0f172a" stroke-width="1.3"/>
+                            <line x1="38" y1="34.5" x2="42" y2="34.5" stroke="#0f172a" stroke-width="1.3"/>
+                            <!-- Jas Resmi -->
+                            <path d="M18 74 C20 54, 60 54, 62 74 Z" fill="#1e3a8a" stroke="#d4af37" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <span class="char-name">Muhammad Mursi</span>
+                    <span class="char-role-tag">2013 • Ar-Ra'is</span>
+                </div>
+            </div>
+
+            <!-- Baris Tahun & Progress Bar -->
             <div class="history-milestones">
                 <div class="milestone-item active" id="ms-1928">
                     <span class="ms-year">1928</span>
@@ -55,7 +144,7 @@
 
             <div class="history-caption-card">
                 <span class="history-year-badge" id="history-active-year">1928 M</span>
-                <p id="history-active-desc">Pendirian Ikhwanul Muslimin di Ismailiyah, Mesir oleh Imam Hassan Al-Banna sebagai gerakan tajdid dan tarbiyah umat.</p>
+                <p id="history-active-desc">1928 — Imam Hassan Al-Banna mendirikan Ikhwanul Muslimin di Ismailiyah, Mesir sebagai gerakan tajdid, tarbiyah, dan kebangkitan umat.</p>
             </div>
         </div>
 
@@ -85,14 +174,15 @@
                 <li><a href="javascript:void(0)" id="nav-projects" class="nav-tab" onclick="bukaTabUtama('projects')">Projek & Karya</a></li>
                 <li><a href="javascript:void(0)" id="nav-contact" class="nav-tab" onclick="bukaTabUtama('contact')">Kontak</a></li>
             </ul>
-            <div class="jam-container">
+            <!-- Pemicu Easter Egg Kedua: Klik 5x pada Jam WIB -->
+            <div class="jam-container" onclick="triggerEasterEggDua()" style="cursor: pointer;" title="Waktu Indonesia Barat (Klik 5x untuk Kapsul Waktu)">
                 <span class="jam-dot"></span>
                 <span id="jam-wib">00:00:00</span> WIB
             </div>
         </div>
     </nav>
 
-    <!-- TAB 1: BERANDA (HERO DENGAN LOGO IKHWAN & ORBIT SIMBOL + EASTER EGG) -->
+    <!-- TAB 1: BERANDA (HERO DENGAN LOGO IKHWAN & ORBIT SIMBOL + EASTER EGG 1) -->
     <div id="tab-home" class="main-tab-section">
         <header id="home">
             <div class="hero-crescent-bg" onclick="triggerEasterEgg()" title="☪">☪</div>
@@ -102,7 +192,7 @@
                     <p class="salam">Assalamualaikum Warahmatullahi Wabarakatuh</p>
                     <h1 class="hero-name-row">
                         <span>Saya <span class="gold-name">Luqman Azkiya Athaillah</span></span>
-                        <span class="inline-im-emblem" onclick="triggerEasterEgg()" title="Klik 5x untuk kejutan...">
+                        <span class="inline-im-emblem" onclick="triggerEasterEgg()" title="Klik 5x untuk ruang rahasia...">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin">
                         </span>
                     </h1>
@@ -114,7 +204,7 @@
                 </div>
 
                 <!-- Emblem Besar Dikelilingi Orbit Simbol-Simbol Ikhwan -->
-                <div class="im-orbit-showcase" onclick="triggerEasterEgg()" title="Emblem Perjuangan (Klik 5x untuk membuka ruang rahasia)">
+                <div class="im-orbit-showcase" onclick="triggerEasterEgg()" title="Emblem Perjuangan">
                     <div class="orbit-ring outer-orbit">
                         <span class="orbit-symbol sym-1">☪</span>
                         <span class="orbit-symbol sym-2">۞</span>
@@ -581,7 +671,6 @@
      ================================================================= -->
 <div id="chatbot-page" class="hidden-page chatbot-theme">
     <div class="chat-app-shell">
-        <!-- SIDEBAR RIWAYAT PERCAKAPAN AL-BANNA -->
         <aside class="chat-history-sidebar" id="albanna-sidebar">
             <div class="sidebar-top-actions">
                 <button class="btn-new-session" onclick="buatSesiBaru('albanna')">
@@ -593,7 +682,6 @@
             <div class="chat-sessions-list" id="albanna-sessions-list"></div>
         </aside>
 
-        <!-- AREA UTAMA CHAT AL-BANNA -->
         <div class="chat-app-wrapper">
             <header class="chat-header">
                 <div class="chat-header-left">
@@ -654,11 +742,10 @@
 </div>
 
 <!-- =================================================================
-     EASTER EGG: CHATBOT AI ZAHRA-E-GHADIR KHUM + MULTI-CHAT HISTORY
+     EASTER EGG 1: CHATBOT AI ZAHRA-E-GHADIR KHUM + MULTI-CHAT HISTORY
      ================================================================= -->
 <div id="zahra-chatbot-page" class="hidden-page zahra-theme">
     <div class="chat-app-shell">
-        <!-- SIDEBAR RIWAYAT PERCAKAPAN ZAHRA -->
         <aside class="chat-history-sidebar zahra-sidebar" id="zahra-sidebar">
             <div class="sidebar-top-actions">
                 <button class="btn-new-session zahra-new-btn" onclick="buatSesiBaru('zahra')">
@@ -670,7 +757,6 @@
             <div class="chat-sessions-list" id="zahra-sessions-list"></div>
         </aside>
 
-        <!-- AREA UTAMA CHAT ZAHRA -->
         <div class="chat-app-wrapper zahra-wrapper">
             <header class="chat-header zahra-header">
                 <div class="chat-header-left">
@@ -702,7 +788,7 @@
                             <span class="ai-online-dot"></span>
                         </div>
                         <div class="ai-info">
-                            <h3>Zahra-e-Ghadir Khum <span class="easter-tag">✨ Easter Egg</span></h3>
+                            <h3>Zahra-e-Ghadir Khum <span class="easter-tag">✨ Easter Egg I</span></h3>
                             <p id="zahra-active-session-title">Sesi Baru • Cendekiawan Muslimah Ahlul Bait</p>
                         </div>
                     </div>
@@ -742,6 +828,67 @@
                     ۞ Multi-Percakapan Otomatis Tersimpan • Dijaga oleh adab Ahlul Bait & Ukhuwah Islamiyah
                 </div>
             </footer>
+        </div>
+    </div>
+</div>
+
+<!-- =================================================================
+     EASTER EGG 2: KAPSUL WAKTU PERADABAN ISLAM & GULUNGAN HIKMAH EMAS
+     ================================================================= -->
+<div id="time-capsule-page" class="hidden-page vault-theme">
+    <div class="vault-container">
+        <div class="vault-topbar">
+            <button class="btn-back vault-btn-back" onclick="tutupTimeCapsule()">&larr; Kembali ke Beranda</button>
+            <div class="vault-badge-header">⏳ EASTER EGG II • KHIZANAH PERADABAN ISLAM</div>
+            <div class="vault-achievement-pill" id="vault-badge-status">🏅 Penjelajah Waktu</div>
+        </div>
+
+        <div class="vault-hero-banner">
+            <p class="vault-arabic">وَتِلْكَ الْأَيَّامُ نُدَاوِلُهَا بَيْنَ النَّاسِ</p>
+            <h2>Kapsul Waktu Peradaban & Gulungan Hikmah</h2>
+            <p>"Dan masa (kejayaan dan kehancuran) itu, Kami pergilirkan di antara manusia agar mereka mendapat pelajaran." (QS. Ali 'Imran: 140)</p>
+        </div>
+
+        <!-- Navigator Era Sejarah Islam (610 M - 2026 M) -->
+        <div class="era-selector-bar" id="era-selector-bar">
+            <button class="era-btn active" onclick="pilihEraPeradaban(0, this)">610 M • Nubuwah</button>
+            <button class="era-btn" onclick="pilihEraPeradaban(1, this)">632 M • Khulafaur Rasyidin</button>
+            <button class="era-btn" onclick="pilihEraPeradaban(2, this)">786 M • Baitul Hikmah</button>
+            <button class="era-btn" onclick="pilihEraPeradaban(3, this)">1187 M • Pembebasan Al-Quds</button>
+            <button class="era-btn" onclick="pilihEraPeradaban(4, this)">1453 M • Konstantinopel</button>
+            <button class="era-btn" onclick="pilihEraPeradaban(5, this)">1928 M • Kebangkitan Modern</button>
+        </div>
+
+        <!-- Kartu Detail Era Aktif -->
+        <div class="era-display-card" id="era-display-card">
+            <div class="era-card-left">
+                <span class="era-year-pill" id="era-year-text">610 M – 632 M</span>
+                <h3 id="era-title-text">Cahaya Wahyu di Gua Hira & Cahaya Madinah</h3>
+                <p id="era-desc-text">Rasulullah ﷺ membangun fondasi akidah tauhid di Makkah selama 13 tahun, lalu mendirikan masyarakat madani berlandaskan Piagam Madinah yang menyatukan Muhajirin dan Anshar.</p>
+                <div class="era-meta-tags">
+                    <span id="era-center-tag">📍 Pusat: Makkah & Madinah</span>
+                    <span id="era-figure-tag">🌟 Tokoh: Rasulullah ﷺ</span>
+                </div>
+            </div>
+            <div class="era-card-right">
+                <div class="era-relic-icon" id="era-icon-text">🕋</div>
+                <blockquote class="era-quote-box" id="era-quote-text">
+                    "Aku tinggalkan untuk kalian dua perkara; kalian tidak akan tersesat selama berpegang teguh pada keduanya: Kitabullah dan Sunnah Nabi-Nya."
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- Mesin Pemutar Gulungan Hikmah Emas (Golden Scroll Generator) -->
+        <div class="golden-scroll-section">
+            <div class="scroll-header">
+                <h3>📜 Gulungan Hikmah & Tadabbur Acak</h3>
+                <button class="btn-spin-hikmah" onclick="putarHikmahAcak()">✨ Buka Gulungan Hikmah Baru</button>
+            </div>
+            <div class="scroll-parchment" id="scroll-parchment-box">
+                <p class="scroll-arabic" id="hikmah-arabic">مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ</p>
+                <p class="scroll-translation" id="hikmah-text">"Barangsiapa menempuh jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga."</p>
+                <span class="scroll-source" id="hikmah-source">— HR. Muslim</span>
+            </div>
         </div>
     </div>
 </div>
