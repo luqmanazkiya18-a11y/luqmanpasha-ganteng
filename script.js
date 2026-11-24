@@ -22,32 +22,36 @@ try {
 
 
 // =================================================================
-// 1. LOADING SCREEN SEJARAH IKHWAN (1928, 1948, 1965, 2013) & NAVIGASI TAB
+// 1. LOADING SCREEN SEJARAH + ANIMASI 4 KARAKTER TOKOH (1928, 1948, 1965, 2013)
 // =================================================================
 const SEJARAH_IKHWAN_MILESTONES = [
     {
         id: "ms-1928",
+        charId: "char-1928",
         year: "1928 M",
         progress: 25,
         desc: "1928 — Imam Hassan Al-Banna mendirikan Ikhwanul Muslimin di Ismailiyah, Mesir sebagai gerakan tajdid, tarbiyah, dan kebangkitan umat."
     },
     {
         id: "ms-1948",
+        charId: "char-1948",
         year: "1948 M",
         progress: 50,
-        desc: "1948 — Pengiriman batalyon sukarelawan Ikhwan membela bumi Palestina, diikuti ujian pembubaran organisasi dan syahidnya Sang Pendiri."
+        desc: "1948 — Pengiriman batalyon sukarelawan membela Palestina, ujian pembubaran, dan kepemimpinan Mursyid 'Am kedua Hakim Hasan Al-Hudaybi."
     },
     {
         id: "ms-1965",
+        charId: "char-1965",
         year: "1965 M",
         progress: 75,
-        desc: "1965 — Era mihnah (ujian berat) dan penahanan massal di penjara Mesir yang melahirkan keteguhan akidah serta karya-karya pemikiran."
+        desc: "1965 — Era mihnah (ujian berat) di penjara Mesir yang melahirkan keteguhan akidah serta karya-karya pemikiran Sayyid Qutb."
     },
     {
         id: "ms-2013",
+        charId: "char-2013",
         year: "2013 M",
         progress: 100,
-        desc: "2013 — Ujian besar pasca-demokrasi Mesir dan tragedi Rabaa; tetap istiqamah menempuh jalan dakwah damai dan kesabaran."
+        desc: "2013 — Ujian besar di era Presiden Dr. Muhammad Mursi; tetap istiqamah menempuh jalan dakwah damai dan kesabaran."
     }
 ];
 
@@ -68,10 +72,18 @@ function jalankanAnimasiSejarahEntering() {
 
         SEJARAH_IKHWAN_MILESTONES.forEach((m, i) => {
             const el = document.getElementById(m.id);
-            if (!el) return;
-            el.classList.remove('active', 'passed');
-            if (i < idx) el.classList.add('passed');
-            if (i === idx) el.classList.add('active');
+            if (el) {
+                el.classList.remove('active', 'passed');
+                if (i < idx) el.classList.add('passed');
+                if (i === idx) el.classList.add('active');
+            }
+
+            const charEl = document.getElementById(m.charId);
+            if (charEl) {
+                charEl.classList.remove('active', 'passed');
+                if (i < idx) charEl.classList.add('passed');
+                if (i === idx) charEl.classList.add('active');
+            }
         });
 
         progressBar.style.width = item.progress + '%';
@@ -90,7 +102,7 @@ function jalankanAnimasiSejarahEntering() {
             btnEnter.disabled = false;
             if (btnText) btnText.textContent = "Masuk ke Portofolio";
         }
-    }, 950);
+    }, 1050);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -118,7 +130,8 @@ function sembunyikanSemuaHalaman() {
         'kiblat-page',
         'mapchart-page',
         'chatbot-page',
-        'zahra-chatbot-page'
+        'zahra-chatbot-page',
+        'time-capsule-page'
     ];
     pages.forEach(id => {
         const el = document.getElementById(id);
@@ -286,9 +299,7 @@ function initPortalArtikel() {
         if (supabaseReady && supabaseClient) {
             try {
                 await supabaseClient.from('articles').insert([artikelBaru]);
-            } catch (err) {
-                console.warn('Info Supabase:', err.message);
-            }
+            } catch (err) {}
         }
 
         e.target.reset();
@@ -647,7 +658,7 @@ function aktifkanSensorKompas() {
 // =================================================================
 // 7. SISTEM MULTI-PERCAKAPAN & RIWAYAT TERPADU (AL-BANNA & ZAHRA)
 // =================================================================
-const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
+const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
 
 const DAFTAR_MODEL_GROQ = [
     "openai/gpt-oss-120b",
@@ -679,7 +690,6 @@ Kepribadian & Gaya Bahasa:
 - Gunakan Bahasa Indonesia yang puitis, tertata rapi, dan mudah dipahami.
 `;
 
-// State Penyimpanan Multi-Percakapan Terpisah untuk Kedua AI
 const CHAT_STORAGE_KEYS = {
     albanna: "luqman_sessions_albanna_v1",
     zahra: "luqman_sessions_zahra_v1"
@@ -719,9 +729,7 @@ function muatSemuaSesiDariStorage(persona) {
 function simpanSesiKeStorage(persona) {
     try {
         localStorage.setItem(CHAT_STORAGE_KEYS[persona], JSON.stringify(stateSesi[persona].sessions));
-    } catch (e) {
-        console.warn("Gagal menyimpan riwayat chat:", e);
-    }
+    } catch (e) {}
 }
 
 function getSesiAktif(persona) {
@@ -780,7 +788,6 @@ function pilihSesi(persona, sessionId) {
     renderSidebarSesi(persona);
     renderIsiPesanSesi(persona);
 
-    // Tutup sidebar otomatis di layar mobile setelah memilih sesi
     const sidebar = document.getElementById(`${persona}-sidebar`);
     if (sidebar) sidebar.classList.remove('sidebar-open');
 }
@@ -816,9 +823,7 @@ function resetSesiAktif(persona) {
 
 function toggleChatSidebar(persona) {
     const sidebar = document.getElementById(`${persona}-sidebar`);
-    if (sidebar) {
-        sidebar.classList.toggle('sidebar-open');
-    }
+    if (sidebar) sidebar.classList.toggle('sidebar-open');
 }
 
 function renderSidebarSesi(persona) {
@@ -985,7 +990,6 @@ async function prosesKirimPesanKeGroq(persona, teksUser) {
         time: waktuUser
     });
 
-    // Perbarui judul sesi secara otomatis dari pertanyaan pertama pengguna
     const jumlahPesanUser = sesi.messages.filter(m => m.role === 'user').length;
     if (jumlahPesanUser === 1) {
         sesi.title = teksUser.length > 34 ? teksUser.slice(0, 34) + '...' : teksUser;
@@ -996,7 +1000,6 @@ async function prosesKirimPesanKeGroq(persona, teksUser) {
     renderBubbleUserDOM(containerEl, persona, teksUser, waktuUser);
     containerEl.scrollTop = containerEl.scrollHeight;
 
-    // Filter Syariat Lokal Instan
     if (cekPelanggaranSyariat(teksUser)) {
         const pesanTolak = persona === 'albanna'
             ? "⚠️ **Maaf, wahai saudaraku.** Permintaan atau pembahasan ini mengarah pada hal yang bertentangan dengan **Syariat Islam**, adab, dan kemaslahatan diri. Mari kita alihkan diskusi kepada hal-hal yang mendatangkan ilmu bermanfaat dan ridha Allah Subhanahu wa Ta'ala."
@@ -1024,7 +1027,6 @@ async function prosesKirimPesanKeGroq(persona, teksUser) {
         return;
     }
 
-    // Susun riwayat konteks untuk dikirim ke Groq API (maksimal 12 pesan terakhir agar hemat token)
     const systemPrompt = persona === 'albanna' ? SYSTEM_PROMPT_AL_BANNA : SYSTEM_PROMPT_ZAHRA;
     const konteksGroq = [
         { role: "system", content: systemPrompt },
@@ -1120,7 +1122,6 @@ async function prosesKirimPesanKeGroq(persona, teksUser) {
     }
 }
 
-// --- Kontrol Buka/Tutup & Submit untuk Asisten Al-Banna ---
 function bukaChatbot() {
     sembunyikanSemuaHalaman();
     document.getElementById('chatbot-page').classList.remove('hidden-page');
@@ -1152,7 +1153,10 @@ function handleChatSubmit(event) {
     prosesKirimPesanKeGroq('albanna', teks);
 }
 
-// --- Kontrol Easter Egg & Buka/Tutup untuk Zahra-e-Ghadir Khum ---
+
+// =================================================================
+// 8. EASTER EGG I (ZAHRA-E-GHADIR KHUM) & EASTER EGG II (KAPSUL WAKTU)
+// =================================================================
 let easterClickCount = 0;
 let easterClickTimer = null;
 
@@ -1161,12 +1165,13 @@ function triggerEasterEgg() {
     clearTimeout(easterClickTimer);
 
     if (easterClickCount >= 3 && easterClickCount < 5) {
-        tampilkanToastEaster(`✨ ${5 - easterClickCount} klik lagi untuk membuka ruang rahasia...`);
+        tampilkanToastEaster(`✨ ${5 - easterClickCount} klik lagi untuk membuka ruang rahasia I...`);
     }
 
     if (easterClickCount >= 5) {
         easterClickCount = 0;
-        tampilkanToastEaster("۞ Gerbang Rahasia Terbuka: Zahra-e-Ghadir Khum!");
+        localStorage.setItem('luqman_ee1_unlocked', 'true');
+        tampilkanToastEaster("۞ Easter Egg I Terbuka: Zahra-e-Ghadir Khum!");
         setTimeout(() => {
             bukaZahraChatbot();
         }, 450);
@@ -1216,6 +1221,199 @@ function handleZahraSubmit(event) {
     const teks = input ? input.value.trim() : '';
     if (!teks) return;
     prosesKirimPesanKeGroq('zahra', teks);
+}
+
+// --- EASTER EGG II: KAPSUL WAKTU PERADABAN ISLAM & GULUNGAN HIKMAH ---
+let easterDuaClickCount = 0;
+let easterDuaTimer = null;
+let secretCodeBuffer = "";
+
+function triggerEasterEggDua() {
+    easterDuaClickCount++;
+    clearTimeout(easterDuaTimer);
+
+    if (easterDuaClickCount >= 3 && easterDuaClickCount < 5) {
+        tampilkanToastEaster(`⏳ ${5 - easterDuaClickCount} klik lagi untuk membuka Kapsul Waktu...`);
+    }
+
+    if (easterDuaClickCount >= 5) {
+        easterDuaClickCount = 0;
+        bukaTimeCapsule();
+        return;
+    }
+
+    easterDuaTimer = setTimeout(() => {
+        easterDuaClickCount = 0;
+    }, 2500);
+}
+
+// Pemicu Keyboard Rahasia: Ketik "1928" di halaman utama
+document.addEventListener('keydown', (e) => {
+    const activeTag = document.activeElement?.tagName?.toLowerCase();
+    if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
+
+    if (/^[0-9]$/.test(e.key)) {
+        secretCodeBuffer += e.key;
+        if (secretCodeBuffer.length > 4) {
+            secretCodeBuffer = secretCodeBuffer.slice(-4);
+        }
+        if (secretCodeBuffer === "1928") {
+            secretCodeBuffer = "";
+            bukaTimeCapsule();
+        }
+    }
+});
+
+const DATA_ERA_PERADABAN = [
+    {
+        year: "610 M – 632 M",
+        title: "Cahaya Wahyu di Gua Hira & Masyarakat Madani",
+        desc: "Rasulullah ﷺ membangun fondasi akidah tauhid di Makkah selama 13 tahun, lalu mendirikan masyarakat madani berlandaskan Piagam Madinah yang menyatukan Muhajirin dan Anshar.",
+        center: "📍 Pusat: Makkah & Madinah",
+        figure: "🌟 Tokoh: Rasulullah ﷺ",
+        icon: "🕋",
+        quote: "\"Aku tinggalkan untuk kalian dua perkara; kalian tidak akan tersesat selama berpegang teguh pada keduanya: Kitabullah dan Sunnah Nabi-Nya.\""
+    },
+    {
+        year: "632 M – 661 M",
+        title: "Era Khulafaur Rasyidin & Keadilan Semesta",
+        desc: "Kepemimpinan Abu Bakar, Umar bin Khattab, Utsman bin Affan, dan Ali bin Abi Thalib radhiyallahu 'anhum yang membukukan mushaf Al-Qur'an dan menyebarkan keadilan dari Syam hingga Persia.",
+        center: "📍 Pusat: Madinah & Kufah",
+        figure: "🌟 Tokoh: Khulafaur Rasyidin",
+        icon: "⚖️",
+        quote: "\"Sejak kapan kalian memperbudak manusia, padahal ibu-ibu mereka melahirkan mereka dalam keadaan merdeka?\" — Umar bin Khattab"
+    },
+    {
+        year: "786 M – 1258 M",
+        title: "Zaman Keemasan Sains & Baitul Hikmah Baghdad",
+        desc: "Peradaban Islam menjadi mercusuar ilmu pengetahuan dunia. Lahirnya Al-Khawarizmi (Aljabar), Ibnu Sina (Kedokteran), Ibnu Al-Haytham (Optik), serta 4 Imam Madzhab Fikih.",
+        center: "📍 Pusat: Baghdad, Kordoba & Kairo",
+        figure: "🌟 Tokoh: Al-Khawarizmi & Imam 4 Madzhab",
+        icon: "🔭",
+        quote: "\"Tinta para ulama lebih mulia daripada darah para syuhada di jalan kebenaran.\""
+    },
+    {
+        year: "1187 M",
+        title: "Pembebasan Baitul Maqdis (Al-Quds)",
+        desc: "Setelah menyatukan barisan umat melalui perbaikan akidah dan pendidikan (Madrasah Nizamiyah), Shalahuddin Al-Ayyubi membebaskan Masjidil Aqsa dengan penuh kasih sayang tanpa balas dendam.",
+        center: "📍 Pusat: Damaskus, Kairo & Al-Quds",
+        figure: "🌟 Tokoh: Shalahuddin Al-Ayyubi",
+        icon: "🕌",
+        quote: "\"Kemenangan sejati dimulai dari bersatunya hati umat di atas ketakwaan sebelum turun ke medan perjuangan.\""
+    },
+    {
+        year: "1453 M",
+        title: "Penaklukan Konstantinopel (Bisyarah Nabawiyah)",
+        desc: "Sultan Muhammad Al-Fatih pada usia 21 tahun mewujudkan kabar gembira Rasulullah ﷺ dengan memadukan strategi rekayasa teknologi meriam, armada laut, dan ketakwaan pasukan.",
+        center: "📍 Pusat: Istanbul (Islambul)",
+        figure: "🌟 Tokoh: Sultan Muhammad Al-Fatih",
+        icon: "🏰",
+        quote: "\"Sebaik-baik pemimpin adalah pemimpinnya, dan sebaik-baik pasukan adalah pasukannya.\" — HR. Ahmad"
+    },
+    {
+        year: "1928 M – Kini",
+        title: "Kebangkitan Tajdid & Dakwah Era Digital",
+        desc: "Pasca runtuhnya Kekhalifahan Utsmaniyah (1924), Imam Hassan Al-Banna menyalakan kembali obor tarbiyah dan kebangkitan umat dari Ismailiyah hingga menginspirasi generasi muslim modern.",
+        center: "📍 Pusat: Dunia Islam Global",
+        figure: "🌟 Tokoh: Imam Hassan Al-Banna",
+        icon: "☪️",
+        quote: "\"Perbaikilah dirimu sendiri, dan serulah orang lain kepada kebaikan, niscaya kebangkitan itu akan tegak.\""
+    }
+];
+
+const DAFTAR_HIKMAH_EMAS = [
+    {
+        arabic: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ",
+        text: "\"Barangsiapa menempuh jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga.\"",
+        source: "— HR. Muslim"
+    },
+    {
+        arabic: "الْوَقْتُ هُوَ الْحَيَاةُ",
+        text: "\"Waktu adalah kehidupan itu sendiri; maka janganlah engkau sia-siakan sedetik pun kecuali untuk kebaikan yang abadi.\"",
+        source: "— Imam Syahid Hassan Al-Banna"
+    },
+    {
+        arabic: "إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ",
+        text: "\"Sesungguhnya Allah tidak akan mengubah keadaan suatu kaum sebelum mereka mengubah keadaan yang ada pada diri mereka sendiri.\"",
+        source: "— QS. Ar-Ra'd: 11"
+    },
+    {
+        arabic: "إِذَا صَحَّتِ الْعَقِيدَةُ صَحَّتِ الْحَيَاةُ كُلُّهَا",
+        text: "\"Apabila lurus akidah seseorang, maka akan lurus pula seluruh jalan kehidupannya.\"",
+        source: "— Kaidah Tarbiyah Islamiyah"
+    },
+    {
+        arabic: "مَنْ أَرَادَ الدُّنْيَا فَعَلَيْهِ بِالْعِلْمِ، وَمَنْ أَرَادَ الْآخِرَةَ فَعَلَيْهِ بِالْعِلْمِ",
+        text: "\"Barangsiapa menginginkan dunia hendaklah ia berilmu, dan barangsiapa menginginkan akhirat hendaklah ia berilmu.\"",
+        source: "— Imam Asy-Syafi'i rahimahullah"
+    },
+    {
+        arabic: "أَصْلِحْ نَفْسَكَ وَادْعُ غَيْرَكَ",
+        text: "\"Perbaikilah dirimu sendiri dan ajaklah orang lain kepada kebaikan.\"",
+        source: "— Wasiat Dakwah Ikhwanul Muslimin"
+    }
+];
+
+function bukaTimeCapsule() {
+    localStorage.setItem('luqman_ee2_unlocked', 'true');
+    tampilkanToastEaster("⏳ Easter Egg II Terbuka: Kapsul Waktu Peradaban Islam!");
+
+    sembunyikanSemuaHalaman();
+    document.getElementById('time-capsule-page').classList.remove('hidden-page');
+    window.scrollTo(0, 0);
+
+    // Cek status lencana gabungan kedua Easter Egg
+    const ee1 = localStorage.getItem('luqman_ee1_unlocked') === 'true';
+    const badgeEl = document.getElementById('vault-badge-status');
+    if (badgeEl) {
+        badgeEl.textContent = ee1
+            ? "👑 Master Penjelajah (2/2 Easter Egg Terbuka!)"
+            : "🏅 Penjelajah Waktu (1/2 Easter Egg)";
+    }
+
+    const firstBtn = document.querySelector('#era-selector-bar .era-btn');
+    if (firstBtn) pilihEraPeradaban(0, firstBtn);
+}
+
+function tutupTimeCapsule() {
+    bukaTabUtama('home');
+}
+
+function pilihEraPeradaban(index, btnEl) {
+    const era = DATA_ERA_PERADABAN[index];
+    if (!era) return;
+
+    document.querySelectorAll('#era-selector-bar .era-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    document.getElementById('era-year-text').textContent = era.year;
+    document.getElementById('era-title-text').textContent = era.title;
+    document.getElementById('era-desc-text').textContent = era.desc;
+    document.getElementById('era-center-tag').textContent = era.center;
+    document.getElementById('era-figure-tag').textContent = era.figure;
+    document.getElementById('era-icon-text').textContent = era.icon;
+    document.getElementById('era-quote-text').textContent = era.quote;
+}
+
+let lastHikmahIdx = 0;
+function putarHikmahAcak() {
+    const box = document.getElementById('scroll-parchment-box');
+    if (!box) return;
+
+    let idx;
+    do {
+        idx = Math.floor(Math.random() * DAFTAR_HIKMAH_EMAS.length);
+    } while (idx === lastHikmahIdx && DAFTAR_HIKMAH_EMAS.length > 1);
+    lastHikmahIdx = idx;
+
+    const item = DAFTAR_HIKMAH_EMAS[idx];
+    box.style.opacity = '0.2';
+    setTimeout(() => {
+        document.getElementById('hikmah-arabic').textContent = item.arabic;
+        document.getElementById('hikmah-text').textContent = item.text;
+        document.getElementById('hikmah-source').textContent = item.source;
+        box.style.opacity = '1';
+    }, 200);
 }
 
 // --- Filter Keamanan Syariat & Sanitasi HTML ---
