@@ -455,10 +455,11 @@ function checkPuzzleWin() {
     }
 }
 
-// --- MAPCHART INTERAKTIF DUNIA ---
+// --- MAPCHART INTERAKTIF TINGKAT PROVINSI (ADMIN-1 DUNIA) ---
 let leafletMap = null;
 let mapMarkers = [];
 let geoJsonLayer = null;
+let coloredProvinces = {}; // Menyimpan warna provinsi yang sudah diklik
 
 function bukaMapChart() {
     sembunyikanSemuaHalaman();
@@ -467,49 +468,124 @@ function bukaMapChart() {
 
     setTimeout(() => {
         if (!leafletMap) {
-            leafletMap = L.map('leaflet-map').setView([20, 15], 2);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
+            // Menggunakan Canvas renderer agar rendering ribuan poligon provinsi dunia tetap cepat & mulus
+            leafletMap = L.map('leaflet-map', {
+                preferCanvas: true,
+                minZoom: 2
+            }).setView([-2.5, 118.0], 5); // Default langsung menyorot Indonesia
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 18
             }).addTo(leafletMap);
 
-            fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
-                .then(res => res.json())
+            const regionInput = document.getElementById('selected-region-name');
+            if (regionInput) regionInput.value = 'Mengunduh batas provinsi dunia...';
+
+            // Dataset batas provinsi / negara bagian dunia (Natural Earth Admin-1)
+            const PROVINCE_GEOJSON_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson';
+
+            fetch(PROVINCE_GEOJSON_URL)
+                .then(res => {
+                    if (!res.ok) throw new Error('Gagal memuat data provinsi');
+                    return res.json();
+                })
                 .then(data => {
+                    if (regionInput) regionInput.value = 'Klik provinsi pada peta...';
+
                     geoJsonLayer = L.geoJSON(data, {
-                        style: {
-                            fillColor: '#1e293b',
-                            weight: 1,
-                            opacity: 1,
-                            color: '#475569',
-                            fillOpacity: 0.45
+                        style: (feature) => {
+                            const provId = getProvinceUniqueId(feature);
+                            if (coloredProvinces[provId]) {
+                                return {
+                                    fillColor: coloredProvinces[provId],
+                                    weight: 1,
+                                    opacity: 1,
+                                    color: '#cbd5e1',
+                                    fillOpacity: 0.85
+                                };
+                            }
+                            return {
+                                fillColor: '#1e293b',
+                                weight: 0.7,
+                                opacity: 1,
+                                color: '#475569',
+                                fillOpacity: 0.55
+                            };
                         },
                         onEachFeature: (feature, layer) => {
+                            const provName = feature.properties.name || feature.properties.name_en || 'Provinsi';
+                            const countryName = feature.properties.admin || '';
+                            const fullLabel = countryName ? `${provName} (${countryName})` : provName;
+                            const provId = getProvinceUniqueId(feature);
+
+                            // Tooltip cepat saat kursor diarahkan ke provinsi
+                            layer.bindTooltip(fullLabel, {
+                                sticky: true,
+                                direction: 'top'
+                            });
+
+                            // Efek highlight saat hover
+                            layer.on('mouseover', () => {
+                                if (!coloredProvinces[provId]) {
+                                    layer.setStyle({
+                                        fillColor: '#334155',
+                                        fillOpacity: 0.75,
+                                        weight: 1.3,
+                                        color: '#facc15'
+                                    });
+                                } else {
+                                    layer.setStyle({
+                                        weight: 1.8,
+                                        color: '#facc15'
+                                    });
+                                }
+                            });
+
+                            layer.on('mouseout', () => {
+                                if (geoJsonLayer) {
+                                    geoJsonLayer.resetStyle(layer);
+                                }
+                            });
+
+                            // Aksi klik pada provinsi
                             layer.on('click', (e) => {
                                 const mode = document.getElementById('symbol-mode').value;
-                                const namaWilayah = feature.properties.name || 'Wilayah Tidak Diketahui';
-                                document.getElementById('selected-region-name').value = namaWilayah;
+                                if (regionInput) regionInput.value = fullLabel;
 
                                 if (mode === 'fill') {
                                     L.DomEvent.stopPropagation(e);
                                     const warna = document.getElementById('map-color-picker').value;
+                                    coloredProvinces[provId] = warna;
                                     layer.setStyle({
                                         fillColor: warna,
-                                        fillOpacity: 0.8
+                                        fillOpacity: 0.85,
+                                        weight: 1,
+                                        color: '#cbd5e1'
                                     });
+                                } else if (mode === 'eraser') {
+                                    L.DomEvent.stopPropagation(e);
+                                    delete coloredProvinces[provId];
+                                    if (geoJsonLayer) geoJsonLayer.resetStyle(layer);
                                 }
                             });
                         }
                     }).addTo(leafletMap);
                 })
-                .catch(() => console.warn('Gagal memuat layer GeoJSON negara.'));
+                .catch(() => {
+                    if (regionInput) regionInput.value = 'Gagal memuat peta provinsi. Cek koneksi internet.';
+                });
 
+            // Mode tambah pin Crescent & Star di koordinat manapun
             leafletMap.on('click', function(e) {
                 const mode = document.getElementById('symbol-mode').value;
                 if (mode === 'crescent') {
                     const crescentIcon = L.divIcon({
                         className: 'custom-crescent-pin',
-                        html: '<span style="font-size:24px; color:#ffd700; text-shadow:0 0 5px #000;">☪</span>',
-                        iconSize: [30, 30]
+                        html: '<span style="font-size:24px; color:#ffd700; text-shadow:0 0 6px #000;">☪</span>',
+                        iconSize: [30, 30],
+                        iconAnchor: [15, 15]
                     });
                     const marker = L.marker(e.latlng, { icon: crescentIcon }).addTo(leafletMap);
                     mapMarkers.push(marker);
@@ -518,26 +594,50 @@ function bukaMapChart() {
         } else {
             leafletMap.invalidateSize();
         }
-    }, 300);
+    }, 250);
 }
+
+function getProvinceUniqueId(feature) {
+    const p = feature.properties || {};
+    return p.adm1_code || `${p.admin || 'X'}_${p.name || 'Y'}`;
+}
+
+function fokusPetaIndonesia() {
+    if (leafletMap) {
+        leafletMap.setView([-2.5, 118.0], 5);
+    }
+}
+
+function fokusPetaDunia() {
+    if (leafletMap) {
+        leafletMap.setView([20, 15], 2);
+    }
+}
+
 function tutupMapChart() {
     sembunyikanSemuaHalaman();
     document.getElementById('games-page').classList.remove('hidden-page');
 }
+
 function updateRGBText(hexColor) {
     const r = parseInt(hexColor.slice(1, 3), 16);
     const g = parseInt(hexColor.slice(3, 5), 16);
     const b = parseInt(hexColor.slice(5, 7), 16);
     document.getElementById('rgb-display').textContent = `RGB(${r}, ${g}, ${b})`;
 }
+
 function resetWarnaPeta() {
+    coloredProvinces = {};
     mapMarkers.forEach(m => leafletMap.removeLayer(m));
     mapMarkers = [];
     if (geoJsonLayer) {
-        geoJsonLayer.resetStyle();
+        geoJsonLayer.eachLayer(layer => {
+            geoJsonLayer.resetStyle(layer);
+        });
     }
-    document.getElementById('selected-region-name').value = 'Klik area peta...';
-    alert("MapChart berhasil di-reset!");
+    const regionInput = document.getElementById('selected-region-name');
+    if (regionInput) regionInput.value = 'Klik provinsi pada peta...';
+    alert("Seluruh warna provinsi dan pin berhasil di-reset!");
 }
 
 
