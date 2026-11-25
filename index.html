@@ -1,1089 +1,589 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portofolio Islami Profesional - Luqman Azkiya Athaillah</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luqman — Teyvat Archive & AI Companion (Ayaka & Citlali)</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-vision="cryo">
 
-<!-- =================================================================
-     GERBANG PEMBUKA & LOADING SCREEN SEJARAH + POTRET DETAIL 4 TOKOH
-     ================================================================= -->
-<div id="entering-overlay" class="entering-screen">
-    <div class="entering-pattern"></div>
-    <div class="entering-content">
-        <div class="entering-emblem-box">
-            <div class="emblem-glow"></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Emblem Ikhwanul Muslimin" class="entering-emblem">
-        </div>
-        <p class="entering-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-        <h2 class="entering-motto-title">اللَّهُ غَايَتُنَا • الرَّسُولُ قُدْوَتُنَا • الْقُرْآنُ دُسْتُورُنَا</h2>
-
-        <!-- TIMELINE SEJARAH & PANGGUNG POTRET DETAIL 4 TOKOH -->
-        <div class="history-loader-box">
-            <div class="characters-stage">
-                <!-- Karakter 1: Imam Hassan Al-Banna (1928) -->
-                <div class="char-card active" id="char-1928">
-                    <div class="char-avatar-bob">
-                        <svg viewBox="0 0 120 120" width="84" height="84" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <radialGradient id="bgGrad1" cx="50%" cy="35%" r="65%">
-                                    <stop offset="0%" stop-color="#065f46"/>
-                                    <stop offset="100%" stop-color="#022c22"/>
-                                </radialGradient>
-                                <linearGradient id="skinGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#fde68a"/>
-                                    <stop offset="65%" stop-color="#f5d08a"/>
-                                    <stop offset="100%" stop-color="#d9a760"/>
-                                </linearGradient>
-                                <linearGradient id="tarbusGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#7f1d1d"/>
-                                    <stop offset="50%" stop-color="#b91c1c"/>
-                                    <stop offset="100%" stop-color="#7f1d1d"/>
-                                </linearGradient>
-                                <linearGradient id="robeGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="#064e3b"/>
-                                    <stop offset="100%" stop-color="#011c16"/>
-                                </linearGradient>
-                            </defs>
-                            <circle cx="60" cy="60" r="57" fill="url(#bgGrad1)" stroke="#d4af37" stroke-width="2.5"/>
-                            <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(250,204,21,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
-
-                            <!-- Jubah & Kerah Putih Khas Ulama Mesir -->
-                            <path d="M22 114 C24 84, 38 76, 60 76 C82 76, 96 84, 98 114 Z" fill="url(#robeGrad1)" stroke="#d4af37" stroke-width="1.2"/>
-                            <path d="M48 76 L60 95 L72 76 Z" fill="#f8fafc"/>
-                            <line x1="60" y1="80" x2="60" y2="112" stroke="#d4af37" stroke-width="1.5"/>
-                            <path d="M38 82 Q44 98 40 113" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none"/>
-                            <path d="M82 82 Q76 98 80 113" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none"/>
-
-                            <!-- Leher & Telinga -->
-                            <rect x="52" y="66" width="16" height="14" rx="4" fill="#d9a760"/>
-                            <ellipse cx="41" cy="51" rx="3.2" ry="5.5" fill="#e5b873"/>
-                            <ellipse cx="79" cy="51" rx="3.2" ry="5.5" fill="#e5b873"/>
-
-                            <!-- Wajah Proporsional -->
-                            <path d="M42 36 C42 26, 78 26, 78 36 L78 52 C78 65, 69 72, 60 72 C51 72, 42 65, 42 52 Z" fill="url(#skinGrad1)"/>
-
-                            <!-- Tarbus Merah & Sorban Putih Lilit (Imamah) -->
-                            <path d="M42 34 L78 34 L74 14 L46 14 Z" fill="url(#tarbusGrad1)" stroke="#991b1b" stroke-width="0.8"/>
-                            <path d="M74 16 Q82 22 81 31" stroke="#facc15" stroke-width="2" fill="none" stroke-linecap="round"/>
-                            <rect x="40" y="29" width="40" height="7" rx="3.5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.8"/>
-                            <path d="M44 32.5 Q60 30 76 32.5" stroke="#94a3b8" stroke-width="0.8" fill="none"/>
-
-                            <!-- Alis & Mata -->
-                            <path d="M47 44 Q52 41.5 56 43.5" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/>
-                            <path d="M64 43.5 Q68 41.5 73 44" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/>
-                            <ellipse cx="52" cy="47.5" rx="2.5" ry="1.8" fill="#ffffff"/>
-                            <circle cx="52" cy="47.5" r="1.4" fill="#0f172a"/>
-                            <ellipse cx="68" cy="47.5" rx="2.5" ry="1.8" fill="#ffffff"/>
-                            <circle cx="68" cy="47.5" r="1.4" fill="#0f172a"/>
-
-                            <!-- Hidung -->
-                            <path d="M60 47 L58.5 55 L61.5 55.5" stroke="#b47b38" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-
-                            <!-- Janggut Lebat & Kumis Rapi -->
-                            <path d="M42 50 C42 66, 50 75, 60 75 C70 75, 78 66, 78 50 C76 58, 71 63, 60 63 C49 63, 44 58, 42 50 Z" fill="#1e293b"/>
-                            <path d="M51 59 Q60 56.5 69 59 Q65 61 60 60.5 Q55 61 51 59 Z" fill="#0f172a"/>
-                            <path d="M55 62.5 Q60 64.5 65 62.5" stroke="#9a3412" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <span class="char-name">Hassan Al-Banna</span>
-                    <span class="char-role-tag">1928 • Al-Mu'assis</span>
-                </div>
-
-                <!-- Karakter 2: Hakim Hasan Al-Hudaybi (1948) -->
-                <div class="char-card" id="char-1948">
-                    <div class="char-avatar-bob">
-                        <svg viewBox="0 0 120 120" width="84" height="84" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <radialGradient id="bgGrad2" cx="50%" cy="35%" r="65%">
-                                    <stop offset="0%" stop-color="#065f46"/>
-                                    <stop offset="100%" stop-color="#022c22"/>
-                                </radialGradient>
-                                <linearGradient id="skinGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#fde68a"/>
-                                    <stop offset="100%" stop-color="#d4a359"/>
-                                </linearGradient>
-                                <linearGradient id="tarbusGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#7f1d1d"/>
-                                    <stop offset="50%" stop-color="#991b1b"/>
-                                    <stop offset="100%" stop-color="#7f1d1d"/>
-                                </linearGradient>
-                                <linearGradient id="suitGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="#1e293b"/>
-                                    <stop offset="100%" stop-color="#090d16"/>
-                                </linearGradient>
-                            </defs>
-                            <circle cx="60" cy="60" r="57" fill="url(#bgGrad2)" stroke="#d4af37" stroke-width="2.5"/>
-                            <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(250,204,21,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
-
-                            <!-- Setelan Jas Hakim Agung Mesir -->
-                            <path d="M22 114 C24 84, 38 76, 60 76 C82 76, 96 84, 98 114 Z" fill="url(#suitGrad2)" stroke="#d4af37" stroke-width="1.2"/>
-                            <polygon points="50,76 70,76 60,102" fill="#f8fafc"/>
-                            <polygon points="58,78 62,78 63,96 60,101 57,96" fill="#7f1d1d"/>
-                            <path d="M46 76 L55 96 L48 99 L41 82 Z" fill="#334155"/>
-                            <path d="M74 76 L65 96 L72 99 L79 82 Z" fill="#334155"/>
-
-                            <!-- Leher & Telinga -->
-                            <rect x="52" y="66" width="16" height="14" rx="4" fill="#d4a359"/>
-                            <ellipse cx="41" cy="51" rx="3.2" ry="5.5" fill="#e5b873"/>
-                            <ellipse cx="79" cy="51" rx="3.2" ry="5.5" fill="#e5b873"/>
-
-                            <!-- Wajah -->
-                            <path d="M42 36 C42 26, 78 26, 78 36 L78 53 C78 65, 69 72, 60 72 C51 72, 42 65, 42 53 Z" fill="url(#skinGrad2)"/>
-
-                            <!-- Tarbus Hakim -->
-                            <path d="M42 35 L78 35 L74 14 L46 14 Z" fill="url(#tarbusGrad2)" stroke="#7f1d1d" stroke-width="0.8"/>
-                            <rect x="42" y="33" width="36" height="2.5" fill="#450a0a"/>
-                            <path d="M74 16 Q81 22 80 30" stroke="#1e293b" stroke-width="2" fill="none"/>
-
-                            <!-- Garis Dahi Kebijaksanaan -->
-                            <path d="M51 39 Q60 38 69 39" stroke="rgba(146,64,14,0.35)" stroke-width="1" fill="none"/>
-
-                            <!-- Alis Perak & Mata Teduh -->
-                            <path d="M47 44 Q52 42 56 44" stroke="#94a3b8" stroke-width="2.1" fill="none" stroke-linecap="round"/>
-                            <path d="M64 44 Q68 42 73 44" stroke="#94a3b8" stroke-width="2.1" fill="none" stroke-linecap="round"/>
-                            <ellipse cx="52" cy="48" rx="2.4" ry="1.8" fill="#ffffff"/>
-                            <circle cx="52" cy="48" r="1.4" fill="#0f172a"/>
-                            <ellipse cx="68" cy="48" rx="2.4" ry="1.8" fill="#ffffff"/>
-                            <circle cx="68" cy="48" r="1.4" fill="#0f172a"/>
-
-                            <!-- Hidung -->
-                            <path d="M60 47 L58.5 55.5 L61.5 56" stroke="#b47b38" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-
-                            <!-- Kumis Putih Rapi & Janggut Pendek Beruban -->
-                            <path d="M50 59 Q60 56.5 70 59 Q66 61.5 60 61 Q54 61.5 50 59 Z" fill="#e2e8f0"/>
-                            <path d="M45 55 C46 66, 53 72, 60 72 C67 72, 74 66, 75 55 C72 62, 66 66, 60 66 C54 66, 48 62, 45 55 Z" fill="#cbd5e1" opacity="0.85"/>
-                            <path d="M55 63 Q60 64.5 65 63" stroke="#9a3412" stroke-width="1.2" fill="none"/>
-                        </svg>
-                    </div>
-                    <span class="char-name">Hasan Al-Hudaybi</span>
-                    <span class="char-role-tag">1948 • Al-Mursyid II</span>
-                </div>
-
-                <!-- Karakter 3: Sayyid Qutb (1965) -->
-                <div class="char-card" id="char-1965">
-                    <div class="char-avatar-bob">
-                        <svg viewBox="0 0 120 120" width="84" height="84" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <radialGradient id="bgGrad3" cx="50%" cy="35%" r="65%">
-                                    <stop offset="0%" stop-color="#065f46"/>
-                                    <stop offset="100%" stop-color="#022c22"/>
-                                </radialGradient>
-                                <linearGradient id="skinGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#fef08a"/>
-                                    <stop offset="100%" stop-color="#d4a359"/>
-                                </linearGradient>
-                            </defs>
-                            <circle cx="60" cy="60" r="57" fill="url(#bgGrad3)" stroke="#d4af37" stroke-width="2.5"/>
-                            <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(250,204,21,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
-
-                            <!-- Jas Intelektual & Pena Emas -->
-                            <path d="M22 114 C24 84, 38 76, 60 76 C82 76, 96 84, 98 114 Z" fill="#0f172a" stroke="#d4af37" stroke-width="1.2"/>
-                            <polygon points="51,76 69,76 60,99" fill="#f1f5f9"/>
-                            <polygon points="58,78 62,78 63,94 60,98 57,94" fill="#1e3a8a"/>
-
-                            <!-- Pena Emas Sayyid Qutb -->
-                            <g transform="translate(83, 76) rotate(28)">
-                                <rect x="0" y="0" width="4" height="22" rx="1" fill="#facc15" stroke="#b45309" stroke-width="0.6"/>
-                                <polygon points="0,22 4,22 2,28" fill="#fef08a"/>
-                            </g>
-
-                            <!-- Leher & Telinga -->
-                            <rect x="52" y="66" width="16" height="14" rx="4" fill="#d4a359"/>
-                            <ellipse cx="42" cy="51" rx="3" ry="5.5" fill="#e5b873"/>
-                            <ellipse cx="78" cy="51" rx="3" ry="5.5" fill="#e5b873"/>
-
-                            <!-- Wajah Lebih Tirus & Tajam -->
-                            <path d="M43 35 C43 24, 77 24, 77 35 L76 53 C76 65, 68 72, 60 72 C52 72, 44 65, 44 53 Z" fill="url(#skinGrad3)"/>
-
-                            <!-- Rambut Tersisir Rapi ke Belakang -->
-                            <path d="M42 42 C41 22, 50 18, 60 18 C70 18, 79 22, 78 42 C76 31, 69 27, 60 27 C51 27, 44 31, 42 42 Z" fill="#1e293b"/>
-                            <path d="M48 23 Q60 20 72 23" stroke="#64748b" stroke-width="1" fill="none"/>
-
-                            <!-- Alis & Sorot Mata Tajam Pemikir -->
-                            <path d="M47 43 Q52 41.5 56 43.5" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
-                            <path d="M64 43.5 Q68 41.5 73 43" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
-                            <ellipse cx="52" cy="47.5" rx="2.4" ry="1.7" fill="#ffffff"/>
-                            <circle cx="52" cy="47.5" r="1.4" fill="#0f172a"/>
-                            <ellipse cx="68" cy="47.5" rx="2.4" ry="1.7" fill="#ffffff"/>
-                            <circle cx="68" cy="47.5" r="1.4" fill="#0f172a"/>
-
-                            <!-- Hidung Tegas -->
-                            <path d="M60 46.5 L58.5 55.5 L61.5 56" stroke="#b47b38" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-
-                            <!-- Kumis Tebal Rapi Khas Sayyid Qutb -->
-                            <path d="M50 59.5 Q60 56.5 70 59.5 Q66 62 60 61.2 Q54 62 50 59.5 Z" fill="#1e293b"/>
-                            <path d="M55 64 Q60 65 65 64" stroke="#9a3412" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <span class="char-name">Sayyid Qutb</span>
-                    <span class="char-role-tag">1965 • Al-Mufakkir</span>
-                </div>
-
-                <!-- Karakter 4: Presiden Dr. Muhammad Mursi (2013) -->
-                <div class="char-card" id="char-2013">
-                    <div class="char-avatar-bob">
-                        <svg viewBox="0 0 120 120" width="84" height="84" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <radialGradient id="bgGrad4" cx="50%" cy="35%" r="65%">
-                                    <stop offset="0%" stop-color="#065f46"/>
-                                    <stop offset="100%" stop-color="#022c22"/>
-                                </radialGradient>
-                                <linearGradient id="skinGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#fde68a"/>
-                                    <stop offset="65%" stop-color="#f5d08a"/>
-                                    <stop offset="100%" stop-color="#d9a760"/>
-                                </linearGradient>
-                                <linearGradient id="suitGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="#1e3a8a"/>
-                                    <stop offset="100%" stop-color="#0f172a"/>
-                                </linearGradient>
-                            </defs>
-                            <circle cx="60" cy="60" r="57" fill="url(#bgGrad4)" stroke="#d4af37" stroke-width="2.5"/>
-                            <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(250,204,21,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
-
-                            <!-- Jas Kepresidenan Biru Dongker -->
-                            <path d="M22 114 C24 84, 38 76, 60 76 C82 76, 96 84, 98 114 Z" fill="url(#suitGrad4)" stroke="#d4af37" stroke-width="1.2"/>
-                            <polygon points="50,76 70,76 60,101" fill="#ffffff"/>
-                            <polygon points="58,78 62,78 63,95 60,100 57,95" fill="#991b1b"/>
-                            <rect x="42" y="88" width="5" height="3" rx="0.5" fill="#d4af37"/>
-
-                            <!-- Leher & Telinga -->
-                            <rect x="52" y="66" width="16" height="14" rx="4" fill="#d4a359"/>
-                            <ellipse cx="41" cy="51" rx="3.2" ry="5.5" fill="#e5b873"/>
-                            <ellipse cx="79" cy="51" rx="3.2" ry="5.5" fill="#e5b873"/>
-
-                            <!-- Wajah Bulat Penuh Wibawa -->
-                            <path d="M41 36 C41 25, 79 25, 79 36 L79 53 C79 65, 70 72, 60 72 C50 72, 41 65, 41 53 Z" fill="url(#skinGrad4)"/>
-
-                            <!-- Rambut Beruban Rapi -->
-                            <path d="M41 40 C40 21, 50 18, 60 18 C70 18, 80 21, 79 40 C77 29, 69 26, 60 26 C51 26, 43 29, 41 40 Z" fill="#cbd5e1"/>
-                            <path d="M46 23 Q60 20 74 23" stroke="#64748b" stroke-width="1.2" fill="none"/>
-
-                            <!-- Alis & Kacamata Bingkai Tipis -->
-                            <path d="M46 42.5 Q51.5 41 56 42.5" stroke="#475569" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                            <path d="M64 42.5 Q68.5 41 74 42.5" stroke="#475569" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-
-                            <rect x="45.5" y="44.5" width="12" height="7.5" rx="2" fill="rgba(255,255,255,0.22)" stroke="#1e293b" stroke-width="1.4"/>
-                            <rect x="62.5" y="44.5" width="12" height="7.5" rx="2" fill="rgba(255,255,255,0.22)" stroke="#1e293b" stroke-width="1.4"/>
-                            <line x1="57.5" y1="47.5" x2="62.5" y2="47.5" stroke="#1e293b" stroke-width="1.5"/>
-                            <line x1="41.5" y1="47" x2="45.5" y2="47.5" stroke="#1e293b" stroke-width="1.2"/>
-                            <line x1="74.5" y1="47.5" x2="78.5" y2="47" stroke="#1e293b" stroke-width="1.2"/>
-
-                            <!-- Bola Mata di Balik Kacamata -->
-                            <circle cx="51.5" cy="48.2" r="1.5" fill="#0f172a"/>
-                            <circle cx="68.5" cy="48.2" r="1.5" fill="#0f172a"/>
-
-                            <!-- Hidung -->
-                            <path d="M60 47.5 L58.5 55.5 L61.5 56" stroke="#b47b38" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-
-                            <!-- Janggut Putih Rapi & Kumis -->
-                            <path d="M42 52 C42 66, 50 74, 60 74 C70 74, 78 66, 78 52 C75 59, 70 64, 60 64 C50 64, 45 59, 42 52 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.6"/>
-                            <path d="M51 59.5 Q60 57.5 69 59.5 Q65 61.5 60 61 Q55 61.5 51 59.5 Z" fill="#cbd5e1"/>
-                            <path d="M55 63.5 Q60 65.5 65 63.5" stroke="#9a3412" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <span class="char-name">Muhammad Mursi</span>
-                    <span class="char-role-tag">2013 • Ar-Ra'is</span>
-                </div>
-            </div>
-
-            <!-- Baris Tahun & Progress Bar -->
-            <div class="history-milestones">
-                <div class="milestone-item active" id="ms-1928">
-                    <span class="ms-year">1928</span>
-                    <span class="ms-dot"></span>
-                    <span class="ms-label">Ismailiyah</span>
-                </div>
-                <div class="milestone-item" id="ms-1948">
-                    <span class="ms-year">1948</span>
-                    <span class="ms-dot"></span>
-                    <span class="ms-label">Palestina</span>
-                </div>
-                <div class="milestone-item" id="ms-1965">
-                    <span class="ms-year">1965</span>
-                    <span class="ms-dot"></span>
-                    <span class="ms-label">Keteguhan</span>
-                </div>
-                <div class="milestone-item" id="ms-2013">
-                    <span class="ms-year">2013</span>
-                    <span class="ms-dot"></span>
-                    <span class="ms-label">Ketabahan</span>
-                </div>
-            </div>
-
-            <div class="history-progress-track">
-                <div class="history-progress-fill" id="history-progress-bar"></div>
-            </div>
-
-            <div class="history-caption-card">
-                <span class="history-year-badge" id="history-active-year">1928 M</span>
-                <p id="history-active-desc">1928 — Imam Hassan Al-Banna mendirikan Ikhwanul Muslimin di Ismailiyah, Mesir sebagai gerakan tajdid, tarbiyah, dan kebangkitan umat.</p>
-            </div>
+    <!-- 1. LOADING SCREEN CELESTIA DENGAN SIMBOL TRIQUETRA BERPUTAR -->
+    <div id="genshin-loader">
+        <div class="celestia-astrolabe" id="loader-astrolabe">
+            <div class="ring ring-outer"></div>
+            <div class="ring ring-mid"></div>
+            <div class="ring ring-inner"></div>
+            <svg class="triquetra-svg" viewBox="0 0 200 200" width="170" height="170">
+                <circle cx="100" cy="100" r="88" fill="none" stroke="#c8a456" stroke-width="1.5" stroke-dasharray="6 4"/>
+                <polygon points="100,18 171,141 29,141" fill="none" stroke="#b58d3d" stroke-width="2"/>
+                <polygon points="100,182 171,59 29,59" fill="none" stroke="#d4af37" stroke-width="1.5"/>
+                <circle cx="100" cy="100" r="32" fill="none" stroke="#b58d3d" stroke-width="2"/>
+                <path d="M100 58 L108 92 L142 100 L108 108 L100 142 L92 108 L58 100 L92 92 Z" fill="#d4af37" opacity="0.85"/>
+            </svg>
         </div>
 
-        <h1 class="entering-owner">Luqman Azkiya Athaillah</h1>
-        <p class="entering-role">Portofolio Digital & Dakwah Teknologi Islami</p>
-
-        <button class="btn-enter-portal" id="btn-enter-portal" onclick="masukPortofolio()" disabled>
-            <span id="btn-enter-text">Memuat Linimasa Sejarah...</span>
-            <span class="enter-arrow">&rarr;</span>
-        </button>
-    </div>
-</div>
-
-<!-- =================================================================
-     HALAMAN UTAMA WEBSITE (DENGAN NAVIGASI TAB TERPISAH)
-     ================================================================= -->
-<div id="main-content">
-    <nav>
-        <div class="container-nav">
-            <div class="logo-wrapper" onclick="bukaTabUtama('home')" style="cursor: pointer;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin" class="logo-im">
-                <div class="logo">Portofolio<span>Muslim</span></div>
+        <div class="loader-content">
+            <div class="hoyoverse-tag">TEYVAT CHRONICLE • ARCHITECT LUQMAN</div>
+            
+            <!-- Bar 7 Elemen Genshin -->
+            <div class="genshin-elements-wrapper">
+                <div class="elements-track">
+                    <span class="el-symbol" data-el="pyro">🔥</span>
+                    <span class="el-symbol" data-el="hydro">💧</span>
+                    <span class="el-symbol" data-el="anemo">🌪️</span>
+                    <span class="el-symbol" data-el="electro">⚡</span>
+                    <span class="el-symbol" data-el="dendro">🌿</span>
+                    <span class="el-symbol" data-el="cryo">❄️</span>
+                    <span class="el-symbol" data-el="geo">🪨</span>
+                    <div class="elements-progress-bar" id="elements-fill"></div>
+                </div>
             </div>
-            <ul class="nav-links">
-                <li><a href="javascript:void(0)" id="nav-home" class="nav-tab active-tab" onclick="bukaTabUtama('home')">Beranda</a></li>
-                <li><a href="javascript:void(0)" id="nav-about" class="nav-tab" onclick="bukaTabUtama('about')">Tentang Saya</a></li>
-                <li><a href="javascript:void(0)" id="nav-projects" class="nav-tab" onclick="bukaTabUtama('projects')">Projek & Karya</a></li>
-                <li><a href="javascript:void(0)" id="nav-contact" class="nav-tab" onclick="bukaTabUtama('contact')">Kontak</a></li>
-            </ul>
-            <!-- Pemicu Easter Egg Kedua: Klik 5x pada Jam WIB -->
-            <div class="jam-container" onclick="triggerEasterEggDua()" style="cursor: pointer;" title="Waktu Indonesia Barat (Klik 5x untuk Kapsul Waktu)">
-                <span class="jam-dot"></span>
-                <span id="jam-wib">00:00:00</span> WIB
+
+            <!-- Kartu Trivia Luqman saat Loading -->
+            <div class="teyvat-tip-box">
+                <span class="tip-badge">✦ TRIVIA TRAVELER LUQMAN ✦</span>
+                <h4 id="tip-title">Arsitek Dunia Digital</h4>
+                <p id="loading-text">Memuat arsip Irminsul milik Luqman...</p>
             </div>
+
+            <button id="enter-gate-btn" class="hidden">
+                <span>✦ SENTUH GERBANG UNTUK MASUK ✦</span>
+            </button>
         </div>
-    </nav>
 
-    <!-- TAB 1: BERANDA (HERO DENGAN LOGO IKHWAN & ORBIT SIMBOL + EASTER EGG 1) -->
-    <div id="tab-home" class="main-tab-section">
-        <header id="home">
-            <div class="hero-crescent-bg" onclick="triggerEasterEgg()" title="☪">☪</div>
-            <div class="container hero-flex-layout">
-                <div class="hero-content">
-                    <div class="hero-badge">☪ Ahlan Wa Sahlan di Ruang Karya Digital</div>
-                    <p class="salam">Assalamualaikum Warahmatullahi Wabarakatuh</p>
-                    <h1 class="hero-name-row">
-                        <span>Saya <span class="gold-name">Luqman Azkiya Athaillah</span></span>
-                        <span class="inline-im-emblem" onclick="triggerEasterEgg()" title="Klik 5x untuk ruang rahasia...">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin">
-                        </span>
-                    </h1>
-                    <p class="tagline">Berikhtiar menciptakan karya digital yang bermanfaat, kokoh dalam akidah, dan membawa keberkahan bagi peradaban umat.</p>
-                    <div class="hero-btn-group">
-                        <button class="btn-primary" onclick="bukaTabUtama('projects')">Jelajahi Projek &rarr;</button>
-                        <button class="btn-secondary" onclick="bukaTabUtama('about')">Profil & Prinsip</button>
-                    </div>
-                </div>
-
-                <!-- Emblem Besar Dikelilingi Orbit Simbol-Simbol Ikhwan -->
-                <div class="im-orbit-showcase" onclick="triggerEasterEgg()" title="Emblem Perjuangan">
-                    <div class="orbit-ring outer-orbit">
-                        <span class="orbit-symbol sym-1">☪</span>
-                        <span class="orbit-symbol sym-2">۞</span>
-                        <span class="orbit-symbol sym-3">📖</span>
-                        <span class="orbit-symbol sym-4">⚔️</span>
-                    </div>
-                    <div class="orbit-ring inner-orbit">
-                        <span class="orbit-arabic-tag">وَأَعِدُّوا</span>
-                        <span class="orbit-arabic-tag bottom-tag">الْحَقُّ</span>
-                    </div>
-                    <div class="orbit-center-logo">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Muslim_Brotherhood_Emblem.svg" alt="Logo Ikhwanul Muslimin">
-                    </div>
-                </div>
-            </div>
-        </header>
+        <div class="gate-left"></div>
+        <div class="gate-right"></div>
     </div>
 
-    <!-- TAB 2: TENTANG SAYA -->
-    <div id="tab-about" class="main-tab-section hidden-page">
-        <section id="about">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Biografi & Visi</span>
-                    <h2>Tentang Saya</h2>
-                </div>
-                <div class="about-content">
-                    <p>Saya adalah <strong>Luqman Azkiya Athaillah</strong>, biasa dipanggil <strong>Luqman</strong> atau dengan nama panggung <strong>Luqman Pasha</strong>. Saya adalah seorang pelajar di <strong>SMPIT As-Syifa Boarding School JalanCagak 1</strong> yang bertekad memadukan kemajuan teknologi IT dengan prinsip-prinsip Islam yang murni.</p>
-                </div>
-            </div>
-        </section>
+    <!-- 2. ANIMASI TRANSISI PINDAH HALAMAN (SIMBOL PORTAL BERPUTAR) -->
+    <div id="page-transition-overlay">
+        <div class="transition-flash"></div>
+        <div class="transition-emblem">
+            <div class="emblem-ring-outer"></div>
+            <div class="emblem-ring"></div>
+            <span>✦</span>
+            <p id="transition-label">MEMASUKI DOMAIN...</p>
+        </div>
+    </div>
 
-        <section id="principles" class="bg-alt">
-            <div class="container">
-                <div class="quote-im-wrapper">
-                    <div class="quote-im-container">
-                        <div class="quote-emblem-top">☪</div>
-                        <p class="quote-title">Motto & 5 Pasal Perjuangan (Ikhwanul Muslimin)</p>
-                        <p class="quote-motto">"Allahu ghaayatunaa, Ar-Rasuulu qudwatunaa, Al-Qur'anu dustuurunaa, Al-Jihadu sabiilunaa, Asy-Syahadatu asmaa amaaniyyinaa."</p>
-                        <ul class="quote-pasal">
-                            <li><strong>1.</strong> Allah adalah tujuan kami <em>(Allah is our goal)</em></li>
-                            <li><strong>2.</strong> Rasulullah adalah teladan kami <em>(The Messenger is our leader)</em></li>
-                            <li><strong>3.</strong> Al-Qur'an adalah undang-undang kami <em>(The Quran is our law)</em></li>
-                            <li><strong>4.</strong> Jihad adalah jalan perjuangan kami <em>(Jihad is our way)</em></li>
-                            <li><strong>5.</strong> Mati syahid adalah cita-cita tertinggi kami <em>(Death in the cause of Allah is our highest aspiration)</em></li>
+    <!-- PARTIKEL SAKURA & SALJU -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- HUD NAVIGASI UTAMA GENSHIN IMPACT -->
+    <header class="genshin-hud-top">
+        <div class="hud-left">
+            <div class="paimon-emblem" title="Luqman's Chronicle">
+                <span>L</span>
+            </div>
+            <div class="player-uid-box">
+                <div class="player-name-row">
+                    <h1>LUQMAN ARCHIVE</h1>
+                    <span class="ar-badge">AR 60</span>
+                </div>
+                <small>UID: 800000001 • Server Asia</small>
+            </div>
+        </div>
+
+        <!-- Navigasi Halaman Terpisah -->
+        <nav class="hud-nav">
+            <button class="page-switch-btn active" data-target="page-luqman" data-label="PROFIL & TRIVIA LUQMAN">
+                <span class="tab-diamond">👑</span> Profil Luqman
+            </button>
+            <button class="page-switch-btn" data-target="page-projects" data-label="PROYEK: TEYVAT AI & KRONOLOGI">
+                <span class="tab-diamond">❖</span> Proyek Teyvat
+            </button>
+        </nav>
+
+        <!-- Resource Bar -->
+        <div class="hud-right">
+            <div class="resource-pill" title="Original Resin">
+                <span>🌙</span>
+                <strong id="resin-count">200</strong><small>/200</small>
+                <button id="condense-resin-btn" class="mini-plus" title="Gunakan 40 Resin (+60 Primogems)">⚡</button>
+            </div>
+
+            <div class="resource-pill" title="Primogems">
+                <span>💎</span>
+                <strong id="hud-primo-count">16000</strong>
+                <button id="hud-add-primo" class="mini-plus" title="Tambah +1600 Primogems">+</button>
+            </div>
+
+            <button id="bgm-toggle" class="hud-circle-btn" title="Musik Ambient Inazuma">🔇</button>
+
+            <div class="vision-orb-selector" title="Resonansi Elemen">
+                <button class="v-orb active" data-set-vision="cryo" style="--orb-color:#74d4ff;"></button>
+                <button class="v-orb" data-set-vision="electro" style="--orb-color:#c57aff;"></button>
+                <button class="v-orb" data-set-vision="pyro" style="--orb-color:#ff6b5b;"></button>
+                <button class="v-orb" data-set-vision="hydro" style="--orb-color:#4da6ff;"></button>
+                <button class="v-orb" data-set-vision="geo" style="--orb-color:#f5c542;"></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================================================================
+         HALAMAN 1: PROFIL MEWAH LUQMAN + INISIAL ORBIT 7 ELEMEN + TRIVIA
+         ========================================================================= -->
+    <main id="page-luqman" class="main-page active-page">
+        <div class="container">
+            <section class="luqman-hero-grid">
+                
+                <!-- Kolom Kiri: Inisial "L" Diorbit oleh 7 Elemen -->
+                <div class="orbit-showcase">
+                    <div class="orbit-system">
+                        <div class="orbit-track-outer"></div>
+                        <div class="orbit-track-inner"></div>
+                        
+                        <div class="luqman-core-emblem">
+                            <span class="initial-letter">L</span>
+                            <small>LUQMAN</small>
+                        </div>
+
+                        <div class="orbit-ring">
+                            <div class="orbit-planet" style="--i:0; --el-color:#ff6b5b;" title="Pyro">🔥</div>
+                            <div class="orbit-planet" style="--i:1; --el-color:#4da6ff;" title="Hydro">💧</div>
+                            <div class="orbit-planet" style="--i:2; --el-color:#6ee7b7;" title="Anemo">🌪️</div>
+                            <div class="orbit-planet" style="--i:3; --el-color:#c57aff;" title="Electro">⚡</div>
+                            <div class="orbit-planet" style="--i:4; --el-color:#a3e635;" title="Dendro">🌿</div>
+                            <div class="orbit-planet" style="--i:5; --el-color:#74d4ff;" title="Cryo">❄️</div>
+                            <div class="orbit-planet" style="--i:6; --el-color:#f5c542;" title="Geo">🪨</div>
+                        </div>
+                    </div>
+                    <p class="orbit-caption">✦ Resonansi Tujuh Elemen Mengelilingi Inisial <strong>Luqman</strong> ✦</p>
+                </div>
+
+                <!-- Kolom Kanan: Identitas & Trivia Interaktif Luqman -->
+                <div class="luqman-bio-column">
+                    <div class="genshin-frame profile-intro-card">
+                        <div class="corner-ornament tl"></div>
+                        <div class="corner-ornament tr"></div>
+                        <div class="corner-ornament bl"></div>
+                        <div class="corner-ornament br"></div>
+
+                        <span class="subtitle-gold">TRAVELER & DIGITAL ARCHITECT</span>
+                        <h2 class="hero-name">Luqman</h2>
+                        <p class="hero-desc">
+                            Selamat datang di arsip pribadi <strong>Luqman</strong>. Sebagai pengelana di dunia Teyvat sekaligus pengembang web kreatif, seluruh sistem di dalam situs ini dibangun untuk memadukan estetika megah <em>Genshin Impact</em> dengan kecerdasan buatan modern.
+                        </p>
+
+                        <div class="hero-stats-row">
+                            <div class="h-stat">
+                                <span>Adventure Rank</span>
+                                <strong>60 (Max)</strong>
+                            </div>
+                            <div class="h-stat">
+                                <span>Wilayah Favorit</span>
+                                <strong>Inazuma & Natlan</strong>
+                            </div>
+                            <div class="h-stat">
+                                <span>AI Companion</span>
+                                <strong>Ayaka & Citlali</strong>
+                            </div>
+                        </div>
+
+                        <button class="cta-enter-project page-switch-btn" data-target="page-projects" data-label="PROYEK: TEYVAT AI & KRONOLOGI">
+                            <span>✦ BUKA PROYEK: AI COMPANION, WISH & KRONOLOGI TEYVAT ✦</span>
+                        </button>
+                    </div>
+
+                    <!-- Kartu Trivia Luqman -->
+                    <div class="genshin-frame trivia-card">
+                        <div class="trivia-header">
+                            <h3>📜 Trivia & Fakta Menarik Luqman</h3>
+                            <button id="next-trivia-btn" class="genshin-btn gold-fill">Acak Trivia ↻</button>
+                        </div>
+                        <div class="trivia-spotlight">
+                            <span id="trivia-category" class="trivia-tag">ARSIP #01 • KREATOR</span>
+                            <h4 id="trivia-heading">Visi di Balik Kamisato Estate</h4>
+                            <p id="trivia-body">
+                                Luqman merancang sistem ini agar setiap pengunjung merasakan atmosfer autentik Genshin Impact—mulai dari gerbang Celestia hingga kecerdasan buatan interaktif berbasis Groq.
+                            </p>
+                        </div>
+                        <div class="trivia-dots" id="trivia-dots"></div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- =========================================================================
+         HALAMAN 2: PROYEK TEYVAT (AI AYAKA & CITLALI, TIMELINE, WISH KARAKTER, DLL)
+         ========================================================================= -->
+    <main id="page-projects" class="main-page">
+        <div class="container">
+            
+            <!-- Sub-Navigasi di dalam Halaman Proyek -->
+            <div class="project-subnav">
+                <button class="sub-tab-btn active" data-subtab="proj-ayaka-ai">❄️ AI Companion (Ayaka & Citlali)</button>
+                <button class="sub-tab-btn" data-subtab="proj-timeline">⏳ Kronologi Teyvat (Awal–Sekarang)</button>
+                <button class="sub-tab-btn" data-subtab="proj-wish-sim">🌠 Permohonan (32 Karakter)</button>
+                <button class="sub-tab-btn" data-subtab="proj-handbook">📖 Buku Panduan & Misi</button>
+                <button class="sub-tab-btn back-home page-switch-btn" data-target="page-luqman" data-label="PROFIL & TRIVIA LUQMAN">← Profil Luqman</button>
+            </div>
+
+            <!-- SUB-TAB 1: AI COMPANION (AYAKA & CITLALI TSUNDERE) -->
+            <section id="proj-ayaka-ai" class="sub-section active">
+                <div class="ai-layout">
+                    <!-- Kartu Karakter & Pengaturan Groq -->
+                    <aside class="genshin-frame character-card" id="character-aside">
+                        <div class="corner-ornament tl"></div>
+                        <div class="corner-ornament tr"></div>
+                        <div class="corner-ornament bl"></div>
+                        <div class="corner-ornament br"></div>
+
+                        <!-- Pemilih Karakter AI: Ayaka vs Citlali -->
+                        <div class="persona-switcher">
+                            <button type="button" class="persona-btn active" data-persona="ayaka">
+                                ❄️ Kamisato Ayaka
+                            </button>
+                            <button type="button" class="persona-btn" data-persona="citlali">
+                                🔮 Citlali (Tsundere)
+                            </button>
+                        </div>
+
+                        <div class="char-banner">
+                            <div class="vision-badge" id="char-vision-badge">❄️ CRYO • YASHIRO COMMISSION</div>
+                            <div class="char-avatar" id="char-avatar-ring">
+                                <img 
+                                    id="active-char-avatar"
+                                    src="https://static.wikia.nocookie.net/gensin-impact/images/5/51/Kamisato_Ayaka_Icon.png" 
+                                    alt="Karakter AI"
+                                >
+                            </div>
+                            <h2 id="char-name">Kamisato Ayaka</h2>
+                            <p class="char-title" id="char-subtitle">"Shirasagi Himegimi" • Lv. 90</p>
+                            <div class="friendship-level" id="char-bond-badge">Friendship Lv. 10 ♥</div>
+                        </div>
+
+                        <div class="affection-meter">
+                            <div class="meter-header">
+                                <span id="meter-label">Tingkat Obsesi</span>
+                                <span id="obsession-val">85%</span>
+                            </div>
+                            <div class="meter-bar">
+                                <div class="meter-fill" id="obsession-bar" style="width: 85%;"></div>
+                            </div>
+                            <small id="mood-indicator" class="mood-text">Suasana Hati: Menunggu dengan sabar...</small>
+                        </div>
+
+                        <!-- Pengaturan API Groq Pribadi (UTUH TIDAK DIUBAH) -->
+                        <div class="api-box">
+                            <label for="groq-api-key">🔑 Groq API Key Milikmu</label>
+                            <div class="key-input-group">
+                                <input type="password" id="groq-api-key" placeholder="Tempel gsk_... milikmu" autocomplete="off">
+                                <button type="button" id="toggle-key-btn" title="Lihat/Sembunyikan Key">👁️</button>
+                            </div>
+                            
+                            <label for="groq-model">🧠 Pilih Model Aktif Groq</label>
+                            <select id="groq-model">
+                                <optgroup label="OpenAI GPT-OSS (Aktif)">
+                                    <option value="openai/gpt-oss-120b" selected>GPT-OSS 120B (Default • Paling Pinter & Dalam)</option>
+                                    <option value="openai/gpt-oss-20b">GPT-OSS 20B (Cepat & Efisien)</option>
+                                </optgroup>
+                                <optgroup label="Meta Llama (Aktif)">
+                                    <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile (Sastra & Panjang)</option>
+                                    <option value="meta-llama/llama-4-maverick-17b-128e-instruct">Llama 4 Maverick 17B (Generasi Baru)</option>
+                                    <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout 17B (Responsif)</option>
+                                    <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant (Super Kilat)</option>
+                                </optgroup>
+                                <optgroup label="Qwen & Lainnya (Aktif)">
+                                    <option value="qwen/qwen3-32b">Qwen 3 32B (Penalaran Tajam)</option>
+                                    <option value="moonshotai/kimi-k2-instruct">Kimi K2 Instruct (Konteks Luas)</option>
+                                </optgroup>
+                            </select>
+
+                            <div class="api-btn-row">
+                                <button type="button" id="save-key-btn" class="genshin-btn gold-fill">Simpan Key</button>
+                                <button type="button" id="test-key-btn" class="genshin-btn">Tes Koneksi</button>
+                            </div>
+                            <small id="api-feedback" class="api-hint">API Key disimpan lokal di browser-mu sendiri.</small>
+                        </div>
+                    </aside>
+
+                    <!-- Area Chat Kanan -->
+                    <div class="genshin-frame chat-panel">
+                        <div class="chat-header">
+                            <div class="chat-header-user">
+                                <img 
+                                    class="header-avatar"
+                                    id="chat-header-avatar"
+                                    src="https://static.wikia.nocookie.net/gensin-impact/images/5/51/Kamisato_Ayaka_Icon.png" 
+                                    alt="Avatar"
+                                >
+                                <div>
+                                    <strong id="chat-header-name">Kamisato Ayaka</strong> • <span id="active-model-badge" class="model-pill">GPT-OSS 120B</span>
+                                    <p id="typing-status" class="typing-subtitle">Sedang menatapmu dari balik kipas...</p>
+                                </div>
+                            </div>
+                            <button id="clear-chat" class="genshin-btn">Reset Ingatan</button>
+                        </div>
+
+                        <div class="chat-messages" id="chat-messages"></div>
+
+                        <form id="chat-form" class="chat-input-area">
+                            <textarea id="user-input" rows="2" placeholder="Katakan sesuatu pada Ayaka... (Enter untuk kirim, Shift+Enter baris baru)" required></textarea>
+                            <button type="submit" id="send-btn">Kirim ✦</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUB-TAB 2: KRONOLOGI LENGKAP TEYVAT (TIMELINE INTERAKTIF) -->
+            <section id="proj-timeline" class="sub-section">
+                <div class="genshin-frame timeline-showcase">
+                    <div class="corner-ornament tl"></div>
+                    <div class="corner-ornament tr"></div>
+                    <div class="corner-ornament bl"></div>
+                    <div class="corner-ornament br"></div>
+
+                    <div class="timeline-hero-header">
+                        <span class="event-tag">ARSIP SEJARAH IRMINSUL • DIKURASI OLEH LUQMAN</span>
+                        <h2>✦ Kronologi Agung Dunia Teyvat ✦</h2>
+                        <p>Dari fajar penciptaan oleh Primordial One, Perang Archon yang mengguncang daratan, kehancuran Khaenri'ah, hingga langkah kaki Sang Traveler menyusuri Tujuh Bangsa.</p>
+                        
+                        <div class="era-filter-bar">
+                            <button class="era-filter-btn active" data-era="all">Semua Era (10 Babak)</button>
+                            <button class="era-filter-btn" data-era="ancient">Era Kuno & Celestia</button>
+                            <button class="era-filter-btn" data-era="cataclysm">Perang & Khaenri'ah</button>
+                            <button class="era-filter-btn" data-era="traveler">Perjalanan Traveler</button>
+                        </div>
+                    </div>
+
+                    <div class="teyvat-timeline-wrapper" id="teyvat-timeline-list">
+                        <div class="timeline-spine"></div>
+
+                        <!-- Babak 1 -->
+                        <article class="tl-node left" data-era="ancient">
+                            <div class="tl-orb" style="--node-color:#ffd166;">☀️</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">ERA PRIMORDIAL • > 6.000 TAHUN LALU</div>
+                                <h3>1. Kedatangan Phanes & Tujuh Naga Penguasa</h3>
+                                <p>Sebelum manusia ada, Teyvat dikuasai oleh <strong>Seven Sovereigns</strong> (Tujuh Naga Elemen). Sang Primordial One (<em>Phanes</em>) turun dari langit bersama Empat Bayangannya, mengalahkan para naga, dan menciptakan manusia pertama di bawah naungan Celestia.</p>
+                                <span class="tl-lore-note">Catatan Irminsul: Buku "Before Sun and Moon" (Enkanomiya)</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 2 -->
+                        <article class="tl-node right" data-era="ancient">
+                            <div class="tl-orb" style="--node-color:#c57aff;">🌌</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">ERA KEMALANGAN • BENCANA LANGIT</div>
+                                <h3>2. Perang Second Who Came & Jatuhnya Paku Langit</h3>
+                                <p>Sosok asing kedua tiba dari luar Teyvat dan memicu perang besar melawan Celestia. Untuk menekan energi Abyss yang bocor ke permukaan, Celestia menjatuhkan <strong>Divine Nails</strong> yang membekukan Dragonspine, mengubur Chasm, dan menghancurkan peradaban kuno Sal Vindagnyr.</p>
+                                <span class="tl-lore-note">Catatan Irminsul: Tiga Dewi Bulan & Seelie kehilangan wujudnya</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 3 -->
+                        <article class="tl-node left" data-era="cataclysm">
+                            <div class="tl-orb" style="--node-color:#f5c542;">⚔️</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">~ 2.000 – 3.700 TAHUN LALU • ARCHON WAR</div>
+                                <h3>3. Perang Archon & Terbentuknya The Seven</h3>
+                                <p>Para dewa di seluruh penjuru Teyvat bertarung memperebutkan tujuh takhta suci Celestia (Gnosis). <strong>Barbatos</strong> membebaskan Mondstadt dari Decarabian, dan <strong>Morax</strong> menaklukkan para dewa di Liyue untuk mendirikan kontrak damai.</p>
+                                <span class="tl-lore-note">Catatan Irminsul: Lahirnya Tujuh Bangsa & Tujuh Archon Pertama</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 4 -->
+                        <article class="tl-node right" data-era="cataclysm">
+                            <div class="tl-orb" style="--node-color:#ff4d6d;">🌑</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">500 TAHUN LALU • THE CATACLYSM</div>
+                                <h3>4. Kehancuran Khaenri'ah & Kutukan Keabadian</h3>
+                                <p>Bangsa tanpa dewa <strong>Khaenri'ah</strong> membangkitkan kekuatan terlarang Abyss. Para Archon dipanggil ke medan perang; Makoto (Electro Archon) dan Rukkhadevata gugur. Penduduk Khaenri'ah dikutuk menjadi monster Abyss serta Hilichurl, sementara Dainsleif menanggung keabadian.</p>
+                                <span class="tl-lore-note">Catatan Irminsul: Kembar Traveler dipisahkan oleh Unknown God (Asmoday)</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 5 -->
+                        <article class="tl-node left" data-era="traveler">
+                            <div class="tl-orb" style="--node-color:#6ee7b7;">🌪️</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">BABAK I • MONDSTADT & LIYUE</div>
+                                <h3>5. Kebangkitan Traveler, Stormterror & Kontrak Terakhir Rex Lapis</h3>
+                                <p>Terbangun 500 tahun kemudian bersama Paimon, Traveler menyucikan naga Dvalin di Mondstadt dan menyaksikan La Signora merebut Gnosis Venti. Di Liyue, Morax menguji umat manusia dengan memalsukan kematiannya sebelum menyerahkan Gnosis kepada Tsaritsa.</p>
+                                <span class="tl-lore-note">Status Gnosis: Anemo & Geo berpindah ke tangan Fatui</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 6 -->
+                        <article class="tl-node right" data-era="traveler">
+                            <div class="tl-orb" style="--node-color:#c57aff;">⚡</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">BABAK II • INAZUMA (KEDIAMAN KAMISATO)</div>
+                                <h3>6. Dekrit Perburuan Vision & Kehendak Abadi Raiden Shogun</h3>
+                                <p>Bekerja sama dengan <strong>Kamisato Ayaka</strong> dan pasukan perlawanan Watatsumi, Traveler menembus badai petir Inazuma, menantang Raiden Ei di Plane of Euthymia, dan mencabut Vision Hunt Decree yang membelenggu impian rakyat Inazuma.</p>
+                                <span class="tl-lore-note">Status Gnosis: Electro Gnosis diberikan Yae Miko demi menyelamatkan Traveler</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 7 -->
+                        <article class="tl-node left" data-era="traveler">
+                            <div class="tl-orb" style="--node-color:#a3e635;">🌿</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">BABAK III • SUMERU & POHON IRMINSUL</div>
+                                <h3>7. Pembebasan Nahida & Penghapusan Ingatan Dunia</h3>
+                                <p>Traveler membongkar konspirasi Akademiya dan Dottore yang menciptakan dewa buatan Scaramouche. Demi membersihkan Forbidden Knowledge dari akar dunia, Greater Lord Rukkhadevata menghapus eksistensinya sendiri dari ingatan seluruh makhluk di Irminsul.</p>
+                                <span class="tl-lore-note">Catatan Irminsul: "Semoga dunia memberkati..."</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 8 -->
+                        <article class="tl-node right" data-era="traveler">
+                            <div class="tl-orb" style="--node-color:#4da6ff;">💧</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">BABAK IV • FONTAINE & NUBUAT AIR BAH</div>
+                                <h3>8. Pengorbanan Focalors & Air Mata Sang Hakim Agung</h3>
+                                <p>Untuk menipu hukum langit Celestia dan menyelamatkan rakyat Fontaine dari kutukan dosa asal, <strong>Focalors</strong> menghancurkan takhta Hydro Archon dan mengembalikan otoritas penuh elemen Hydro kepada Naga Sovereign <strong>Neuvillette</strong>.</p>
+                                <span class="tl-lore-note">Catatan Irminsul: Skirk & All-Devouring Narwhal terungkap</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 9 -->
+                        <article class="tl-node left" data-era="traveler">
+                            <div class="tl-orb" style="--node-color:#ff6b5b;">🔥</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">BABAK V • NATLAN & NIGHT KINGDOM</div>
+                                <h3>9. Ode Kebangkitan, Mavuika & Dukun Agung Citlali</h3>
+                                <p>Di negeri perang abadi melawan invasi Abyss, Traveler bertarung bahu-membahu bersama Pyro Archon <strong>Mavuika</strong>, Capitano, serta sang dukun penguasa ramalan bintang dari suku Masters of the Night-Wind, <strong>Citlali</strong>, untuk memulihkan Sacred Flame dan Ley Line Natlan.</p>
+                                <span class="tl-lore-note">Catatan Irminsul: Rahasia Langit Palsu (False Sky) Teyvat retak</span>
+                            </div>
+                        </article>
+
+                        <!-- Babak 10 -->
+                        <article class="tl-node right" data-era="traveler">
+                            <div class="tl-orb" style="--node-color:#74d4ff;">❄️</div>
+                            <div class="tl-card">
+                                <div class="tl-era-badge">BABAK SELANJUTNYA • SNEZHNAYA & CELESTIA</div>
+                                <h3>10. Pemberontakan Tsaritsa Melawan Takdir Langit</h3>
+                                <p>Dengan hampir seluruh Gnosis terkumpul di Istana Zapolyarny, <strong>Cryo Archon (Tsaritsa)</strong> dan para Fatui Harbinger bersiap membakar dunia lama demi menantang prinsip-prinsip langit Celestia—sementara saudara kembar Traveler berdiri di persimpangan takdir Abyss.</p>
+                                <span class="tl-lore-note">Perjalanan berlanjut... Diarsipkan oleh Luqman</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUB-TAB 3: SIMULATOR WISH GACHA (100% KARAKTER ASLI TEYVAT) -->
+            <section id="proj-wish-sim" class="sub-section">
+                <div class="genshin-frame wish-card">
+                    <div class="wish-header">
+                        <div>
+                            <span class="event-tag">PERMOHONAN EVENT KARAKTER • FULL ROSTER TEYVAT</span>
+                            <h2>✦ The Heron's Court & Obsidian Starlight ✦</h2>
+                        </div>
+                        <div class="wish-stats-bar">
+                            <div class="stat-pill">Pity 5★: <strong id="pity-count">0</strong>/90</div>
+                            <div class="stat-pill">💎 <strong id="primo-count">16000</strong></div>
+                            <button id="add-primo-btn" class="genshin-btn gold-fill">+1600 💎</button>
+                        </div>
+                    </div>
+
+                    <div class="banner-display">
+                        <div class="banner-art">
+                            <div class="dual-banner-avatars">
+                                <img 
+                                    class="banner-char-img"
+                                    src="https://static.wikia.nocookie.net/gensin-impact/images/5/51/Kamisato_Ayaka_Icon.png" 
+                                    alt="Kamisato Ayaka"
+                                    onerror="this.src='https://api.hakush.in/gi/UI/UI_AvatarIcon_Ayaka.webp'"
+                                >
+                                <img 
+                                    class="banner-char-img citlali-ring"
+                                    src="https://static.wikia.nocookie.net/gensin-impact/images/2/23/Citlali_Icon.png" 
+                                    alt="Citlali"
+                                    onerror="this.src='https://api.hakush.in/gi/UI/UI_AvatarIcon_Citlali.webp'"
+                                >
+                            </div>
+                            <span class="star-rating">★★★★★</span>
+                            <h3>Kamisato Ayaka & Citlali</h3>
+                            <p>100% Karakter • 32 Karakter Asli Teyvat (16 Karakter 5★ + 16 Karakter 4★ Lengkap dengan Data Asli)</p>
+                        </div>
+                    </div>
+
+                    <div class="wish-actions">
+                        <button class="wish-btn" onclick="doWish(1)">
+                            <span>Permohonan ×1</span>
+                            <small>✦ 160 Primogems</small>
+                        </button>
+                        <button class="wish-btn gold" onclick="doWish(10)">
+                            <span>Permohonan ×10</span>
+                            <small>✦ 1600 Primogems</small>
+                        </button>
+                    </div>
+
+                    <div id="wish-results" class="wish-results-grid"></div>
+                </div>
+            </section>
+
+            <!-- SUB-TAB 4: BUKU PANDUAN & MISI HARIAN -->
+            <section id="proj-handbook" class="sub-section">
+                <div class="handbook-grid">
+                    <div class="genshin-frame handbook-card">
+                        <div class="handbook-title">
+                            <h3>🧭 Misi Harian (Adventurers' Guild)</h3>
+                            <span class="guild-note">"Ad Astra Abyssosque!"</span>
+                        </div>
+                        <p class="handbook-desc">Selesaikan Misi Harian di Teyvat untuk mengumpulkan Primogems:</p>
+                        
+                        <div class="commission-list">
+                            <div class="commission-item">
+                                <div>
+                                    <strong>1. Upacara Teh di Komore Teahouse</strong>
+                                    <p>Berbincang minimal 1 kali dengan Kamisato Ayaka.</p>
+                                </div>
+                                <button class="genshin-btn gold-fill claim-quest-btn" data-reward="60">Klaim 60 💎</button>
+                            </div>
+                            <div class="commission-item">
+                                <div>
+                                    <strong>2. Ramalan Bintang Masters of the Night-Wind</strong>
+                                    <p>Beralih ke mode karakter Citlali dan sapa dia.</p>
+                                </div>
+                                <button class="genshin-btn gold-fill claim-quest-btn" data-reward="60">Klaim 60 💎</button>
+                            </div>
+                            <div class="commission-item">
+                                <div>
+                                    <strong>3. Menelusuri Arsip Kronologi Teyvat</strong>
+                                    <p>Baca perjalanan sejarah Teyvat dari era primordial hingga Snezhnaya.</p>
+                                </div>
+                                <button class="genshin-btn gold-fill claim-quest-btn" data-reward="60">Klaim 60 💎</button>
+                            </div>
+                            <div class="commission-item">
+                                <div>
+                                    <strong>4. Hadiah Katheryne (Bonus Luqman)</strong>
+                                    <p>Penghargaan khusus untuk sang kreator.</p>
+                                </div>
+                                <button class="genshin-btn gold-fill claim-quest-btn" data-reward="120">Klaim 120 💎</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="genshin-frame handbook-card">
+                        <div class="handbook-title">
+                            <h3>⚔️ Build Cryo Duo Milik Luqman</h3>
+                            <span class="guild-note">Inazuma × Natlan</span>
+                        </div>
+                        <ul class="stat-list">
+                            <li><span>Ayaka Weapon:</span> <strong>Mistsplitter Reforged (Lv. 90 • R5)</strong></li>
+                            <li><span>Citlali Weapon:</span> <strong>Starcaller's Watch (Lv. 90 • R5)</strong></li>
+                            <li><span>Artefak Ayaka:</span> <strong>4-Piece Blizzard Strayer</strong></li>
+                            <li><span>Artefak Citlali:</span> <strong>4-Piece Scroll of the Hero of Cinder City</strong></li>
+                            <li><span>Resonansi Party:</span> <strong>Shattering Ice (+15% CRIT Rate)</strong></li>
                         </ul>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="career">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Rekam Jejak</span>
-                    <h2>Jenjang Karier & Prestasi</h2>
-                </div>
-                <div class="project-grid">
-                    <div class="project-card">
-                        <div class="card-body">
-                            <span class="card-icon">🏆</span>
-                            <h3>Prestasi Akademik & Non-Akademik</h3>
-                            <p>
-                                <strong>a.</strong> Memenangkan juara kedelapan di Olimpiade PAI Nasional (OLPAIN) 2024<br><br>
-                                <strong>b.</strong> Mendapatkan juara kedua di lomba literasi internasional yang diselenggarakan Hayrat Foundation<br><br>
-                                <strong>c.</strong> Mendapatkan juara ziyadah terbanyak sekaligus hafalan terbanyak takhosus selama dua semester berturut-turut
-                            </p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="card-body">
-                            <span class="card-icon">🎖️</span>
-                            <h3>Karier Organisasi</h3>
-                            <p>
-                                <strong>a.</strong> Menjadi salah satu pengurus angkatan di angkatan 29 SOUL SD Salman Al Farisi Bandung<br><br>
-                                <strong>b.</strong> Menjadi salah satu staff di Komunitas Literasi Sekolah (KLS) As-Syifa Boarding School JalanCagak 1
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div style="text-align: center; margin-top: 36px;">
-                    <button class="btn-primary" onclick="bukaTabUtama('projects')">Lihat Projek Karya Saya &rarr;</button>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- TAB 3: PROJEK & KARYA PILIHAN -->
-    <div id="tab-projects" class="main-tab-section hidden-page">
-        <section id="projects">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Inovasi Digital Islami</span>
-                    <h2>Projek & Karya Pilihan</h2>
-                    <p class="section-desc">Pilih salah satu aplikasi di bawah ini untuk membuka dan mencobanya secara langsung.</p>
-                </div>
-                <div class="project-grid">
-
-                    <!-- KARTU 1: KALKULATOR DIGITAL -->
-                    <div class="project-card card-clickable" onclick="bukaKalkulator()">
-                        <div class="card-body">
-                            <span class="card-icon">🧮</span>
-                            <h3>Kalkulator Digital</h3>
-                            <p>Aplikasi kalkulator interaktif untuk perhitungan matematika cepat dan akurat. Klik untuk membuka.</p>
-                            <span class="btn-open">Buka Kalkulator &rarr;</span>
-                        </div>
-                    </div>
-
-                    <!-- KARTU 2: KOMPILASI ARTIKEL ISLAM -->
-                    <div class="project-card card-clickable" onclick="bukaArtikel()">
-                        <div class="card-body">
-                            <span class="card-icon">📰</span>
-                            <h3>Kompilasi Artikel Islam & Ikhwanul Muslimin</h3>
-                            <p>Kumpulan tulisan dan analisis mendalam seputar sejarah, pemikiran Islam, dan pergerakan Ikhwanul Muslimin.</p>
-                            <span class="btn-open">Baca Artikel &rarr;</span>
-                        </div>
-                    </div>
-
-                    <!-- KARTU 3: KOMPILASI GAME ISLAMI -->
-                    <div class="project-card card-clickable" onclick="bukaGame()">
-                        <div class="card-body">
-                            <span class="card-icon">🎮</span>
-                            <h3>Kompilasi Game Islami</h3>
-                            <p>Arcade game interaktif dan edukatif berbasis web. Mainkan Puzzle Logo Gerakan Islam dan World MapChart Builder!</p>
-                            <span class="btn-open">Mainkan Game &rarr;</span>
-                        </div>
-                    </div>
-
-                    <!-- KARTU 4: PENGECEK ARAH KIBLAT -->
-                    <div class="project-card card-clickable" onclick="bukaKiblat()">
-                        <div class="card-body">
-                            <span class="card-icon">🧭</span>
-                            <h3>Pengecek Arah Kiblat</h3>
-                            <p>Deteksi arah Kiblat secara real-time berdasarkan koordinat GPS lokasi Anda dengan kompas interaktif.</p>
-                            <span class="btn-open">Cek Arah Kiblat &rarr;</span>
-                        </div>
-                    </div>
-
-                    <!-- KARTU 5: CHATBOT AI ISLAMI -->
-                    <div class="project-card card-clickable featured-project-card" onclick="bukaChatbot()">
-                        <div class="card-body">
-                            <span class="card-badge-new">Multi-Chat • Riwayat Tersimpan</span>
-                            <span class="card-icon">☪️</span>
-                            <h3>Asisten AI Islami (Hassan Al-Banna)</h3>
-                            <p>Chatbot cerdas multi-percakapan dengan kepribadian Hassan Al-Banna. Tanya seputar Siroh Abad 6–21 M, Akidah, Madzhab, dan Fikih.</p>
-                            <span class="btn-open">Buka Chatbot &rarr;</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- TAB 4: KONTAK -->
-    <div id="tab-contact" class="main-tab-section hidden-page">
-        <section id="contact-section">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag">Silaturahmi & Kolaborasi</span>
-                    <h2>Hubungi Saya</h2>
-                </div>
-                <div class="contact-card-box">
-                    <div class="contact-emblem">☪</div>
-                    <h3>Mari Membangun Peradaban Digital Islami Bersama</h3>
-                    <p>Terbuka untuk diskusi keilmuan, literasi Islam, maupun kolaborasi pengembangan proyek web dan teknologi pendidikan.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <strong>Nama:</strong> Luqman Azkiya Athaillah (Luqman Pasha)
-                        </div>
-                        <div class="contact-item">
-                            <strong>Institusi:</strong> SMPIT As-Syifa Boarding School JalanCagak 1, Subang
-                        </div>
-                        <div class="contact-item">
-                            <strong>Organisasi:</strong> Komunitas Literasi Sekolah (KLS) As-Syifa
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <footer>
-        <div class="container">
-            <p class="footer-arabic">جَزَاكُمُ اللَّهُ خَيْرًا كَثِيرًا</p>
-            <p>Jazakumullah Khairan Katsiran telah berkunjung.</p>
-            <p>&copy; 2024–2026 Luqman Azkiya Athaillah. Dibuat dengan niat tulus.</p>
         </div>
+    </main>
+
+    <footer class="genshin-footer">
+        <p>✦ Ad Astra Abyssosque! Dibuat dengan dedikasi tinggi oleh <strong>Luqman</strong> • Terinspirasi dari Genshin Impact ✦</p>
     </footer>
-</div>
 
-<!-- =================================================================
-     HALAMAN-HALAMAN APLIKASI PROJEK (TERPISAH)
-     ================================================================= -->
-
-<!-- TAMPILAN KALKULATOR -->
-<div id="calculator-page" class="hidden-page">
-    <div class="calc-wrapper">
-        <button class="btn-back" onclick="tutupKalkulator()">&larr; Kembali ke Projek</button>
-        <div class="calculator">
-            <div class="calc-header"><h3>☪ Kalkulator Islami</h3></div>
-            <input type="text" id="calc-display" readonly placeholder="0">
-            <div class="calc-buttons">
-                <button onclick="clearDisplay()" class="btn-action">C</button>
-                <button onclick="deleteLast()" class="btn-action">&lArr;</button>
-                <button onclick="appendChar('/')" class="btn-operator">&divide;</button>
-                <button onclick="appendChar('*')" class="btn-operator">&times;</button>
-                <button onclick="appendChar('7')">7</button>
-                <button onclick="appendChar('8')">8</button>
-                <button onclick="appendChar('9')">9</button>
-                <button onclick="appendChar('-')" class="btn-operator">-</button>
-                <button onclick="appendChar('4')">4</button>
-                <button onclick="appendChar('5')">5</button>
-                <button onclick="appendChar('6')">6</button>
-                <button onclick="appendChar('+')" class="btn-operator">+</button>
-                <button onclick="appendChar('1')">1</button>
-                <button onclick="appendChar('2')">2</button>
-                <button onclick="appendChar('3')">3</button>
-                <button onclick="calculateResult()" class="btn-equal" style="grid-row: span 2;">=</button>
-                <button onclick="appendChar('0')" style="grid-column: span 2;">0</button>
-                <button onclick="appendChar('.')">.</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- TAMPILAN KOMPILASI ARTIKEL -->
-<div id="artikel-page" class="hidden-page">
-    <div class="portal-container">
-        <button class="btn-back" onclick="tutupArtikel()">&larr; Kembali ke Projek</button>
-        <div class="portal-header">
-            <div class="portal-logo">SUARA<span>ISLAMI</span></div>
-            <p class="portal-subtitle">Kompilasi Artikel & Pemikiran Islam Kontemporer</p>
-        </div>
-
-        <article class="featured-news">
-            <div class="featured-badge">Fokus Utama</div>
-            <h2>Mengenal Sejarah dan Kontribusi Ikhwanul Muslimin dalam Peradaban Islam Modern</h2>
-            <div class="news-meta">
-                <span>Oleh: Luqman Azkiya Athaillah</span> | <span>Terbit: Oktober 2024</span>
-            </div>
-            <p class="news-excerpt">
-                Ikhwanul Muslimin didirikan oleh Hassan al-Banna pada tahun 1928 di Ismailiyah, Mesir. Gerakan ini lahir sebagai respon atas kejatuhan Kekhalifahan Utsmaniyah serta dominasi Barat di dunia Islam. Fokus utamanya mencakup pembinaan moral, pendidikan Islam, serta pembaharuan sosial dan politik berbasis Syariat...
-            </p>
-            <div class="article-body-text">
-                <p>Dalam perkembangannya, pergerakan ini menekankan pentingnya gagasan <em>Al-Islam Dinun wa Daulatun</em> (Islam adalah agama sekaligus negara). Melalui pendekatan pendidikan berjenjang (Tarbiyah), gerakan ini menyebar ke berbagai belahan dunia Islam dan mempengaruhi banyak organisasi pergerakan modern saat ini.</p>
-            </div>
-        </article>
-
-        <div class="news-grid">
-            <article class="news-card">
-                <span class="news-badge">Pemikiran Islam</span>
-                <h3>Konsep Tarbiyah dan Pembentukan Karakter Muslim Ideal</h3>
-                <div class="news-meta">12 Oktober 2024</div>
-                <p>Ulasan mendalam mengenai sistem kaderisasi dan pendidikan bertahap dalam membentuk pribadi muslim yang <em>Salimul Aqidah</em> (akidah yang lurus) dan <em>Sohihul Ibadah</em> (ibadah yang benar).</p>
-            </article>
-            <article class="news-card">
-                <span class="news-badge">Sejarah Tokoh</span>
-                <h3>Pemikiran Hassan al-Banna dan Gagasan Pembaharuan</h3>
-                <div class="news-meta">08 Oktober 2024</div>
-                <p>Mengkaji risalah-risalah utama Hassan al-Banna mengenai integrasi nilai Islam dalam kehidupan bermasyarakat serta reformasi institusi pendidikan.</p>
-            </article>
-            <article class="news-card">
-                <span class="news-badge">Dunia Islam</span>
-                <h3>Tantangan Pergerakan Islam Kontemporer di Era Digital</h3>
-                <div class="news-meta">01 Oktober 2024</div>
-                <p>Bagaimana dakwah digital dapat dimanfaatkan untuk menyebarkan ide-ide Islam yang moderat, inklusif, dan solutif bagi permasalahan pemuda modern.</p>
-            </article>
-        </div>
-    </div>
-</div>
-
-<!-- TAMPILAN KOMPILASI GAME -->
-<div id="games-page" class="hidden-page crazy-theme">
-    <div class="cg-container">
-        <header class="cg-header">
-            <button class="cg-btn-back btn-back" style="margin-bottom:0;" onclick="tutupGame()">&larr; Kembali ke Projek</button>
-            <div class="cg-logo">LUQMAN<span>GAMES</span></div>
-            <div class="cg-search">
-                <input type="text" placeholder="Cari Game Islami..." readonly>
-            </div>
-        </header>
-
-        <div class="cg-layout">
-            <main class="cg-viewport">
-                <div class="cg-game-header">
-                    <h2 id="cg-game-title">Puzzle Logo: Ikhwanul Muslimin & Hizbut Tahrir</h2>
-                    <div class="cg-game-tags">
-                        <span class="cg-tag">Puzzle</span>
-                        <span class="cg-tag">Edukasi</span>
-                        <span class="cg-tag">Sejarah</span>
-                    </div>
-                </div>
-
-                <div class="puzzle-stage">
-                    <div class="puzzle-controls">
-                        <div class="ctrl-group">
-                            <label>Pilih Logo:</label>
-                            <select id="puzzle-image-select" onchange="initPuzzle()">
-                                <option value="im">Logo Ikhwanul Muslimin</option>
-                                <option value="ht">Logo Hizbut Tahrir</option>
-                            </select>
-                        </div>
-                        <div class="ctrl-group">
-                            <label>Tingkat Kesulitan:</label>
-                            <div class="diff-btn-group">
-                                <button class="diff-btn active" onclick="setDifficulty(2, this)">Mudah (2x2)</button>
-                                <button class="diff-btn" onclick="setDifficulty(3, this)">Sedang (3x3)</button>
-                                <button class="diff-btn" onclick="setDifficulty(4, this)">Sulit (4x4)</button>
-                            </div>
-                        </div>
-                        <button class="btn-reset-game" onclick="initPuzzle()">Acak Ulang</button>
-                    </div>
-
-                    <div class="puzzle-board-wrapper">
-                        <div id="puzzle-board" class="puzzle-board"></div>
-                        <div id="puzzle-win-msg" class="puzzle-win-overlay hidden">
-                            <h3>MasyaAllah, Luar Biasa! 🎉</h3>
-                            <p>Anda berhasil menyusun logo dengan sempurna!</p>
-                            <button onclick="initPuzzle()">Main Lagi</button>
-                        </div>
-                    </div>
-
-                    <div class="puzzle-stats">
-                        <span>Langkah: <strong id="step-count">0</strong></span>
-                        <span>Status: <strong id="game-status" style="color: #00f2fe;">Siap Dimainkan</strong></span>
-                    </div>
-                </div>
-            </main>
-
-            <aside class="cg-sidebar">
-                <h3 class="cg-sidebar-title">Kompilasi Game</h3>
-                <div class="cg-game-grid">
-                    <div class="cg-card active-game">
-                        <div class="cg-thumb thumb-puzzle">
-                            <span class="badge-play">Sedang Dimainkan</span>
-                        </div>
-                        <div class="cg-card-info">
-                            <h4>Puzzle Logo Islam</h4>
-                            <p>Susun potongan logo gerakan Islam secara presisi.</p>
-                        </div>
-                    </div>
-                    <div class="cg-card active-game" onclick="bukaMapChart()" style="cursor: pointer;">
-                        <div class="cg-thumb" style="background: linear-gradient(135deg, #0284c7, #0f172a); display: flex; align-items: center; justify-content: center;">
-                            <span class="badge-play" style="background: #38bdf8; color: #0f172a;">Mainkan</span>
-                        </div>
-                        <div class="cg-card-info">
-                            <h4>World MapChart Builder</h4>
-                            <p>Peta dunia interaktif tingkat provinsi/wilayah & kustomisasi warna RGB.</p>
-                        </div>
-                    </div>
-                    <div class="cg-card disabled-game">
-                        <div class="cg-thumb thumb-memory">
-                            <span class="badge-soon">Soon</span>
-                        </div>
-                        <div class="cg-card-info">
-                            <h4>Memory Match Ayat</h4>
-                            <p>Cocokkan pasangan potongan ayat Al-Qur'an.</p>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-        </div>
-    </div>
-</div>
-
-<!-- TAMPILAN PENGECEK ARAH KIBLAT -->
-<div id="kiblat-page" class="hidden-page kiblat-theme">
-    <div class="kiblat-container">
-        <button class="btn-back btn-back-kiblat" onclick="tutupKiblat()">&larr; Kembali ke Projek</button>
-        <div class="kiblat-header">
-            <span class="kiblat-badge">Fitur Islami Real-Time</span>
-            <h2>Pencari Arah Kiblat</h2>
-            <p id="kiblat-status-text">Mendeteksi lokasi GPS Anda...</p>
-        </div>
-        <div class="compass-wrapper">
-            <div class="compass-outer-ring">
-                <div class="cardinal-degree N">N</div>
-                <div class="cardinal-degree E">E</div>
-                <div class="cardinal-degree S">S</div>
-                <div class="cardinal-degree W">W</div>
-                <div class="compass-dial" id="compass-dial">
-                    <div class="north-pointer"></div>
-                    <div class="qibla-marker" id="qibla-marker">
-                        <div class="kabah-icon-wrapper">
-                            <svg class="kabah-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="12" y="16" width="40" height="40" rx="3" fill="#1A1A1A"/>
-                                <path d="M12 24H52" stroke="#FFD700" stroke-width="4"/>
-                                <rect x="26" y="38" width="12" height="18" fill="#FFD700" opacity="0.9"/>
-                                <path d="M12 16L32 6L52 16" fill="#2A2A2A"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="center-needle"></div>
-            </div>
-        </div>
-        <div class="kiblat-info-card">
-            <div class="info-box">
-                <span class="info-label">Arah Kiblat</span>
-                <span class="info-value" id="qibla-degree">--°</span>
-            </div>
-            <div class="info-divider"></div>
-            <div class="info-box">
-                <span class="info-label">Posisi Anda</span>
-                <span class="info-value" id="user-coords">Mencari...</span>
-            </div>
-        </div>
-        <div class="kiblat-actions">
-            <button class="btn-primary btn-kiblat-refresh" onclick="initQiblaTracker()">🔄 Perbarui Lokasi GPS</button>
-            <p class="compass-note">
-                📌 <strong>Catatan:</strong> Untuk hasil paling akurat di smartphone/laptop, izinkan akses lokasi (GPS) dan gerakkan perangkat membentuk angka "8" jika sensor kompas belum terkalibrasi.
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- TAMPILAN MAPCHART INTERAKTIF (TINGKAT PROVINSI / ADMIN-1) -->
-<div id="mapchart-page" class="hidden-page">
-    <div class="mapchart-container">
-        <header class="mapchart-header">
-            <button class="btn-back" style="margin-bottom:0;" onclick="tutupMapChart()">&larr; Kembali ke Game</button>
-            <div class="mapchart-title"><h2>🗺️ MapChart Provinsi Dunia</h2></div>
-            <div style="display:flex; gap:8px;">
-                <button class="btn-back" style="margin-bottom:0; background:#0284c7;" onclick="fokusPetaIndonesia()">🇮🇩 Fokus Indonesia</button>
-                <button class="btn-back" style="margin-bottom:0; background:#059669;" onclick="fokusPetaDunia()">🌍 Peta Dunia</button>
-                <button class="btn-back" style="margin-bottom:0; background:#ef4444;" onclick="resetWarnaPeta()">Reset Warna</button>
-            </div>
-        </header>
-
-        <div class="mapchart-layout">
-            <aside class="mapchart-sidebar">
-                <div class="panel-group">
-                    <label>Pilih Warna Provinsi (RGB Full):</label>
-                    <div class="color-picker-wrapper">
-                        <input type="color" id="map-color-picker" value="#10b981" onchange="updateRGBText(this.value)">
-                        <span class="rgb-preview" id="rgb-display">RGB(16, 185, 129)</span>
-                    </div>
-                </div>
-                <div class="panel-group">
-                    <label>Mode Interaksi Peta:</label>
-                    <select id="symbol-mode">
-                        <option value="fill">Mode Mewarnai Provinsi (Klik Wilayah)</option>
-                        <option value="eraser">Mode Hapus Warna Provinsi (Kembali Default)</option>
-                        <option value="crescent">Mode Tambah Pin Crescent & Star ☪</option>
-                    </select>
-                </div>
-                <div class="panel-group">
-                    <label>Provinsi / Wilayah Terpilih:</label>
-                    <input type="text" id="selected-region-name" value="Memuat batas provinsi..." readonly style="width:100%; padding:8px; background:#0f172a; border:1px solid #334155; color:#fde68a; font-weight:600; border-radius:6px;">
-                </div>
-                <div class="panel-group">
-                    <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.5;">
-                        💡 <strong>Petunjuk MapChart Provinsi:</strong><br>
-                        • Arahkan kursor (hover) untuk melihat nama <strong>Provinsi & Negara</strong>.<br>
-                        • Klik pada provinsi manapun (misal: <em>Jawa Barat, Aceh, Kairo, Makkah</em>) untuk mewarnainya.<br>
-                        • Gunakan tombol <strong>Fokus Indonesia</strong> untuk langsung menuju kepulauan Nusantara.
-                    </p>
-                </div>
-            </aside>
-            <main class="mapchart-viewport">
-                <div id="leaflet-map" style="width:100%; height:100%;"></div>
-            </main>
-        </div>
-    </div>
-</div>
-
-<!-- =================================================================
-     TAMPILAN CHATBOT AI ISLAMI (IMAM HASSAN AL-BANNA) + MULTI-CHAT HISTORY
-     ================================================================= -->
-<div id="chatbot-page" class="hidden-page chatbot-theme">
-    <div class="chat-app-shell">
-        <aside class="chat-history-sidebar" id="albanna-sidebar">
-            <div class="sidebar-top-actions">
-                <button class="btn-new-session" onclick="buatSesiBaru('albanna')">
-                    <span>+</span> Obrolan Baru
-                </button>
-                <button class="btn-close-sidebar-mobile" onclick="toggleChatSidebar('albanna')">✕</button>
-            </div>
-            <div class="sidebar-section-label">Riwayat Majelis Ilmu</div>
-            <div class="chat-sessions-list" id="albanna-sessions-list"></div>
-        </aside>
-
-        <div class="chat-app-wrapper">
-            <header class="chat-header">
-                <div class="chat-header-left">
-                    <button class="btn-toggle-history" onclick="toggleChatSidebar('albanna')" title="Lihat Riwayat Obrolan">
-                        ☰ <span>Riwayat</span>
-                    </button>
-                    <button class="btn-back-chat" onclick="tutupChatbot()" title="Kembali ke Projek">
-                        &larr; <span>Projek</span>
-                    </button>
-                    <div class="ai-profile">
-                        <div class="ai-avatar-wrapper">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Hassan_al-Banna.jpg" alt="Hassan Al-Banna" class="ai-avatar" id="ai-avatar-img">
-                            <span class="ai-online-dot"></span>
-                        </div>
-                        <div class="ai-info">
-                            <h3>Asisten Dakwah Al-Banna <span class="crescent-badge">☪</span></h3>
-                            <p id="albanna-active-session-title">Sesi Baru • Murabbi & Pemikir Islam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-header-right">
-                    <button class="btn-clear-chat" onclick="resetSesiAktif('albanna')" title="Bersihkan Isi Sesi Ini">
-                        🔄 Bersihkan
-                    </button>
-                </div>
-            </header>
-
-            <main class="chat-messages-area" id="chat-messages"></main>
-
-            <div class="suggested-questions-bar" id="suggested-questions">
-                <button class="suggest-chip" onclick="kirimPertanyaanSaran('Ceritakan ringkasan Siroh Islam dari abad ke-6 hingga abad ke-21 Masehi!')">
-                    📜 Siroh Islam (Abad 6–21 M)
-                </button>
-                <button class="suggest-chip" onclick="kirimPertanyaanSaran('Jelaskan pokok-pokok Akidah Ahlus Sunnah wal Jamaah!')">
-                    🕋 Pokok Akidah Islam
-                </button>
-                <button class="suggest-chip" onclick="kirimPertanyaanSaran('Apa saja 4 Madzhab Fikih utama dan madzhab-madzhab dalam sejarah Islam?')">
-                    📚 Madzhab-Madzhab Islam
-                </button>
-                <button class="suggest-chip" onclick="kirimPertanyaanSaran('Jelaskan makna 5 Pasal Perjuangan Ikhwanul Muslimin!')">
-                    ☪️ 5 Pasal Perjuangan
-                </button>
-            </div>
-
-            <footer class="chat-input-area">
-                <form id="chat-form" onsubmit="handleChatSubmit(event)">
-                    <input type="text" id="chat-input" placeholder="Tanyakan seputar Siroh Abad 6-21 M, Akidah, Madzhab, Fikih, atau Website ini..." autocomplete="off" required>
-                    <button type="submit" class="btn-send-chat" id="btn-send">
-                        <span>Kirim</span> &#10148;
-                    </button>
-                </form>
-                <div class="chat-footer-note">
-                    ☪ Multi-Percakapan Otomatis Tersimpan • Dijaga oleh filter adab & Syariat Islam
-                </div>
-            </footer>
-        </div>
-    </div>
-</div>
-
-<!-- =================================================================
-     EASTER EGG 1: CHATBOT AI ZAHRA-E-GHADIR KHUM + MULTI-CHAT HISTORY
-     ================================================================= -->
-<div id="zahra-chatbot-page" class="hidden-page zahra-theme">
-    <div class="chat-app-shell">
-        <aside class="chat-history-sidebar zahra-sidebar" id="zahra-sidebar">
-            <div class="sidebar-top-actions">
-                <button class="btn-new-session zahra-new-btn" onclick="buatSesiBaru('zahra')">
-                    <span>+</span> Obrolan Baru
-                </button>
-                <button class="btn-close-sidebar-mobile" onclick="toggleChatSidebar('zahra')">✕</button>
-            </div>
-            <div class="sidebar-section-label">Riwayat Kajian Zahra</div>
-            <div class="chat-sessions-list" id="zahra-sessions-list"></div>
-        </aside>
-
-        <div class="chat-app-wrapper zahra-wrapper">
-            <header class="chat-header zahra-header">
-                <div class="chat-header-left">
-                    <button class="btn-toggle-history zahra-btn-back" onclick="toggleChatSidebar('zahra')" title="Lihat Riwayat Obrolan">
-                        ☰ <span>Riwayat</span>
-                    </button>
-                    <button class="btn-back-chat zahra-btn-back" onclick="tutupZahraChatbot()" title="Kembali ke Beranda">
-                        &larr; <span>Beranda</span>
-                    </button>
-                    <div class="ai-profile">
-                        <div class="ai-avatar-wrapper zahra-avatar-ring">
-                            <svg viewBox="0 0 100 100" class="ai-avatar" id="zahra-avatar-svg" xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <linearGradient id="hijabGrad" x1="0" y1="0" x2="1" y2="1">
-                                        <stop offset="0%" stop-color="#0d9488"/>
-                                        <stop offset="100%" stop-color="#115e59"/>
-                                    </linearGradient>
-                                </defs>
-                                <circle cx="50" cy="50" r="50" fill="#042f2e"/>
-                                <path d="M22 88 C22 52, 26 24, 50 22 C74 24, 78 52, 78 88 Z" fill="url(#hijabGrad)" stroke="#f59e0b" stroke-width="2"/>
-                                <ellipse cx="50" cy="48" rx="16" ry="20" fill="#fde68a"/>
-                                <path d="M41 44 Q44 42 47 44" stroke="#1e293b" stroke-width="1.5" fill="none"/>
-                                <path d="M53 44 Q56 42 59 44" stroke="#1e293b" stroke-width="1.5" fill="none"/>
-                                <circle cx="44" cy="47" r="1.8" fill="#0f172a"/>
-                                <circle cx="56" cy="47" r="1.8" fill="#0f172a"/>
-                                <path d="M46 56 Q50 59 54 56" stroke="#b45309" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-                                <text x="50" y="29" text-anchor="middle" fill="#fbbf24" font-size="9">☪</text>
-                            </svg>
-                            <span class="ai-online-dot"></span>
-                        </div>
-                        <div class="ai-info">
-                            <h3>Zahra-e-Ghadir Khum <span class="easter-tag">✨ Easter Egg I</span></h3>
-                            <p id="zahra-active-session-title">Sesi Baru • Cendekiawan Muslimah Ahlul Bait</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-header-right">
-                    <button class="btn-clear-chat" onclick="resetSesiAktif('zahra')" title="Bersihkan Isi Sesi Ini">
-                        🔄 Bersihkan
-                    </button>
-                </div>
-            </header>
-
-            <main class="chat-messages-area" id="zahra-chat-messages"></main>
-
-            <div class="suggested-questions-bar zahra-suggest-bar">
-                <button class="suggest-chip zahra-chip" onclick="kirimSaranZahra('Ceritakan peristiwa bersejarah Ghadir Khum dalam literatur Islam!')">
-                    🌊 Peristiwa Ghadir Khum
-                </button>
-                <button class="suggest-chip zahra-chip" onclick="kirimSaranZahra('Siapa saja Ahlul Bait dan Dua Belas Imam dalam tradisi Syiah Itsna Asyariyah?')">
-                    🕌 Ahlul Bait & 12 Imam
-                </button>
-                <button class="suggest-chip zahra-chip" onclick="kirimSaranZahra('Bagaimana keteladanan Sayyidah Fatimah Az-Zahra bagi muslimah modern?')">
-                    🌸 Teladan Fatimah Az-Zahra
-                </button>
-                <button class="suggest-chip zahra-chip" onclick="kirimSaranZahra('Jelaskan perbedaan dan titik temu antara Fikih Jafari dengan 4 Madzhab Sunni!')">
-                    🤝 Fikih Ja'fari & Ukhuwah Islam
-                </button>
-            </div>
-
-            <footer class="chat-input-area zahra-input-area">
-                <form id="zahra-chat-form" onsubmit="handleZahraSubmit(event)">
-                    <input type="text" id="zahra-chat-input" placeholder="Tanyakan seputar Ghadir Khum, Ahlul Bait, Fikih Ja'fari, atau sejarah Islam..." autocomplete="off" required>
-                    <button type="submit" class="btn-send-chat zahra-send-btn" id="zahra-btn-send">
-                        <span>Kirim</span> &#10148;
-                    </button>
-                </form>
-                <div class="chat-footer-note">
-                    ۞ Multi-Percakapan Otomatis Tersimpan • Dijaga oleh adab Ahlul Bait & Ukhuwah Islamiyah
-                </div>
-            </footer>
-        </div>
-    </div>
-</div>
-
-<!-- =================================================================
-     EASTER EGG 2: KAPSUL WAKTU PERADABAN ISLAM & GULUNGAN HIKMAH EMAS
-     ================================================================= -->
-<div id="time-capsule-page" class="hidden-page vault-theme">
-    <div class="vault-container">
-        <div class="vault-topbar">
-            <button class="btn-back vault-btn-back" onclick="tutupTimeCapsule()">&larr; Kembali ke Beranda</button>
-            <div class="vault-badge-header">⏳ EASTER EGG II • KHIZANAH PERADABAN ISLAM</div>
-            <div class="vault-achievement-pill" id="vault-badge-status">🏅 Penjelajah Waktu</div>
-        </div>
-
-        <div class="vault-hero-banner">
-            <p class="vault-arabic">وَتِلْكَ الْأَيَّامُ نُدَاوِلُهَا بَيْنَ النَّاسِ</p>
-            <h2>Kapsul Waktu Peradaban & Gulungan Hikmah</h2>
-            <p>"Dan masa (kejayaan dan kehancuran) itu, Kami pergilirkan di antara manusia agar mereka mendapat pelajaran." (QS. Ali 'Imran: 140)</p>
-        </div>
-
-        <!-- Navigator Era Sejarah Islam (610 M - 2026 M) -->
-        <div class="era-selector-bar" id="era-selector-bar">
-            <button class="era-btn active" onclick="pilihEraPeradaban(0, this)">610 M • Nubuwah</button>
-            <button class="era-btn" onclick="pilihEraPeradaban(1, this)">632 M • Khulafaur Rasyidin</button>
-            <button class="era-btn" onclick="pilihEraPeradaban(2, this)">786 M • Baitul Hikmah</button>
-            <button class="era-btn" onclick="pilihEraPeradaban(3, this)">1187 M • Pembebasan Al-Quds</button>
-            <button class="era-btn" onclick="pilihEraPeradaban(4, this)">1453 M • Konstantinopel</button>
-            <button class="era-btn" onclick="pilihEraPeradaban(5, this)">1928 M • Kebangkitan Modern</button>
-        </div>
-
-        <!-- Kartu Detail Era Aktif -->
-        <div class="era-display-card" id="era-display-card">
-            <div class="era-card-left">
-                <span class="era-year-pill" id="era-year-text">610 M – 632 M</span>
-                <h3 id="era-title-text">Cahaya Wahyu di Gua Hira & Masyarakat Madani</h3>
-                <p id="era-desc-text">Rasulullah ﷺ membangun fondasi akidah tauhid di Makkah selama 13 tahun, lalu mendirikan masyarakat madani berlandaskan Piagam Madinah yang menyatukan Muhajirin dan Anshar.</p>
-                <div class="era-meta-tags">
-                    <span id="era-center-tag">📍 Pusat: Makkah & Madinah</span>
-                    <span id="era-figure-tag">🌟 Tokoh: Rasulullah ﷺ</span>
-                </div>
-            </div>
-            <div class="era-card-right">
-                <div class="era-relic-icon" id="era-icon-text">🕋</div>
-                <blockquote class="era-quote-box" id="era-quote-text">
-                    "Aku tinggalkan untuk kalian dua perkara; kalian tidak akan tersesat selama berpegang teguh pada keduanya: Kitabullah dan Sunnah Nabi-Nya."
-                </blockquote>
-            </div>
-        </div>
-
-        <!-- Mesin Pemutar Gulungan Hikmah Emas (Golden Scroll Generator) -->
-        <div class="golden-scroll-section">
-            <div class="scroll-header">
-                <h3>📜 Gulungan Hikmah & Tadabbur Acak</h3>
-                <button class="btn-spin-hikmah" onclick="putarHikmahAcak()">✨ Buka Gulungan Hikmah Baru</button>
-            </div>
-            <div class="scroll-parchment" id="scroll-parchment-box">
-                <p class="scroll-arabic" id="hikmah-arabic">مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ</p>
-                <p class="scroll-translation" id="hikmah-text">"Barangsiapa menempuh jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga."</p>
-                <span class="scroll-source" id="hikmah-source">— HR. Muslim</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 1. Pasang CDN Supabase di sini -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- 2. Baru panggil file JS kamu di bawahnya -->
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
