@@ -658,7 +658,7 @@ function aktifkanSensorKompas() {
 // =================================================================
 // 7. SISTEM MULTI-PERCAKAPAN & RIWAYAT TERPADU (AL-BANNA & ZAHRA)
 // =================================================================
-const GROQ_API_KEY = "TEMPEL_API_KEY_GROQ_KAMU_DI_SINI"; // <-- Tempel API Key gsk_... kamu di sini
+const GROQ_API_KEY = "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"; // <-- Tempel API Key gsk_... kamu di sini
 
 const DAFTAR_MODEL_GROQ = [
     "openai/gpt-oss-120b",
